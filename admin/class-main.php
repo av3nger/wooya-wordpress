@@ -74,7 +74,7 @@ class Main {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/css/wooya-app.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../assets/css/wooya-app.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -97,7 +97,25 @@ class Main {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../assets/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
+
+	}
+
+	/**
+	 * Register menu point.
+	 *
+	 * @since 1.0.0
+	 */
+	public function register_menu() {
+
+		add_menu_page(
+			__( 'WooYa', 'wooya' ),
+			__( 'WooYa', 'wooya' ),
+			'manage_options',
+			'wooya',
+			'',
+			dirname( plugin_dir_url( __FILE__ ) ) . '/assets/images/icon.png'
+		);
 
 	}
 

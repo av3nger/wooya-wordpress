@@ -28,7 +28,7 @@ module.exports = {
 					presets: [ '@babel/preset-env', '@babel/preset-react' ]
 				}
 			}
-		},{
+		}, {
 			test: /\.scss$/,
 			exclude: /node_modules/,
 			use: [ ExtractTextPlugin.loader,
@@ -49,6 +49,15 @@ module.exports = {
 					}
 				}
 			]
+		}, {
+			test: /\.(png|jpg|gif)$/,
+			use: {
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: '../images/'
+				}
+			}
 		}]
 	},
 
@@ -60,8 +69,8 @@ module.exports = {
 
 	plugins: [
 		new CleanWebpackPlugin([
-			'admin/js',
-			'admin/css'
+			'assets/js',
+			'assets/css'
 		]),
 		new ExtractTextPlugin({
 			filename: '../css/[name].min.css'
