@@ -112,11 +112,21 @@ class Main {
 			__( 'WooYa', 'wooya' ),
 			__( 'WooYa', 'wooya' ),
 			'manage_options',
-			'wooya',
-			'',
+			$this->plugin_name,
+			array( $this, 'render_page' ),
 			dirname( plugin_dir_url( __FILE__ ) ) . '/assets/images/icon.png'
 		);
 
+	}
+
+	/**
+	 * Display plugins page.
+	 *
+	 * @since 1.0.0
+	 */
+	public function render_page() {
+		/* @noinspection PhpIncludeInspection */
+		require_once plugin_dir_path( __FILE__ ) . 'partials/wooya-admin-display.php';
 	}
 
 }
