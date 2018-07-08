@@ -1,0 +1,33 @@
+{
+  "name": "wooya",
+  "version": "1.0.0",
+  "description": "WooYa integration suite.",
+  "private": true,
+  "scripts": {
+    "watch": "webpack --watch --mode development",
+    "compile": "clear && webpack -p --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/vcore_ltd/wooya-wordpress.git"
+  },
+  "author": "vCore",
+  "license": "GPL-2.0+",
+  "homepage": "https://wooya.ru",
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.52",
+    "@babel/preset-env": "^7.0.0-beta.52",
+    "@babel/preset-react": "^7.0.0-beta.52",
+    "autoprefixer": "^8.6.5",
+    "babel-loader": "^8.0.0-beta.0",
+    "babel-runtime": "^6.26.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "mini-css-extract-plugin": "^0.4.1",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.15.1",
+    "webpack-cli": "^3.0.8"
+  }
+}
