@@ -1,3 +1,3 @@
 # WooYa Core
 
-WooYa Integration suite
+WooYa integration suite
