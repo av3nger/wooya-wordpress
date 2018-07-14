@@ -61,9 +61,7 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function enqueue_styles() {
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/wooya-app.min.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style( $this->plugin_name, WOOYA_URL . 'admin/css/wooya-app.min.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -72,9 +70,7 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script( $this->plugin_name, WOOYA_URL . 'admin/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
 	}
 
 	/**
@@ -90,7 +86,7 @@ class Admin {
 			'manage_options',
 			$this->plugin_name,
 			array( $this, 'render_page' ),
-			plugin_dir_url( __FILE__ ) . '../admin/images/icon.png'
+			WOOYA_URL . 'admin/images/icon.png'
 		);
 
 	}
@@ -101,10 +97,8 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function render_page() {
-
 		/* @noinspection PhpIncludeInspection */
-		require_once plugin_dir_path( __FILE__ ) . '../admin/wooya-admin-display.php';
-
+		require_once WOOYA_PATH . 'admin/admin-display.php';
 	}
 
 }

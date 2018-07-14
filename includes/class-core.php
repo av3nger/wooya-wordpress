@@ -75,9 +75,50 @@ class Core {
 		}
 		$this->plugin_name = 'wooya';
 
+		spl_autoload_register( array( $this, 'autoload' ) );
+
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 
+	}
+
+	/**
+	 * Autoloader.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $class_name  Class name to autoload.
+	 */
+	public function autoload( $class_name ) {
+		// Parse only Wooya dependencies.
+		if ( 0 !== strpos( $class_name, 'Wooya' ) ) {
+			return;
+		}
+
+		$class_parts = explode( '\\', $class_name );
+
+		if ( ! $class_parts ) {
+			return;
+		}
+
+		// Remove the Wooya part.
+		array_shift( $class_parts );
+
+		// Convert all to lower case.
+		$class_parts = array_map( 'strtolower', $class_parts );
+
+		// Prepend class- to last element.
+		$index = count( $class_parts ) - 1;
+		$class_parts[ $index ] = 'class-' . $class_parts[ $index ];
+
+		// Build path.
+		$filename = implode( '/', $class_parts );
+		$file = WOOYA_PATH . "{$filename}.php";
+
+		if ( is_readable( $file ) ) {
+			/* @noinspection PhpIncludeInspection */
+			require_once $file;
+		}
 	}
 
 	/**
@@ -85,22 +126,13 @@ class Core {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - \Wooya\Admin\Main. Defines all hooks for the admin area.
+	 * - \Wooya\Includes\Admin. Defines all hooks for the admin area.
 	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
 	private function load_dependencies() {
-
-		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 *
-		 * @noinspection PhpIncludeInspection
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-admin.php';
-
 		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
-
 	}
 
 	/**

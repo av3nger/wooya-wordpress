@@ -37,6 +37,8 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
 define( 'WOOYA_VERSION', '1.0.0' );
+define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The main plugin class.
@@ -97,10 +99,10 @@ class App {
 		 *
 		 * @noinspection PhpIncludeInspection
 		 */
-		require plugin_dir_path( __FILE__ ) . 'includes/class-core.php';
+		require WOOYA_PATH . 'includes/class-core.php';
 
 		/* @noinspection PhpIncludeInspection */
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-activator.php';
+		require_once WOOYA_PATH . 'includes/class-activator.php';
 
 	}
 
