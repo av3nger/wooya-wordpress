@@ -15,7 +15,7 @@ module.exports = {
 
 	output: {
 		filename: '[name].min.js',
-		path: path.resolve( __dirname, 'assets/js' )
+		path: path.resolve( __dirname, 'admin/js' )
 	},
 
 	module: {
@@ -69,8 +69,8 @@ module.exports = {
 
 	plugins: [
 		new CleanWebpackPlugin([
-			'assets/js',
-			'assets/css'
+			'admin/js',
+			'admin/css'
 		]),
 		new ExtractTextPlugin({
 			filename: '../css/[name].min.css'

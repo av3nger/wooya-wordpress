@@ -6,10 +6,10 @@
  * @since      1.0.0
  *
  * @package    Wooya
- * @subpackage Wooya/Admin
+ * @subpackage Wooya/Includes
  */
 
-namespace Wooya\Admin;
+namespace Wooya\Includes;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -18,10 +18,10 @@ namespace Wooya\Admin;
  * enqueue the admin-specific stylesheet and JavaScript.
  *
  * @package    Wooya
- * @subpackage Wooya/Admin
+ * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
  */
-class Main {
+class Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -62,19 +62,7 @@ class Main {
 	 */
 	public function enqueue_styles() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The \Wooya\Includes\Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../assets/css/wooya-app.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/css/wooya-app.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -85,19 +73,7 @@ class Main {
 	 */
 	public function enqueue_scripts() {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in \Wooya\Includes\Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The \Wooya\Includes\Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../assets/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . '../admin/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -114,7 +90,7 @@ class Main {
 			'manage_options',
 			$this->plugin_name,
 			array( $this, 'render_page' ),
-			dirname( plugin_dir_url( __FILE__ ) ) . '/assets/images/icon.png'
+			plugin_dir_url( __FILE__ ) . '../admin/images/icon.png'
 		);
 
 	}
@@ -125,8 +101,10 @@ class Main {
 	 * @since 1.0.0
 	 */
 	public function render_page() {
+
 		/* @noinspection PhpIncludeInspection */
-		require_once plugin_dir_path( __FILE__ ) . 'partials/wooya-admin-display.php';
+		require_once plugin_dir_path( __FILE__ ) . '../admin/wooya-admin-display.php';
+
 	}
 
 }

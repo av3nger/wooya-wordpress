@@ -14,8 +14,6 @@
 
 namespace Wooya\Includes;
 
-use Wooya\Admin\Main as Admin;
-
 /**
  * The core plugin class.
  *
@@ -99,7 +97,7 @@ class Core {
 		 *
 		 * @noinspection PhpIncludeInspection
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-main.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-admin.php';
 
 		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 
