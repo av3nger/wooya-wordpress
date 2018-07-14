@@ -33,14 +33,13 @@ use Wooya\Admin\Main as Admin;
 class Core {
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
+	 * The admin class that holds all plugin functionality.
 	 *
 	 * @since  1.0.0
 	 * @access protected
-	 * @var    Loader    $loader  Maintains and registers all hooks for the plugin.
+	 * @var    Admin     $admin  Maintains and registers all admin functionality.
 	 */
-	protected $loader;
+	protected $admin;
 
 	/**
 	 * The unique identifier of this plugin.
@@ -81,9 +80,6 @@ class Core {
 		$this->load_dependencies();
 		$this->define_admin_hooks();
 
-		// Run the loader to execute all of the hooks with WordPress.
-		$this->loader->run();
-
 	}
 
 	/**
@@ -91,24 +87,12 @@ class Core {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - \Wooya\Includes\Loader. Orchestrates the hooks of the plugin.
 	 * - \Wooya\Admin\Main. Defines all hooks for the admin area.
-	 *
-	 * Create an instance of the loader which will be used to register the hooks
-	 * with WordPress.
 	 *
 	 * @since  1.0.0
 	 * @access private
 	 */
 	private function load_dependencies() {
-
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 *
-		 * @noinspection PhpIncludeInspection
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-loader.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -117,7 +101,7 @@ class Core {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-main.php';
 
-		$this->loader = new Loader();
+		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
@@ -131,13 +115,12 @@ class Core {
 	private function define_admin_hooks() {
 
 		// Define the locale for this plugin for internationalization.
-		$this->loader->add_action( 'plugins_loaded', $this, 'load_plugin_textdomain' );
-
-		$plugin_admin = new Admin( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'register_menu' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		// Add admin menu.
+		add_action( 'admin_menu', array( $this->admin, 'register_menu' ) );
+		// Styles and scripts.
+		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_scripts' ) );
 
 	}
 
@@ -153,13 +136,13 @@ class Core {
 	}
 
 	/**
-	 * The reference to the class that orchestrates the hooks with the plugin.
+	 * The reference to the class that orchestrates the admin functionality of the plugin.
 	 *
 	 * @since  1.0.0
-	 * @return Loader  Orchestrates the hooks of the plugin.
+	 * @return Admin  Orchestrates the admin functionality of the plugin.
 	 */
-	public function get_loader() {
-		return $this->loader;
+	public function get_admin() {
+		return $this->admin;
 	}
 
 	/**
