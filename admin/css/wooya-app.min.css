@@ -1,4 +1,8 @@
-a.toplevel_page_wooya>.wp-menu-image img{background-size:36px;padding-top:0 !important;width:36px}
+.wooya-wrapper h2,.wooya-wrapper p{color:#293238;line-height:15px}.wooya-wrapper h2{font-size:25px;line-height:32px}.wooya-wrapper p{font-size:12px;letter-spacing:1px}
+
+.wooya-wrapper .wooya-btn{background-color:transparent;border:3px solid #293238;border-radius:70px;cursor:pointer;font-size:15px;letter-spacing:1px;line-height:19px;padding:5px 20px}.wooya-wrapper .wooya-btn-red{border-color:#FC6C6C;color:#FC6C6C}.wooya-wrapper .wooya-btn-red:hover{border-color:#fb3a3a;color:#fb3a3a}.wooya-wrapper .wooya-btn-gray{border-color:#293238;color:#293238}.wooya-wrapper .wooya-btn-gray:hover{border-color:#13181b;color:#13181b}
+
+.wooya-wrapper .wooya-description{max-width:600px;font-size:15px;line-height:19px;text-align:center;margin:0 auto}
 
 
 /*# sourceMappingURL=wooya-app.min.css.map*/

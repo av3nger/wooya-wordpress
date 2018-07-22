@@ -1,0 +1,39 @@
+@import "../../scss/variables";
+
+/**
+ * Button styles
+ */
+.wooya-wrapper {
+
+    .wooya-btn {
+        background-color: transparent;
+        border: 3px solid $color--primary;
+        border-radius: 70px;
+        cursor: pointer;
+        font-size: 15px;
+        letter-spacing: $letter-spacing;
+        line-height: 19px;
+        padding: 5px 20px;
+    }
+
+    .wooya-btn-red {
+        border-color: $color--red;
+        color: $color--red;
+
+        &:hover {
+            border-color: darken( $color--red, 10% );
+            color: darken( $color--red, 10% );
+        }
+    }
+
+    .wooya-btn-gray {
+        border-color: $color--primary;
+        color: $color--primary;
+
+        &:hover {
+            border-color: darken( $color--primary, 10% );
+            color: darken( $color--primary, 10% );
+        }
+    }
+
+}

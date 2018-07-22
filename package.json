@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "watch": "webpack --watch --mode development",
-    "compile": "clear && webpack -p --progress"
+    "compile": "clear && webpack -p --progress",
+    "pot-to-php": "npx pot-to-php languages/wooya.pot languages/wooya.php wooya"
   },
   "repository": {
     "type": "git",
@@ -14,13 +15,19 @@
   "author": "vCore",
   "license": "GPL-2.0+",
   "homepage": "https://wooya.ru",
+  "dependencies": {
+    "@wordpress/i18n": "^1.2.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.52",
-    "@babel/preset-env": "^7.0.0-beta.52",
-    "@babel/preset-react": "^7.0.0-beta.52",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53",
+    "@babel/preset-react": "^7.0.0-beta.53",
+    "@wordpress/babel-plugin-makepot": "^2.0.0",
     "autoprefixer": "^8.6.5",
-    "babel-loader": "^8.0.0-beta.0",
-    "babel-runtime": "^6.26.0",
+    "babel-loader": "^8.0.0-beta.4",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^1.0.0",
     "file-loader": "^1.1.11",
@@ -28,7 +35,7 @@
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
     "style-loader": "^0.21.0",
-    "webpack": "^4.15.1",
-    "webpack-cli": "^3.0.8"
+    "webpack": "^4.16.0",
+    "webpack-command": "^0.4.1"
   }
 }

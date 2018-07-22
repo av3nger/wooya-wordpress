@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+@import "scss/variables";
+
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.wooya-wrapper {
+    h2, p {
+        color: $color--primary;
+        line-height: $line-height;
+    }
+
+    h2 {
+        font-size: $h2-font-size;
+        line-height: $h2-line-height;
+    }
+    p {
+        font-size: $font-size;
+        letter-spacing: $letter-spacing;
+    }
+}

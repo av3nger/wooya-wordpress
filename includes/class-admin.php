@@ -59,18 +59,52 @@ class Admin {
 	 * Register the stylesheets for the admin area.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $hook  Page from where it is called.
 	 */
-	public function enqueue_styles() {
-		wp_enqueue_style( $this->plugin_name, WOOYA_URL . 'admin/css/wooya-app.min.css', array(), $this->version, 'all' );
+	public function enqueue_styles( $hook ) {
+
+		// Run only on plugin pages.
+		if ( 'toplevel_page_wooya' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			$this->plugin_name,
+			WOOYA_URL . 'admin/css/wooya-app.min.css',
+			array(),
+			$this->version,
+			'all'
+		);
+
 	}
 
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param string $hook  Page from where it is called.
 	 */
-	public function enqueue_scripts() {
-		wp_enqueue_script( $this->plugin_name, WOOYA_URL . 'admin/js/wooya-app.min.js', array( 'jquery' ), $this->version, false );
+	public function enqueue_scripts( $hook ) {
+
+		// Run only on plugin pages.
+		if ( 'toplevel_page_wooya' !== $hook ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			$this->plugin_name,
+			WOOYA_URL . 'admin/js/wooya-app.min.js',
+			array( 'jquery' ),
+			$this->version,
+			true
+		);
+
+		wp_localize_script( $this->plugin_name, 'ajax_strings', array(
+			'ajax_url'  => admin_url( 'admin-ajax.php' ),
+		) );
+
 	}
 
 	/**
@@ -85,8 +119,7 @@ class Admin {
 			__( 'WooYa', 'wooya' ),
 			'manage_options',
 			$this->plugin_name,
-			array( $this, 'render_page' ),
-			WOOYA_URL . 'admin/images/icon.png'
+			array( $this, 'render_page' )
 		);
 
 	}
@@ -97,8 +130,20 @@ class Admin {
 	 * @since 1.0.0
 	 */
 	public function render_page() {
-		/* @noinspection PhpIncludeInspection */
-		require_once WOOYA_PATH . 'admin/admin-display.php';
+
+		?>
+		<div class="wrap wooya-wrapper" id="wooya_pages">
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+
+			<div class="wooya-version">
+				<?php /* translators: version number */
+				printf( esc_html__( 'Version: %s', 'wooya' ), esc_html( $this->version ) ); ?>
+			</div>
+
+			<div id="wooya_components"></div>
+		</div>
+		<?php
+
 	}
 
 }

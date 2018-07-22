@@ -10,7 +10,7 @@ module.exports = {
 	mode: 'production',
 
 	entry: {
-		'wooya-app': path.resolve( __dirname, '_src/js/app.js' ),
+		'wooya-app': path.resolve( __dirname, '_src/app.js' )
 	},
 
 	output: {

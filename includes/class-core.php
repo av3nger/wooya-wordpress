@@ -145,7 +145,7 @@ class Core {
 	private function define_admin_hooks() {
 
 		// Define the locale for this plugin for internationalization.
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'admin_init', array( $this, 'load_plugin_textdomain' ) );
 		// Add admin menu.
 		add_action( 'admin_menu', array( $this->admin, 'register_menu' ) );
 		// Styles and scripts.
