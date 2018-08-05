@@ -91,6 +91,7 @@ class RestAPI extends \WP_REST_Controller {
 				return current_user_can( 'manage_options' );
 			},
 		) );
+
 	}
 
 	/**
@@ -101,6 +102,7 @@ class RestAPI extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response
 	 */
 	public function update_settings( \WP_REST_Request $request ) {
+
 		$params = $request->get_params();
 
 		$error_data = array(
@@ -142,6 +144,7 @@ class RestAPI extends \WP_REST_Controller {
 			__( 'Unable to update the settings', 'wooya' ),
 			$error_data
 		);
+
 	}
 
 	/**
@@ -152,19 +155,21 @@ class RestAPI extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response
 	 */
 	public function get_elements( \WP_REST_Request $request ) {
+
 		$method = "get_{$request['type']}_elements";
 
-		if ( ! method_exists( 'Market_Exporter\Admin\YML_Elements', $method ) ) {
+		if ( ! method_exists( __NAMESPACE__ . '\\YML_Elements', $method ) ) {
 			return new \WP_Error( 'method-not-found', printf(
 				/* translators: %s: method name */
-				__( 'Method %s not found.', 'wooya' ),
-				$method
+				esc_html__( 'Method %s not found.', 'wooya' ),
+				esc_html( $method )
 			) );
 		}
 
-		$elements = call_user_func( array( 'YML_Elements', $method ) );
+		$elements = call_user_func( array( __NAMESPACE__ . '\\YML_Elements', $method ) );
 
 		return new \WP_REST_Response( $elements, 200 );
+
 	}
 
 }

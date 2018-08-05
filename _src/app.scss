@@ -9,9 +9,10 @@
  */
 
 .wooya-wrapper {
-    h2, p {
+    h2, h3, p{
         color: $color--primary;
         line-height: $line-height;
+        letter-spacing: $letter-spacing;
     }
 
     h2 {
@@ -19,9 +20,14 @@
         line-height: $h2-line-height;
         text-align: center;
     }
+
+    h3 {
+        font-size: $h3-font-size;
+        line-height: $h3-line-height;
+    }
+
     p {
         font-size: $font-size;
-        letter-spacing: $letter-spacing;
     }
 
     h2.wooya-files-title:before,

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { __ } from "@wordpress/i18n/build/index";
+
 import './style.scss';
 
 /**
@@ -25,7 +27,7 @@ class Files extends React.Component {
 	render() {
 		return (
 			<div className="wooya-files">
-
+				<h2 className="wooya-files-title">{ __( 'Available YML files', 'wooya' ) }</h2>
 			</div>
 		);
 	}

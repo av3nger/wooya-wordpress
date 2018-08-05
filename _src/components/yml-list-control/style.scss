@@ -1,0 +1,22 @@
+@import "../../scss/variables";
+/**
+ * YML list control styles
+ */
+.wooya-wrapper {
+
+    h3.wooya-settings-sub-shop {
+        color: $color--green;
+        text-transform: uppercase;
+
+        &:after {
+            content: '';
+            border: 1px solid $color--green;
+            position: absolute;
+            width: 100%;
+            height: 0px;
+            left: 0;
+            margin-top: $h3-line-height;
+        }
+    }
+
+}

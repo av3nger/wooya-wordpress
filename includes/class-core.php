@@ -96,6 +96,9 @@ class Core {
 			return;
 		}
 
+		// Support for underscore in class names.
+		$class_name = str_replace( '_', '-', $class_name );
+
 		$class_parts = explode( '\\', $class_name );
 
 		if ( ! $class_parts ) {
@@ -153,6 +156,9 @@ class Core {
 		// Styles and scripts.
 		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_scripts' ) );
+
+		// Add REST API endpoints.
+		add_action( 'rest_api_init', array( RestAPI::get_instance(), 'register_routes' ) );
 
 	}
 
