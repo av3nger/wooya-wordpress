@@ -59,6 +59,14 @@ class App {
 	private static $instance = null;
 
 	/**
+	 * Core instance.
+	 *
+	 * @since 1.0.0
+	 * @var Core $core
+	 */
+	public $core;
+
+	/**
 	 * Get plugin instance.
 	 *
 	 * @since  1.0.0
@@ -67,7 +75,7 @@ class App {
 	public static function get_instance() {
 
 		if ( null === self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -82,7 +90,8 @@ class App {
 	private function __construct() {
 
 		$this->includes();
-		new Core();
+		Includes\Activator::activate();
+		$this->core = new Core();
 
 	}
 
@@ -108,7 +117,6 @@ class App {
 
 }
 
-register_activation_hook( 'includes/class-activator.php', array( 'Wooya\Includes\Activator', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Wooya\Includes\Activator', 'deactivate' ) );
 
 add_action( 'plugins_loaded', array( 'Wooya\App', 'get_instance' ) );

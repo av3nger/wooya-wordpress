@@ -1,8 +1,85 @@
-.wooya-wrapper h2,.wooya-wrapper p{color:#293238;line-height:15px}.wooya-wrapper h2{font-size:25px;line-height:32px}.wooya-wrapper p{font-size:12px;letter-spacing:1px}
+@charset "UTF-8";
+@font-face {
+  font-family: "wooya";
+  src: url(../fonts/wooya.eot);
+  src: url(../fonts/wooya.eot#iefix) format("embedded-opentype"), url(../fonts/wooya.ttf) format("truetype"), url(../fonts/wooya.woff) format("woff"), url(../fonts/wooya.svg#wooya) format("svg");
+  font-weight: normal;
+  font-style: normal; }
 
-.wooya-wrapper .wooya-btn{background-color:transparent;border:3px solid #293238;border-radius:70px;cursor:pointer;font-size:15px;letter-spacing:1px;line-height:19px;padding:5px 20px}.wooya-wrapper .wooya-btn-red{border-color:#FC6C6C;color:#FC6C6C}.wooya-wrapper .wooya-btn-red:hover{border-color:#fb3a3a;color:#fb3a3a}.wooya-wrapper .wooya-btn-gray{border-color:#293238;color:#293238}.wooya-wrapper .wooya-btn-gray:hover{border-color:#13181b;color:#13181b}
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+.wooya-wrapper h2, .wooya-wrapper p {
+  color: #293238;
+  line-height: 15px; }
 
-.wooya-wrapper .wooya-description{max-width:600px;font-size:15px;line-height:19px;text-align:center;margin:0 auto}
+.wooya-wrapper h2 {
+  font-size: 25px;
+  line-height: 32px;
+  text-align: center; }
+
+.wooya-wrapper p {
+  font-size: 12px;
+  letter-spacing: 1px; }
+
+.wooya-wrapper h2.wooya-files-title:before,
+.wooya-wrapper h2.wooya-settings-title:before {
+  font-family: "wooya" !important;
+  font-size: 21px;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  position: relative;
+  top: -15px;
+  margin-right: 5px; }
+
+.wooya-wrapper h2.wooya-files-title:before {
+  content: "\E900"; }
+
+.wooya-wrapper h2.wooya-settings-title:before {
+  content: "\E901"; }
+
+/**
+ * Button styles
+ */
+.wooya-wrapper .wooya-btn {
+  background-color: transparent;
+  border: 3px solid #293238;
+  border-radius: 70px;
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 1px;
+  line-height: 19px;
+  padding: 5px 20px; }
+
+.wooya-wrapper .wooya-btn-red {
+  border-color: #FC6C6C;
+  color: #FC6C6C; }
+  .wooya-wrapper .wooya-btn-red:hover {
+    border-color: #fb3a3a;
+    color: #fb3a3a; }
+
+.wooya-wrapper .wooya-btn-gray {
+  border-color: #293238;
+  color: #293238; }
+  .wooya-wrapper .wooya-btn-gray:hover {
+    border-color: #13181b;
+    color: #13181b; }
+
+/**
+ * Description styles
+ */
+.wooya-wrapper .wooya-description {
+  max-width: 600px;
+  font-size: 15px;
+  line-height: 19px;
+  text-align: center;
+  margin: 0 auto; }
+
 
 
 /*# sourceMappingURL=wooya-app.min.css.map*/

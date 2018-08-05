@@ -90,6 +90,7 @@ class Core {
 	 * @param string $class_name  Class name to autoload.
 	 */
 	public function autoload( $class_name ) {
+
 		// Parse only Wooya dependencies.
 		if ( 0 !== strpos( $class_name, 'Wooya' ) ) {
 			return;
@@ -108,17 +109,18 @@ class Core {
 		$class_parts = array_map( 'strtolower', $class_parts );
 
 		// Prepend class- to last element.
-		$index = count( $class_parts ) - 1;
+		$index                 = count( $class_parts ) - 1;
 		$class_parts[ $index ] = 'class-' . $class_parts[ $index ];
 
 		// Build path.
 		$filename = implode( '/', $class_parts );
-		$file = WOOYA_PATH . "{$filename}.php";
+		$file     = WOOYA_PATH . "{$filename}.php";
 
 		if ( is_readable( $file ) ) {
 			/* @noinspection PhpIncludeInspection */
 			require_once $file;
 		}
+
 	}
 
 	/**

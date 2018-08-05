@@ -58,7 +58,16 @@ module.exports = {
 					outputPath: '../images/'
 				}
 			}
-		}]
+		}, {
+			test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+			use: {
+				loader: 'file-loader',
+				options: {
+					name: '[name].[ext]',
+					outputPath: '../fonts/'
+				}
+			}
+		} ]
 	},
 
 	// This will allow us to import files without writing these extension

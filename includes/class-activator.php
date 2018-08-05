@@ -26,10 +26,26 @@ class Activator {
 	/**
 	 * The code that runs during plugin activation.
 	 *
+	 * TODO: run this via register_activation_hook.
+	 *
 	 * @since 1.0.0
 	 */
 	public static function activate() {
+		$options = get_option( 'wooya_settings' );
+		if ( ! $options ) {
+			$old_options = get_option( 'market_exporter_shop_settings' );
 
+			$options = array();
+
+			$options['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
+			$options['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : '';
+			$options['url']      = get_site_url();
+			$options['platform'] = __( 'WordPress', 'wooya' );
+			$options['version']  = get_bloginfo( 'version' );
+			$options['email']    = get_bloginfo( 'admin_email' );
+
+			update_option( 'wooya_settings', $options );
+		}
 	}
 
 	/**
@@ -38,7 +54,6 @@ class Activator {
 	 * @since 1.0.0
 	 */
 	public static function deactivate() {
-
 	}
 
 }

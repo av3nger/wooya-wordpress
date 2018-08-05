@@ -51,7 +51,7 @@ class Admin {
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -102,7 +102,7 @@ class Admin {
 		);
 
 		wp_localize_script( $this->plugin_name, 'ajax_strings', array(
-			'ajax_url'  => admin_url( 'admin-ajax.php' ),
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
 		) );
 
 	}
@@ -136,8 +136,10 @@ class Admin {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
 			<div class="wooya-version">
-				<?php /* translators: version number */
-				printf( esc_html__( 'Version: %s', 'wooya' ), esc_html( $this->version ) ); ?>
+				<?php
+				/* translators: version number */
+				printf( esc_html__( 'Version: %s', 'wooya' ), esc_html( $this->version ) );
+				?>
 			</div>
 
 			<div id="wooya_components"></div>

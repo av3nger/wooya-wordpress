@@ -64,7 +64,13 @@ class Wooya extends React.Component {
 					onClick={ this.handleGenerateFile }
 				/> }
 
+				<h2 className="wooya-files-title">{ __( 'Available YML files', 'wooya' ) }</h2>
+
 				<Files />
+
+				<h2 className="wooya-settings-title">{ __( 'Settings', 'wooya' ) }</h2>
+
+
 			</div>
 		);
 	}

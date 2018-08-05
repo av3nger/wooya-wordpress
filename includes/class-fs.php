@@ -64,7 +64,7 @@ class FS {
 
 		// Need to include file.php for cron.
 		if ( ! function_exists( 'request_filesystem_credentials' ) ) {
-			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		// Check if the user has write permissions.
@@ -161,7 +161,7 @@ class FS {
 	 * @since  0.0.8
 	 * @return array|bool Returns an array of generated files.
 	 */
-	function get_files() {
+	public function get_files() {
 
 		// If unable to initialize filesystem, quit.
 		if ( ! $this->init() ) {
@@ -204,7 +204,7 @@ class FS {
 	 * @param  array $files Array of file names to delete.
 	 * @return bool
 	 */
-	function delete_files( $files ) {
+	public function delete_files( $files ) {
 
 		// If unable to initialize filesystem, quit.
 		if ( ! $this->init() ) {
