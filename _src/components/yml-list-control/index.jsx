@@ -32,23 +32,23 @@ class YmlListControl extends React.Component {
 	/**
 	 * Handle item move (add/remnove from YML list)
 	 *
-	 * @param {string} item
+	 * @param {array}  items
 	 * @param {string} action  Accepts: 'add', 'remove'.
 	 */
-	handleItemMove( item, action = 'add' ) {
-		this.props.fetchWP.post( 'settings', { item: item, action: action } ).then(
-			( json ) => this.moveItem( item, action ),
-			( err )  => this.setState({ updateError: true, updateMessage: err.message })
+	handleItemMove( items, action = 'add' ) {
+		this.props.fetchWP.post( 'settings', { items: items, action: action } ).then(
+			( json ) => this.moveItem( items, action ),
+			( err )  => this.setState({ updateError: true, updateMessage: err.message, showAddDiv: false })
 		);
 	}
 
 	/**
 	 * Move item in the UI.
 	 *
-	 * @param {string} item
+	 * @param {array}  items
 	 * @param {string} action
 	 */
-	moveItem( item, action ) {
+	moveItem( items, action ) {
 		let headerItems = this.props.headerItems.slice();
 		let unusedHeaderItems = this.props.unusedHeaderItems.slice();
 
@@ -61,7 +61,7 @@ class YmlListControl extends React.Component {
 		}
 
 		this.setState({
-			showAddDiv: unusedHeaderItems.length > 0,
+			showAddDiv: false,
 			headerItems: headerItems, // TODO: we need to update this. move the action to app.js?
 			unusedHeaderItems: unusedHeaderItems // TODO: same here
 		});
@@ -73,16 +73,6 @@ class YmlListControl extends React.Component {
 	 * @returns {*}
 	 */
 	render() {
-		// Build the unused items list.
-		const itemAvailable = this.props.unusedHeaderItems.map( item => {
-			return (
-				<div className="me-new-item" onClick={ () => this.handleItemMove( item, 'add' ) }>
-					{item}
-					{ this.props.headerFields[item].description }
-				</div>
-			);
-		} );
-
 		// Build the current items list.
 		const items = this.props.headerItems.map( item => {
 			return (
@@ -124,7 +114,12 @@ class YmlListControl extends React.Component {
 
 				{ this.state.showAddDiv &&
 					<AddSettingModal
-						onClick={ () => this.setState( { showAddDiv: false } ) }
+						hideModal={ () => this.setState( { showAddDiv: false } ) }
+						shopFields={ this.props.headerFields }
+						shopItems={ this.props.unusedHeaderItems }
+						submitData={ ( items ) => {
+							this.handleItemMove( items, 'add' )
+						} }
 					/>
 				}
 			</div>

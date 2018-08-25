@@ -109,29 +109,43 @@ class RestAPI extends \WP_REST_Controller {
 			'status' => 500,
 		);
 
-		if ( ! isset( $params['item'] ) || ! isset( $params['action'] ) ) {
+		if ( ! isset( $params['items'] ) || ! isset( $params['action'] ) ) {
 			// No valid action - return error.
 			return new \WP_Error( 'update-error',
-				__( 'Either action or item not defined', 'wooya' ),
+				__( 'Either action or items are not defined', 'wooya' ),
 				$error_data
 			);
 		}
 
 		$updated  = false;
 		$settings = get_option( 'wooya_settings' );
-		$item     = sanitize_text_field( $params['item'] );
+		$items    = array_map( 'sanitize_text_field', wp_unslash( $params['items'] ) );
 
 		// Remove item from settings array.
 		if ( 'remove' === $params['action'] ) {
-			unset( $settings[ $item ] );
+			foreach ( $items as $item ) {
+				if ( isset( $settings[ $item ] ) ) {
+					unset( $settings[ $item ] );
+				}
+			}
+
 			$updated = true;
 		}
 
 		// Add item to settings array.
 		if ( 'add' === $params['action'] ) {
-			$elements          = YML_Elements::get_header_elements();
-			$settings[ $item ] = $elements[ $item ]['default'];
-			$updated           = true;
+			$elements = YML_Elements::get_header_elements();
+
+			foreach ( $items as $item ) {
+				// No such setting exists.
+				if ( ! isset( $elements[ $item ] ) ) {
+					continue;
+				}
+
+				$settings[ $item ] = $elements[ $item ]['default'];
+			}
+
+			$updated = true;
 		}
 
 		if ( $updated ) {

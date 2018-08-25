@@ -16,6 +16,11 @@
         padding: 0 15px;
         width: 180px;
         height: 43px;
+        outline: none;
+
+        &:disabled {
+            cursor: default;
+        }
     }
 
     .wooya-btn-red {
@@ -27,9 +32,10 @@
             color: darken( $color--red, 20% );
         }
 
+        // Cannot go below %25, as lighten will return white on the current color.
         &:disabled {
-            border-color: lighten( $color--red, 60% );
-            color: lighten( $color--red, 60% );
+            border-color: lighten( $color--red, 25% );
+            color: lighten( $color--red, 25% );
         }
     }
 
