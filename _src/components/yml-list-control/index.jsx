@@ -2,7 +2,9 @@ import React from 'react';
 
 import { __ } from "@wordpress/i18n/build/index";
 
+import Button from '../button';
 import YmlListItem from '../yml-list-item';
+import AddSettingModal from '../add-setting-modal';
 
 import './style.scss';
 
@@ -93,45 +95,38 @@ class YmlListControl extends React.Component {
 			);
 		} );
 
-		let buttonClasses = "button button-disabled me-tooltip-element",
-			tooltipText   = __('No more items left for this type'),
-			itemDisabled  = true;
-		if ( this.props.unusedHeaderItems.length > 0 ) {
-			buttonClasses = "button button-primary me-tooltip-element";
-			tooltipText   = __('Add new item to YML config');
-			itemDisabled  = false;
-		}
-
 		return (
 			<div className="me-list-group me-list-group-panel" id="me_yml_store">
 				<h2 className="wooya-settings-title">{ __( 'Settings', 'wooya' ) }</h2>
-				<h3 className="wooya-settings-sub-shop">{ __('Shop', 'wooya' ) }</h3>
 
-				<div className="me-list-header">
-					<input type="submit"
-						   className={ buttonClasses }
-						   onClick={ () => this.setState( { showAddDiv: ! this.state.showAddDiv } ) }
-						   value={ __( 'Add field' ) }
-						   disabled={ itemDisabled } />
-					{ tooltipText }
+				<div className="wooya-list-header">
+					<Button
+						buttonText={ __( 'Add new setting', 'wooya' ) }
+						className='wooya-btn wooya-btn-transparent'
+						onClick={ () => this.setState( { showAddDiv: ! this.state.showAddDiv } ) }
+						disabled={ this.props.unusedHeaderItems.length === 0 }
+					/>
+
+					<Button
+						buttonText={ __( 'Remove all settings', 'wooya' ) }
+						className='wooya-btn wooya-btn-gray'
+						disabled='true'
+					/>
 				</div>
 
-				<div className="me-list-content">
-					{ this.state.showAddDiv &&
-					<div className="me-list-new-item">
-						<h3>{ __( 'Select item' ) }</h3>
-						<p>{ __( 'Select an item from the list below to add to the YML file.', 'wooya' ) }</p>
-
-						{ itemAvailable }
-					</div>
-					}
-
+				<div className="wooya-list-content">
 					{ this.state.updateError && <Notice type='error' message={ this.state.updateMessage } /> }
 
-					<h3>{ __( 'header elements' ) }</h3>
+					<h3 className="wooya-settings-sub-shop">{ __('Shop', 'wooya' ) }</h3>
 
 					{ items }
 				</div>
+
+				{ this.state.showAddDiv &&
+					<AddSettingModal
+						onClick={ () => this.setState( { showAddDiv: false } ) }
+					/>
+				}
 			</div>
 		);
 	}

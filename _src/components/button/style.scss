@@ -12,8 +12,10 @@
         cursor: pointer;
         font-size: 15px;
         letter-spacing: $letter-spacing;
-        line-height: 19px;
-        padding: 5px 20px;
+        line-height: 16px;
+        padding: 0 15px;
+        width: 180px;
+        height: 43px;
     }
 
     .wooya-btn-red {
@@ -21,8 +23,13 @@
         color: $color--red;
 
         &:hover {
-            border-color: darken( $color--red, 10% );
-            color: darken( $color--red, 10% );
+            border-color: darken( $color--red, 20% );
+            color: darken( $color--red, 20% );
+        }
+
+        &:disabled {
+            border-color: lighten( $color--red, 60% );
+            color: lighten( $color--red, 60% );
         }
     }
 
@@ -31,8 +38,39 @@
         color: $color--primary;
 
         &:hover {
-            border-color: darken( $color--primary, 10% );
-            color: darken( $color--primary, 10% );
+            border-color: darken( $color--primary, 20% );
+            color: darken( $color--primary, 20% );
+        }
+
+        &:disabled {
+            border-color: lighten( $color--primary, 60% );
+            color: lighten( $color--primary, 60% );
+        }
+    }
+
+    .wooya-btn-transparent {
+        border: 0 solid transparent;
+        color: $color--blue;
+        text-transform: uppercase;
+        padding: 0;
+        font-size: $h3-font-size;
+        line-height: $h3-line-height;
+        width: auto;
+
+        &:before {
+            content: "\f132";
+            font-family: Dashicons;
+            margin-right: 25px;
+            border-radius: 50%;
+            border: 3px solid;
+            font-size: 17px;
+            vertical-align: top;
+            padding: 2px 1px 0;
+        }
+
+        &:hover {
+            border-color: darken( $color--blue, 20% );
+            color: darken( $color--blue, 20% );
         }
     }
 

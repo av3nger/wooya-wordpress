@@ -6,10 +6,6 @@
   font-weight: normal;
   font-style: normal; }
 
-/**
- * All of the CSS for your admin-specific functionality should be
- * included in this file.
- */
 .wooya-wrapper h2, .wooya-wrapper h3, .wooya-wrapper p {
   color: #293238;
   line-height: 15px;
@@ -18,11 +14,13 @@
 .wooya-wrapper h2 {
   font-size: 25px;
   line-height: 32px;
-  text-align: center; }
+  text-align: center;
+  font-weight: 500; }
 
 .wooya-wrapper h3 {
   font-size: 20px;
-  line-height: 26px; }
+  line-height: 26px;
+  font-weight: 500; }
 
 .wooya-wrapper p {
   font-size: 12px; }
@@ -42,10 +40,66 @@
   margin-right: 5px; }
 
 .wooya-wrapper h2.wooya-files-title:before {
-  content: "\E900"; }
+  content: "\E901"; }
 
 .wooya-wrapper h2.wooya-settings-title:before {
-  content: "\E901"; }
+  content: "\E902"; }
+
+/**
+ * Form controls
+ */
+.wooya-wrapper input[type="checkbox"] {
+  border: 3px solid #E6E6E6;
+  border-radius: 5px; }
+  .wooya-wrapper input[type="checkbox"]:before {
+    margin: -5px 0 0 -6px;
+    color: #46D3F2; }
+
+.wooya-wrapper .wooya-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px; }
+  .wooya-wrapper .wooya-switch input {
+    display: none; }
+  .wooya-wrapper .wooya-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(136, 180, 11, 0.2);
+    height: 5px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px; }
+  .wooya-wrapper .wooya-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 0;
+    top: -8px;
+    background-color: #88B40B;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%; }
+  .wooya-wrapper .wooya-switch input:checked + .slider {
+    background-color: rgba(252, 108, 108, 0.2); }
+  .wooya-wrapper .wooya-switch input:focus + .slider {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); }
+  .wooya-wrapper .wooya-switch input:checked + .slider:before {
+    background-color: #FC6C6C;
+    -webkit-transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px); }
+
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
 
 /**
  * Button styles
@@ -57,22 +111,51 @@
   cursor: pointer;
   font-size: 15px;
   letter-spacing: 1px;
-  line-height: 19px;
-  padding: 5px 20px; }
+  line-height: 16px;
+  padding: 0 15px;
+  width: 180px;
+  height: 43px; }
 
 .wooya-wrapper .wooya-btn-red {
   border-color: #FC6C6C;
   color: #FC6C6C; }
   .wooya-wrapper .wooya-btn-red:hover {
-    border-color: #fb3a3a;
-    color: #fb3a3a; }
+    border-color: #fa0808;
+    color: #fa0808; }
+  .wooya-wrapper .wooya-btn-red:disabled {
+    border-color: white;
+    color: white; }
 
 .wooya-wrapper .wooya-btn-gray {
   border-color: #293238;
   color: #293238; }
   .wooya-wrapper .wooya-btn-gray:hover {
-    border-color: #13181b;
-    color: #13181b; }
+    border-color: black;
+    color: black; }
+  .wooya-wrapper .wooya-btn-gray:disabled {
+    border-color: #c1cbd2;
+    color: #c1cbd2; }
+
+.wooya-wrapper .wooya-btn-transparent {
+  border: 0 solid transparent;
+  color: #46D3F2;
+  text-transform: uppercase;
+  padding: 0;
+  font-size: 20px;
+  line-height: 26px;
+  width: auto; }
+  .wooya-wrapper .wooya-btn-transparent:before {
+    content: "\F132";
+    font-family: Dashicons;
+    margin-right: 25px;
+    border-radius: 50%;
+    border: 3px solid;
+    font-size: 17px;
+    vertical-align: top;
+    padding: 2px 1px 0; }
+  .wooya-wrapper .wooya-btn-transparent:hover {
+    border-color: #0ea3c4;
+    color: #0ea3c4; }
 
 /**
  * Description styles
@@ -94,8 +177,197 @@
   .wooya-wrapper .wooya-yml-item .wooya-yml-item-select,
   .wooya-wrapper .wooya-yml-item .wooya-yml-item-title {
     margin-right: 20px; }
+  .wooya-wrapper .wooya-yml-item .wooya-yml-item-title,
   .wooya-wrapper .wooya-yml-item .wooya-yml-item-description {
-    flex-basis: 40%; }
+    flex-basis: 45%; }
+
+/*
+ * Container style
+ */
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  -ms-overflow-style: none;
+  touch-action: auto;
+  -ms-touch-action: auto;
+}
+
+/*
+ * Scrollbar rail styles
+ */
+.ps__rail-x {
+  display: none;
+  opacity: 0;
+  transition: background-color .2s linear, opacity .2s linear;
+  -webkit-transition: background-color .2s linear, opacity .2s linear;
+  height: 15px;
+  /* there must be 'bottom' or 'top' for ps__rail-x */
+  bottom: 0px;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps__rail-y {
+  display: none;
+  opacity: 0;
+  transition: background-color .2s linear, opacity .2s linear;
+  -webkit-transition: background-color .2s linear, opacity .2s linear;
+  width: 15px;
+  /* there must be 'right' or 'left' for ps__rail-y */
+  right: 0;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps--active-x > .ps__rail-x,
+.ps--active-y > .ps__rail-y {
+  display: block;
+  background-color: transparent;
+}
+
+.ps:hover > .ps__rail-x,
+.ps:hover > .ps__rail-y,
+.ps--focus > .ps__rail-x,
+.ps--focus > .ps__rail-y,
+.ps--scrolling-x > .ps__rail-x,
+.ps--scrolling-y > .ps__rail-y {
+  opacity: 0.6;
+}
+
+.ps .ps__rail-x:hover,
+.ps .ps__rail-y:hover,
+.ps .ps__rail-x:focus,
+.ps .ps__rail-y:focus,
+.ps .ps__rail-x.ps--clicking,
+.ps .ps__rail-y.ps--clicking {
+  background-color: #eee;
+  opacity: 0.9;
+}
+
+/*
+ * Scrollbar thumb styles
+ */
+.ps__thumb-x {
+  background-color: #aaa;
+  border-radius: 6px;
+  transition: background-color .2s linear, height .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, height .2s ease-in-out;
+  height: 6px;
+  /* there must be 'bottom' for ps__thumb-x */
+  bottom: 2px;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps__thumb-y {
+  background-color: #aaa;
+  border-radius: 6px;
+  transition: background-color .2s linear, width .2s ease-in-out;
+  -webkit-transition: background-color .2s linear, width .2s ease-in-out;
+  width: 6px;
+  /* there must be 'right' for ps__thumb-y */
+  right: 2px;
+  /* please don't change 'position' */
+  position: absolute;
+}
+
+.ps__rail-x:hover > .ps__thumb-x,
+.ps__rail-x:focus > .ps__thumb-x,
+.ps__rail-x.ps--clicking .ps__thumb-x {
+  background-color: #999;
+  height: 11px;
+}
+
+.ps__rail-y:hover > .ps__thumb-y,
+.ps__rail-y:focus > .ps__thumb-y,
+.ps__rail-y.ps--clicking .ps__thumb-y {
+  background-color: #999;
+  width: 11px;
+}
+
+/* MS supports */
+@supports (-ms-overflow-style: none) {
+  .ps {
+    overflow: auto !important;
+  }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .ps {
+    overflow: auto !important;
+  }
+}
+
+/**
+ * Add new setting modal.
+ */
+.wooya-wrapper .wooya-add-setting-modal {
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.25);
+  margin-left: 80px;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(41, 50, 56, 0.7); }
+  .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content {
+    background-color: #fff;
+    margin: 75px auto;
+    padding: 20px 80px;
+    border-radius: 20px;
+    max-width: 750px;
+    text-align: center; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-close {
+      font-weight: 700;
+      font-size: 36px;
+      color: #FC6C6C;
+      float: right;
+      margin-right: -65px;
+      margin-top: -5px;
+      cursor: pointer; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content h3 {
+      text-transform: uppercase;
+      margin-bottom: 50px; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content h4,
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-switch-label {
+      margin: 0;
+      font-weight: 500;
+      line-height: 19px;
+      letter-spacing: 1px;
+      text-transform: uppercase; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-switch-label {
+      position: relative;
+      top: -12px;
+      margin-right: 30px;
+      color: #88B40B;
+      cursor: pointer; }
+      .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-switch-label:last-of-type {
+        margin-left: 30px;
+        margin-right: 0;
+        color: #FC6C6C; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-select-box {
+      border: 2px solid #46D3F2;
+      box-sizing: border-box;
+      box-shadow: 0 6px 25px rgba(4, 44, 49, 0.22);
+      border-radius: 39px;
+      padding: 30px 45px 30px 30px;
+      margin-top: 35px;
+      text-align: left;
+      max-height: 400px;
+      overflow: hidden;
+      position: relative; }
+      .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-select-box h4 {
+        margin-bottom: 40px; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .ps__rail-y {
+      opacity: 0.6;
+      border-radius: 99px;
+      margin-right: 15px;
+      margin-top: 30px;
+      margin-bottom: 30px; }
+    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .ps__thumb-y {
+      background: #46D3F2; }
 
 /**
  * YML list control styles
@@ -111,6 +383,13 @@
     height: 0px;
     left: 0;
     margin-top: 26px; }
+
+.wooya-wrapper .wooya-list-header {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center; }
 
 
 /*# sourceMappingURL=wooya-app.min.css.map*/

@@ -4,8 +4,9 @@ $img-path: 'images' !default;
 
 $font-family: 'wooya' !default;
 $font-path: 'fonts' !default;
-$icon-files: "\e900";
-$icon-settings: "\e901";
+$icon-scroll: "\e900";
+$icon-files: "\e901";
+$icon-settings: "\e902";
 
 $font-size: 12px;
 $line-height: 15px;
@@ -20,3 +21,4 @@ $h3-line-height: 26px;
 $color--primary: #293238;
 $color--red: #FC6C6C;
 $color--green: #88B40B;
+$color--blue: #46D3F2;

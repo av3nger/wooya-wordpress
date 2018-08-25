@@ -1,0 +1,70 @@
+@import "variables";
+
+/**
+ * Form controls
+ */
+.wooya-wrapper {
+
+    input[type="checkbox"] {
+        border: 3px solid #E6E6E6;
+        border-radius: 5px;
+
+        &:before {
+            margin: -5px 0 0 -6px;
+            color: $color--blue;
+        }
+    }
+
+    .wooya-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+
+        input { display: none; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(136, 180, 11, 0.2);
+            height: 5px;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 0;
+            top: -8px;
+            background-color: $color--green;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: rgba(252, 108, 108, 0.2);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        input:checked + .slider:before {
+            background-color: $color--red;
+            -webkit-transform: translateX(40px);
+            -ms-transform: translateX(40px);
+            transform: translateX(40px);
+        }
+    }
+
+}

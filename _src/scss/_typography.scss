@@ -10,3 +10,51 @@
     font-weight: normal;
     font-style: normal;
 }
+
+.wooya-wrapper {
+    h2, h3, p {
+        color: $color--primary;
+        line-height: $line-height;
+        letter-spacing: $letter-spacing;
+    }
+
+    h2 {
+        font-size: $h2-font-size;
+        line-height: $h2-line-height;
+        text-align: center;
+        font-weight: 500;
+    }
+
+    h3 {
+        font-size: $h3-font-size;
+        line-height: $h3-line-height;
+        font-weight: 500;
+    }
+
+    p {
+        font-size: $font-size;
+    }
+
+    h2.wooya-files-title:before,
+    h2.wooya-settings-title:before {
+        font-family: '#{$font-family}' !important;
+        font-size: 21px;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        position: relative;
+        top: -15px;
+        margin-right: 5px;
+    }
+
+    h2.wooya-files-title:before {
+        content: $icon-files;
+    }
+
+    h2.wooya-settings-title:before {
+        content: $icon-settings;
+    }
+}

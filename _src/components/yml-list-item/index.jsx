@@ -28,8 +28,9 @@ class YmlListItem extends React.Component {
 		return (
 			<div className="wooya-yml-item">
 				<div className="wooya-yml-item-select">
-					<span className="dashicons dashicons-minus me-tooltip-element" onClick={ this.props.onClick } aria-hidden="true" />
-					{ __( 'Remove item', 'wooya' ) }
+					<label for="wooya-remove-item">
+						<input type="checkbox" id="wooya-remove-item" onClick={ this.props.onClick } />
+					</label>
 				</div>
 
 				<div className="wooya-yml-item-title">
