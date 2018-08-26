@@ -8,7 +8,7 @@ const methods = [
 ];
 
 /**
- * Class to fetch data from WP REST API
+ * Class to fetch data from WordPress REST API
  *
  * @since 1.0.0
  */

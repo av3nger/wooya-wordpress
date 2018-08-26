@@ -23,48 +23,8 @@ class YmlListControl extends React.Component {
 		super( props );
 
 		this.state = {
-			showAddDiv: false,
-			updateError: false,
-			updateMessage: ''
+			showAddDiv: false
 		};
-	}
-
-	/**
-	 * Handle item move (add/remnove from YML list)
-	 *
-	 * @param {array}  items
-	 * @param {string} action  Accepts: 'add', 'remove'.
-	 */
-	handleItemMove( items, action = 'add' ) {
-		this.props.fetchWP.post( 'settings', { items: items, action: action } ).then(
-			( json ) => this.moveItem( items, action ),
-			( err )  => this.setState({ updateError: true, updateMessage: err.message, showAddDiv: false })
-		);
-	}
-
-	/**
-	 * Move item in the UI.
-	 *
-	 * @param {array}  items
-	 * @param {string} action
-	 */
-	moveItem( items, action ) {
-		let headerItems = this.props.headerItems.slice();
-		let unusedHeaderItems = this.props.unusedHeaderItems.slice();
-
-		if ( 'add' === action ) {
-			const index = unusedHeaderItems.indexOf( item );
-			headerItems = headerItems.concat( unusedHeaderItems.splice( index, 1 ) );
-		} else {
-			const index = headerItems.indexOf( item );
-			unusedHeaderItems = unusedHeaderItems.concat( headerItems.splice( index, 1 ) );
-		}
-
-		this.setState({
-			showAddDiv: false,
-			headerItems: headerItems, // TODO: we need to update this. move the action to app.js?
-			unusedHeaderItems: unusedHeaderItems // TODO: same here
-		});
 	}
 
 	/**
@@ -80,7 +40,7 @@ class YmlListControl extends React.Component {
 					name={ item }
 					value={ this.props.settings[ item ] }
 					description={ this.props.headerFields[ item ]['description'] }
-					onClick={ () => this.handleItemMove( item, 'remove' ) }
+					onClick={ () => this.props.handleItemMove( item, 'remove' ) }
 				/>
 			);
 		} );
@@ -105,7 +65,7 @@ class YmlListControl extends React.Component {
 				</div>
 
 				<div className="wooya-list-content">
-					{ this.state.updateError && <Notice type='error' message={ this.state.updateMessage } /> }
+					{ this.props.error && <Notice type='error' message={ this.props.errorMsg } /> }
 
 					<h3 className="wooya-settings-sub-shop">{ __('Shop', 'wooya' ) }</h3>
 
@@ -118,7 +78,8 @@ class YmlListControl extends React.Component {
 						shopFields={ this.props.headerFields }
 						shopItems={ this.props.unusedHeaderItems }
 						submitData={ ( items ) => {
-							this.handleItemMove( items, 'add' )
+							this.setState( { showAddDiv: false } );
+							this.props.handleItemMove( items, 'add' );
 						} }
 					/>
 				}

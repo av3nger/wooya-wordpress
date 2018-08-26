@@ -30,7 +30,12 @@ class Wooya extends React.Component {
 			headerFields: [],      // List of all available header fields
 			headerItems: [],       // Currently used header fields
 			unusedHeaderItems: [], // Not used header fields (available to add)
+			updateError: false,
+			updateMessage: ''
 		};
+
+		// Bind the this context to the handler function.
+		this.handleItemMove = this.handleItemMove.bind(this);
 
 		/**
 		 * @type {fetchWP}
@@ -65,12 +70,12 @@ class Wooya extends React.Component {
 
 				// Build the current items list.
 				const items = Object.keys( json ).filter( item => {
-					if ( options[item] ) {
-						return true;
+					if ( 'undefined' === typeof options[item] ) {
+						unusedItems.push( item );
+						return false;
 					}
 
-					unusedItems.push( item );
-					return false;
+					return true;
 				} );
 
 				this.setState( {
@@ -85,13 +90,56 @@ class Wooya extends React.Component {
 		);
 	}
 
-
 	handleAddField() {
 		alert( 'Add first field' );
 	}
 
 	handleGenerateFile() {
 		alert( 'Generate YML' );
+	}
+
+	/**
+	 * Handle item move (add/remnove from YML list)
+	 *
+	 * @param {array}  items
+	 * @param {string} action  Accepts: 'add', 'remove'.
+	 */
+	handleItemMove( items, action = 'add' ) {
+		this.setState({
+			loading: true
+		});
+
+		this.fetchWP.post( 'settings', { items: items, action: action } ).then(
+			( json ) => this.moveItem( items, action ),
+			( err )  => this.setState({ updateError: true, updateMessage: err.message })
+		);
+	}
+
+	/**
+	 * Move item in the UI.
+	 *
+	 * @param {array}  items
+	 * @param {string} action
+	 */
+	moveItem( items, action ) {
+		let headerItems = this.state.headerItems.slice();
+		let unusedHeaderItems = this.state.unusedHeaderItems.slice();
+
+		items.forEach((item) => {
+			if ( 'add' === action ) {
+				const index = unusedHeaderItems.indexOf( item );
+				headerItems = headerItems.concat( unusedHeaderItems.splice( index, 1 ) );
+			} else {
+				const index = headerItems.indexOf( item );
+				unusedHeaderItems = unusedHeaderItems.concat( headerItems.splice( index, 1 ) );
+			}
+		});
+
+		this.setState({
+			loading: false,
+			headerItems: headerItems,
+			unusedHeaderItems: unusedHeaderItems
+		});
 	}
 
 	/**
@@ -136,6 +184,9 @@ class Wooya extends React.Component {
 					headerFields={ this.state.headerFields }
 					headerItems={ this.state.headerItems }
 					unusedHeaderItems={ this.state.unusedHeaderItems }
+					handleItemMove={ this.handleItemMove }
+					error={ this.state.updateError }
+					errorMsg={ this.state.updateMessage }
 				/>
 			</div>
 		);
