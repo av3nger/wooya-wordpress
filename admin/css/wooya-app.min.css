@@ -43,17 +43,43 @@
   content: "\E901"; }
 
 .wooya-wrapper h2.wooya-settings-title:before {
-  content: "\E902"; }
+  content: "\E900"; }
 
 /**
  * Form controls
  */
 .wooya-wrapper input[type="checkbox"] {
   border: 3px solid #E6E6E6;
-  border-radius: 5px; }
+  border-radius: 5px;
+  margin-right: 15px;
+  margin-top: 1px; }
   .wooya-wrapper input[type="checkbox"]:before {
     margin: -5px 0 0 -6px;
     color: #46D3F2; }
+
+.wooya-wrapper input[type="text"] {
+  display: block;
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-top: 15px;
+  padding: 0 30px;
+  height: 41px;
+  width: 100%;
+  color: #293238;
+  background: rgba(255, 255, 255, 0.2) url(../fonts/input-icon.svg) no-repeat 99% 22px;
+  border: 1px solid rgba(41, 50, 56, 0.2);
+  border-radius: 70.917px; }
+  .wooya-wrapper input[type="text"].saving {
+    background: rgba(255, 255, 255, 0.2) url("/wp-admin/images/spinner-2x.gif") no-repeat 99% 10px;
+    background-size: 20px; }
+
+.wooya-wrapper label {
+  color: #293238;
+  font-size: 15px;
+  line-height: 19px;
+  letter-spacing: 1px;
+  font-weight: 500; }
 
 .wooya-wrapper .wooya-switch {
   position: relative;
@@ -171,13 +197,18 @@
  */
 .wooya-wrapper .wooya-yml-item {
   display: flex;
-  justify-content: space-between; }
-  .wooya-wrapper .wooya-yml-item .wooya-yml-item-select,
-  .wooya-wrapper .wooya-yml-item .wooya-yml-item-title {
+  justify-content: space-between;
+  box-shadow: inset 0px -1px 0px #E6E6E6;
+  padding: 40px 0; }
+  .wooya-wrapper .wooya-yml-item .wooya-yml-item-select {
     margin-right: 20px; }
+  .wooya-wrapper .wooya-yml-item .wooya-yml-item-title {
+    margin-right: 30px; }
   .wooya-wrapper .wooya-yml-item .wooya-yml-item-title,
   .wooya-wrapper .wooya-yml-item .wooya-yml-item-description {
-    flex-basis: 45%; }
+    flex-basis: 50%; }
+  .wooya-wrapper .wooya-yml-item .wooya-yml-item-description > p {
+    margin-top: 30px; }
 
 /*
  * Container style
@@ -367,15 +398,6 @@
       margin-bottom: 30px; }
     .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .ps__thumb-y {
       background: #46D3F2; }
-    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-new-item input {
-      margin-right: 15px;
-      margin-top: 1px; }
-    .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-new-item label {
-      color: #293238;
-      font-size: 15px;
-      line-height: 19px;
-      letter-spacing: 1px;
-      font-weight: 500; }
     .wooya-wrapper .wooya-add-setting-modal .wooya-modal-content .wooya-new-item p {
       margin: 5px 0 30px 31px; }
 
@@ -390,7 +412,7 @@
     border: 1px solid #88B40B;
     position: absolute;
     width: 100%;
-    height: 0px;
+    height: 0;
     left: 0;
     margin-top: 26px; }
 

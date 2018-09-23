@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { __ } from '@wordpress/i18n';
-
 import './style.scss';
 
 /**
@@ -17,6 +15,37 @@ class YmlListItem extends React.Component {
 	 */
 	constructor( props ) {
 		super( props );
+
+		this.state = {
+			value: this.props.value
+		};
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleBlur = this.handleBlur.bind(this);
+	}
+
+	/**
+	 * Update text value on user input.
+	 *
+	 * @param e
+	 */
+	handleChange(e) {
+		this.setState({
+			value: e.target.value
+		});
+	}
+
+	/**
+	 * Handle onBlur event.
+	 *
+	 * Do not send data to the server if nothing has changed.
+	 *
+	 * @param e
+	 */
+	handleBlur(e) {
+		if ( e.target.value !== this.props.value ) {
+			this.props.onBlur(this.props.name, e.target.value);
+		}
 	}
 
 	/**
@@ -28,16 +57,15 @@ class YmlListItem extends React.Component {
 		return (
 			<div className="wooya-yml-item">
 				<div className="wooya-yml-item-select">
-					<label for="wooya-remove-item">
-						<input type="checkbox" id="wooya-remove-item" onClick={ this.props.onClick } />
-					</label>
+					<input type="checkbox" id={this.props.name} />
 				</div>
 
 				<div className="wooya-yml-item-title">
-					<p>
-						<strong>{ this.props.name }</strong>
-					</p>
-					<input type="text" value={ this.props.value } />
+					<label htmlFor={this.props.name}>
+						{this.props.name}
+					</label>
+
+					<input type="text" name={this.props.name} value={ this.state.value } onChange={ this.handleChange } onBlur={ this.handleBlur } />
 				</div>
 
 				<div className="wooya-yml-item-description">

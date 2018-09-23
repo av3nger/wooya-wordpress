@@ -36,6 +36,7 @@ class Wooya extends React.Component {
 
 		// Bind the this context to the handler function.
 		this.handleItemMove = this.handleItemMove.bind(this);
+		this.updateSettings = this.updateSettings.bind(this);
 
 		/**
 		 * @type {fetchWP}
@@ -54,7 +55,7 @@ class Wooya extends React.Component {
 	componentDidMount() {
 		this.fetchWP.get( 'settings' ).then(
 			( json ) => this.getHeaderElements( json ),
-			( err )  => console.log( 'error', err )
+			( err )  => this.setState({ updateError: true, updateMessage: err.message })
 		);
 	}
 
@@ -90,30 +91,9 @@ class Wooya extends React.Component {
 		);
 	}
 
-	handleAddField() {
-		alert( 'Add first field' );
-	}
-
-	handleGenerateFile() {
-		alert( 'Generate YML' );
-	}
-
 	/**
-	 * Handle item move (add/remnove from YML list)
-	 *
-	 * @param {array}  items
-	 * @param {string} action  Accepts: 'add', 'remove'.
+	 * ADD
 	 */
-	handleItemMove( items, action = 'add' ) {
-		this.setState({
-			loading: true
-		});
-
-		this.fetchWP.post( 'settings', { items: items, action: action } ).then(
-			( json ) => this.moveItem( items, action ),
-			( err )  => this.setState({ updateError: true, updateMessage: err.message })
-		);
-	}
 
 	/**
 	 * Move item in the UI.
@@ -143,6 +123,52 @@ class Wooya extends React.Component {
 	}
 
 	/**
+	 * Handle item move (add/remove from YML list)
+	 *
+	 * @param {array}  items
+	 * @param {string} action  Accepts: 'add', 'remove'.
+	 */
+	handleItemMove( items, action = 'add' ) {
+		this.setState({
+			loading: true
+		});
+
+		this.fetchWP.post( 'settings', { items: items, action: action } ).then(
+			() => this.moveItem( items, action ),
+			( err )  => this.setState({ updateError: true, updateMessage: err.message })
+		);
+	}
+
+	/**
+	 * Update the data in the database.
+	 *
+	 * @param {string} item
+	 * @param {string} value
+	 */
+	updateSettings(item, value) {
+		const el = document.getElementsByName(item);
+		el[0].setAttribute('disabled', 'disabled');
+		el[0].classList.add('saving');
+
+		const form = {
+			name: item,
+			value: value
+		};
+
+		this.fetchWP.post('settings', { items: form, action: 'save' } ).then(
+			() => {
+				el[0].removeAttribute('disabled');
+				el[0].classList.remove('saving');
+			},
+			( err )  => console.log(err.message)
+		);
+	}
+
+	handleGenerateFile() {
+		alert( 'Generate YML' );
+	}
+
+	/**
 	 * Render component
 	 *
 	 * @returns {*}
@@ -162,13 +188,6 @@ class Wooya extends React.Component {
 			<div className="me-main-content">
 				<Description />
 
-				{ ! this.state.options &&
-				<Button
-					buttonText={ __( 'Add first field', 'wooya' ) }
-					className='button button-primary me-button-callout'
-					onClick={ this.handleAddField }
-				/> }
-
 				{ this.state.options &&
 				<Button
 					buttonText={ __( 'Generate YML', 'wooya' ) }
@@ -180,11 +199,11 @@ class Wooya extends React.Component {
 
 				<YmlListControl
 					settings={ this.state.options }
-					fetchWP={ this.fetchWP } // TODO: do we need this?
 					headerFields={ this.state.headerFields }
 					headerItems={ this.state.headerItems }
 					unusedHeaderItems={ this.state.unusedHeaderItems }
 					handleItemMove={ this.handleItemMove }
+					handleItemUpdate={ this.updateSettings }
 					error={ this.state.updateError }
 					errorMsg={ this.state.updateMessage }
 				/>

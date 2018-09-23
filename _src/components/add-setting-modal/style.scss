@@ -77,9 +77,7 @@
                 overflow: hidden;
                 position: relative;
 
-                h4 {
-                    margin-bottom: 35px;
-                }
+                h4 { margin-bottom: 35px; }
             }
 
             .ps__rail-y {
@@ -90,28 +88,9 @@
                 margin-bottom: 30px;
             }
 
-            .ps__thumb-y {
-                background: $color--blue;
-            }
+            .ps__thumb-y { background: $color--blue; }
 
-            .wooya-new-item {
-                input {
-                    margin-right: 15px;
-                    margin-top: 1px;
-                }
-
-                label {
-                    color: #293238;
-                    font-size: 15px;
-                    line-height: 19px;
-                    letter-spacing: $letter-spacing;
-                    font-weight: 500;
-                }
-
-                p {
-                    margin: 5px 0 30px 31px;
-                }
-            }
+            .wooya-new-item p { margin: 5px 0 30px 31px; }
         }
     }
 

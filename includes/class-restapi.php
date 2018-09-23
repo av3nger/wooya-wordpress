@@ -65,32 +65,40 @@ class RestAPI extends \WP_REST_Controller {
 		$slug      = App::get_instance()->core->get_plugin_name();
 		$namespace = $slug . '/v' . $this->version;
 
-		register_rest_route( $namespace, '/settings/', array(
+		register_rest_route(
+			$namespace,
+			'/settings/',
+			array(
+				array(
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => function() {
+						return get_option( 'wooya_settings' );
+					},
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				),
+				array(
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => array( $this, 'update_settings' ),
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
+			'/elements/(?P<type>[-\w]+)',
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => function() {
-					return get_option( 'wooya_settings' );
-				},
+				'callback'            => array( $this, 'get_elements' ),
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
-			),
-			array(
-				'methods'             => \WP_REST_Server::EDITABLE,
-				'callback'            => array( $this, 'update_settings' ),
-				'permission_callback' => function () {
-					return current_user_can( 'manage_options' );
-				},
-			),
-		) );
-
-		register_rest_route( $namespace, '/elements/(?P<type>[-\w]+)', array(
-			'methods'             => \WP_REST_Server::READABLE,
-			'callback'            => array( $this, 'get_elements' ),
-			'permission_callback' => function () {
-				return current_user_can( 'manage_options' );
-			},
-		) );
+			)
+		);
 
 	}
 
@@ -111,7 +119,8 @@ class RestAPI extends \WP_REST_Controller {
 
 		if ( ! isset( $params['items'] ) || ! isset( $params['action'] ) ) {
 			// No valid action - return error.
-			return new \WP_Error( 'update-error',
+			return new \WP_Error(
+				'update-error',
 				__( 'Either action or items are not defined', 'wooya' ),
 				$error_data
 			);
@@ -148,13 +157,23 @@ class RestAPI extends \WP_REST_Controller {
 			$updated = true;
 		}
 
+		// Save setting value.
+		if ( 'save' === $params['action'] ) {
+			if ( isset( $settings[ $items['name'] ] ) ) {
+				$settings[ $items['name'] ] = $items['value'];
+			}
+
+			$updated = true;
+		}
+
 		if ( $updated ) {
 			update_option( 'wooya_settings', $settings );
 			return new \WP_REST_Response( true, 200 );
 		}
 
 		// No valid action - return error.
-		return new \WP_Error( 'update-error',
+		return new \WP_Error(
+			'update-error',
 			__( 'Unable to update the settings', 'wooya' ),
 			$error_data
 		);
@@ -173,11 +192,14 @@ class RestAPI extends \WP_REST_Controller {
 		$method = "get_{$request['type']}_elements";
 
 		if ( ! method_exists( __NAMESPACE__ . '\\YML_Elements', $method ) ) {
-			return new \WP_Error( 'method-not-found', printf(
-				/* translators: %s: method name */
-				esc_html__( 'Method %s not found.', 'wooya' ),
-				esc_html( $method )
-			) );
+			return new \WP_Error(
+				'method-not-found',
+				printf(
+					/* translators: %s: method name */
+					esc_html__( 'Method %s not found.', 'wooya' ),
+					esc_html( $method )
+				)
+			);
 		}
 
 		$elements = call_user_func( array( __NAMESPACE__ . '\\YML_Elements', $method ) );

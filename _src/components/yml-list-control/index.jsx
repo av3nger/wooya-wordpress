@@ -25,6 +25,17 @@ class YmlListControl extends React.Component {
 		this.state = {
 			showAddDiv: false
 		};
+
+		this.handleKeyUp = this.handleKeyUp.bind(this);
+	}
+
+	/**
+	 * If Enter is pressed - submit the form.
+	 *
+	 * @param e
+	 */
+	handleKeyUp(e) {
+		if (13 === e.keyCode) this.props.handleItemUpdate(e.target.name, e.target.value);
 	}
 
 	/**
@@ -40,7 +51,7 @@ class YmlListControl extends React.Component {
 					name={ item }
 					value={ this.props.settings[ item ] }
 					description={ this.props.headerFields[ item ]['description'] }
-					onClick={ () => this.props.handleItemMove( item, 'remove' ) }
+					onBlur={ this.props.handleItemUpdate }
 				/>
 			);
 		} );
@@ -69,7 +80,9 @@ class YmlListControl extends React.Component {
 
 					<h3 className="wooya-settings-sub-shop">{ __('Shop', 'wooya' ) }</h3>
 
+					<form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
 					{ items }
+					</form>
 				</div>
 
 				{ this.state.showAddDiv &&
