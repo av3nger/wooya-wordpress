@@ -23,7 +23,7 @@ class YmlListControl extends React.Component {
 		super( props );
 
 		this.state = {
-			showAddDiv: false
+			showAddDiv: false,
 		};
 
 		this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -52,10 +52,15 @@ class YmlListControl extends React.Component {
 					value={ this.props.settings[ item ] }
 					description={ this.props.headerFields[ item ]['description'] }
 					onBlur={ this.props.handleItemUpdate }
+					updateSelection={ this.props.updateSelection }
 				/>
 			);
 		} );
 
+		/**
+		 * TODO: hide Add new settings button, if no elements present
+		 * TODO: YmlListItem should handleItemUpdate after a couple of seconds after user finished editing
+		 */
 		return (
 			<div className="me-list-group me-list-group-panel" id="me_yml_store">
 				<h2 className="wooya-settings-title">{ __( 'Settings', 'wooya' ) }</h2>
@@ -69,9 +74,10 @@ class YmlListControl extends React.Component {
 					/>
 
 					<Button
-						buttonText={ __( 'Remove all settings', 'wooya' ) }
-						className='wooya-btn wooya-btn-gray'
-						disabled='true'
+						buttonText={ __( 'Remove settings', 'wooya' ) }
+						className='wooya-btn wooya-btn-red'
+						onClick={ this.props.removeSelection }
+						disabled={ 0 === this.props.selectedItems }
 					/>
 				</div>
 

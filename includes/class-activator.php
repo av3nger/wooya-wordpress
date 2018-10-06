@@ -31,21 +31,19 @@ class Activator {
 	 * @since 1.0.0
 	 */
 	public static function activate() {
+
 		$options = get_option( 'wooya_settings' );
+
 		if ( ! $options ) {
 			$old_options = get_option( 'market_exporter_shop_settings' );
 
-			$options = array();
-
-			$options['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
-			$options['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : '';
-			$options['url']      = get_site_url();
-			$options['platform'] = __( 'WordPress', 'wooya' );
-			$options['version']  = get_bloginfo( 'version' );
-			$options['email']    = get_bloginfo( 'admin_email' );
-
-			update_option( 'wooya_settings', $options );
+			if ( $old_options ) {
+				self::update_from_v1( $old_options );
+			} else {
+				self::new_install();
+			}
 		}
+
 	}
 
 	/**
@@ -54,6 +52,57 @@ class Activator {
 	 * @since 1.0.0
 	 */
 	public static function deactivate() {
+	}
+
+	/**
+	 * Populate settings for a new install.
+	 *
+	 * @since 1.0.0
+	 */
+	public static function new_install() {
+
+		$options = array();
+
+		/**
+		 * Include the elements class.
+		 *
+		 * @noinspection PhpIncludeInspection
+		 */
+		require WOOYA_PATH . 'includes/class-yml-elements.php';
+		$elements = YML_Elements::get_header_elements();
+
+		foreach ( $elements as $name => $data ) {
+			if ( false === $data['required'] ) {
+				continue;
+			}
+
+			$options[ $name ] = $data['default'];
+		}
+
+		update_option( 'wooya_settings', $options );
+
+	}
+
+	/**
+	 * Update from previous version of Market Exporter with different database structure.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array $old_options  Previous settings.
+	 */
+	public static function update_from_v1( $old_options ) {
+
+		$options = array();
+
+		$options['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
+		$options['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : '';
+		$options['url']      = get_site_url();
+		$options['platform'] = __( 'WordPress', 'wooya' );
+		$options['version']  = get_bloginfo( 'version' );
+		$options['email']    = get_bloginfo( 'admin_email' );
+
+		update_option( 'wooya_settings', $options );
+
 	}
 
 }

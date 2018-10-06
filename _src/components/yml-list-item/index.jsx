@@ -17,11 +17,13 @@ class YmlListItem extends React.Component {
 		super( props );
 
 		this.state = {
-			value: this.props.value
+			value: this.props.value,
+			selected: false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
+		this.handleItemSelect = this.handleItemSelect.bind(this);
 	}
 
 	/**
@@ -32,6 +34,18 @@ class YmlListItem extends React.Component {
 	handleChange(e) {
 		this.setState({
 			value: e.target.value
+		});
+	}
+
+	/**
+	 * Update checked status on user select.
+	 *
+	 * @param e
+	 */
+	handleItemSelect(e) {
+		this.props.updateSelection(this.props.name, e.target.checked);
+		this.setState({
+			selected: e.target.checked
 		});
 	}
 
@@ -57,7 +71,7 @@ class YmlListItem extends React.Component {
 		return (
 			<div className="wooya-yml-item">
 				<div className="wooya-yml-item-select">
-					<input type="checkbox" id={this.props.name} />
+					<input type="checkbox" id={this.props.name} onChange={this.handleItemSelect} checked={this.state.selected} />
 				</div>
 
 				<div className="wooya-yml-item-title">

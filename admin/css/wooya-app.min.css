@@ -138,7 +138,9 @@
   height: 43px;
   outline: none; }
   .wooya-wrapper .wooya-btn:disabled {
-    cursor: default; }
+    cursor: default;
+    border-color: #c1cbd2;
+    color: #c1cbd2; }
 
 .wooya-wrapper .wooya-btn-red {
   border-color: #FC6C6C;
@@ -146,9 +148,6 @@
   .wooya-wrapper .wooya-btn-red:hover {
     border-color: #fa0808;
     color: #fa0808; }
-  .wooya-wrapper .wooya-btn-red:disabled {
-    border-color: #ffe9e9;
-    color: #ffe9e9; }
 
 .wooya-wrapper .wooya-btn-gray {
   border-color: #293238;
@@ -156,9 +155,6 @@
   .wooya-wrapper .wooya-btn-gray:hover {
     border-color: black;
     color: black; }
-  .wooya-wrapper .wooya-btn-gray:disabled {
-    border-color: #c1cbd2;
-    color: #c1cbd2; }
 
 .wooya-wrapper .wooya-btn-transparent {
   border: 0 solid transparent;

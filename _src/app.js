@@ -31,12 +31,14 @@ class Wooya extends React.Component {
 			headerItems: [],       // Currently used header fields
 			unusedHeaderItems: [], // Not used header fields (available to add)
 			updateError: false,
-			updateMessage: ''
+			updateMessage: '',
+			selected: []
 		};
 
 		// Bind the this context to the handler function.
-		this.handleItemMove = this.handleItemMove.bind(this);
-		this.updateSettings = this.updateSettings.bind(this);
+		this.handleItemMove  = this.handleItemMove.bind(this);
+		this.updateSettings  = this.updateSettings.bind(this);
+		this.updateSelection = this.updateSelection.bind(this);
 
 		/**
 		 * @type {fetchWP}
@@ -92,10 +94,6 @@ class Wooya extends React.Component {
 	}
 
 	/**
-	 * ADD
-	 */
-
-	/**
 	 * Move item in the UI.
 	 *
 	 * @param {array}  items
@@ -118,7 +116,8 @@ class Wooya extends React.Component {
 		this.setState({
 			loading: false,
 			headerItems: headerItems,
-			unusedHeaderItems: unusedHeaderItems
+			unusedHeaderItems: unusedHeaderItems,
+			selected: []
 		});
 	}
 
@@ -164,6 +163,32 @@ class Wooya extends React.Component {
 		);
 	}
 
+	/**
+	 * Update the selection. Will be used later for removing items from the list.
+	 *
+	 * @param {string}  item   Item name.
+	 * @param {boolean} value  Checked value.
+	 */
+	updateSelection(item, value) {
+		let selectedItems = this.state.selected;
+
+		// We could have combined both checks into a single filter return, but that would not be so readable.
+
+		// Item selected. Add to state if not already there.
+		if ( true === value && 'undefined' === typeof selectedItems[ item ] ) {
+			selectedItems.push(item);
+		}
+
+		// Item deselected. Remove from state if it is already there.
+		if ( false === value ) {
+			selectedItems = selectedItems.filter( e => e !== item );
+		}
+
+		this.setState({
+			selected: selectedItems
+		});
+	}
+
 	handleGenerateFile() {
 		alert( 'Generate YML' );
 	}
@@ -184,6 +209,9 @@ class Wooya extends React.Component {
 			)
 		}
 
+		/**
+		 * TODO: hide Files element if no files have been yet created
+		 */
 		return (
 			<div className="me-main-content">
 				<Description />
@@ -204,8 +232,11 @@ class Wooya extends React.Component {
 					unusedHeaderItems={ this.state.unusedHeaderItems }
 					handleItemMove={ this.handleItemMove }
 					handleItemUpdate={ this.updateSettings }
+					updateSelection={ this.updateSelection }
+					removeSelection={ () => this.handleItemMove(this.state.selected, 'remove') }
 					error={ this.state.updateError }
 					errorMsg={ this.state.updateMessage }
+					selectedItems={ this.state.selected.length }
 				/>
 			</div>
 		);

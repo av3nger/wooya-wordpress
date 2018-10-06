@@ -20,6 +20,9 @@
 
         &:disabled {
             cursor: default;
+            // Same for all buttons.
+            border-color: lighten( $color--primary, 60% );
+            color: lighten( $color--primary, 60% );
         }
     }
 
@@ -31,12 +34,6 @@
             border-color: darken( $color--red, 20% );
             color: darken( $color--red, 20% );
         }
-
-        // Cannot go below %25, as lighten will return white on the current color.
-        &:disabled {
-            border-color: lighten( $color--red, 25% );
-            color: lighten( $color--red, 25% );
-        }
     }
 
     .wooya-btn-gray {
@@ -46,11 +43,6 @@
         &:hover {
             border-color: darken( $color--primary, 20% );
             color: darken( $color--primary, 20% );
-        }
-
-        &:disabled {
-            border-color: lighten( $color--primary, 60% );
-            color: lighten( $color--primary, 60% );
         }
     }
 
