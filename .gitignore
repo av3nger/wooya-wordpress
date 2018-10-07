@@ -13,3 +13,6 @@ Thumbs.db
 package-lock.json
 node_modules
 npm-debug.log
+
+admin/css
+admin/js
