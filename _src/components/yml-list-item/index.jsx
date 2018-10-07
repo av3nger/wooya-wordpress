@@ -13,8 +13,8 @@ class YmlListItem extends React.Component {
 	 *
 	 * @param props
 	 */
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			value: this.props.value,
@@ -79,11 +79,11 @@ class YmlListItem extends React.Component {
 						{this.props.name}
 					</label>
 
-					<input type="text" name={this.props.name} value={ this.state.value } onChange={ this.handleChange } onBlur={ this.handleBlur } />
+					<input type="text" name={this.props.name} value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur} />
 				</div>
 
 				<div className="wooya-yml-item-description">
-					<p>{ this.props.description }</p>
+					<p>{this.props.description}</p>
 				</div>
 			</div>
 		);

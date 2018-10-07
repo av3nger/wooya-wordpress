@@ -19,8 +19,8 @@ class YmlListControl extends React.Component {
 	 *
 	 * @param props
 	 */
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			showAddDiv: false,
@@ -45,14 +45,14 @@ class YmlListControl extends React.Component {
 	 */
 	render() {
 		// Build the current items list.
-		const items = this.props.headerItems.map( item => {
+		const items = this.props.headerItems.map(item => {
 			return (
 				<YmlListItem
-					name={ item }
-					value={ this.props.settings[ item ] }
-					description={ this.props.headerFields[ item ]['description'] }
-					onBlur={ this.props.handleItemUpdate }
-					updateSelection={ this.props.updateSelection }
+					name={item}
+					value={this.props.settings[ item ]}
+					description={this.props.headerFields[ item ]['description']}
+					onBlur={this.props.handleItemUpdate}
+					updateSelection={this.props.updateSelection}
 				/>
 			);
 		} );
@@ -63,43 +63,43 @@ class YmlListControl extends React.Component {
 		 */
 		return (
 			<div className="me-list-group me-list-group-panel" id="me_yml_store">
-				<h2 className="wooya-settings-title">{ __( 'Settings', 'wooya' ) }</h2>
+				<h2 className="wooya-settings-title">{__( 'Settings', 'wooya' )}</h2>
 
 				<div className="wooya-list-header">
 					<Button
-						buttonText={ __( 'Add new setting', 'wooya' ) }
+						buttonText={__( 'Add new setting', 'wooya' )}
 						className='wooya-btn wooya-btn-transparent'
-						onClick={ () => this.setState( { showAddDiv: ! this.state.showAddDiv } ) }
-						disabled={ this.props.unusedHeaderItems.length === 0 }
+						onClick={ () => this.setState({ showAddDiv: ! this.state.showAddDiv }) }
+						disabled={this.props.unusedHeaderItems.length === 0}
 					/>
 
 					<Button
-						buttonText={ __( 'Remove settings', 'wooya' ) }
+						buttonText={__( 'Remove settings', 'wooya' )}
 						className='wooya-btn wooya-btn-red'
-						onClick={ this.props.removeSelection }
-						disabled={ 0 === this.props.selectedItems }
+						onClick={this.props.removeSelection}
+						disabled={0 === this.props.selectedItems}
 					/>
 				</div>
 
 				<div className="wooya-list-content">
-					{ this.props.error && <Notice type='error' message={ this.props.errorMsg } /> }
+					{this.props.error && <Notice type='error' message={this.props.errorMsg} />}
 
-					<h3 className="wooya-settings-sub-shop">{ __('Shop', 'wooya' ) }</h3>
+					<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya' )}</h3>
 
 					<form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
-					{ items }
+					{items}
 					</form>
 				</div>
 
-				{ this.state.showAddDiv &&
+				{this.state.showAddDiv &&
 					<AddSettingModal
-						hideModal={ () => this.setState( { showAddDiv: false } ) }
-						shopFields={ this.props.headerFields }
-						shopItems={ this.props.unusedHeaderItems }
-						submitData={ ( items ) => {
-							this.setState( { showAddDiv: false } );
-							this.props.handleItemMove( items, 'add' );
-						} }
+						hideModal={ () => this.setState({ showAddDiv: false }) }
+						shopFields={this.props.headerFields}
+						shopItems={this.props.unusedHeaderItems}
+						submitData={items => {
+							this.setState({ showAddDiv: false });
+							this.props.handleItemMove(items, 'add');
+						}}
 					/>
 				}
 			</div>

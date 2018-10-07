@@ -21,8 +21,8 @@ class Wooya extends React.Component {
 	 *
 	 * @param props
 	 */
-	constructor( props ) {
-		super( props );
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			loading: true,
@@ -45,19 +45,19 @@ class Wooya extends React.Component {
 		 * @param {string} this.props.wpObject.api_url
 		 * @param {string} this.props.wpObject.api_nonce
 		 */
-		this.fetchWP = new fetchWP( {
+		this.fetchWP = new fetchWP({
 			restURL: this.props.wpObject.api_url,
 			restNonce: this.props.wpObject.api_nonce,
-		} );
+		});
 	}
 
 	/**
 	 * Init component states
 	 */
 	componentDidMount() {
-		this.fetchWP.get( 'settings' ).then(
-			( json ) => this.getHeaderElements( json ),
-			( err )  => this.setState({ updateError: true, updateMessage: err.message })
+		this.fetchWP.get('settings').then(
+			(json) => this.getHeaderElements(json),
+			(err)  => this.setState({ updateError: true, updateMessage: err.message })
 		);
 	}
 
@@ -66,30 +66,30 @@ class Wooya extends React.Component {
 	 *
 	 * @param options
 	 */
-	getHeaderElements( options ) {
-		this.fetchWP.get( 'elements/header' ).then(
-			( json ) => {
+	getHeaderElements(options) {
+		this.fetchWP.get('elements/header').then(
+			(json) => {
 				let unusedItems = [];
 
 				// Build the current items list.
-				const items = Object.keys( json ).filter( item => {
+				const items = Object.keys(json).filter(item => {
 					if ( 'undefined' === typeof options[item] ) {
-						unusedItems.push( item );
+						unusedItems.push(item);
 						return false;
 					}
 
 					return true;
-				} );
+				});
 
-				this.setState( {
+				this.setState({
 					loading: false,
 					options: options,
 					headerFields: json,
 					headerItems: items,
 					unusedHeaderItems: unusedItems
-				} );
+				});
 			},
-			( err ) => console.log( 'error', err )
+			(err) => console.log('error', err)
 		);
 	}
 
@@ -99,17 +99,17 @@ class Wooya extends React.Component {
 	 * @param {array}  items
 	 * @param {string} action
 	 */
-	moveItem( items, action ) {
+	moveItem(items, action) {
 		let headerItems = this.state.headerItems.slice();
 		let unusedHeaderItems = this.state.unusedHeaderItems.slice();
 
-		items.forEach((item) => {
-			if ( 'add' === action ) {
-				const index = unusedHeaderItems.indexOf( item );
-				headerItems = headerItems.concat( unusedHeaderItems.splice( index, 1 ) );
+		items.forEach(item => {
+			if ('add' === action) {
+				const index = unusedHeaderItems.indexOf(item);
+				headerItems = headerItems.concat(unusedHeaderItems.splice(index, 1));
 			} else {
-				const index = headerItems.indexOf( item );
-				unusedHeaderItems = unusedHeaderItems.concat( headerItems.splice( index, 1 ) );
+				const index = headerItems.indexOf(item);
+				unusedHeaderItems = unusedHeaderItems.concat(headerItems.splice(index, 1));
 			}
 		});
 
@@ -127,14 +127,14 @@ class Wooya extends React.Component {
 	 * @param {array}  items
 	 * @param {string} action  Accepts: 'add', 'remove'.
 	 */
-	handleItemMove( items, action = 'add' ) {
+	handleItemMove(items, action = 'add') {
 		this.setState({
 			loading: true
 		});
 
-		this.fetchWP.post( 'settings', { items: items, action: action } ).then(
-			() => this.moveItem( items, action ),
-			( err )  => this.setState({ updateError: true, updateMessage: err.message })
+		this.fetchWP.post('settings', { items: items, action: action }).then(
+			() => this.moveItem(items, action),
+			(err) => this.setState({ updateError: true, updateMessage: err.message })
 		);
 	}
 
@@ -154,12 +154,12 @@ class Wooya extends React.Component {
 			value: value
 		};
 
-		this.fetchWP.post('settings', { items: form, action: 'save' } ).then(
+		this.fetchWP.post('settings', { items: form, action: 'save' }).then(
 			() => {
 				el[0].removeAttribute('disabled');
 				el[0].classList.remove('saving');
 			},
-			( err )  => console.log(err.message)
+			(err)  => console.log(err.message)
 		);
 	}
 
@@ -181,7 +181,7 @@ class Wooya extends React.Component {
 
 		// Item deselected. Remove from state if it is already there.
 		if ( false === value ) {
-			selectedItems = selectedItems.filter( e => e !== item );
+			selectedItems = selectedItems.filter(e => e !== item);
 		}
 
 		this.setState({
@@ -199,11 +199,11 @@ class Wooya extends React.Component {
 	 * @returns {*}
 	 */
 	render() {
-		if ( this.state.loading ) {
+		if (this.state.loading) {
 			return (
 				<div className="me-main-content">
 					<div className="wooya-description">
-						<p>{ __( 'Loading...', 'wooya' ) }</p>
+						<p>{__( 'Loading...', 'wooya' )}</p>
 					</div>
 				</div>
 			)
@@ -216,27 +216,27 @@ class Wooya extends React.Component {
 			<div className="me-main-content">
 				<Description />
 
-				{ this.state.options &&
+				{this.state.options &&
 				<Button
-					buttonText={ __( 'Generate YML', 'wooya' ) }
+					buttonText={__( 'Generate YML', 'wooya' )}
 					className='wooya-btn wooya-btn-red'
-					onClick={ this.handleGenerateFile }
+					onClick={this.handleGenerateFile}
 				/> }
 
 				<Files />
 
 				<YmlListControl
-					settings={ this.state.options }
-					headerFields={ this.state.headerFields }
-					headerItems={ this.state.headerItems }
-					unusedHeaderItems={ this.state.unusedHeaderItems }
-					handleItemMove={ this.handleItemMove }
-					handleItemUpdate={ this.updateSettings }
-					updateSelection={ this.updateSelection }
-					removeSelection={ () => this.handleItemMove(this.state.selected, 'remove') }
-					error={ this.state.updateError }
-					errorMsg={ this.state.updateMessage }
-					selectedItems={ this.state.selected.length }
+					settings={this.state.options}
+					headerFields={this.state.headerFields}
+					headerItems={this.state.headerItems}
+					unusedHeaderItems={this.state.unusedHeaderItems}
+					handleItemMove={this.handleItemMove}
+					handleItemUpdate={this.updateSettings}
+					updateSelection={this.updateSelection}
+					removeSelection={() => this.handleItemMove(this.state.selected, 'remove')}
+					error={this.state.updateError}
+					errorMsg={this.state.updateMessage}
+					selectedItems={this.state.selected.length}
 				/>
 			</div>
 		);
