@@ -6,7 +6,6 @@ import { __ } from "@wordpress/i18n/build/index";
 import Button from '../button';
 
 import './style.scss';
-import YmlListItem from "../yml-list-item";
 
 /**
  * Add new setting modal
@@ -54,7 +53,7 @@ class AddSettingModal extends React.Component {
 	 *
 	 * @param e
 	 */
-	toggleType(e) {
+	static toggleType(e) {
 		const selector = document.querySelector('.wooya-switch > input[type="checkbox"]');
 		selector.checked = 'offer' === e.target.dataset.type;
 
@@ -108,7 +107,7 @@ class AddSettingModal extends React.Component {
 				return (
 					<div className="wooya-new-item" data-name={item[0]}>
 						<input type="checkbox" name={item[0]} id={item[0]} data-type={field} onClick={this.getSelectedItems}/>
-						<label for={item[0]}>
+						<label htmlFor={item[0]}>
 							{item[0]}
 						</label>
 
@@ -124,16 +123,16 @@ class AddSettingModal extends React.Component {
 					<span className="wooya-close" onClick={this.props.hideModal}>&times;</span>
 					<h3>{__('Add new setting', 'wooya')}</h3>
 
-					<span className="wooya-switch-label" data-type="shop" onClick={this.toggleType}>
+					<span className="wooya-switch-label" data-type="shop" onClick={AddSettingModal.toggleType}>
 						{__('Shop', 'wooya')}
 					</span>
 
 					<label className="wooya-switch">
 						<input type="checkbox" />
-						<span className="slider"></span>
+						<span className="slider">&nbsp;</span>
 					</label>
 
-					<span className="wooya-switch-label" data-type="offer" onClick={this.toggleType}>
+					<span className="wooya-switch-label" data-type="offer" onClick={AddSettingModal.toggleType}>
 						{__( 'Offer', 'wooya' )}
 					</span>
 
