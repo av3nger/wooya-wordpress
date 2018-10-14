@@ -4,7 +4,8 @@
  */
 .wooya-wrapper {
 
-    h3.wooya-settings-sub-shop {
+    h3.wooya-settings-sub-shop,
+    h3.wooya-settings-sub-offer {
         color: $color--green;
         text-transform: uppercase;
 
@@ -16,6 +17,14 @@
             height: 0;
             left: 0;
             margin-top: $h3-line-height;
+        }
+    }
+
+    h3.wooya-settings-sub-offer {
+        color: $color--red;
+
+        &:after {
+            border-color: $color--red;
         }
     }
 

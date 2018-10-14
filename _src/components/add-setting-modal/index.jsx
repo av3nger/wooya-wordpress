@@ -147,9 +147,9 @@ class AddSettingModal extends React.Component {
 					</div>
 
 					<Button
-						buttonText={__( 'Add selected items', 'wooya' )}
+						buttonText={__( 'Add items', 'wooya' )}
 						className="wooya-btn wooya-btn-red"
-						onClick={ () => this.props.submitData(this.state.selectedItems) }
+						onClick={() => this.props.submitData(this.state.selectedItems)}
 						disabled={this.state.selectedItems.length === 0}
 					/>
 				</div>
