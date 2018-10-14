@@ -23,7 +23,10 @@ class AddSettingModal extends React.Component {
 		super(props);
 
 		this.state = {
-			selectedItems: []
+			selectedItems: {
+				shop: [],
+				offer: []
+			}
 		};
 
 		this.getSelectedItems = this.getSelectedItems.bind(this);
@@ -97,11 +100,11 @@ class AddSettingModal extends React.Component {
 
 		// Build the current items list.
 		Object.keys(this.props.fields).forEach(field => {
-			itemAvailable[field] = Object.entries(this.props.fields[field]).map(item => {
-				if ( ! this.props.items[field].includes(item[0]) ) {
-					return;
-				}
-
+			itemAvailable[field] = Object.entries(this.props.fields[field])
+			.filter(item => {
+				return this.props.items[field].includes(item[0]);
+			})
+			.map(item => {
 				return (
 					<div className="wooya-new-item" data-name={item[0]}>
 						<input type="checkbox" name={item[0]} id={item[0]} data-type={field} onClick={this.getSelectedItems}/>
@@ -119,10 +122,10 @@ class AddSettingModal extends React.Component {
 			<div className="wooya-add-setting-modal">
 				<div className="wooya-modal-content">
 					<span className="wooya-close" onClick={this.props.hideModal}>&times;</span>
-					<h3>{__( 'Add new setting', 'wooya' )}</h3>
+					<h3>{__('Add new setting', 'wooya')}</h3>
 
 					<span className="wooya-switch-label" data-type="shop" onClick={this.toggleType}>
-						{__( 'Shop', 'wooya' )}
+						{__('Shop', 'wooya')}
 					</span>
 
 					<label className="wooya-switch">
@@ -135,22 +138,32 @@ class AddSettingModal extends React.Component {
 					</span>
 
 					<div className="wooya-select-box" id="wooya-select-box" data-type="shop">
-						<h4>{__( 'Select setting', 'wooya' )}</h4>
+						<h4>{__('Select setting', 'wooya')}</h4>
 
-						{itemAvailable.shop}
+						{itemAvailable.shop.length > 0 && itemAvailable.shop}
+						{itemAvailable.shop.length === 0 &&
+						<h2>
+							{__('No available items to select', 'wooya')}
+						</h2>
+						}
 					</div>
 
 					<div className="wooya-select-box hidden" id="wooya-select-box" data-type="offer">
 						<h4>{__( 'Select setting', 'wooya' )}</h4>
 
-						{itemAvailable.offer}
+						{itemAvailable.offer.length > 0 && itemAvailable.offer}
+						{itemAvailable.offer.length === 0 &&
+						<h2>
+							{__('No available items to select', 'wooya')}
+						</h2>
+						}
 					</div>
 
 					<Button
-						buttonText={__( 'Add items', 'wooya' )}
+						buttonText={__('Add items', 'wooya')}
 						className="wooya-btn wooya-btn-red"
 						onClick={() => this.props.submitData(this.state.selectedItems)}
-						disabled={this.state.selectedItems.length === 0}
+						disabled={this.state.selectedItems.shop.length === 0 && this.state.selectedItems.offer.length === 0}
 					/>
 				</div>
 			</div>
