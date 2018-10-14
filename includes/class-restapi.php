@@ -90,6 +90,18 @@ class RestAPI extends \WP_REST_Controller {
 
 		register_rest_route(
 			$namespace,
+			'/elements/',
+			array(
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_combined_elements' ),
+				'permission_callback' => function () {
+					return current_user_can( 'manage_options' );
+				},
+			)
+		);
+
+		register_rest_route(
+			$namespace,
 			'/elements/(?P<type>[-\w]+)',
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
@@ -132,9 +144,11 @@ class RestAPI extends \WP_REST_Controller {
 
 		// Remove item from settings array.
 		if ( 'remove' === $params['action'] ) {
-			foreach ( $items as $item ) {
-				if ( isset( $settings[ $item ] ) ) {
-					unset( $settings[ $item ] );
+			foreach ( $params['items'] as $type => $data ) {
+				foreach ( $data as $item ) {
+					if ( isset( $settings[ $type ][ $item ] ) ) {
+						unset( $settings[ $type ][ $item ] );
+					}
 				}
 			}
 
@@ -143,15 +157,17 @@ class RestAPI extends \WP_REST_Controller {
 
 		// Add item to settings array.
 		if ( 'add' === $params['action'] ) {
-			$elements = YML_Elements::get_header_elements();
+			$elements = YML_Elements::get_elements();
 
-			foreach ( $items as $item ) {
-				// No such setting exists.
-				if ( ! isset( $elements[ $item ] ) ) {
-					continue;
+			foreach ( $params['items'] as $type => $data ) {
+				foreach ( $data as $item ) {
+					// No such setting exists.
+					if ( ! isset( $elements[ $type ][ $item ] ) ) {
+						continue;
+					}
+
+					$settings[ $type ][ $item ] = $elements[ $type ][ $item ]['default'];
 				}
-
-				$settings[ $item ] = $elements[ $item ]['default'];
 			}
 
 			$updated = true;
@@ -159,8 +175,8 @@ class RestAPI extends \WP_REST_Controller {
 
 		// Save setting value.
 		if ( 'save' === $params['action'] ) {
-			if ( isset( $settings[ $items['name'] ] ) ) {
-				$settings[ $items['name'] ] = $items['value'];
+			if ( isset( $settings[ $items['type'] ][ $items['name'] ] ) ) {
+				$settings[ $items['type'] ][ $items['name'] ] = $items['value'];
 			}
 
 			$updated = true;
@@ -204,6 +220,22 @@ class RestAPI extends \WP_REST_Controller {
 
 		$elements = call_user_func( array( __NAMESPACE__ . '\\YML_Elements', $method ) );
 
+		return new \WP_REST_Response( $elements, 200 );
+
+	}
+
+	/**
+	 * Get array of all elements.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param \WP_REST_Request $request  Request.
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function get_combined_elements( \WP_REST_Request $request ) {
+
+		$elements = YML_Elements::get_elements();
 		return new \WP_REST_Response( $elements, 200 );
 
 	}

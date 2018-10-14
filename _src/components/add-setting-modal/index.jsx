@@ -6,6 +6,7 @@ import { __ } from "@wordpress/i18n/build/index";
 import Button from '../button';
 
 import './style.scss';
+import YmlListItem from "../yml-list-item";
 
 /**
  * Add new setting modal
@@ -24,6 +25,8 @@ class AddSettingModal extends React.Component {
 		this.state = {
 			selectedItems: []
 		};
+
+		this.getSelectedItems = this.getSelectedItems.bind(this);
 	}
 
 	/**
@@ -51,6 +54,12 @@ class AddSettingModal extends React.Component {
 	toggleType(e) {
 		const selector = document.querySelector('.wooya-switch > input[type="checkbox"]');
 		selector.checked = 'offer' === e.target.dataset.type;
+
+		const showEl = document.querySelector('.wooya-select-box:not(.hidden)');
+		const hideEl = document.querySelector('div[data-type="' + e.target.dataset.type + '"]');
+
+		showEl.classList.toggle('hidden');
+		hideEl.classList.toggle('hidden');
 	}
 
 	/**
@@ -61,14 +70,20 @@ class AddSettingModal extends React.Component {
 	getSelectedItems() {
 		const items = document.querySelectorAll('.wooya-select-box input[type="checkbox"]');
 
-		let selected = [];
+		let selected = {
+			shop: [],
+			offer: []
+		};
+
 		items.forEach(item => {
 			if ( item.checked ) {
-				selected.push(item.id);
+				selected[item.dataset.type].push(item.id);
 			}
 		});
 
-		return selected;
+		this.setState({
+			selectedItems: selected
+		});
 	}
 
 	/**
@@ -78,18 +93,27 @@ class AddSettingModal extends React.Component {
 	 */
 	render() {
 		// Build the unused items list.
-		const itemAvailable = this.props.shopItems.map(item => {
-			return (
-				<div className="wooya-new-item" data-name={item}>
-					<input type="checkbox" id={item} onClick={ () => this.setState({ selectedItems: this.getSelectedItems() }) }/>
-					<label for={item}>
-						{item}
-					</label>
+		let itemAvailable = [];
 
-					<p>{ this.props.shopFields[ item ].description }</p>
-				</div>
-			);
-		} );
+		// Build the current items list.
+		Object.keys(this.props.fields).forEach(field => {
+			itemAvailable[field] = Object.entries(this.props.fields[field]).map(item => {
+				if ( ! this.props.items[field].includes(item[0]) ) {
+					return;
+				}
+
+				return (
+					<div className="wooya-new-item" data-name={item[0]}>
+						<input type="checkbox" name={item[0]} id={item[0]} data-type={field} onClick={this.getSelectedItems}/>
+						<label for={item[0]}>
+							{item[0]}
+						</label>
+
+						<p>{this.props.fields[field][item[0]].description}</p>
+					</div>
+				);
+			});
+		});
 
 		return (
 			<div className="wooya-add-setting-modal">
@@ -110,17 +134,23 @@ class AddSettingModal extends React.Component {
 						{__( 'Offer', 'wooya' )}
 					</span>
 
-					<div className="wooya-select-box" id="wooya-select-box">
+					<div className="wooya-select-box" id="wooya-select-box" data-type="shop">
 						<h4>{__( 'Select setting', 'wooya' )}</h4>
 
-						{itemAvailable}
+						{itemAvailable.shop}
+					</div>
+
+					<div className="wooya-select-box hidden" id="wooya-select-box" data-type="offer">
+						<h4>{__( 'Select setting', 'wooya' )}</h4>
+
+						{itemAvailable.offer}
 					</div>
 
 					<Button
 						buttonText={__( 'Add selected items', 'wooya' )}
 						className="wooya-btn wooya-btn-red"
-						onClick={ () => this.props.submitData( this.state.selectedItems ) }
-						disabled={ this.state.selectedItems.length === 0 }
+						onClick={ () => this.props.submitData(this.state.selectedItems) }
+						disabled={this.state.selectedItems.length === 0}
 					/>
 				</div>
 			</div>

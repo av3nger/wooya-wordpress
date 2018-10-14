@@ -44,18 +44,23 @@ class YmlListControl extends React.Component {
 	 * @returns {*}
 	 */
 	render() {
+		let items = [];
+
 		// Build the current items list.
-		const items = this.props.headerItems.map(item => {
-			return (
-				<YmlListItem
-					name={item}
-					value={this.props.settings[ item ]}
-					description={this.props.headerFields[ item ]['description']}
-					onBlur={this.props.handleItemUpdate}
-					updateSelection={this.props.updateSelection}
-				/>
-			);
-		} );
+		Object.entries(this.props.options).forEach(type => {
+			items[type[0]] = Object.entries(type[1]).map(item => {
+				return (
+					<YmlListItem
+						name={item[0]}
+						value={item[1]}
+						type={type[0]}
+						description={this.props.fields[type[0]][item[0]]['description']}
+						onBlur={this.props.handleItemUpdate}
+						updateSelection={this.props.updateSelection}
+					/>
+				);
+			} );
+		});
 
 		/**
 		 * TODO: hide Add new settings button, if no elements present
@@ -70,32 +75,34 @@ class YmlListControl extends React.Component {
 						buttonText={__( 'Add new setting', 'wooya' )}
 						className='wooya-btn wooya-btn-transparent'
 						onClick={ () => this.setState({ showAddDiv: ! this.state.showAddDiv }) }
-						disabled={this.props.unusedHeaderItems.length === 0}
+						disabled={this.props.unusedItems.length === 0}
 					/>
 
 					<Button
 						buttonText={__( 'Remove settings', 'wooya' )}
 						className='wooya-btn wooya-btn-red'
 						onClick={this.props.removeSelection}
-						disabled={0 === this.props.selectedItems}
+						disabled={this.props.selectedItems}
 					/>
 				</div>
 
 				<div className="wooya-list-content">
 					{this.props.error && <Notice type='error' message={this.props.errorMsg} />}
 
-					<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya' )}</h3>
-
 					<form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
-					{items}
+						<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya' )}</h3>
+						{items.shop}
+
+						<h3 className="wooya-settings-sub-shop">{__('Offers', 'wooya' )}</h3>
+						{items.offer}
 					</form>
 				</div>
 
 				{this.state.showAddDiv &&
 					<AddSettingModal
 						hideModal={ () => this.setState({ showAddDiv: false }) }
-						shopFields={this.props.headerFields}
-						shopItems={this.props.unusedHeaderItems}
+						fields={this.props.fields}
+						items={this.props.unusedItems}
 						submitData={items => {
 							this.setState({ showAddDiv: false });
 							this.props.handleItemMove(items, 'add');

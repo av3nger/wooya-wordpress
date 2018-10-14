@@ -24,13 +24,29 @@ namespace Wooya\Includes;
 class YML_Elements {
 
 	/**
-	 * Get header elements.
+	 * Get all elements combined into a single array.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @return array
 	 */
-	public static function get_header_elements() {
+	public static function get_elements() {
+
+		$elements['shop']  = self::get_shop_elements();
+		$elements['offer'] = self::get_offer_elements();
+
+		return $elements;
+
+	}
+
+	/**
+	 * Get shop elements.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private static function get_shop_elements() {
 
 		$elements = array();
 
@@ -107,8 +123,92 @@ class YML_Elements {
 			'description' => __( 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку.', 'wooya' ),
 		);
 
+		/**
+		 * Other elements:
+		 *
+		 * - currencies
+		 * - categories
+		 * - delivery-options
+		 * - enable_auto_discounts
+		 * - offers
+		 * - promos
+		 * - gifts
+		 */
+
 		return $elements;
 
 	}
+
+	/**
+	 * Get offer elements.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private static function get_offer_elements() {
+
+		$elements = array();
+
+		$elements['model'] = array(
+			'type'        => 'select',
+			'default'     => false,
+			'description' => __( 'Модель товара.', 'wooya' ),
+			'values'      => self::get_attributes_array(),
+		);
+
+		$elements['vendor'] = array(
+			'type'        => 'select',
+			'default'     => false,
+			'description' => __( 'Название производителя.', 'wooya' ),
+			'values'      => self::get_attributes_array(),
+		);
+
+		$elements['vendorCode'] = array(
+			'type'        => 'select',
+			'default'     => false,
+			'description' => __( 'Код производителя для данного товара.', 'wooya' ),
+			'values'      => self::get_attributes_array(),
+		);
+
+		return $elements;
+
+	}
+
+	/**
+	 * Get custom attributes.
+	 *
+	 * Used on WooCommerce settings page. It lets the user choose which of the custom attributes to use for various settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private static function get_attributes_array() {
+
+		if ( ! $attributes = wp_cache_get( 'wooya_attributes' ) ) {
+			global $wpdb;
+
+			$attributes = $wpdb->get_results(
+				"SELECT attribute_name AS attr_key, attribute_label AS attr_value
+					FROM {$wpdb->prefix}woocommerce_attribute_taxonomies",
+				ARRAY_N
+			); // Db call ok.
+
+			wp_cache_set( 'wooya_attributes', $attributes );
+		}
+
+		$attributes_array['disabled'] = __( 'Disabled', 'wooya' );
+
+		foreach ( $attributes as $attribute ) {
+			$attributes_array[ $attribute[0] ] = $attribute[1];
+		}
+
+		return $attributes_array;
+
+	}
+
+	// TODO: general settings
+	// TODO: get_promo_elements
 
 }

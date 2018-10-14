@@ -26,13 +26,15 @@ class Wooya extends React.Component {
 
 		this.state = {
 			loading: true,
-			options: [],           // Plugin options
-			headerFields: [],      // List of all available header fields
-			headerItems: [],       // Currently used header fields
-			unusedHeaderItems: [], // Not used header fields (available to add)
+			options: [],     // Plugin options
+			fields: [],      // List of available fields.
+			unusedItems: [], // Not used fields (available to add via modal).
+			selected: {
+				shop: [],
+				offer: []
+			},
 			updateError: false,
-			updateMessage: '',
-			selected: []
+			updateMessage: ''
 		};
 
 		// Bind the this context to the handler function.
@@ -56,68 +58,82 @@ class Wooya extends React.Component {
 	 */
 	componentDidMount() {
 		this.fetchWP.get('settings').then(
-			(json) => this.getHeaderElements(json),
-			(err)  => this.setState({ updateError: true, updateMessage: err.message })
+			json => this.getElements(json),
+			err  => this.setState({ updateError: true, updateMessage: err.message })
 		);
 	}
 
 	/**
-	 * Get header elements
+	 * Get all the elements and sort out the ones that are in use to a separate variable.
 	 *
 	 * @param options
 	 */
-	getHeaderElements(options) {
-		this.fetchWP.get('elements/header').then(
-			(json) => {
-				let unusedItems = [];
+	getElements(options) {
+		this.fetchWP.get('elements').then(
+			json => {
+				let unusedItems = {
+					shop: [],
+					offer: []
+				};
 
-				// Build the current items list.
-				const items = Object.keys(json).filter(item => {
-					if ( 'undefined' === typeof options[item] ) {
-						unusedItems.push(item);
-						return false;
-					}
+				Object.entries(json).forEach(type => {
+					Object.keys(type[1]).filter(element => {
+						if ( 'undefined' === typeof options[type[0]] || ! ( element in options[type[0]] ) ) {
+							unusedItems[type[0]].push(element);
+							return false;
+						}
 
-					return true;
+						return true;
+					});
 				});
 
 				this.setState({
 					loading: false,
 					options: options,
-					headerFields: json,
-					headerItems: items,
-					unusedHeaderItems: unusedItems
+					fields: json,
+					unusedItems: unusedItems
 				});
 			},
-			(err) => console.log('error', err)
+			err => console.log('error', err)
 		);
 	}
 
 	/**
 	 * Move item in the UI.
 	 *
-	 * @param {array}  items
+	 * @param {object}  elements
 	 * @param {string} action
 	 */
-	moveItem(items, action) {
-		let headerItems = this.state.headerItems.slice();
-		let unusedHeaderItems = this.state.unusedHeaderItems.slice();
+	moveItem(elements, action) {
+		let items = this.state.options;
+		let unusedItems = this.state.unusedItems;
 
-		items.forEach(item => {
-			if ('add' === action) {
-				const index = unusedHeaderItems.indexOf(item);
-				headerItems = headerItems.concat(unusedHeaderItems.splice(index, 1));
-			} else {
-				const index = headerItems.indexOf(item);
-				unusedHeaderItems = unusedHeaderItems.concat(headerItems.splice(index, 1));
+		Object.entries(elements).forEach(type => {
+			if ( 0 === type[1].length ) {
+				return;
 			}
+
+			type[1].forEach(item => {
+				if ('add' === action) {
+					const index = unusedItems[type[0]].indexOf(item),
+						  name  = unusedItems[type[0]].splice(index, 1),
+						  value = this.state.fields[type[0]][name[0]].default;
+					items[type[0]] = Object.assign({}, items[type[0]], {[name]: value});
+				} else {
+					delete items[type[0]][item];
+					unusedItems[type[0]].push(item);
+				}
+			});
 		});
 
 		this.setState({
 			loading: false,
-			headerItems: headerItems,
-			unusedHeaderItems: unusedHeaderItems,
-			selected: []
+			options: items,
+			unusedItems: unusedItems,
+			selected: {
+				shop: [],
+				offer: []
+			}
 		});
 	}
 
@@ -150,8 +166,9 @@ class Wooya extends React.Component {
 		el[0].classList.add('saving');
 
 		const form = {
+			type: el[0].dataset.type,
 			name: item,
-			value: value
+			value: value,
 		};
 
 		this.fetchWP.post('settings', { items: form, action: 'save' }).then(
@@ -166,31 +183,28 @@ class Wooya extends React.Component {
 	/**
 	 * Update the selection. Will be used later for removing items from the list.
 	 *
+	 * @param {string}  type   Option type: shop, offer.
 	 * @param {string}  item   Item name.
 	 * @param {boolean} value  Checked value.
 	 */
-	updateSelection(item, value) {
+	updateSelection(type, item, value) {
 		let selectedItems = this.state.selected;
 
 		// We could have combined both checks into a single filter return, but that would not be so readable.
 
 		// Item selected. Add to state if not already there.
-		if ( true === value && 'undefined' === typeof selectedItems[ item ] ) {
-			selectedItems.push(item);
+		if ( true === value && 'undefined' === typeof selectedItems[type][item] ) {
+			selectedItems[type].push(item);
 		}
 
 		// Item deselected. Remove from state if it is already there.
 		if ( false === value ) {
-			selectedItems = selectedItems.filter(e => e !== item);
+			selectedItems[type] = selectedItems[type].filter(e => e !== item);
 		}
 
 		this.setState({
 			selected: selectedItems
 		});
-	}
-
-	handleGenerateFile() {
-		alert( 'Generate YML' );
 	}
 
 	/**
@@ -209,6 +223,8 @@ class Wooya extends React.Component {
 			)
 		}
 
+		const selectedItems = 0 === this.state.selected.shop.length && 0 === this.state.selected.offer.length;
+
 		/**
 		 * TODO: hide Files element if no files have been yet created
 		 */
@@ -220,23 +236,21 @@ class Wooya extends React.Component {
 				<Button
 					buttonText={__( 'Generate YML', 'wooya' )}
 					className='wooya-btn wooya-btn-red'
-					onClick={this.handleGenerateFile}
 				/> }
 
 				<Files />
 
 				<YmlListControl
-					settings={this.state.options}
-					headerFields={this.state.headerFields}
-					headerItems={this.state.headerItems}
-					unusedHeaderItems={this.state.unusedHeaderItems}
+					options={this.state.options}
+					fields={this.state.fields}
+					unusedItems={this.state.unusedItems}
 					handleItemMove={this.handleItemMove}
 					handleItemUpdate={this.updateSettings}
 					updateSelection={this.updateSelection}
 					removeSelection={() => this.handleItemMove(this.state.selected, 'remove')}
 					error={this.state.updateError}
 					errorMsg={this.state.updateMessage}
-					selectedItems={this.state.selected.length}
+					selectedItems={selectedItems}
 				/>
 			</div>
 		);
@@ -250,7 +264,7 @@ Wooya.propTypes = {
 document.addEventListener('DOMContentLoaded', function() {
 	ReactDOM.render(
 		/** @var {object} window.ajax_strings */
-		<Wooya wpObject={ window.ajax_strings }/>,
-		document.getElementById( 'wooya_components' )
+		<Wooya wpObject={window.ajax_strings} />,
+		document.getElementById('wooya_components')
 	);
 });

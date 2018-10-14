@@ -43,7 +43,7 @@ class YmlListItem extends React.Component {
 	 * @param e
 	 */
 	handleItemSelect(e) {
-		this.props.updateSelection(this.props.name, e.target.checked);
+		this.props.updateSelection(e.target.dataset.type, this.props.name, e.target.checked);
 		this.setState({
 			selected: e.target.checked
 		});
@@ -71,7 +71,7 @@ class YmlListItem extends React.Component {
 		return (
 			<div className="wooya-yml-item">
 				<div className="wooya-yml-item-select">
-					<input type="checkbox" id={this.props.name} onChange={this.handleItemSelect} checked={this.state.selected} />
+					<input type="checkbox" id={this.props.name} data-type={this.props.type} onChange={this.handleItemSelect} checked={this.state.selected} />
 				</div>
 
 				<div className="wooya-yml-item-title">
@@ -79,7 +79,7 @@ class YmlListItem extends React.Component {
 						{this.props.name}
 					</label>
 
-					<input type="text" name={this.props.name} value={this.state.value} onChange={this.handleChange} onBlur={this.handleBlur} />
+					<input type="text" name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange} onBlur={this.handleBlur} />
 				</div>
 
 				<div className="wooya-yml-item-description">

@@ -69,14 +69,14 @@ class Activator {
 		 * @noinspection PhpIncludeInspection
 		 */
 		require WOOYA_PATH . 'includes/class-yml-elements.php';
-		$elements = YML_Elements::get_header_elements();
+		$elements = YML_Elements::get_elements();
 
-		foreach ( $elements as $name => $data ) {
+		foreach ( $elements['shop'] as $name => $data ) {
 			if ( false === $data['required'] ) {
 				continue;
 			}
 
-			$options[ $name ] = $data['default'];
+			$options['shop'][ $name ] = $data['default'];
 		}
 
 		update_option( 'wooya_settings', $options );
