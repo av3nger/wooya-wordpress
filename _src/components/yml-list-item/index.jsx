@@ -68,10 +68,29 @@ class YmlListItem extends React.Component {
 	 * @returns {*}
 	 */
 	render() {
+		let htmlElement = '';
+
+		if ( 'text' === this.props.input['type'] ) {
+			htmlElement = <input type="text" name={this.props.name} value={this.state.value} data-type={this.props.type}
+								 onChange={this.handleChange} onBlur={this.handleBlur}/>;
+		}
+
+		if ( 'select' === this.props.input['type'] ) {
+			const options = Object.entries(this.props.input.values).map(item => {
+				return <option value={item[0]}>{item[1]}</option>;
+			});
+
+			htmlElement = <select name={this.props.name} value={this.state.value} data-type={this.props.type}>
+				{options}
+			</select>
+		}
+
+
 		return (
 			<div className="wooya-yml-item">
 				<div className="wooya-yml-item-select">
-					<input type="checkbox" id={this.props.name} data-type={this.props.type} onChange={this.handleItemSelect} checked={this.state.selected} />
+					<input type="checkbox" id={this.props.name} data-type={this.props.type}
+						   onChange={this.handleItemSelect} checked={this.state.selected}/>
 				</div>
 
 				<div className="wooya-yml-item-title">
@@ -79,11 +98,11 @@ class YmlListItem extends React.Component {
 						{this.props.name}
 					</label>
 
-					<input type="text" name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange} onBlur={this.handleBlur} />
+					{htmlElement}
 				</div>
 
 				<div className="wooya-yml-item-description">
-					<p>{this.props.description}</p>
+					<p>{this.props.input['description']}</p>
 				</div>
 			</div>
 		);

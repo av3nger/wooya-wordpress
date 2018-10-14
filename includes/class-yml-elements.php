@@ -150,25 +150,27 @@ class YML_Elements {
 
 		$elements = array();
 
+		$attributes = self::get_attributes_array();
+
 		$elements['model'] = array(
 			'type'        => 'select',
-			'default'     => false,
+			'default'     => 'disabled',
 			'description' => __( 'Модель товара.', 'wooya' ),
-			'values'      => self::get_attributes_array(),
+			'values'      => $attributes,
 		);
 
 		$elements['vendor'] = array(
 			'type'        => 'select',
-			'default'     => false,
+			'default'     => 'color',
 			'description' => __( 'Название производителя.', 'wooya' ),
-			'values'      => self::get_attributes_array(),
+			'values'      => $attributes,
 		);
 
 		$elements['vendorCode'] = array(
 			'type'        => 'select',
-			'default'     => false,
+			'default'     => 'model',
 			'description' => __( 'Код производителя для данного товара.', 'wooya' ),
-			'values'      => self::get_attributes_array(),
+			'values'      => $attributes,
 		);
 
 		return $elements;
