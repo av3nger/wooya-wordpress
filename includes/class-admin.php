@@ -94,9 +94,18 @@ class Admin {
 		}
 
 		wp_enqueue_script(
+			$this->plugin_name . '-i18n',
+			WOOYA_URL . 'admin/js/wooya-i18n.min.js',
+			array(),
+			$this->version,
+			true
+		);
+
+
+		wp_enqueue_script(
 			$this->plugin_name,
 			WOOYA_URL . 'admin/js/wooya-app.min.js',
-			array( 'jquery' ),
+			array( 'jquery', $this->plugin_name . '-i18n' ),
 			$this->version,
 			true
 		);
@@ -111,6 +120,42 @@ class Admin {
 			)
 		);
 
+		wp_add_inline_script(
+			$this->plugin_name,
+			'wooya_i18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'wooya' ) ) . ', "wooya" );',
+			'before'
+		);
+
+	}
+
+	/**
+	 * Returns Jed-formatted localization data.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param  string $domain Translation domain.
+	 *
+	 * @return array
+	 */
+	private function get_locale_data( $domain ) {
+		$translations = get_translations_for_domain( $domain );
+
+		$locale = array(
+			'' => array(
+				'domain' => $domain,
+				'lang'   => is_admin() ? get_user_locale() : get_locale(),
+			),
+		);
+
+		if ( ! empty( $translations->headers['Plural-Forms'] ) ) {
+			$locale['']['plural_forms'] = $translations->headers['Plural-Forms'];
+		}
+
+		foreach ( $translations->entries as $msgid => $entry ) {
+			$locale[ $msgid ] = $entry->translations;
+		}
+
+		return $locale;
 	}
 
 	/**

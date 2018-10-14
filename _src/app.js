@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 import './app.scss';
 
-import { __ } from "@wordpress/i18n/build/index";
+const { __ } = wooya_i18n;
+
 import fetchWP from './utils/fetchWP';
 
 import Button from './components/button';
@@ -16,6 +17,7 @@ import YmlListControl from './components/yml-list-control';
  * Wooya React component
  */
 class Wooya extends React.Component {
+
 	/**
 	 * Wooya constructor
 	 *

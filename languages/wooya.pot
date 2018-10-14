@@ -3,29 +3,64 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:49
+#: _src/app.js:222
 msgid "Loading..."
 msgstr ""
 
-#: _src/app.js:58
-msgid "Add first field"
-msgstr ""
-
-#: _src/app.js:65
+#: _src/app.js:239
 msgid "Generate YML"
 msgstr ""
 
-#: _src/components/description/index.jsx:16
+#: _src/components/add-setting-modal/index.jsx:124
+#: _src/components/yml-list-control/index.jsx:75
+msgid "Add new setting"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:127
+#: _src/components/yml-list-control/index.jsx:93
+msgid "Shop"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:136
+#: _src/components/yml-list-control/index.jsx:96
+msgid "Offer"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:151
+msgid "Select setting"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:156
+msgid "No available items to select"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:162
+msgid "Add items"
+msgstr ""
+
+#: _src/components/description/index.jsx:18
 msgid ""
 "This plugin is used to generate a valid YML file for exporting your "
 "products in WooCommerceto Yandex Market."
 msgstr ""
 
-#: _src/components/description/index.jsx:19
+#: _src/components/description/index.jsx:21
 msgid ""
 "Please be patient while the YML file is generated. This can take a while if "
 "your server isslow or if you have many products in WooCommerce. Do not "
 "navigate away from this page until thisscript is done or the YML file will "
 "not be created. You will be notified via this page when theprocess is "
 "completed."
+msgstr ""
+
+#: _src/components/files/index.jsx:30
+msgid "Available YML files"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:71
+msgid "Settings"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:82
+msgid "Remove settings"
 msgstr ""

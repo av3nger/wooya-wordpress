@@ -1,7 +1,7 @@
 import React from 'react';
 import PerfectScrollbar from 'perfect-scrollbar';
 
-import { __ } from "@wordpress/i18n/build/index";
+const { __ } = wooya_i18n;
 
 import Button from '../button';
 

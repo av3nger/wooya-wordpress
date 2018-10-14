@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { __ } from "@wordpress/i18n/build/index";
+const { __ } = wooya_i18n;
 
 import Button from '../button';
 import YmlListItem from '../yml-list-item';

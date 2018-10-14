@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --watch --mode development",
     "compile": "clear && webpack -p --progress",
-    "pot-to-php": "npx pot-to-php languages/wooya.pot languages/wooya.php wooya"
+    "makepot": "npx pot-to-php languages/wooya.pot languages/wooya.php wooya"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@wordpress/babel-plugin-makepot": "^2.1.2",
+    "@wordpress/babel-preset-default": "^3.0.1",
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^0.1.19",
@@ -40,5 +41,13 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.20.2",
     "webpack-command": "^0.4.1"
+  },
+  "babel": {
+    "presets": [ "@wordpress/default" ],
+    "plugins": [
+      [ "@wordpress/babel-plugin-makepot", {
+        "output": "languages/wooya.pot"
+      } ]
+    ]
   }
 }

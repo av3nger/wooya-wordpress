@@ -203,7 +203,7 @@ class Core {
 		load_plugin_textdomain(
 			'wooya',
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages'
 		);
 
 	}
