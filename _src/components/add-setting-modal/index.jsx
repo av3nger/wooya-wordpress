@@ -54,7 +54,8 @@ class AddSettingModal extends React.Component {
 	 * @param e
 	 */
 	static toggleType(e) {
-		const selector = document.querySelector('.wooya-switch > input[type="checkbox"]');
+		const selector = document.querySelector('.wooya-modal-content .wooya-switch > input[type="checkbox"]');
+
 		selector.checked = 'offer' === e.target.dataset.type;
 
 		const showEl = document.querySelector('.wooya-select-box:not(.hidden)');

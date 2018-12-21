@@ -3,38 +3,44 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:222
+#: _src/app.js:224
 msgid "Loading..."
 msgstr ""
 
-#: _src/app.js:239
+#: _src/app.js:241
 msgid "Generate YML"
 msgstr ""
 
+#: _src/components/add-setting-modal/index.jsx:125
+#: _src/components/add-setting-modal/index.jsx:126
 #: _src/components/add-setting-modal/index.jsx:124
 #: _src/components/yml-list-control/index.jsx:74
 msgid "Add new setting"
 msgstr ""
 
+#: _src/components/add-setting-modal/index.jsx:128
+#: _src/components/add-setting-modal/index.jsx:129
 #: _src/components/add-setting-modal/index.jsx:127
 #: _src/components/yml-list-control/index.jsx:93
 msgid "Shop"
 msgstr ""
 
+#: _src/components/add-setting-modal/index.jsx:137
+#: _src/components/add-setting-modal/index.jsx:138
 #: _src/components/add-setting-modal/index.jsx:136
 #: _src/components/yml-list-control/index.jsx:98
 msgid "Offer"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:151
+#: _src/components/add-setting-modal/index.jsx:152
 msgid "Select setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:156
+#: _src/components/add-setting-modal/index.jsx:157
 msgid "No available items to select"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:162
+#: _src/components/add-setting-modal/index.jsx:163
 msgid "Add items"
 msgstr ""
 
@@ -63,4 +69,12 @@ msgstr ""
 
 #: _src/components/yml-list-control/index.jsx:81
 msgid "Remove settings"
+msgstr ""
+
+#: _src/components/yml-list-item/index.jsx:100
+msgid "Active"
+msgstr ""
+
+#: _src/components/yml-list-item/index.jsx:107
+msgid "Disabled"
 msgstr ""

@@ -164,6 +164,8 @@ class Wooya extends React.Component {
 	 */
 	updateSettings(item, value) {
 		const el = document.getElementsByName(item);
+
+		// TODO: handle checkbox loading status.
 		el[0].setAttribute('disabled', 'disabled');
 		el[0].classList.add('saving');
 

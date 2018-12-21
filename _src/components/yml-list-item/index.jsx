@@ -1,5 +1,7 @@
 import React from 'react';
 
+const { __ } = wooya_i18n;
+
 import './style.scss';
 
 /**
@@ -32,9 +34,17 @@ class YmlListItem extends React.Component {
 	 * @param e
 	 */
 	handleChange(e) {
+		const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+
 		this.setState({
-			value: e.target.value
+			value: value
 		});
+
+		if ( 'select-one' === e.target.type || 'checkbox' === e.target.type ) {
+			if ( value !== this.props.value ) {
+				this.props.onBlur(this.props.name, value);
+			}
+		}
 	}
 
 	/**
@@ -80,11 +90,23 @@ class YmlListItem extends React.Component {
 				return <option value={item[0]}>{item[1]}</option>;
 			});
 
-			htmlElement = <select name={this.props.name} value={this.state.value} data-type={this.props.type}>
+			htmlElement = <select name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange}>
 				{options}
 			</select>
 		}
 
+		if ( 'checkbox' === this.props.input['type'] ) {
+			htmlElement = <div className="wooya-yml-checkbox">
+				<span className="wooya-switch-label">{__('Active', 'wooya')}</span>
+
+				<label className="wooya-switch">
+					<input id={this.props.name} type="checkbox" name={this.props.name} checked={this.state.value} onChange={this.handleChange} data-type={this.props.type} />
+					<span className="slider">&nbsp;</span>
+				</label>
+
+				<span className="wooya-switch-label">{__('Disabled', 'wooya')}</span>
+			</div>
+		}
 
 		return (
 			<div className="wooya-yml-item">

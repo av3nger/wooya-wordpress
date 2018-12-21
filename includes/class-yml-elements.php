@@ -173,6 +173,12 @@ class YML_Elements {
 			'values'      => $attributes,
 		);
 
+		$elements['backorders'] = array(
+			'type'        => 'checkbox',
+			'default'     => true,
+			'description' => __( 'Если активна, то товары, доступные для предзаказа, будут экспортированы в YML.', 'wooya' ),
+		);
+
 		return $elements;
 
 	}
