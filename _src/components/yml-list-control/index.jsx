@@ -49,7 +49,6 @@ class YmlListControl extends React.Component {
 		// Build the current items list.
 		Object.entries(this.props.options).forEach(type => {
 			items[type[0]] = Object.entries(type[1]).map(item => {
-//console.log( this.props.fields[type[0]][item[0]] );
 				return (
 					<YmlListItem
 						input={this.props.fields[type[0]][item[0]]}
@@ -64,7 +63,6 @@ class YmlListControl extends React.Component {
 		});
 
 		/**
-		 * TODO: hide Add new settings button, if no elements present
 		 * TODO: YmlListItem should handleItemUpdate after a couple of seconds after user finished editing
 		 */
 		return (
@@ -91,10 +89,14 @@ class YmlListControl extends React.Component {
 					{this.props.error && <Notice type='error' message={this.props.errorMsg} />}
 
 					<form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
-						<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya' )}</h3>
+						{items.shop > 0 &&
+							<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya')}</h3>
+						}
 						{items.shop}
 
-						<h3 className="wooya-settings-sub-offer">{__('Offer', 'wooya' )}</h3>
+						{items.offer.length > 0 &&
+							<h3 className="wooya-settings-sub-offer">{__('Offer', 'wooya')}</h3>
+						}
 						{items.offer}
 					</form>
 				</div>

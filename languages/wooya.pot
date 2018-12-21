@@ -12,17 +12,17 @@ msgid "Generate YML"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:124
-#: _src/components/yml-list-control/index.jsx:76
+#: _src/components/yml-list-control/index.jsx:74
 msgid "Add new setting"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:127
-#: _src/components/yml-list-control/index.jsx:94
+#: _src/components/yml-list-control/index.jsx:93
 msgid "Shop"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:136
-#: _src/components/yml-list-control/index.jsx:97
+#: _src/components/yml-list-control/index.jsx:98
 msgid "Offer"
 msgstr ""
 
@@ -57,10 +57,10 @@ msgstr ""
 msgid "Available YML files"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:72
+#: _src/components/yml-list-control/index.jsx:70
 msgid "Settings"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:83
+#: _src/components/yml-list-control/index.jsx:81
 msgid "Remove settings"
 msgstr ""
