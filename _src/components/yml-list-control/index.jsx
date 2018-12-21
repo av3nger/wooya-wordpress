@@ -89,7 +89,7 @@ class YmlListControl extends React.Component {
 					{this.props.error && <Notice type='error' message={this.props.errorMsg} />}
 
 					<form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
-						{items.shop > 0 &&
+						{items.shop.length > 0 &&
 							<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya')}</h3>
 						}
 						{items.shop}
