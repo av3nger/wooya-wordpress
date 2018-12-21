@@ -17,7 +17,16 @@
         }
     }
 
-    input[type="text"] {
+    label {
+        color: $color--primary;
+        font-size: 15px;
+        line-height: 19px;
+        letter-spacing: $letter-spacing;
+        font-weight: 500;
+    }
+
+    input[type="text"],
+    select {
         display: block;
         font-size: 15px;
         font-weight: 300;
@@ -37,12 +46,15 @@
         }
     }
 
-    label {
-        color: $color--primary;
-        font-size: 15px;
-        line-height: 19px;
-        letter-spacing: $letter-spacing;
-        font-weight: 500;
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background: rgba(255, 255, 255, 0.2) url('#{$img-path}/select-icon.svg') no-repeat 97% 16px;
+
+        &::-ms-expand {
+            display: none; /* hide the default arrow in ie10 and ie11 */
+        }
     }
 
     .wooya-switch {
