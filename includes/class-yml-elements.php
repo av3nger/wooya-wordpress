@@ -161,14 +161,14 @@ class YML_Elements {
 
 		$elements['vendor'] = array(
 			'type'        => 'select',
-			'default'     => 'color',
+			'default'     => 'disabled',
 			'description' => __( 'Название производителя.', 'wooya' ),
 			'values'      => $attributes,
 		);
 
 		$elements['vendorCode'] = array(
 			'type'        => 'select',
-			'default'     => 'model',
+			'default'     => 'disabled',
 			'description' => __( 'Код производителя для данного товара.', 'wooya' ),
 			'values'      => $attributes,
 		);
@@ -176,7 +176,14 @@ class YML_Elements {
 		$elements['backorders'] = array(
 			'type'        => 'checkbox',
 			'default'     => true,
-			'description' => __( 'Если активна, то товары, доступные для предзаказа, будут экспортированы в YML.', 'wooya' ),
+			'description' => __( 'If enabled products that are available for backorder will be exported to YML.', 'wooya' ),
+		);
+
+		$elements['include_cat'] = array(
+			'type'        => 'multiselect',
+			'default'     => '',
+			'description' => __( 'Only selected categories will be included in the export file. Hold down the control (ctrl) button on Windows or command (cmd) on Mac to select multiple options. If nothing is selected - all the categories will be exported.', 'wooya' ),
+			'values'      => self::get_categories_array(),
 		);
 
 		return $elements;
@@ -213,6 +220,71 @@ class YML_Elements {
 		}
 
 		return $attributes_array;
+
+	}
+
+	/**
+	 * Get product categories.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private static function get_categories_array() {
+
+		$categories = array();
+
+		foreach ( get_terms( array(
+			'hide_empty'   => 0,
+			'parent'       => 0,
+			'taxonomy'     => 'product_cat',
+		)) as $category ) {
+			$categories[ $category->term_id ] = $category->name;
+			if ( $subcategories = self::get_cats_from_array( $category->term_id, [] ) ) {
+				$categories = array_merge( $categories, $subcategories );
+			}
+		}
+
+		return $categories;
+
+	}
+
+	/**
+	 * Recursive function to populate a list with sub categories.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @access  private
+	 *
+	 * @param  int   $cat_id        Category ID.
+	 * @param  array $select_array  Array of selected category IDs.
+	 *
+	 * @return array|bool
+	 */
+	private static function get_cats_from_array( $cat_id, $select_array ) {
+
+		static $tabs = 0;
+		$tabs++;
+
+		$subcategories = get_terms( array(
+			'hide_empty'   => 0,
+			'parent'       => $cat_id,
+			'taxonomy'     => 'product_cat',
+		) );
+
+		if ( empty( $subcategories ) ) {
+			return false;
+		}
+
+		$categories = array();
+
+		foreach ( $subcategories as $subcategory ) {
+			$categories[ $subcategory->term_id ] = str_repeat( '-', $tabs ) . ' ' . $subcategory->name;
+			self::get_cats_from_array( $subcategory->term_id, $select_array );
+			$tabs--;
+		}
+
+		return $categories;
 
 	}
 

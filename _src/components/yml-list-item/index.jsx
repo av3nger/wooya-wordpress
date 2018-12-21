@@ -95,6 +95,16 @@ class YmlListItem extends React.Component {
 			</select>
 		}
 
+		if ( 'multiselect' === this.props.input['type'] ) {
+			const options = Object.entries(this.props.input.values).map(item => {
+				return <option value={item[0]}>{item[1]}</option>;
+			});
+
+			htmlElement = <select multiple="multiple" name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange}>
+				{options}
+			</select>
+		}
+
 		if ( 'checkbox' === this.props.input['type'] ) {
 			htmlElement = <div className="wooya-yml-checkbox">
 				<span className="wooya-switch-label">{__('Active', 'wooya')}</span>

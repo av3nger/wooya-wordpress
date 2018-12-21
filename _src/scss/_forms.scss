@@ -52,6 +52,11 @@
         appearance: none;
         background: rgba(255, 255, 255, 0.2) url('#{$img-path}/select-icon.svg') no-repeat 97% 16px;
 
+        &[name=include_cat] {
+            background: none;
+            padding: 20px 30px;
+        }
+
         &::-ms-expand {
             display: none; /* hide the default arrow in ie10 and ie11 */
         }

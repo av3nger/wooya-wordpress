@@ -5,6 +5,7 @@ const { __ } = wooya_i18n;
 import Button from '../button';
 import YmlListItem from '../yml-list-item';
 import AddSettingModal from '../add-setting-modal';
+import PerfectScrollbar from 'perfect-scrollbar';
 
 import './style.scss';
 
