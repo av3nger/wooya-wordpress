@@ -5,7 +5,6 @@ const { __ } = wooya_i18n;
 import Button from '../button';
 import YmlListItem from '../yml-list-item';
 import AddSettingModal from '../add-setting-modal';
-import PerfectScrollbar from 'perfect-scrollbar';
 
 import './style.scss';
 
@@ -90,12 +89,12 @@ class YmlListControl extends React.Component {
 					{this.props.error && <Notice type='error' message={this.props.errorMsg} />}
 
 					<form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
-						{items.shop.length > 0 &&
+						{'undefined' !== typeof items.shop && items.shop.length > 0 &&
 							<h3 className="wooya-settings-sub-shop">{__('Shop', 'wooya')}</h3>
 						}
 						{items.shop}
 
-						{items.offer.length > 0 &&
+						{'undefined' !== typeof items.offer && items.offer.length > 0 &&
 							<h3 className="wooya-settings-sub-offer">{__('Offer', 'wooya')}</h3>
 						}
 						{items.offer}

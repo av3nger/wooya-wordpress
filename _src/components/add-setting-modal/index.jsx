@@ -36,8 +36,8 @@ class AddSettingModal extends React.Component {
 	 */
 	componentDidMount() {
 		// Scroll box support.
-		const container = document.getElementById('wooya-select-box');
-		new PerfectScrollbar(container);
+		const containers = document.querySelectorAll('.wooya-select-box');
+		containers.forEach(container => new PerfectScrollbar(container));
 
 		// Hide the modal if clicked outside the modal region.
 		const modal = document.querySelector('.wooya-add-setting-modal');
@@ -137,7 +137,7 @@ class AddSettingModal extends React.Component {
 						{__( 'Offer', 'wooya' )}
 					</span>
 
-					<div className="wooya-select-box" id="wooya-select-box" data-type="shop">
+					<div className="wooya-select-box" data-type="shop">
 						<h4>{__('Select setting', 'wooya')}</h4>
 
 						{itemAvailable.shop.length > 0 && itemAvailable.shop}
@@ -148,7 +148,7 @@ class AddSettingModal extends React.Component {
 						}
 					</div>
 
-					<div className="wooya-select-box hidden" id="wooya-select-box" data-type="offer">
+					<div className="wooya-select-box hidden" data-type="offer">
 						<h4>{__( 'Select setting', 'wooya' )}</h4>
 
 						{itemAvailable.offer.length > 0 && itemAvailable.offer}

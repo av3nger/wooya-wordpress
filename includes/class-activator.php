@@ -94,12 +94,12 @@ class Activator {
 
 		$options = array();
 
-		$options['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
-		$options['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : '';
-		$options['url']      = get_site_url();
-		$options['platform'] = __( 'WordPress', 'wooya' );
-		$options['version']  = get_bloginfo( 'version' );
-		$options['email']    = get_bloginfo( 'admin_email' );
+		$options['shop']['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
+		$options['shop']['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : '';
+		$options['shop']['url']      = get_site_url();
+		$options['shop']['platform'] = __( 'WordPress', 'wooya' );
+		$options['shop']['version']  = get_bloginfo( 'version' );
+		$options['shop']['email']    = get_bloginfo( 'admin_email' );
 
 		update_option( 'wooya_settings', $options );
 
