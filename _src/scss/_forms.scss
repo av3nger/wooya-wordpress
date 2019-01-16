@@ -46,6 +46,7 @@
         }
     }
 
+    // TODO: select can be removed when switching to .wooya-select-container
     select {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -59,6 +60,34 @@
 
         &::-ms-expand {
             display: none; /* hide the default arrow in ie10 and ie11 */
+        }
+    }
+
+    .wooya-select-container {
+        font-weight: 300;
+        font-size: 15px;
+        letter-spacing: $letter-spacing;
+        margin-top: 15px;
+
+        .wooya-select__input > input {
+            height: 21px;
+            margin-top: 0;
+        }
+
+        .wooya-select__control {
+            border: 1px solid rgba(41, 50, 56, 0.2);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 70.917px;
+            height: 41px;
+
+            .wooya-select__value-container {
+                padding: 0 30px;
+            }
+        }
+
+        .wooya-select__menu {
+            padding: 0 30px;
         }
     }
 

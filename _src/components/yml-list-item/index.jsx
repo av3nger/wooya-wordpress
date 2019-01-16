@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 
 const { __ } = wooya_i18n;
 
@@ -23,9 +24,18 @@ class YmlListItem extends React.Component {
 			selected: false
 		};
 
+		this.handleSelectChange = this.handleSelectChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
 		this.handleItemSelect = this.handleItemSelect.bind(this);
+	}
+
+	handleSelectChange(selectedOption) {
+		this.setState({
+			value: selectedOption
+		});
+		//this.setState({ selectedOption });
+		console.log(`Option selected:`, selectedOption);
 	}
 
 	/**
@@ -96,6 +106,19 @@ class YmlListItem extends React.Component {
 		}
 
 		if ( 'multiselect' === this.props.input['type'] ) {
+			const options = Object.entries(this.props.input.values).map(value => {
+				return { value: value[0], label: value[1] };
+			});
+
+			htmlElement = <Select
+				isMulti
+				value={this.state.value}
+				onChange={this.handleSelectChange}
+				options={options}
+				className="wooya-select-container"
+				classNamePrefix="wooya-select"
+			/>
+			/*
 			const options = Object.entries(this.props.input.values).map(item => {
 				return <option value={item[0]}>{item[1]}</option>;
 			});
@@ -103,6 +126,7 @@ class YmlListItem extends React.Component {
 			htmlElement = <select multiple="multiple" name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange}>
 				{options}
 			</select>
+			*/
 		}
 
 		if ( 'checkbox' === this.props.input['type'] ) {
