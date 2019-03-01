@@ -159,26 +159,34 @@ class Wooya extends React.Component {
 	/**
 	 * Update the data in the database.
 	 *
-	 * @param {string} item
+	 * TODO: handle checkbox loading status.
+	 *
+	 * @param {string} item  Item for which we update the setting.
 	 * @param {string} value
 	 */
 	updateSettings(item, value) {
 		const el = document.getElementsByName(item);
+		let type = 'offer'; // Setting type: shop or offer.
 
-		// TODO: handle checkbox loading status.
-		el[0].setAttribute('disabled', 'disabled');
-		el[0].classList.add('saving');
+		// Multi-select will not not be found.
+		if ( 'undefined' !== typeof el[0] ) {
+			el[0].setAttribute('disabled', 'disabled');
+			el[0].classList.add('saving');
+			type = el[0].dataset.type;
+		}
 
 		const form = {
-			type: el[0].dataset.type,
+			type: type,
 			name: item,
 			value: value,
 		};
 
 		this.fetchWP.post('settings', { items: form, action: 'save' }).then(
 			() => {
-				el[0].removeAttribute('disabled');
-				el[0].classList.remove('saving');
+				if ( 'undefined' !== typeof el[0] ) {
+					el[0].removeAttribute('disabled');
+					el[0].classList.remove('saving');
+				}
 			},
 			(err)  => console.log(err.message)
 		);

@@ -34,7 +34,8 @@ class YmlListItem extends React.Component {
 		this.setState({
 			value: selectedOption
 		});
-		//this.setState({ selectedOption });
+
+		this.props.onBlur(this.props.name, selectedOption);
 		console.log(`Option selected:`, selectedOption);
 	}
 
