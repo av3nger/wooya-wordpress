@@ -1,3 +1,5 @@
+@import "../../scss/variables";
+
 /**
  * YML item styles
  */
@@ -28,6 +30,18 @@
 
         .wooya-yml-checkbox {
             margin-top: 20px;
+        }
+
+        .wooya-switch-label {
+            color: $color--red;
+            &:last-of-type { color: $color--green; }
+        }
+
+        .wooya-switch {
+            .slider { background-color: rgba(252, 108, 108, 0.2); }
+            .slider:before { background-color: $color--red; }
+            input:checked + .slider { background-color: rgba(136, 180, 11, 0.2); }
+            input:checked + .slider:before { background-color: $color--green; }
         }
     }
 

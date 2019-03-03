@@ -74,9 +74,9 @@ msgid "Remove settings"
 msgstr ""
 
 #: _src/components/yml-list-item/index.jsx:130
-msgid "Active"
+msgid "Disabled"
 msgstr ""
 
 #: _src/components/yml-list-item/index.jsx:137
-msgid "Disabled"
+msgid "Active"
 msgstr ""
