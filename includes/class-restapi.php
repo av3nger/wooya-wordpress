@@ -71,9 +71,7 @@ class RestAPI extends \WP_REST_Controller {
 			[
 				[
 					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => function() {
-						return get_option( 'wooya_settings' );
-					},
+					'callback'            => [ $this, 'get_settings' ],
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
@@ -115,6 +113,24 @@ class RestAPI extends \WP_REST_Controller {
 	}
 
 	/**
+	 * Get settings.
+	 *
+	 * @return array
+	 */
+	public function get_settings() {
+		$current_settings = get_option( 'wooya_settings' );
+
+		if ( ! isset( $current_settings['misc'] ) ) {
+			$elements = YML_Elements::get_elements();
+			foreach ( $elements['misc'] as $element => $data ) {
+				$current_settings['misc'][ $element ] = $data['default'];
+			}
+		}
+
+		return $current_settings;
+	}
+
+	/**
 	 * Update settings.
 	 *
 	 * @param \WP_REST_Request $request  Request.
@@ -139,7 +155,7 @@ class RestAPI extends \WP_REST_Controller {
 		}
 
 		$updated  = false;
-		$settings = get_option( 'wooya_settings' );
+		$settings = $this->get_settings();
 		$items    = array_map( [ $this, 'sanitize_input_value' ], wp_unslash( $params['items'] ) );
 
 		// Remove item from settings array.

@@ -11,30 +11,33 @@ msgstr ""
 msgid "Generate YML"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:125
+#: _src/components/add-setting-modal/index.jsx:127
+#: _src/components/add-setting-modal/index.jsx:126
 #: _src/components/yml-list-control/index.jsx:74
 msgid "Add new setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:128
+#: _src/components/add-setting-modal/index.jsx:130
+#: _src/components/add-setting-modal/index.jsx:129
 #: _src/components/yml-list-control/index.jsx:93
 msgid "Shop"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:137
+#: _src/components/add-setting-modal/index.jsx:139
+#: _src/components/add-setting-modal/index.jsx:138
 #: _src/components/yml-list-control/index.jsx:98
 msgid "Offer"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:152
+#: _src/components/add-setting-modal/index.jsx:154
 msgid "Select setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:157
+#: _src/components/add-setting-modal/index.jsx:159
 msgid "No available items to select"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:163
+#: _src/components/add-setting-modal/index.jsx:165
 msgid "Add items"
 msgstr ""
 

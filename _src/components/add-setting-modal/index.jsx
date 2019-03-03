@@ -102,7 +102,9 @@ class AddSettingModal extends React.Component {
 		Object.keys(this.props.fields).forEach(field => {
 			itemAvailable[field] = Object.entries(this.props.fields[field])
 			.filter(item => {
-				return this.props.items[field].includes(item[0]);
+				if ( 'undefined' !== typeof this.props.items[field] ) {
+					return this.props.items[field].includes(item[0]);
+				}
 			})
 			.map(item => {
 				return (
