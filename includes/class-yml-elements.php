@@ -35,7 +35,7 @@ class YML_Elements {
 		$elements['shop']     = self::get_shop_elements();
 		$elements['offer']    = self::get_offer_elements();
 		//$elements['delivery'] = self::get_delivery_option_elements();
-		$elements['misc']     = self::get_misc_elements();
+		//$elements['misc']     = self::get_misc_elements();
 
 		return $elements;
 

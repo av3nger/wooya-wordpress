@@ -146,7 +146,7 @@ class RestAPI extends \WP_REST_Controller {
 		if ( 'remove' === $params['action'] ) {
 			foreach ( $params['items'] as $type => $data ) {
 				foreach ( $data as $item ) {
-					if ( isset( $settings[ $type ][ $item ] ) ) {
+					if ( array_key_exists( $item, $settings[ $type ] ) ) {
 						unset( $settings[ $type ][ $item ] );
 					}
 				}
