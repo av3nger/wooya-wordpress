@@ -36,7 +36,6 @@ class YmlListItem extends React.Component {
 		});
 
 		this.props.onBlur(this.props.name, selectedOption);
-		console.log(`Option selected:`, selectedOption);
 	}
 
 	/**
@@ -96,6 +95,11 @@ class YmlListItem extends React.Component {
 								 onChange={this.handleChange} onBlur={this.handleBlur}/>;
 		}
 
+		if ( 'textarea' === this.props.input['type'] ) {
+			htmlElement = <textarea name={this.props.name} data-type={this.props.type} onChange={this.handleChange}
+									onBlur={this.handleBlur}>{this.state.value}</textarea>;
+		}
+
 		if ( 'select' === this.props.input['type'] ) {
 			const options = Object.entries(this.props.input.values).map(item => {
 				return <option value={item[0]}>{item[1]}</option>;
@@ -119,15 +123,6 @@ class YmlListItem extends React.Component {
 				className="wooya-select-container"
 				classNamePrefix="wooya-select"
 			/>
-			/*
-			const options = Object.entries(this.props.input.values).map(item => {
-				return <option value={item[0]}>{item[1]}</option>;
-			});
-
-			htmlElement = <select multiple="multiple" name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange}>
-				{options}
-			</select>
-			*/
 		}
 
 		if ( 'checkbox' === this.props.input['type'] ) {

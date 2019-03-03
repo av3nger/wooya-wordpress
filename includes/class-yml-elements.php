@@ -32,8 +32,10 @@ class YML_Elements {
 	 */
 	public static function get_elements() {
 
-		$elements['shop']  = self::get_shop_elements();
-		$elements['offer'] = self::get_offer_elements();
+		$elements['shop']     = self::get_shop_elements();
+		$elements['offer']    = self::get_offer_elements();
+		//$elements['delivery'] = self::get_delivery_option_elements();
+		$elements['misc']     = self::get_misc_elements();
 
 		return $elements;
 
@@ -48,9 +50,9 @@ class YML_Elements {
 	 */
 	private static function get_shop_elements() {
 
-		$elements = array();
+		$elements = [];
 
-		$elements['name'] = array(
+		$elements['name'] = [
 			'type'        => 'text',
 			'default'     => get_bloginfo( 'name' ),
 			'max_length'  => 20,
@@ -62,9 +64,9 @@ class YML_Elements {
 				этого требования наименование Яндекс.Маркет может самостоятельно изменить название без уведомления магазина.',
 				'wooya'
 			),
-		);
+		];
 
-		$elements['company'] = array(
+		$elements['company'] = [
 			'type'        => 'text',
 			'default'     => '',
 			'max_length'  => 0,
@@ -73,9 +75,9 @@ class YML_Elements {
 				'Полное наименование компании, владеющей магазином. Не публикуется, используется для внутренней идентификации.',
 				'wooya'
 			),
-		);
+		];
 
-		$elements['url'] = array(
+		$elements['url'] = [
 			'type'        => 'text',
 			'default'     => get_site_url(),
 			'max_length'  => 0,
@@ -85,25 +87,25 @@ class YML_Elements {
 				при размещении по модели «Переход на сайт».',
 				'wooya'
 			),
-		);
+		];
 
-		$elements['platform'] = array(
+		$elements['platform'] = [
 			'type'        => 'text',
 			'default'     => __( 'WordPress', 'wooya' ),
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __( 'Система управления контентом, на основе которой работает магазин (CMS).', 'wooya' ),
-		);
+		];
 
-		$elements['version'] = array(
+		$elements['version'] = [
 			'type'        => 'text',
 			'default'     => get_bloginfo( 'version' ),
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __( 'Версия CMS.', 'wooya' ),
-		);
+		];
 
-		$elements['agency'] = array(
+		$elements['agency'] = [
 			'type'        => 'text',
 			'default'     => '',
 			'max_length'  => 0,
@@ -113,15 +115,15 @@ class YML_Elements {
 			за работоспособность сайта.',
 				'wooya'
 			),
-		);
+		];
 
-		$elements['email'] = array(
+		$elements['email'] = [
 			'type'        => 'text',
 			'default'     => get_bloginfo( 'admin_email' ),
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __( 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку.', 'wooya' ),
-		);
+		];
 
 		/**
 		 * Other elements:
@@ -148,43 +150,193 @@ class YML_Elements {
 	 */
 	private static function get_offer_elements() {
 
-		$elements = array();
+		$elements = [];
 
 		$attributes = self::get_attributes_array();
 
-		$elements['model'] = array(
+		$elements['model'] = [
 			'type'        => 'select',
 			'default'     => 'disabled',
+			'required'    => false,
 			'description' => __( 'Модель товара.', 'wooya' ),
 			'values'      => $attributes,
-		);
+		];
 
-		$elements['vendor'] = array(
+		$elements['vendor'] = [
 			'type'        => 'select',
 			'default'     => 'disabled',
+			'required'    => false,
 			'description' => __( 'Название производителя.', 'wooya' ),
 			'values'      => $attributes,
-		);
+		];
 
-		$elements['vendorCode'] = array(
+		$elements['vendorCode'] = [
 			'type'        => 'select',
 			'default'     => 'disabled',
+			'required'    => false,
 			'description' => __( 'Код производителя для данного товара.', 'wooya' ),
 			'values'      => $attributes,
-		);
+		];
 
-		$elements['backorders'] = array(
+		$elements['backorders'] = [
 			'type'        => 'checkbox',
 			'default'     => true,
+			'required'    => false,
 			'description' => __( 'If enabled products that are available for backorder will be exported to YML.', 'wooya' ),
-		);
+		];
 
-		$elements['include_cat'] = array(
+		$elements['include_cat'] = [
 			'type'        => 'multiselect',
 			'default'     => '',
-			'description' => __( 'Only selected categories will be included in the export file. Hold down the control (ctrl) button on Windows or command (cmd) on Mac to select multiple options. If nothing is selected - all the categories will be exported.', 'wooya' ),
+			'required'    => false,
+			'description' => __(
+				'Only selected categories will be included in the export file. Hold down the control (ctrl) button on
+				Windows or command (cmd) on Mac to select multiple options. If nothing is selected - all the categories
+				will be exported.',
+				'wooya'
+			),
 			'values'      => self::get_categories_array(),
-		);
+		];
+
+		$elements['sales_notes'] = [
+			'type'        => 'text',
+			'default'     => '',
+			'required'    => false,
+			'description' => __( 'Элемент sales_notes позволяет передать условия продажи товара. Not longer than 50 characters.', 'wooya' ),
+			'max_length'  => 50,
+		];
+
+		$elements['warranty'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __( 'Define if manufacturer warranty is available for selected product. Available values: true of false.', 'wooya' ),
+			'values'      => $attributes,
+		];
+
+		$elements['origin'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => sprintf(
+				/* translators: %s: link to naming rules */
+				__( 'Define country of origin for a product. See %1$sthis link%2$s for a list of available values.', 'wooya' ),
+				'<a href="http://partner.market.yandex.ru/pages/help/Countries.pdf" target="_blank">',
+				'</a>'
+			),
+			'values'      => $attributes,
+		];
+
+		$elements['size'] = [
+			'type'        => 'checkbox',
+			'default'     => true,
+			'required'    => false,
+			'description' => __( 'If enabled weight and size data from WooCommerce will be exported to Weight and Dimensions elements.', 'wooya' ),
+		];
+
+		$elements['params'] = [
+			'type'        => 'multiselect',
+			'default'     => '',
+			'required'    => false,
+			'description' => __(
+				'Selected attributes will be exported as a parameters. Hold down the control (ctrl) button on
+				Windows or command (cmd) on Mac to select multiple options.',
+				'wooya'
+			),
+			'values'      => self::get_categories_array(),
+		];
+
+		$elements['image_count'] = [
+			'type'        => 'text',
+			'default'     => '5',
+			'max_length'  => 2,
+			'required'    => false,
+			'description' => __( 'Images per product. Not more than 10 images.', 'wooya' ),
+		];
+
+		$elements['stock_quantity'] = [
+			'type'        => 'checkbox',
+			'default'     => true,
+			'required'    => false,
+			'description' => __( 'Adds the number of available products in stock.', 'wooya' ),
+		];
+
+		return $elements;
+
+	}
+
+	/**
+	 * Get deliver option settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private static function get_delivery_option_elements() {
+
+		$elements = [];
+
+		return $elements;
+
+	}
+
+	/**
+	 * Get misc settings.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return array
+	 */
+	private static function get_misc_elements() {
+
+		$elements = [];
+
+		$elements['file_date'] = [
+			'type'        => 'checkbox',
+			'default'     => false,
+			'required'    => false,
+			'description' => __(
+				'Add date to YML file name. If enabled YML file will have current date at the end:
+				ym-export-yyyy-mm-dd.yml.',
+				'wooya'
+			),
+		];
+
+		$elements['cron'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __( 'Auto generate file at the selected interval.', 'wooya' ),
+			'values'      => [
+				'disabled'   => __( 'Disabled', 'market-exporter' ),
+				'hourly'     => __( 'Every hour', 'market-exporter' ),
+				'twicedaily' => __( 'Twice a day', 'market-exporter' ),
+				'daily'      => __( 'Daily', 'market-exporter' ),
+			],
+		];
+
+		$elements['description'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __(
+				'Product description. Specify the way the description is exported. Default is to try and get the
+				product description, if empty - get short description.',
+				'wooya'
+			),
+			'values'      => [
+				'default' => __( 'Default', 'market-exporter' ),
+				'long'    => __( 'Only description', 'market-exporter' ),
+				'short'   => __( 'Only short description', 'market-exporter' ),
+			],
+		];
+
+		$elements['update_on_change'] = [
+			'type'        => 'checkbox',
+			'default'     => false,
+			'required'    => false,
+			'description' => __( 'Regenerate file on product create/update', 'wooya' ),
+		];
 
 		return $elements;
 
@@ -232,13 +384,15 @@ class YML_Elements {
 	 */
 	private static function get_categories_array() {
 
-		$categories = array();
+		$categories = [];
 
-		foreach ( get_terms( array(
-			'hide_empty'   => 0,
-			'parent'       => 0,
-			'taxonomy'     => 'product_cat',
-		)) as $category ) {
+		$args = [
+			'hide_empty' => 0,
+			'parent'     => 0,
+			'taxonomy'   => 'product_cat',
+		];
+
+		foreach ( get_terms( $args ) as $category ) {
 			$categories[ $category->term_id ] = $category->name;
 			if ( $subcategories = self::get_cats_from_array( $category->term_id, [] ) ) {
 				$categories = array_merge( $categories, $subcategories );
@@ -266,17 +420,19 @@ class YML_Elements {
 		static $tabs = 0;
 		$tabs++;
 
-		$subcategories = get_terms( array(
-			'hide_empty'   => 0,
-			'parent'       => $cat_id,
-			'taxonomy'     => 'product_cat',
-		) );
+		$subcategories = get_terms(
+			[
+				'hide_empty' => 0,
+				'parent'     => $cat_id,
+				'taxonomy'   => 'product_cat',
+			]
+		);
 
 		if ( empty( $subcategories ) ) {
 			return false;
 		}
 
-		$categories = array();
+		$categories = [];
 
 		foreach ( $subcategories as $subcategory ) {
 			$categories[ $subcategory->term_id ] = str_repeat( '-', $tabs ) . ' ' . $subcategory->name;

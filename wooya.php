@@ -117,6 +117,6 @@ class App {
 
 }
 
-register_deactivation_hook( __FILE__, array( 'Wooya\Includes\Activator', 'deactivate' ) );
+register_deactivation_hook( __FILE__, [ 'Wooya\Includes\Activator', 'deactivate' ] );
 
-add_action( 'plugins_loaded', array( 'Wooya\App', 'get_instance' ) );
+add_action( 'plugins_loaded', [ 'Wooya\App', 'get_instance' ] );

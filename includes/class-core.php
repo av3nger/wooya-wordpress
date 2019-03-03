@@ -75,7 +75,7 @@ class Core {
 		}
 		$this->plugin_name = 'wooya';
 
-		spl_autoload_register( array( $this, 'autoload' ) );
+		spl_autoload_register( [ $this, 'autoload' ] );
 
 		$this->load_dependencies();
 		$this->define_admin_hooks();
@@ -150,15 +150,15 @@ class Core {
 	private function define_admin_hooks() {
 
 		// Define the locale for this plugin for internationalization.
-		add_action( 'admin_init', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'admin_init', [ $this, 'load_plugin_textdomain' ] );
 		// Add admin menu.
-		add_action( 'admin_menu', array( $this->admin, 'register_menu' ) );
+		add_action( 'admin_menu', [ $this->admin, 'register_menu' ] );
 		// Styles and scripts.
-		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_styles' ) );
-		add_action( 'admin_enqueue_scripts', array( $this->admin, 'enqueue_scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_styles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_scripts' ] );
 
 		// Add REST API endpoints.
-		add_action( 'rest_api_init', array( RestAPI::get_instance(), 'register_routes' ) );
+		add_action( 'rest_api_init', [ RestAPI::get_instance(), 'register_routes' ] );
 
 	}
 

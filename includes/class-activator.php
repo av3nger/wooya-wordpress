@@ -61,7 +61,7 @@ class Activator {
 	 */
 	public static function new_install() {
 
-		$options = array();
+		$options = [];
 
 		/**
 		 * Include the elements class.
@@ -92,7 +92,7 @@ class Activator {
 	 */
 	public static function update_from_v1( $old_options ) {
 
-		$options = array();
+		$options = [];
 
 		$options['shop']['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
 		$options['shop']['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : '';

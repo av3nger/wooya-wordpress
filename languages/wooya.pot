@@ -3,11 +3,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:232
+#: _src/app.js:237
 msgid "Loading..."
 msgstr ""
 
-#: _src/app.js:249
+#: _src/app.js:254
 msgid "Generate YML"
 msgstr ""
 
@@ -57,6 +57,10 @@ msgstr ""
 msgid "Available YML files"
 msgstr ""
 
+#: _src/components/yml-list-control/index.jsx:102
+msgid "Misc"
+msgstr ""
+
 #: _src/components/yml-list-control/index.jsx:70
 msgid "Settings"
 msgstr ""
@@ -65,10 +69,10 @@ msgstr ""
 msgid "Remove settings"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:135
+#: _src/components/yml-list-item/index.jsx:130
 msgid "Active"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:142
+#: _src/components/yml-list-item/index.jsx:137
 msgid "Disabled"
 msgstr ""

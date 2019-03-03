@@ -72,7 +72,7 @@ class Admin {
 		wp_enqueue_style(
 			$this->plugin_name,
 			WOOYA_URL . 'admin/css/wooya-app.min.css',
-			array(),
+			[],
 			$this->version,
 			'all'
 		);
@@ -96,7 +96,7 @@ class Admin {
 		wp_enqueue_script(
 			$this->plugin_name . '-i18n',
 			WOOYA_URL . 'admin/js/wooya-i18n.min.js',
-			array(),
+			[],
 			$this->version,
 			true
 		);
@@ -105,7 +105,7 @@ class Admin {
 		wp_enqueue_script(
 			$this->plugin_name,
 			WOOYA_URL . 'admin/js/wooya-app.min.js',
-			array( 'jquery', $this->plugin_name . '-i18n' ),
+			[ 'jquery', $this->plugin_name . '-i18n' ],
 			$this->version,
 			true
 		);
@@ -113,11 +113,11 @@ class Admin {
 		wp_localize_script(
 			$this->plugin_name,
 			'ajax_strings',
-			array(
+			[
 				'ajax_url'  => admin_url( 'admin-ajax.php' ),
 				'api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'api_url'   => rest_url( $this->plugin_name . '/v1/' ),
-			)
+			]
 		);
 
 		wp_add_inline_script(
@@ -140,12 +140,12 @@ class Admin {
 	private function get_locale_data( $domain ) {
 		$translations = get_translations_for_domain( $domain );
 
-		$locale = array(
-			'' => array(
+		$locale = [
+			'' => [
 				'domain' => $domain,
 				'lang'   => is_admin() ? get_user_locale() : get_locale(),
-			),
-		);
+			],
+		];
 
 		if ( ! empty( $translations->headers['Plural-Forms'] ) ) {
 			$locale['']['plural_forms'] = $translations->headers['Plural-Forms'];
@@ -170,7 +170,7 @@ class Admin {
 			__( 'WooYa', 'wooya' ),
 			'manage_options',
 			$this->plugin_name,
-			array( $this, 'render_page' )
+			[ $this, 'render_page' ]
 		);
 
 	}

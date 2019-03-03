@@ -33,7 +33,8 @@ class Wooya extends React.Component {
 			unusedItems: [], // Not used fields (available to add via modal).
 			selected: {
 				shop: [],
-				offer: []
+				offer: [],
+				misc: []
 			},
 			updateError: false,
 			updateMessage: ''
@@ -80,6 +81,10 @@ class Wooya extends React.Component {
 
 				Object.entries(json).forEach(type => {
 					Object.keys(type[1]).filter(element => {
+						if ( ! ( type[0] in unusedItems ) ) {
+							return true;
+						}
+
 						if ( 'undefined' === typeof options[type[0]] || ! ( element in options[type[0]] ) ) {
 							unusedItems[type[0]].push(element);
 							return false;

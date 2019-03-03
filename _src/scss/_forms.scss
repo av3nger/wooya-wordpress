@@ -26,6 +26,7 @@
     }
 
     input[type="text"],
+    textarea,
     select {
         display: block;
         font-size: 15px;
@@ -44,6 +45,12 @@
             background: rgba(255, 255, 255, 0.2) url("/wp-admin/images/spinner-2x.gif") no-repeat 99% 10px;
             background-size: 20px;
         }
+    }
+
+    textarea {
+        height: 80px;
+        background-position: 98% 52px;
+        resize: none;
     }
 
     // TODO: select can be removed when switching to .wooya-select-container

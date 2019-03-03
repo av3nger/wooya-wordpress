@@ -68,8 +68,8 @@ class RestAPI extends \WP_REST_Controller {
 		register_rest_route(
 			$namespace,
 			'/settings/',
-			array(
-				array(
+			[
+				[
 					'methods'             => \WP_REST_Server::READABLE,
 					'callback'            => function() {
 						return get_option( 'wooya_settings' );
@@ -77,39 +77,39 @@ class RestAPI extends \WP_REST_Controller {
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
-				),
-				array(
+				],
+				[
 					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => array( $this, 'update_settings' ),
+					'callback'            => [ $this, 'update_settings' ],
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
-				),
-			)
+				],
+			]
 		);
 
 		register_rest_route(
 			$namespace,
 			'/elements/',
-			array(
+			[
 				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_combined_elements' ),
+				'callback'            => [ $this, 'get_combined_elements' ],
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
-			)
+			]
 		);
 
 		register_rest_route(
 			$namespace,
 			'/elements/(?P<type>[-\w]+)',
-			array(
+			[
 				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => array( $this, 'get_elements' ),
+				'callback'            => [ $this, 'get_elements' ],
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
-			)
+			]
 		);
 
 	}
@@ -125,9 +125,9 @@ class RestAPI extends \WP_REST_Controller {
 
 		$params = $request->get_params();
 
-		$error_data = array(
+		$error_data = [
 			'status' => 500,
-		);
+		];
 
 		if ( ! isset( $params['items'] ) || ! isset( $params['action'] ) ) {
 			// No valid action - return error.
@@ -140,7 +140,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		$updated  = false;
 		$settings = get_option( 'wooya_settings' );
-		$items    = array_map( array( $this, 'sanitize_input_value' ), wp_unslash( $params['items'] ) );
+		$items    = array_map( [ $this, 'sanitize_input_value' ], wp_unslash( $params['items'] ) );
 
 		// Remove item from settings array.
 		if ( 'remove' === $params['action'] ) {
@@ -218,7 +218,7 @@ class RestAPI extends \WP_REST_Controller {
 			);
 		}
 
-		$elements = call_user_func( array( __NAMESPACE__ . '\\YML_Elements', $method ) );
+		$elements = call_user_func( [ __NAMESPACE__ . '\\YML_Elements', $method ] );
 
 		return new \WP_REST_Response( $elements, 200 );
 

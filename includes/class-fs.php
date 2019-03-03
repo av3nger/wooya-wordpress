@@ -184,7 +184,7 @@ class FS {
 		} else {
 			$dir = scandir( $folder );
 			// Let's form the same array as dirlist provides.
-			$structure = array();
+			$structure = [];
 			foreach ( $dir as $directory ) {
 				if ( '.' === $directory || '..' === $directory ) {
 					continue;
