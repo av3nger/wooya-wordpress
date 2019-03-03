@@ -3,7 +3,7 @@
  * Fired during plugin activation/deactivation
  *
  * @link       https://wooya.ru
- * @since      1.0.0
+ * @since      2.0.0
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -16,7 +16,7 @@ namespace Wooya\Includes;
  *
  * This class defines all code necessary to run during the plugin's activation/deactivation.
  *
- * @since      1.0.0
+ * @since      2.0.0
  * @package    Wooya
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
@@ -28,7 +28,7 @@ class Activator {
 	 *
 	 * TODO: run this via register_activation_hook.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public static function activate() {
 
@@ -49,7 +49,7 @@ class Activator {
 	/**
 	 * The code that runs during plugin deactivation.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public static function deactivate() {
 	}
@@ -57,7 +57,7 @@ class Activator {
 	/**
 	 * Populate settings for a new install.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public static function new_install() {
 
@@ -86,7 +86,7 @@ class Activator {
 	/**
 	 * Update from previous version of Market Exporter with different database structure.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param array $old_options  Previous settings.
 	 */

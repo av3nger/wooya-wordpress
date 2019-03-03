@@ -3,7 +3,7 @@
  * Available elements for the YML file.
  *
  * @link       https://wooya.ru
- * @since      1.0.0
+ * @since      2.0.0
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -26,7 +26,7 @@ class YML_Elements {
 	/**
 	 * Get all elements combined into a single array.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -44,7 +44,7 @@ class YML_Elements {
 	/**
 	 * Get shop elements.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -144,7 +144,7 @@ class YML_Elements {
 	/**
 	 * Get offer elements.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -268,7 +268,7 @@ class YML_Elements {
 	/**
 	 * Get deliver option settings.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -368,7 +368,7 @@ class YML_Elements {
 	/**
 	 * Get misc settings.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -432,7 +432,7 @@ class YML_Elements {
 	 *
 	 * Used on WooCommerce settings page. It lets the user choose which of the custom attributes to use for various settings.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -463,7 +463,7 @@ class YML_Elements {
 	/**
 	 * Get product categories.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @return array
 	 */
@@ -491,7 +491,7 @@ class YML_Elements {
 	/**
 	 * Recursive function to populate a list with sub categories.
 	 *
-	 * @since   1.0.0
+	 * @since   2.0.0
 	 *
 	 * @access  private
 	 *

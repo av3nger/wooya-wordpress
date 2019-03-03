@@ -10,7 +10,7 @@ import './style.scss';
 /**
  * Add new setting modal
  *
- * @since 1.0.0
+ * @since 2.0.0
  */
 class AddSettingModal extends React.Component {
 	/**

@@ -6,7 +6,7 @@
  * public-facing side of the site and the admin area.
  *
  * @link       https://wooya.ru
- * @since      1.0.0
+ * @since      2.0.0
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -23,7 +23,7 @@ namespace Wooya\Includes;
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
+ * @since      2.0.0
  * @package    Wooya
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
@@ -33,7 +33,7 @@ class Core {
 	/**
 	 * The admin class that holds all plugin functionality.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    Admin     $admin  Maintains and registers all admin functionality.
 	 */
@@ -42,7 +42,7 @@ class Core {
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string    $plugin_name  The string used to uniquely identify this plugin.
 	 */
@@ -51,7 +51,7 @@ class Core {
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access protected
 	 * @var    string    $version  The current version of the plugin.
 	 */
@@ -64,7 +64,7 @@ class Core {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public function __construct() {
 
@@ -85,7 +85,7 @@ class Core {
 	/**
 	 * Autoloader.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param string $class_name  Class name to autoload.
 	 */
@@ -133,7 +133,7 @@ class Core {
 	 *
 	 * - \Wooya\Includes\Admin. Defines all hooks for the admin area.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 */
 	private function load_dependencies() {
@@ -144,7 +144,7 @@ class Core {
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 */
 	private function define_admin_hooks() {
@@ -166,7 +166,7 @@ class Core {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @return string  The name of the plugin.
 	 */
 	public function get_plugin_name() {
@@ -176,7 +176,7 @@ class Core {
 	/**
 	 * The reference to the class that orchestrates the admin functionality of the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @return Admin  Orchestrates the admin functionality of the plugin.
 	 */
 	public function get_admin() {
@@ -186,7 +186,7 @@ class Core {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @return string  The version number of the plugin.
 	 */
 	public function get_version() {
@@ -196,7 +196,7 @@ class Core {
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public function load_plugin_textdomain() {
 

@@ -5,7 +5,7 @@
  * A class that handles file system specific functionality of the plugin.
  *
  * @link       https://wooya.ru
- * @since      1.0.0
+ * @since      2.0.0
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -16,7 +16,7 @@ namespace Wooya\Includes;
 /**
  * The filesystem class.
  *
- * @since      1.0.0
+ * @since      2.0.0
  * @package    Wooya
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
@@ -26,7 +26,7 @@ class FS {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    string $plugin_name  The ID of this plugin.
 	 */
@@ -35,7 +35,7 @@ class FS {
 	/**
 	 * Use WP_Filesystem API.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @var   bool   $fs_api
 	 */
 	private $fs_api = false;
@@ -43,7 +43,7 @@ class FS {
 	/**
 	 * FS constructor.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @param string $plugin_name  The name of this plugin.
 	 */
 	public function __construct( $plugin_name ) {
@@ -55,7 +55,7 @@ class FS {
 	/**
 	 * Initiate file system for read/write operations.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @return bool   Return true if everything ok.
 	 */
 	private function init() {
@@ -93,7 +93,7 @@ class FS {
 	/**
 	 * Write YML file to /wp-content/uploads/ dir.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @param  string $yml   Variable to display contents of the YML file.
 	 * @param  string $date  Yes or No for date at the end of the file.
 	 * @return string        Return the path of the saved file.

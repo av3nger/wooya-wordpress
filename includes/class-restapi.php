@@ -3,7 +3,7 @@
  * Register WP REST API endpoints
  *
  * @link       https://wooya.ru
- * @since      1.0.0
+ * @since      2.0.0
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -18,7 +18,7 @@ use Wooya\App;
  *
  * This singleton class defines and registers all endpoints needed for React components.
  *
- * @since      1.0.0
+ * @since      2.0.0
  * @package    Wooya
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
@@ -28,7 +28,7 @@ class RestAPI extends \WP_REST_Controller {
 	/**
 	 * Class instance.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @var   RestAPI|null $instance
 	 */
 	private static $instance = null;
@@ -36,7 +36,7 @@ class RestAPI extends \WP_REST_Controller {
 	/**
 	 * API version.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @var   string $version
 	 */
 	protected $version = '1';
@@ -44,7 +44,7 @@ class RestAPI extends \WP_REST_Controller {
 	/**
 	 * Get class instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @return RestAPI|null
 	 */
 	public static function get_instance() {
@@ -250,7 +250,7 @@ class RestAPI extends \WP_REST_Controller {
 	/**
 	 * Get array of all elements.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param \WP_REST_Request $request  Request.
 	 *
@@ -266,7 +266,7 @@ class RestAPI extends \WP_REST_Controller {
 	/**
 	 * Performs sanitation of user input.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param string|array $input  Input values to sanitize.
 	 *

@@ -7,7 +7,7 @@ import './style.scss';
 /**
  * File list control component
  *
- * @since 1.0.0
+ * @since 2.0.0
  */
 class Files extends React.Component {
 	/**

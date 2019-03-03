@@ -5,7 +5,7 @@ import './style.scss';
 /**
  * Functional button component
  *
- * @since 1.0.0
+ * @since 2.0.0
  *
  * @param {object} props
  * @returns {*}

@@ -10,7 +10,7 @@ const methods = [
 /**
  * Class to fetch data from WordPress REST API
  *
- * @since 1.0.0
+ * @since 2.0.0
  */
 class fetchWP {
 	/**

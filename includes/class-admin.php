@@ -3,7 +3,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @link       https://wooya.ru
- * @since      1.0.0
+ * @since      2.0.0
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -26,7 +26,7 @@ class Admin {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    string $plugin_name  The ID of this plugin.
 	 */
@@ -35,7 +35,7 @@ class Admin {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    string $version  The current version of this plugin.
 	 */
@@ -44,7 +44,7 @@ class Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @param string $plugin_name  The name of this plugin.
 	 * @param string $version      The version of this plugin.
 	 */
@@ -58,7 +58,7 @@ class Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param string $hook  Page from where it is called.
 	 */
@@ -82,7 +82,7 @@ class Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param string $hook  Page from where it is called.
 	 */
@@ -131,7 +131,7 @@ class Admin {
 	/**
 	 * Returns Jed-formatted localization data.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 *
 	 * @param  string $domain Translation domain.
 	 *
@@ -161,13 +161,13 @@ class Admin {
 	/**
 	 * Register menu point.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public function register_menu() {
 
 		add_menu_page(
-			__( 'WooYa', 'wooya' ),
-			__( 'WooYa', 'wooya' ),
+			__( 'Market Exporter', 'wooya' ),
+			__( 'Market Exporter', 'wooya' ),
 			'manage_options',
 			$this->plugin_name,
 			[ $this, 'render_page' ]
@@ -178,7 +178,7 @@ class Admin {
 	/**
 	 * Display plugins page.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	public function render_page() {
 

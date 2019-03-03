@@ -7,16 +7,16 @@
  * registers the activation and deactivation functions, and defines the plugin class.
  *
  * @link              https://wooya.ru
- * @since             1.0.0
+ * @since             2.0.0
  * @package           Wooya
  *
  * @wordpress-plugin
- * Plugin Name:       WooYa
+ * Plugin Name:       Market Exporter
  * Plugin URI:        https://wooya.ru
- * Description:       WooYa integration suite.
+ * Description:       Market Exporter integration suite.
  * Version:           1.0.0
- * Author:            vCore
- * Author URI:        https://vcore.ru/
+ * Author:            Anton Vanyukov
+ * Author URI:        https://vanyukov.su/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wooya
@@ -34,16 +34,15 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-define( 'WOOYA_VERSION', '1.0.0' );
+define( 'WOOYA_VERSION', '2.0.0' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The main plugin class.
  *
- * @since      1.0.0
+ * @since      2.0.0
  * @package    Wooya
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
  */
@@ -52,7 +51,7 @@ class App {
 	/**
 	 * Plugin instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @access private
 	 * @var    App|null $instance
 	 */
@@ -61,7 +60,7 @@ class App {
 	/**
 	 * Core instance.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 * @var Core $core
 	 */
 	public $core;
@@ -69,7 +68,7 @@ class App {
 	/**
 	 * Get plugin instance.
 	 *
-	 * @since  1.0.0
+	 * @since  2.0.0
 	 * @return App;
 	 */
 	public static function get_instance() {
@@ -98,7 +97,7 @@ class App {
 	/**
 	 * Load required plugin files.
 	 *
-	 * @since 1.0.0
+	 * @since 2.0.0
 	 */
 	private function includes() {
 

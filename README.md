@@ -1,3 +1,3 @@
-# WooYa Core
+# Market Exporter Core
 
-WooYa integration suite
+Market Exporter integration suite
