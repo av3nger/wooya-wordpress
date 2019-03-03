@@ -120,8 +120,15 @@ class RestAPI extends \WP_REST_Controller {
 	public function get_settings() {
 		$current_settings = get_option( 'wooya_settings' );
 
+		$elements = YML_Elements::get_elements();
+
+		if ( ! isset( $current_settings['delivery'] ) ) {
+			foreach ( $elements['delivery'] as $element => $data ) {
+				$current_settings['delivery'][ $element ] = $data['default'];
+			}
+		}
+
 		if ( ! isset( $current_settings['misc'] ) ) {
-			$elements = YML_Elements::get_elements();
 			foreach ( $elements['misc'] as $element => $data ) {
 				$current_settings['misc'][ $element ] = $data['default'];
 			}

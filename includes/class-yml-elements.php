@@ -34,7 +34,7 @@ class YML_Elements {
 
 		$elements['shop']     = self::get_shop_elements();
 		$elements['offer']    = self::get_offer_elements();
-		//$elements['delivery'] = self::get_delivery_option_elements();
+		$elements['delivery'] = self::get_delivery_option_elements();
 		$elements['misc']     = self::get_misc_elements();
 
 		return $elements;
@@ -275,6 +275,91 @@ class YML_Elements {
 	private static function get_delivery_option_elements() {
 
 		$elements = [];
+
+		$select_options = [
+			'disabled' => __( 'Disabled', 'market-exporter' ),
+			'true'     => __( 'true', 'market-exporter' ),
+			'false'    => __( 'false', 'market-exporter' ),
+		];
+
+		$elements['delivery'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __(
+				"Use the delivery element to indicate the possibility of delivery to the buyer's address in the
+				home region of the store.",
+				'wooya'
+			),
+			'values'      => $select_options,
+		];
+
+		$elements['pickup'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __(
+				'Use the pickup element to indicate the possibility of receiving goods at the issuance point.',
+				'wooya'
+			),
+			'values'      => $select_options,
+		];
+
+		$elements['store'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __(
+				'Use the store element to indicate the possibility of buying without a preliminary order at the point of sale.',
+				'wooya'
+			),
+			'values'      => $select_options,
+		];
+
+		$elements['delivery_options'] = [
+			'type'        => 'checkbox',
+			'default'     => false,
+			'required'    => false,
+			'description' => __( 'Use delivery-options parameters defined below. Global options.', 'wooya' ),
+		];
+
+		$elements['cost'] = [
+			'type'        => 'text',
+			'default'     => '',
+			'placeholder' => '100',
+			'max_length'  => 0,
+			'required'    => false,
+			'description' => __(
+				'Delivery-options cost element. Used to indicate the price of delivery. Use maximum value if cost is
+				differs for different locations.',
+				'wooya'
+			),
+		];
+
+		$elements['days'] = [
+			'type'        => 'text',
+			'default'     => '',
+			'placeholder' => __( '0, 1, 2, 3-5, etc', 'wooya' ),
+			'max_length'  => 0,
+			'required'    => false,
+			'description' => __(
+				'Delivery-options days element. Either a value or a range for the actual days it takes to deliver a product.',
+				'wooya'
+			),
+		];
+
+		$elements['order_before'] = [
+			'type'        => 'text',
+			'default'     => '',
+			'placeholder' => '0-24',
+			'max_length'  => 0,
+			'required'    => false,
+			'description' => __(
+				'Delivery-options order-before element. Accepts values from 0 to 24. If the order is made before this
+				time, delivery will be on time.',
+				'wooya'
+			),
+		];
 
 		return $elements;
 

@@ -99,7 +99,10 @@ class YmlListControl extends React.Component {
 						}
 						{items.offer}
 
-						<h3 className="wooya-settings-sub-shop">{__('Misc', 'wooya')}</h3>
+						<h3 className="wooya-settings-sub-shop">{__('Delivery options', 'wooya')}</h3>
+						{items.delivery}
+
+						<h3 className="wooya-settings-sub-offer">{__('Misc', 'wooya')}</h3>
 						{items.misc}
 					</form>
 				</div>

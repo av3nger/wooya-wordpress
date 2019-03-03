@@ -34,6 +34,7 @@ class Wooya extends React.Component {
 			selected: {
 				shop: [],
 				offer: [],
+				delivery: [],
 				misc: []
 			},
 			updateError: false,
