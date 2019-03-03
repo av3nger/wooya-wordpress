@@ -92,7 +92,7 @@ class YmlListItem extends React.Component {
 
 		if ( 'text' === this.props.input['type'] ) {
 			htmlElement = <input type="text" name={this.props.name} value={this.state.value} data-type={this.props.type}
-								 onChange={this.handleChange} onBlur={this.handleBlur}/>;
+								 placeholder={this.props.placeholder} onChange={this.handleChange} onBlur={this.handleBlur}/>;
 		}
 
 		if ( 'textarea' === this.props.input['type'] ) {
