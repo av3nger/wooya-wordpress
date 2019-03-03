@@ -175,7 +175,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		// Save setting value.
 		if ( 'save' === $params['action'] ) {
-			if ( isset( $settings[ $items['type'] ][ $items['name'] ] ) ) {
+			if ( array_key_exists( $items['name'], $settings[ $items['type'] ] ) ) {
 				$settings[ $items['type'] ][ $items['name'] ] = $items['value'];
 			}
 
@@ -260,6 +260,10 @@ class RestAPI extends \WP_REST_Controller {
 			}
 
 			return $input;
+		}
+
+		if ( is_bool( $input ) ) {
+			return (bool) $input;
 		}
 	}
 
