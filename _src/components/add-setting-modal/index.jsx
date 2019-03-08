@@ -1,7 +1,7 @@
 import React from 'react';
 import PerfectScrollbar from 'perfect-scrollbar';
 
-const { __ } = wooya_i18n;
+const { __ } = wooyaI18n;
 
 import Button from '../button';
 

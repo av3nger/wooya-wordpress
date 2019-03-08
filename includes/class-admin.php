@@ -122,7 +122,7 @@ class Admin {
 
 		wp_add_inline_script(
 			$this->plugin_name,
-			'wooya_i18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'wooya' ) ) . ', "wooya" );',
+			'wooyaI18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'wooya' ) ) . ', "wooya" );',
 			'before'
 		);
 

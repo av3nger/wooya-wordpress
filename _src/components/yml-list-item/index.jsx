@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 
-const { __ } = wooya_i18n;
+const { __ } = wooyaI18n;
 
 import './style.scss';
 

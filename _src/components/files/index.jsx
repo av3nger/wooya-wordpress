@@ -1,6 +1,6 @@
 import React from 'react';
 
-const { __ } = wooya_i18n;
+const { __ } = wooyaI18n;
 
 import './style.scss';
 

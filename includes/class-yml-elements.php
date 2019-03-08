@@ -487,7 +487,6 @@ class YML_Elements {
 		}
 
 		foreach ( $terms as $category ) {
-			var_dump( $category );
 			$categories[ $category->term_id ] = $category->name;
 			if ( $subcategories = self::get_cats_from_array( $category->term_id, [] ) ) {
 				$categories = array_merge( $categories, $subcategories );
