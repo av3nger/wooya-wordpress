@@ -14,7 +14,7 @@
  * Plugin Name:       Market Exporter
  * Plugin URI:        https://wooya.ru
  * Description:       Market Exporter integration suite.
- * Version:           1.0.0
+ * Version:           2.0.0-beta.1
  * Author:            Anton Vanyukov
  * Author URI:        https://vanyukov.su/
  * License:           GPL-2.0+
