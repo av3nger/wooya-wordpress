@@ -327,6 +327,7 @@ class YML_Elements {
 			'type'        => 'text',
 			'default'     => '',
 			'placeholder' => '100',
+			'depends_on'  => 'delivery_options',
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
@@ -340,6 +341,7 @@ class YML_Elements {
 			'type'        => 'text',
 			'default'     => '',
 			'placeholder' => __( '0, 1, 2, 3-5, etc', 'wooya' ),
+			'depends_on'  => 'delivery_options',
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
@@ -352,6 +354,7 @@ class YML_Elements {
 			'type'        => 'text',
 			'default'     => '',
 			'placeholder' => '0-24',
+			'depends_on'  => 'delivery_options',
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(

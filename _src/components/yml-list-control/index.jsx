@@ -49,7 +49,13 @@ class YmlListControl extends React.Component {
 		// Build the current items list.
 		Object.entries(this.props.options).forEach(type => {
 			items[type[0]] = Object.entries(type[1]).map(item => {
-				console.log(item);
+
+				const dependecy = this.props.fields[type[0]][item[0]].depends_on;
+				let disabled = false;
+				if ( 'undefined' !== typeof dependecy ) {
+					disabled = false === this.props.options[type[0]][dependecy];
+				}
+
 				return (
 					<YmlListItem
 						input={this.props.fields[type[0]][item[0]]}
@@ -57,6 +63,7 @@ class YmlListControl extends React.Component {
 						value={item[1]}
 						type={type[0]}
 						placeholder={this.props.fields[type[0]][item[0]].placeholder}
+						disabled={disabled}
 						onBlur={this.props.handleItemUpdate}
 						updateSelection={this.props.updateSelection}
 					/>

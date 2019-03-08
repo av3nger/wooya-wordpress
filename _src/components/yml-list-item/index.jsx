@@ -138,8 +138,13 @@ class YmlListItem extends React.Component {
 			</div>
 		}
 
+		let className = 'wooya-yml-item';
+		if ( 'undefined' !== typeof this.props.disabled && this.props.disabled ) {
+			className = 'wooya-yml-item disabled';
+		}
+
 		return (
-			<div className="wooya-yml-item">
+			<div className={className}>
 				<div className="wooya-yml-item-select">
 					<input type="checkbox" id={this.props.name} data-type={this.props.type}
 						   onChange={this.handleItemSelect} checked={this.state.selected}/>
