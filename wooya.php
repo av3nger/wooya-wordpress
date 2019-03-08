@@ -32,6 +32,41 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wooya_fs' ) ) {
+	// Create a helper function for easy SDK access.
+	function wooya_fs() {
+		global $wooya_fs;
+
+		if ( ! isset( $wooya_fs ) ) {
+			// Include Freemius SDK.
+			require_once dirname(__FILE__) . '/freemius/start.php';
+
+			$wooya_fs = fs_dynamic_init( array(
+				'id'                  => '3447',
+				'slug'                => 'wooya',
+				'type'                => 'plugin',
+				'public_key'          => 'pk_a83192e61bd403838bdff42154b97',
+				'is_premium'          => false,
+				'has_addons'          => false,
+				'has_paid_plans'      => false,
+				'menu'                => array(
+					'slug'           => 'wooya',
+					'account'        => false,
+					'contact'        => false,
+					'support'        => false,
+				),
+			) );
+		}
+
+		return $wooya_fs;
+	}
+
+	// Init Freemius.
+	wooya_fs();
+	// Signal that SDK was initiated.
+	do_action( 'wooya_fs_loaded' );
+}
+
 /**
  * Currently plugin version.
  */
