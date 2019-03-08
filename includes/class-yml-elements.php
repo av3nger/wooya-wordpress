@@ -480,7 +480,14 @@ class YML_Elements {
 			'taxonomy'   => 'product_cat',
 		];
 
-		foreach ( get_terms( $args ) as $category ) {
+		$terms = get_terms( $args );
+
+		if ( is_wp_error( $terms ) ) {
+			return $categories;
+		}
+
+		foreach ( $terms as $category ) {
+			var_dump( $category );
 			$categories[ $category->term_id ] = $category->name;
 			if ( $subcategories = self::get_cats_from_array( $category->term_id, [] ) ) {
 				$categories = array_merge( $categories, $subcategories );
