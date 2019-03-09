@@ -238,7 +238,7 @@ class Wooya extends React.Component {
    * @return {*}
    */
   render() {
-    if (this.state.loading) {
+    if (this.state.loading && ! this.state.updateError) {
       return (
         <div className="me-main-content">
           <div className="wooya-description">

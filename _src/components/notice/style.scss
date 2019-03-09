@@ -1,0 +1,56 @@
+@import "../../scss/variables";
+/**
+ * Error message styles
+ */
+.wooya-wrapper .wooya-notice {
+  padding: 5px 20px;
+  text-align: left;
+
+  & p:before {
+    font-family: Dashicons, sans-serif;
+    font-size: $h3-font-size;
+    margin-right: 10px;
+    float: left;
+    position: relative;
+  }
+
+  &.wooya-error {
+    color: $color--red;
+    background-color: #FFD2D2;
+
+    & p:before {
+      color: darken($color--red, 10);
+      content: "\f534";
+    }
+  }
+
+  &.wooya-info {
+    color: $color--blue;
+    background-color: #BDE5F8;
+
+    & p:before {
+      color: darken($color--blue, 10);
+      content: "\f534";
+    }
+  }
+
+  &.wooya-success {
+    color: $color--green;
+    background-color: #DFF2BF;
+
+    & p:before {
+      color: darken($color--green, 10);
+      content: "\f147";
+    }
+  }
+
+  &.wooya-warning {
+    color: #9F6000;
+    background-color: #FEEFB3;
+
+    & p:before {
+      color: darken(#9F6000, 10);
+      content: "\f534";
+    }
+  }
+}
