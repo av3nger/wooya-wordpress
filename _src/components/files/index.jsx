@@ -1,6 +1,6 @@
 import React from 'react';
 
-const { __ } = wooyaI18n;
+const {__} = wooyaI18n;
 
 import './style.scss';
 
@@ -10,27 +10,29 @@ import './style.scss';
  * @since 2.0.0
  */
 class Files extends React.Component {
-	/**
-	 * Files constructor
-	 *
-	 * @param props
-	 */
-	constructor(props) {
-		super(props);
-	}
+  /**
+   * Files constructor
+   *
+   * @param {object} props
+   */
+  constructor(props) {
+    super(props);
+  }
 
-	/**
-	 * Render component
-	 *
-	 * @returns {*}
-	 */
-	render() {
-		return (
-			<div className="wooya-files">
-				<h2 className="wooya-files-title">{__( 'Available YML files', 'wooya' )}</h2>
-			</div>
-		);
-	}
+  /**
+   * Render component
+   *
+   * @return {*}
+   */
+  render() {
+    return (
+      <div className="wooya-files">
+        <h2 className="wooya-files-title">
+          {__( 'Available YML files', 'wooya' )}
+        </h2>
+      </div>
+    );
+  }
 }
 
 export default Files;

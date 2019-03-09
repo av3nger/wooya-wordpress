@@ -1,6 +1,6 @@
 import React from 'react';
 
-const { __ } = wooyaI18n;
+const {__} = wooyaI18n;
 
 import './style.scss';
 
@@ -9,21 +9,26 @@ import './style.scss';
  *
  * @since 2.0.0
  *
- * @returns {*}
+ * @return {*}
  * @constructor
  */
 function Description() {
-	return (
-		<div className="wooya-description">
-			<p>{__( 'This plugin is used to generate a valid YML file for exporting your products in WooCommerce' +
-				'to Yandex Market.', 'wooya' )}</p>
+  return (
+    <div className="wooya-description">
+      <p>
+        {__( 'This plugin is used to generate a valid YML file for' +
+        'exporting your products in WooCommerce to Yandex Market.', 'wooya' )}
+      </p>
 
-			<p>{__( 'Please be patient while the YML file is generated. This can take a while if your server is' +
-				'slow or if you have many products in WooCommerce. Do not navigate away from this page until this' +
-				'script is done or the YML file will not be created. You will be notified via this page when the' +
-				'process is completed.', 'wooya' )}</p>
-		</div>
-	);
+      <p>
+        {__( 'Please be patient while the YML file is generated. This can' +
+          'take a while if your server is slow or if you have many products' +
+          'in WooCommerce. Do not navigate away from this page until this' +
+          'script is done or the YML file will not be created. You will be' +
+          'notified via this page when the process is completed.', 'wooya' )}
+      </p>
+    </div>
+  );
 }
 
 export default Description;

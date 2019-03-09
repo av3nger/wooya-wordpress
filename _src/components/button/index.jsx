@@ -8,15 +8,15 @@ import './style.scss';
  * @since 2.0.0
  *
  * @param {object} props
- * @returns {*}
+ * @return {*}
  * @constructor
  */
 function Button(props) {
-	return (
-		<button className={props.className} onClick={props.onClick} disabled={props.disabled}>
-			{props.buttonText}
-		</button>
-	);
+  return (
+    <button className={props.className} onClick={props.onClick} disabled={props.disabled}>
+      {props.buttonText}
+    </button>
+  );
 }
 
 export default Button;
