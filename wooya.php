@@ -33,29 +33,35 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! function_exists( 'wooya_fs' ) ) {
-	// Create a helper function for easy SDK access.
+	/**
+	 * Create a helper function for easy SDK access.
+	 *
+	 * @return mixed
+	 */
 	function wooya_fs() {
 		global $wooya_fs;
 
 		if ( ! isset( $wooya_fs ) ) {
 			// Include Freemius SDK.
-			require_once dirname(__FILE__) . '/freemius/start.php';
+			require_once dirname( __FILE__ ) . '/freemius/start.php';
 
-			$wooya_fs = fs_dynamic_init( array(
-				'id'                  => '3447',
-				'slug'                => 'wooya',
-				'type'                => 'plugin',
-				'public_key'          => 'pk_a83192e61bd403838bdff42154b97',
-				'is_premium'          => false,
-				'has_addons'          => false,
-				'has_paid_plans'      => false,
-				'menu'                => array(
+			$wooya_fs = fs_dynamic_init(
+				array(
+					'id'             => '3447',
 					'slug'           => 'wooya',
-					'account'        => false,
-					'contact'        => false,
-					'support'        => false,
-				),
-			) );
+					'type'           => 'plugin',
+					'public_key'     => 'pk_a83192e61bd403838bdff42154b97',
+					'is_premium'     => false,
+					'has_addons'     => false,
+					'has_paid_plans' => false,
+					'menu'           => array(
+						'slug'    => 'wooya',
+						'account' => false,
+						'contact' => false,
+						'support' => false,
+					),
+				)
+			);
 		}
 
 		return $wooya_fs;
@@ -105,6 +111,7 @@ class App {
 	 *
 	 * @since  2.0.0
 	 * @return App;
+	 * @throws \Exception  Autoload exception.
 	 */
 	public static function get_instance() {
 
@@ -120,6 +127,7 @@ class App {
 	 * App constructor.
 	 *
 	 * @since 1.9.0
+	 * @throws \Exception  Autoload exception.
 	 */
 	private function __construct() {
 

@@ -441,7 +441,8 @@ class YML_Elements {
 	 */
 	private static function get_attributes_array() {
 
-		if ( ! $attributes = wp_cache_get( 'wooya_attributes' ) ) {
+		$attributes = wp_cache_get( 'wooya_attributes' );
+		if ( ! $attributes ) {
 			global $wpdb;
 
 			$attributes = $wpdb->get_results(
@@ -488,7 +489,9 @@ class YML_Elements {
 
 		foreach ( $terms as $category ) {
 			$categories[ $category->term_id ] = $category->name;
-			if ( $subcategories = self::get_cats_from_array( $category->term_id, [] ) ) {
+
+			$subcategories = self::get_cats_from_array( $category->term_id, [] );
+			if ( $subcategories ) {
 				$categories = array_merge( $categories, $subcategories );
 			}
 		}
@@ -537,8 +540,5 @@ class YML_Elements {
 		return $categories;
 
 	}
-
-	// TODO: general settings
-	// TODO: get_promo_elements
 
 }

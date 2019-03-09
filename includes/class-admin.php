@@ -101,7 +101,6 @@ class Admin {
 			true
 		);
 
-
 		wp_enqueue_script(
 			$this->plugin_name,
 			WOOYA_URL . 'admin/js/wooya-app.min.js',

@@ -26,8 +26,6 @@ class Activator {
 	/**
 	 * The code that runs during plugin activation.
 	 *
-	 * TODO: run this via register_activation_hook.
-	 *
 	 * @since 2.0.0
 	 */
 	public static function activate() {

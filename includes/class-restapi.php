@@ -252,11 +252,9 @@ class RestAPI extends \WP_REST_Controller {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param \WP_REST_Request $request  Request.
-	 *
 	 * @return \WP_REST_Response
 	 */
-	public function get_combined_elements( \WP_REST_Request $request ) {
+	public function get_combined_elements() {
 
 		$elements = YML_Elements::get_elements();
 		return new \WP_REST_Response( $elements, 200 );
@@ -273,6 +271,7 @@ class RestAPI extends \WP_REST_Controller {
 	 * @return string|array
 	 */
 	public function sanitize_input_value( $input ) {
+
 		if ( is_string( $input ) ) {
 			return sanitize_text_field( $input );
 		}
@@ -288,6 +287,9 @@ class RestAPI extends \WP_REST_Controller {
 		if ( is_bool( $input ) ) {
 			return (bool) $input;
 		}
+
+		return sanitize_key( $input );
+
 	}
 
 }
