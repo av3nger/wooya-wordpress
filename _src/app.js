@@ -38,8 +38,11 @@ class Wooya extends React.Component {
         delivery: [],
         misc: [],
       },
-      updateError: false,
-      updateMessage: '',
+      error: {
+        show: false,
+        message: '',
+        link: '',
+      },
       showProgressModal: false,
     };
 
@@ -66,8 +69,11 @@ class Wooya extends React.Component {
     this.fetchWP.get('settings').then(
         (json) => this.getElements(json),
         (err) => this.setState({
-          updateError: true,
-          updateMessage: err.message,
+          error: {
+            show: true,
+            message: err.message,
+            link: '',
+          },
         })
     );
   }
@@ -165,8 +171,11 @@ class Wooya extends React.Component {
     this.fetchWP.post('settings', {items: items, action: action}).then(
         () => this.moveItem(items, action),
         (err) => this.setState({
-          updateError: true,
-          updateMessage: err.message,
+          error: {
+            show: true,
+            message: err.message,
+            link: '',
+          },
         })
     );
   }
@@ -246,8 +255,11 @@ class Wooya extends React.Component {
     }
 
     this.setState({
-      updateError: true,
-      updateMessage: ajax_strings.errors['error_' + code],
+      error: {
+        show: true,
+        message: ajax_strings.errors['error_' + code],
+        link: ajax_strings.errors['link_' + code],
+      },
       showProgressModal: false,
     });
   }
@@ -258,7 +270,7 @@ class Wooya extends React.Component {
    * @return {*}
    */
   render() {
-    if (this.state.loading && ! this.state.updateError) {
+    if (this.state.loading && ! this.state.error.show) {
       return (
         <div className="me-main-content">
           <div className="wooya-description">
@@ -272,8 +284,11 @@ class Wooya extends React.Component {
 
     return (
       <div className="me-main-content">
-        {this.state.updateError &&
-        <Notice type='error' message={this.state.updateMessage} />}
+        {this.state.error.show &&
+        <Notice type='error'
+          message={this.state.error.message}
+          link={this.state.error.link}
+        />}
 
         <Description />
 

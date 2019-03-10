@@ -26,7 +26,10 @@ function Notice( props ) {
 
   return (
     <div className={ classNames }>
-      <p>{ capitalizeFirstLetter( props.type ) }: { props.message }</p>
+      <strong>{ capitalizeFirstLetter( props.type ) }</strong>
+      <p>{ props.message }</p>
+      {props.link &&
+      <p><a href={props.link} target="_blank">More info</a></p>}
     </div>
   );
 }

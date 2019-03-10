@@ -3,16 +3,22 @@
  * Error message styles
  */
 .wooya-wrapper .wooya-notice {
-  padding: 5px 20px;
+  padding: 15px 20px;
   text-align: left;
   margin: 10px 0 20px;
   border-radius: 5px;
   border-left: 5px solid;
 
-  & p:before {
+  & p {
+    margin-left: 25px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  & strong:before {
     font-family: Dashicons, sans-serif;
     font-size: $h3-font-size;
-    margin-right: 10px;
+    margin-right: 5px;
     float: left;
     position: relative;
   }
@@ -22,7 +28,7 @@
     border-left-color: $color--red;
     background-color: #FFD2D2;
 
-    & p:before {
+    & strong:before {
       color: $color--red;
       content: "\f534";
     }
@@ -33,7 +39,7 @@
     border-left-color: $color--blue;
     background-color: #BDE5F8;
 
-    & p:before {
+    & strong:before {
       color: $color--blue;
       content: "\f534";
     }
@@ -44,7 +50,7 @@
     border-left-color: $color--green;
     background-color: #DFF2BF;
 
-    & p:before {
+    & strong:before {
       color: $color--green;
       content: "\f147";
     }
@@ -55,7 +61,7 @@
     border-left-color: #9F6000;
     background-color: #FEEFB3;
 
-    & p:before {
+    & strong:before {
       color: #9F6000;
       content: "\f534";
     }
