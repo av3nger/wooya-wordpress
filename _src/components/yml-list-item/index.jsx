@@ -46,10 +46,29 @@ class YmlListItem extends React.Component {
   /**
    * Update text value on user input.
    *
-   * @param e
+   * @param {object} e
    */
   handleChange(e) {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    let value;
+
+    if ( e.target.type === 'checkbox' ) {
+      value = e.target.checked;
+
+      // Disable/enable delivery options settings.
+      if ( 'delivery_options' === e.target.id ) {
+        document.getElementById('cost')
+            .closest('.wooya-yml-item')
+            .classList.toggle('disabled');
+        document.getElementById('days')
+            .closest('.wooya-yml-item')
+            .classList.toggle('disabled');
+        document.getElementById('order_before')
+            .closest('.wooya-yml-item')
+            .classList.toggle('disabled');
+      }
+    } else {
+      value = e.target.value;
+    }
 
     this.setState({
       value: value,
@@ -65,10 +84,14 @@ class YmlListItem extends React.Component {
   /**
    * Update checked status on user select.
    *
-   * @param e
+   * @param {object} e
    */
   handleItemSelect(e) {
-    this.props.updateSelection(e.target.dataset.type, this.props.name, e.target.checked);
+    this.props.updateSelection(
+        e.target.dataset.type,
+        this.props.name,
+        e.target.checked
+    );
 
     this.setState({
       selected: e.target.checked,
@@ -80,7 +103,7 @@ class YmlListItem extends React.Component {
    *
    * Do not send data to the server if nothing has changed.
    *
-   * @param e
+   * @param {object} e
    */
   handleBlur(e) {
     if ( e.target.value !== this.props.value ) {
@@ -97,13 +120,17 @@ class YmlListItem extends React.Component {
     let htmlElement = '';
 
     if ( 'text' === this.props.input['type'] ) {
-      htmlElement = <input type="text" name={this.props.name} value={this.state.value} data-type={this.props.type}
-                           placeholder={this.props.placeholder} onChange={this.handleChange} onBlur={this.handleBlur}/>;
+      htmlElement = <input type="text" name={this.props.name}
+        value={this.state.value} data-type={this.props.type}
+        id={this.props.name} placeholder={this.props.placeholder}
+        onChange={this.handleChange} onBlur={this.handleBlur}/>;
     }
 
     if ( 'textarea' === this.props.input['type'] ) {
-      htmlElement = <textarea name={this.props.name} data-type={this.props.type} onChange={this.handleChange}
-                              onBlur={this.handleBlur}>{this.state.value}</textarea>;
+      htmlElement = <textarea name={this.props.name} data-type={this.props.type}
+        onChange={this.handleChange} onBlur={this.handleBlur}>
+        {this.state.value}
+      </textarea>;
     }
 
     if ( 'select' === this.props.input['type'] ) {
@@ -111,7 +138,8 @@ class YmlListItem extends React.Component {
         return <option value={item[0]}>{item[1]}</option>;
       });
 
-      htmlElement = <select name={this.props.name} value={this.state.value} data-type={this.props.type} onChange={this.handleChange}>
+      htmlElement = <select name={this.props.name} value={this.state.value}
+        data-type={this.props.type} onChange={this.handleChange}>
         {options}
       </select>;
     }
@@ -128,7 +156,7 @@ class YmlListItem extends React.Component {
         options={options}
         className="wooya-select-container"
         classNamePrefix="wooya-select"
-      />
+      />;
     }
 
     if ( 'checkbox' === this.props.input['type'] ) {
@@ -136,7 +164,9 @@ class YmlListItem extends React.Component {
         <span className="wooya-switch-label">{__('Disabled', 'wooya')}</span>
 
         <label className="wooya-switch">
-          <input id={this.props.name} type="checkbox" name={this.props.name} checked={this.state.value} onChange={this.handleChange} data-type={this.props.type} />
+          <input id={this.props.name} type="checkbox" name={this.props.name}
+            checked={this.state.value} onChange={this.handleChange}
+            data-type={this.props.type} />
           <span className="slider">&nbsp;</span>
         </label>
 
@@ -152,8 +182,9 @@ class YmlListItem extends React.Component {
     return (
       <div className={className}>
         <div className="wooya-yml-item-select">
-          <input type="checkbox" id={this.props.name} data-type={this.props.type}
-                 onChange={this.handleItemSelect} checked={this.state.selected}/>
+          <input type="checkbox" id={this.props.name}
+            data-type={this.props.type} onChange={this.handleItemSelect}
+            checked={this.state.selected}/>
         </div>
 
         <div className="wooya-yml-item-title">
