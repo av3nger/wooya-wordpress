@@ -110,6 +110,27 @@ class RestAPI extends \WP_REST_Controller {
 			]
 		);
 
+		register_rest_route(
+			$namespace,
+			'/generate/',
+			[
+				[
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => [ $this, 'generate_yml_init' ],
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				],
+				[
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => [ $this, 'generate_yml_step' ],
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				],
+			]
+		);
+
 	}
 
 	/**
@@ -289,6 +310,47 @@ class RestAPI extends \WP_REST_Controller {
 		}
 
 		return sanitize_key( $input );
+
+	}
+
+	/**
+	 * Init YML generation.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function generate_yml_init() {
+
+		set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
+		update_option( 'wooya-progress-step', 0 );
+
+		return new \WP_REST_Response( true, 200 );
+
+	}
+
+	/**
+	 * Generate YML step.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
+	public function generate_yml_step() {
+
+		$is_scanning  = get_transient( 'wooya-generating-yml' );
+		$current_step = (int) get_option( 'wooya-progress-step' );
+
+		if ( 'step' ) {
+			update_option( 'wooya-progress-step', absint( ++$current_step ) );
+		}
+
+		if ( 'done' ) {
+			delete_transient( 'wooya-generating-yml' );
+			delete_option( 'wooya-progress-step' );
+		}
+
+		return new \WP_REST_Response( 'some data', 200 );
 
 	}
 

@@ -11,6 +11,7 @@ import FetchWP from './utils/fetchWP';
 import Button from './components/button';
 import Description from './components/description';
 import Files from './components/files';
+import ProgressModal from './components/progress-modal';
 import YmlListControl from './components/yml-list-control';
 
 /**
@@ -38,6 +39,7 @@ class Wooya extends React.Component {
       },
       updateError: false,
       updateMessage: '',
+      showProgressModal: false,
     };
 
     // Bind the this context to the handler function.
@@ -265,6 +267,9 @@ class Wooya extends React.Component {
         <Button
           buttonText={__( 'Generate YML', 'wooya' )}
           className='wooya-btn wooya-btn-red'
+          onClick={() => this.setState({
+            showProgressModal: ! this.state.showProgressModal,
+          })}
         /> }
 
         <Files />
@@ -283,6 +288,13 @@ class Wooya extends React.Component {
           errorMsg={this.state.updateMessage}
           selectedItems={selectedItems}
         />
+
+        {this.state.showProgressModal &&
+        <ProgressModal
+          onFinish={ () => this.setState({showProgressModal: false}) }
+          fetchWP={this.fetchWP}
+        />
+        }
       </div>
     );
   }

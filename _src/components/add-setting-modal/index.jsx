@@ -119,7 +119,7 @@ class AddSettingModal extends React.Component {
     });
 
     return (
-      <div className="wooya-add-setting-modal">
+      <div className="wooya-add-setting-modal wooya-modal">
         <div className="wooya-modal-content">
           <span className="wooya-close" onClick={this.props.hideModal}>&times;</span>
           <h3>{__('Add new setting', 'wooya')}</h3>
