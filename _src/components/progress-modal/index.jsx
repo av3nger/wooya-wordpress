@@ -33,8 +33,11 @@ class ProgressModal extends React.Component {
 
   startGenerationProcess() {
     this.props.fetchWP.post('generate').then(
-        (response) => {
-          console.log(response);
+        (code) => {
+          // Display error.
+          if ( 'undefined' !== typeof code && 200 !== code ) {
+            this.props.onError(code);
+          }
         }
     );
   }

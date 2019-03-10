@@ -234,6 +234,30 @@ class Wooya extends React.Component {
     });
   }
 
+  showError(code) {
+    if ( 'undefined' === typeof code ) {
+      return;
+    }
+
+    let error;
+
+    if ( 501 === code ) {
+      error = __('Currently only the following currency is supported:' +
+        'Russian Ruble (RUB), Ukrainian Hryvnia (UAH), Tenge (KZT),' +
+        'US Dollar (USD) and Euro (EUR).', 'wooya');
+    }
+
+    if ( 503 === code ) {
+      error = __('Unable to find any products in WooCommerce.', 'wooya');
+    }
+
+    this.setState({
+      updateError: true,
+      updateMessage: error,
+      showProgressModal: false,
+    });
+  }
+
   /**
    * Render component
    *
@@ -292,6 +316,10 @@ class Wooya extends React.Component {
         {this.state.showProgressModal &&
         <ProgressModal
           onFinish={ () => this.setState({showProgressModal: false}) }
+          onError={(errorCode) => {
+            this.setState({showAddDiv: false});
+            this.showError(errorCode);
+          }}
           fetchWP={this.fetchWP}
         />
         }

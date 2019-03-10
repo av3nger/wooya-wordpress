@@ -116,7 +116,9 @@ class RestAPI extends \WP_REST_Controller {
 			[
 				[
 					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => [ $this, 'generate_yml_init' ],
+					'callback'            => function () {
+						return new \WP_REST_Response( Generator::get_instance()->init(), 200 );
+					},
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
@@ -310,22 +312,6 @@ class RestAPI extends \WP_REST_Controller {
 		}
 
 		return sanitize_key( $input );
-
-	}
-
-	/**
-	 * Init YML generation.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return \WP_REST_Response
-	 */
-	public function generate_yml_init() {
-
-		set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
-		update_option( 'wooya-progress-step', 0 );
-
-		return new \WP_REST_Response( true, 200 );
 
 	}
 
