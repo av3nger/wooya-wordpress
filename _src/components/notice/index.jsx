@@ -29,7 +29,7 @@ function Notice( props ) {
       <strong>{ capitalizeFirstLetter( props.type ) }</strong>
       <p>{ props.message }</p>
       {props.link &&
-      <p><a href={props.link} target="_blank">More info</a></p>}
+      <p><a href={props.link}>More info</a></p>}
     </div>
   );
 }
