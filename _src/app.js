@@ -11,6 +11,7 @@ import FetchWP from './utils/fetchWP';
 import Button from './components/button';
 import Description from './components/description';
 import Files from './components/files';
+import Notice from './components/notice';
 import ProgressModal from './components/progress-modal';
 import YmlListControl from './components/yml-list-control';
 
@@ -276,15 +277,11 @@ class Wooya extends React.Component {
 
     const selectedItems = 0 === this.state.selected.shop.length && 0 === this.state.selected.offer.length;
 
-    /**
-     * Render app.
-     *
-     * @return {object}
-     *
-     * TODO: hide Files element if no files have been yet created
-     */
     return (
       <div className="me-main-content">
+        {this.state.updateError &&
+        <Notice type='error' message={this.state.updateMessage} />}
+
         <Description />
 
         {this.state.options &&
@@ -308,8 +305,6 @@ class Wooya extends React.Component {
           removeSelection={
             () => this.handleItemMove(this.state.selected, 'remove')
           }
-          error={this.state.updateError}
-          errorMsg={this.state.updateMessage}
           selectedItems={selectedItems}
         />
 

@@ -3,3 +3,11 @@
 @import "scss/variables";
 @import "scss/typography";
 @import "scss/forms";
+
+.wooya-wrapper {
+	.wooya-version {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+	}
+}

@@ -4,7 +4,6 @@ const {__} = wooyaI18n;
 
 import AddSettingModal from '../add-setting-modal';
 import Button from '../button';
-import Notice from '../notice';
 import YmlListItem from '../yml-list-item';
 
 import './style.scss';
@@ -98,9 +97,6 @@ class YmlListControl extends React.Component {
         </div>
 
         <div className="wooya-list-content">
-          {this.props.error &&
-          <Notice type='error' message={this.props.errorMsg} />}
-
           <form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
             {'undefined' !== typeof items.shop && items.shop.length > 0 &&
             <h3 className="wooya-settings-sub-shop">
