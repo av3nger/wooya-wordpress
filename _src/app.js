@@ -235,26 +235,19 @@ class Wooya extends React.Component {
     });
   }
 
+  /**
+   * Display error notice.
+   *
+   * @param {int} code
+   */
   showError(code) {
     if ( 'undefined' === typeof code ) {
       return;
     }
 
-    let error;
-
-    if ( 501 === code ) {
-      error = __('Currently only the following currency is supported:' +
-        'Russian Ruble (RUB), Ukrainian Hryvnia (UAH), Tenge (KZT),' +
-        'US Dollar (USD) and Euro (EUR).', 'wooya');
-    }
-
-    if ( 503 === code ) {
-      error = __('Unable to find any products in WooCommerce.', 'wooya');
-    }
-
     this.setState({
       updateError: true,
-      updateMessage: error,
+      updateMessage: ajax_strings.errors['error_' + code],
       showProgressModal: false,
     });
   }

@@ -116,6 +116,31 @@ class Admin {
 				'ajax_url'  => admin_url( 'admin-ajax.php' ),
 				'api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'api_url'   => rest_url( $this->plugin_name . '/v1/' ),
+				'errors'    => [
+					'error_501' => sprintf(
+						/* translators: %1$s: link to WooCommerce settings page, %2$s: closing a tag */
+						__(
+							'Currently only the following currency is supported: Russian Ruble (RUB), Ukrainian
+							Hryvnia(UAH), Tenge (KZT), US Dollar (USD) and Euro (EUR). Please %1$supdate currency%2$s.',
+							'wooya'
+						),
+						'<a href="' . admin_url( 'admin.php?page=wc-settings' ) . '">',
+						'</a>'
+
+					),
+					'error_502' => sprintf(
+						/* translators: %s: link to WooCommerce shipping settings */
+						__( 'No shipping methods are available. Please %1$supdate or add at least one%2$s.', 'wooya' ),
+						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=shipping' ) . '">',
+						'</a>'
+					),
+					'error_503' => sprintf(
+						/* translators: %1$s: link to WooCommerce product page, %2$s: closing a tag */
+						__( 'Unable to find any products. Are you sure %1$ssome exist%2$s?', 'wooya' ),
+						'<a href="' . admin_url( 'post-new.php?post_type=product' ) . '">',
+						'</a>'
+					),
+				],
 			]
 		);
 
