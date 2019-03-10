@@ -66,8 +66,8 @@ class Activator {
 		 *
 		 * @noinspection PhpIncludeInspection
 		 */
-		require WOOYA_PATH . 'includes/class-yml-elements.php';
-		$elements = YML_Elements::get_elements();
+		require WOOYA_PATH . 'includes/class-elements.php';
+		$elements = Elements::get_elements();
 
 		foreach ( $elements['shop'] as $name => $data ) {
 			if ( false === $data['required'] ) {

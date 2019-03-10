@@ -21,7 +21,7 @@ namespace Wooya\Includes;
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
  */
-class YML_Elements {
+class Elements {
 
 	/**
 	 * Get all elements combined into a single array.

@@ -141,7 +141,7 @@ class RestAPI extends \WP_REST_Controller {
 	public function get_settings() {
 		$current_settings = get_option( 'wooya_settings' );
 
-		$elements = YML_Elements::get_elements();
+		$elements = Elements::get_elements();
 
 		if ( ! isset( $current_settings['delivery'] ) ) {
 			foreach ( $elements['delivery'] as $element => $data ) {
@@ -201,7 +201,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		// Add item to settings array.
 		if ( 'add' === $params['action'] ) {
-			$elements = YML_Elements::get_elements();
+			$elements = Elements::get_elements();
 
 			foreach ( $params['items'] as $type => $data ) {
 				foreach ( $data as $item ) {
@@ -251,7 +251,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		$method = "get_{$request['type']}_elements";
 
-		if ( ! method_exists( __NAMESPACE__ . '\\YML_Elements', $method ) ) {
+		if ( ! method_exists( __NAMESPACE__ . '\\Elements', $method ) ) {
 			return new \WP_Error(
 				'method-not-found',
 				printf(
@@ -262,7 +262,7 @@ class RestAPI extends \WP_REST_Controller {
 			);
 		}
 
-		$elements = call_user_func( [ __NAMESPACE__ . '\\YML_Elements', $method ] );
+		$elements = call_user_func( [ __NAMESPACE__ . '\\Elements', $method ] );
 
 		return new \WP_REST_Response( $elements, 200 );
 
@@ -277,7 +277,7 @@ class RestAPI extends \WP_REST_Controller {
 	 */
 	public function get_combined_elements() {
 
-		$elements = YML_Elements::get_elements();
+		$elements = Elements::get_elements();
 		return new \WP_REST_Response( $elements, 200 );
 
 	}
