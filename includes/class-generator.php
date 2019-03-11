@@ -38,6 +38,13 @@ class Generator {
 	private $settings;
 
 	/**
+	 * Products to export per query.
+	 *
+	 * @since 2.0.0
+	 */
+	const PRODUCTS_PER_QUERY = 1;
+
+	/**
 	 * Get plugin instance.
 	 *
 	 * @since  2.0.0
@@ -70,24 +77,96 @@ class Generator {
 	 * Init YML generation.
 	 *
 	 * @since  2.0.0
-	 * @return int
+	 * @return array
 	 */
 	public function init() {
 
 		$currency = $this->check_currency();
 		if ( ! $currency ) {
-			return 501;
+			return [ 'code' => 501 ];
 		}
 
 		$query = $this->check_products();
 		if ( ! $query ) {
-			return 503;
+			return [ 'code' => 503 ];
 		}
 
 		set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
 		update_option( 'wooya-progress-step', 0 );
 
-		return 200;
+		$steps = $query->found_posts / self::PRODUCTS_PER_QUERY;
+
+		return [
+			'code'  => 200,
+			'steps' => $steps,
+		];
+
+	}
+
+	/**
+	 * Check if YML generator is running.
+	 *
+	 * @since  2.0.0
+	 * @return bool|int
+	 */
+	public function is_running() {
+
+		return get_transient( 'wooya-generating-yml' );
+
+	}
+
+	/**
+	 * Reset/halt generation process.
+	 *
+	 * @since 2.0.0
+	 */
+	public function stop() {
+
+		delete_transient( 'wooya-generating-yml' );
+		delete_option( 'wooya-progress-step' );
+
+		// Remove cron lock.
+		delete_option( 'market_exporter_doing_cron' );
+
+	}
+
+	/**
+	 * Generate YML in batches.
+	 *
+	 * @since  2.0.0
+	 * @return array
+	 */
+	public function run_step() {
+
+		$yml          = '';
+		$current_step = (int) get_option( 'wooya-progress-step' );
+		$next_step    = absint( ++$current_step );
+		$currency     = $this->check_currency();
+
+		if ( 1 === $next_step ) {
+			// Generate XML data.
+			$yml .= $this->yml_header( $currency );
+		}
+
+		// Generate batch.
+		$query = $this->check_products();
+		$yml  .= $this->yml_offers( $currency, $query );
+
+		if ( 'last_step' ) {
+			$yml .= $this->yml_footer();
+			$this->stop();
+		} else {
+			update_option( 'wooya-progress-step', $next_step );
+		}
+
+		// Create file.
+		$filesystem = new FS( 'market-exporter' );
+		$file_path  = $filesystem->write_file( $yml, $this->settings['file_date'] );
+
+		return [
+			'finish' => false,
+			'step'   => $next_step,
+		];
 
 	}
 

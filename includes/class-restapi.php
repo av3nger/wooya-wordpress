@@ -324,19 +324,16 @@ class RestAPI extends \WP_REST_Controller {
 	 */
 	public function generate_yml_step() {
 
-		$is_scanning  = get_transient( 'wooya-generating-yml' );
-		$current_step = (int) get_option( 'wooya-progress-step' );
+		$generator = Generator::get_instance();
 
-		if ( 'step' ) {
-			update_option( 'wooya-progress-step', absint( ++$current_step ) );
+		if ( ! $generator->is_running() ) {
+			$generator->stop();
+			return new \WP_REST_Response( [ 'finish' => true ], 200 );
 		}
 
-		if ( 'done' ) {
-			delete_transient( 'wooya-generating-yml' );
-			delete_option( 'wooya-progress-step' );
-		}
+		$status = $generator->run_step();
 
-		return new \WP_REST_Response( 'some data', 200 );
+		return new \WP_REST_Response( $status, 200 );
 
 	}
 

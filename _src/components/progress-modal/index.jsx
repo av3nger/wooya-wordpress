@@ -31,17 +31,34 @@ class ProgressModal extends React.Component {
     }
   }
 
+  /**
+   * When data is updated, update next batch.
+   */
+  componentDidUpdate() {
+    this.updateGenerationProgress();
+  }
+
+  /**
+   * Init YML generation.
+   */
   startGenerationProcess() {
     this.props.fetchWP.post('generate').then(
-        (code) => {
+        (response) => {
           // Display error.
-          if ( 'undefined' !== typeof code && 200 !== code ) {
-            this.props.onError(code);
+          if ( 'undefined' !== typeof response.code && 200 !== response.code ) {
+            this.props.onError(response.code);
+          } else if ( 'undefined' !== typeof response.steps ) {
+            this.setState({
+              totalSteps: response.steps,
+            });
           }
         }
     );
   }
 
+  /**
+   * YML generation step.
+   */
   updateGenerationProgress() {
     this.props.fetchWP.get('generate').then(
         (response) => {

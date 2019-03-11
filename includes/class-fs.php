@@ -5,7 +5,7 @@
  * A class that handles file system specific functionality of the plugin.
  *
  * @link       https://wooya.ru
- * @since      2.0.0
+ * @since      0.0.1
  *
  * @package    Wooya
  * @subpackage Wooya/Includes
@@ -16,7 +16,7 @@ namespace Wooya\Includes;
 /**
  * The filesystem class.
  *
- * @since      2.0.0
+ * @since      0.0.1
  * @package    Wooya
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
@@ -26,7 +26,7 @@ class FS {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since  2.0.0
+	 * @since  0.0.1
 	 * @access private
 	 * @var    string $plugin_name  The ID of this plugin.
 	 */
@@ -43,7 +43,7 @@ class FS {
 	/**
 	 * FS constructor.
 	 *
-	 * @since 2.0.0
+	 * @since 0.0.1
 	 * @param string $plugin_name  The name of this plugin.
 	 */
 	public function __construct( $plugin_name ) {
@@ -55,12 +55,10 @@ class FS {
 	/**
 	 * Initiate file system for read/write operations.
 	 *
-	 * @since  2.0.0
+	 * @since  0.0.8
 	 * @return bool   Return true if everything ok.
 	 */
 	private function init() {
-
-		$url = wp_nonce_url( "tools.php?page=wooya{$this->plugin_name}", $this->plugin_name );
 
 		// Need to include file.php for cron.
 		if ( ! function_exists( 'request_filesystem_credentials' ) ) {
@@ -74,7 +72,7 @@ class FS {
 
 			// You can safely run request_filesystem_credentials() without any issues
 			// and don't need to worry about passing in a URL.
-			$credentials = request_filesystem_credentials( $url, '', false, false, null );
+			$credentials = request_filesystem_credentials( site_url() . '/wp-admin/', '', false, false, null );
 
 			// Mow we have some credentials, try to get the wp_filesystem running.
 			if ( ! WP_Filesystem( $credentials ) ) {
@@ -93,12 +91,15 @@ class FS {
 	/**
 	 * Write YML file to /wp-content/uploads/ dir.
 	 *
-	 * @since  2.0.0
-	 * @param  string $yml   Variable to display contents of the YML file.
-	 * @param  string $date  Yes or No for date at the end of the file.
-	 * @return string        Return the path of the saved file.
+	 * @since  0.0.1
+	 * @since  2.0.0  Add $append and $new params.
+	 * @param  string $yml     Variable to display contents of the YML file.
+	 * @param  string $date    Yes or No for date at the end of the file.
+	 * @param  bool   $append  Append to the end of file? Default: false.
+	 * @param  bool   $new     Create a new file by deleting the old one. Only needed for use when $append = true.
+	 * @return string          Return the path of the saved file.
 	 */
-	public function write_file( $yml, $date ) {
+	public function write_file( $yml, $date, $append = false, $new = false ) {
 
 		// If unable to initialize filesystem, quit.
 		if ( ! $this->init() ) {
@@ -131,24 +132,39 @@ class FS {
 					esc_html_e( 'Error creating directory.', 'wooya' );
 				}
 			}
+
 			// Create the file.
-			if ( ! $wp_filesystem->put_contents( $file_path, $yml, FS_CHMOD_FILE ) ) {
-				esc_html_e( 'Error uploading file.', 'wooya' );
+			if ( $append ) {
+				// Delete old file.
+				if ( $new && $wp_filesystem->exists( $file_path ) ) {
+					$wp_filesystem->delete( $file_path );
+				}
+				$result = @file_put_contents( $file_path, $yml, FILE_APPEND | LOCK_EX );
+			} else {
+				$result = $wp_filesystem->put_contents( $file_path, $yml, FS_CHMOD_FILE );
 			}
 		} else {
 			// Check if 'uploads/wooya' folder exists. If not - create it.
 			if ( ! is_dir( $folder ) ) {
-				if ( ! @wp_mkdir_p( $folder ) ) {
+				if ( ! wp_mkdir_p( $folder ) ) {
 					esc_html_e( 'Error creating directory.', 'wooya' );
 				}
 			}
+
 			// Create the file.
-			$file = fopen( $file_path, 'w' );
-			if ( ! fwrite( $file, $yml ) ) {
-				esc_html_e( 'Error uploading file.', 'wooya' );
-			} elseif ( $file ) {
-				fclose( $file );
+			if ( $append ) {
+				// Delete old file.
+				if ( $new && file_exists( $file_path ) ) {
+					unlink( $file_path );
+				}
+				$result = @file_put_contents( $file_path, $yml, FILE_APPEND | LOCK_EX );
+			} else {
+				$result = @file_put_contents( $file_path, $yml );
 			}
+		}
+
+		if ( ! $result ) {
+			esc_html_e( 'Error uploading file.', 'wooya' );
 		}
 
 		return $upload_dir['baseurl'] . '/' . $this->plugin_name . '/' . $filename;
