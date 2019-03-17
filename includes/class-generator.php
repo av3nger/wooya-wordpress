@@ -74,45 +74,13 @@ class Generator {
 	}
 
 	/**
-	 * Init YML generation.
-	 *
-	 * @since  2.0.0
-	 * @return array
-	 */
-	public function init() {
-
-		$currency = $this->check_currency();
-		if ( ! $currency ) {
-			return [ 'code' => 501 ];
-		}
-
-		$query = $this->check_products();
-		if ( ! $query ) {
-			return [ 'code' => 503 ];
-		}
-
-		set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
-		update_option( 'wooya-progress-step', 0 );
-
-		$steps = $query->found_posts / self::PRODUCTS_PER_QUERY;
-
-		return [
-			'code'  => 200,
-			'steps' => $steps,
-		];
-
-	}
-
-	/**
 	 * Check if YML generator is running.
 	 *
 	 * @since  2.0.0
 	 * @return bool|int
 	 */
 	public function is_running() {
-
 		return get_transient( 'wooya-generating-yml' );
-
 	}
 
 	/**
@@ -134,38 +102,61 @@ class Generator {
 	 * Generate YML in batches.
 	 *
 	 * @since  2.0.0
+	 * @param  int $step   Current step.
+	 * @param  int $total  Total number of steps.
 	 * @return array
 	 */
-	public function run_step() {
+	public function run_step( $step, $total ) {
 
-		$yml          = '';
-		$current_step = (int) get_option( 'wooya-progress-step' );
-		$next_step    = absint( ++$current_step );
-		$currency     = $this->check_currency();
+		$start = false;
 
-		if ( 1 === $next_step ) {
-			// Generate XML data.
-			$yml .= $this->yml_header( $currency );
+		if ( 0 === $step && 0 === $total ) {
+			$start = true;
+			set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
 		}
 
-		// Generate batch.
-		$query = $this->check_products();
-		$yml  .= $this->yml_offers( $currency, $query );
-
-		if ( 'last_step' ) {
-			$yml .= $this->yml_footer();
-			$this->stop();
-		} else {
-			update_option( 'wooya-progress-step', $next_step );
+		$currency = $this->check_currency();
+		if ( ! $currency ) {
+			return [ 'code' => 501 ];
 		}
 
-		// Create file.
+		if ( $start ) {
+			$query = $this->check_products();
+			if ( 0 === $query->found_posts ) {
+				return [ 'code' => 503 ];
+			}
+		}
+
 		$filesystem = new FS( 'market-exporter' );
-		$file_path  = $filesystem->write_file( $yml, $this->settings['file_date'] );
+
+		if ( $start ) {
+			// Create file.
+			$filesystem->write_file( $this->yml_header( $currency ), $this->settings['file_date'], true, true );
+
+			$total = 1;
+			if ( self::PRODUCTS_PER_QUERY < $query->found_posts ) {
+				$total = absint( $query->found_posts / self::PRODUCTS_PER_QUERY );
+				if ( $query->found_posts % self::PRODUCTS_PER_QUERY ) {
+					$total++;
+				}
+			}
+		}
+
+		$query = $this->check_products( self::PRODUCTS_PER_QUERY, self::PRODUCTS_PER_QUERY * $step );
+
+		$file_path = $filesystem->write_file( $this->yml_offers( $currency, $query ), $this->settings['file_date'], true );
+
+		$step++;
+		if ( $step === $total ) {
+			$file_path = $filesystem->write_file( $this->yml_footer(), $this->settings['file_date'], true );
+			$this->stop();
+		}
 
 		return [
-			'finish' => false,
-			'step'   => $next_step,
+			'finish' => $step === $total,
+			'step'   => $step,
+			'steps'  => $total,
+			'file'   => $file_path,
 		];
 
 	}
@@ -206,12 +197,15 @@ class Generator {
 	 * Check if any products ara available for export.
 	 *
 	 * @since  0.3.0
-	 * @return bool|\WP_Query  Return products.
+	 * @param  int $per_page  Products to show per page.
+	 * @param  int $offset    Offset by number of products.
+	 * @return \WP_Query      Return products.
 	 */
-	private function check_products() {
+	private function check_products( $per_page = -1, $offset = 0 ) {
 
 		$args = array(
-			'posts_per_page' => -1,
+			'posts_per_page' => $per_page,
+			'offset'         => $offset,
 			'post_type'      => array( 'product' ),
 			'post_status'    => 'publish',
 			'meta_query'     => array(
@@ -257,12 +251,7 @@ class Generator {
 			);
 		}
 
-		$query = new \WP_Query( $args );
-		if ( 0 !== $query->found_posts ) {
-			return $query;
-		}
-
-		return false;
+		return new \WP_Query( $args );
 
 	}
 
@@ -280,8 +269,8 @@ class Generator {
 		$yml .= '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">' . PHP_EOL;
 		$yml .= '<yml_catalog date="' . current_time( 'Y-m-d H:i' ) . '">' . PHP_EOL;
 		$yml .= '  <shop>' . PHP_EOL;
-		$yml .= '    <name>' . esc_html( $this->settings['website_name'] ) . '</name>' . PHP_EOL;
-		$yml .= '    <company>' . esc_html( $this->settings['company_name'] ) . '</company>' . PHP_EOL;
+		$yml .= '    <name>' . esc_html( $this->settings['shop']['name'] ) . '</name>' . PHP_EOL;
+		$yml .= '    <company>' . esc_html( $this->settings['shop']['company'] ) . '</company>' . PHP_EOL;
 		$yml .= '    <url>' . get_site_url() . '</url>' . PHP_EOL;
 		$yml .= '    <currencies>' . PHP_EOL;
 
@@ -301,6 +290,7 @@ class Generator {
 		);
 
 		// Maybe we need to include only selected categories?
+		// TODO: fix.
 		if ( isset( $this->settings['include_cat'] ) ) {
 			$args['include'] = $this->settings['include_cat'];
 		}
@@ -316,6 +306,7 @@ class Generator {
 		$yml .= '    </categories>' . PHP_EOL;
 
 		// Settings for delivery-options.
+		// TODO: fix.
 		if ( isset( $this->settings['delivery_options'] ) && $this->settings['delivery_options'] ) {
 			$yml .= '    <delivery-options>' . PHP_EOL;
 			$cost = $this->settings['cost'];
@@ -348,6 +339,18 @@ class Generator {
 
 		return $yml;
 
+	}
+
+	/**
+	 * Generate YML body with offers.
+	 *
+	 * @since  0.3.0
+	 * @param  string    $currency  Currency abbreviation.
+	 * @param  \WP_Query $query     Query.
+	 * @return string
+	 */
+	private function yml_offers( $currency, \WP_Query $query ) {
+		return 'product' . PHP_EOL;
 	}
 
 }

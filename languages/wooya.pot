@@ -3,80 +3,88 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:245
+#: _src/app.js:277
 msgid "Loading..."
 msgstr ""
 
-#: _src/app.js:266
+#: _src/app.js:297
 msgid "Generate YML"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:127
-#: _src/components/yml-list-control/index.jsx:86
+#: _src/components/add-setting-modal/index.jsx:125
+#: _src/components/yml-list-control/index.jsx:85
 msgid "Add new setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:130
-#: _src/components/yml-list-control/index.jsx:107
+#: _src/components/add-setting-modal/index.jsx:128
+#: _src/components/yml-list-control/index.jsx:103
 msgid "Shop"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:139
-#: _src/components/yml-list-control/index.jsx:114
+#: _src/components/add-setting-modal/index.jsx:137
+#: _src/components/yml-list-control/index.jsx:110
 msgid "Offer"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:154
+#: _src/components/add-setting-modal/index.jsx:152
 msgid "Select setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:159
+#: _src/components/add-setting-modal/index.jsx:157
 msgid "No available items to select"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:165
+#: _src/components/add-setting-modal/index.jsx:163
 msgid "Add items"
 msgstr ""
 
-#: _src/components/description/index.jsx:18
+#: _src/components/description/index.jsx:19
 msgid ""
-"This plugin is used to generate a valid YML file for exporting your "
-"products in WooCommerceto Yandex Market."
+"This plugin is used to generate a valid YML file forexporting your products "
+"in WooCommerce to Yandex Market."
 msgstr ""
 
-#: _src/components/description/index.jsx:21
+#: _src/components/description/index.jsx:24
 msgid ""
-"Please be patient while the YML file is generated. This can take a while if "
-"your server isslow or if you have many products in WooCommerce. Do not "
+"Please be patient while the YML file is generated. This cantake a while if "
+"your server is slow or if you have many productsin WooCommerce. Do not "
 "navigate away from this page until thisscript is done or the YML file will "
-"not be created. You will be notified via this page when theprocess is "
+"not be created. You will benotified via this page when the process is "
 "completed."
 msgstr ""
 
-#: _src/components/files/index.jsx:30
+#: _src/components/files/index.jsx:31
 msgid "Available YML files"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:121
+#: _src/components/progress-modal/index.jsx:90
+msgid "Generating file"
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:96
+msgid "Progress bar status..."
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:117
 msgid "Delivery options"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:128
+#: _src/components/yml-list-control/index.jsx:124
 msgid "Misc"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:82
+#: _src/components/yml-list-control/index.jsx:81
 msgid "Settings"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:93
+#: _src/components/yml-list-control/index.jsx:92
 msgid "Remove settings"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:130
+#: _src/components/yml-list-item/index.jsx:164
 msgid "Disabled"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:137
+#: _src/components/yml-list-item/index.jsx:173
 msgid "Active"
 msgstr ""

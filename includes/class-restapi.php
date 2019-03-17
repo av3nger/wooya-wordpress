@@ -114,22 +114,11 @@ class RestAPI extends \WP_REST_Controller {
 			$namespace,
 			'/generate/',
 			[
-				[
-					'methods'             => \WP_REST_Server::EDITABLE,
-					'callback'            => function () {
-						return new \WP_REST_Response( Generator::get_instance()->init(), 200 );
-					},
-					'permission_callback' => function () {
-						return current_user_can( 'manage_options' );
-					},
-				],
-				[
-					'methods'             => \WP_REST_Server::READABLE,
-					'callback'            => [ $this, 'generate_yml_step' ],
-					'permission_callback' => function () {
-						return current_user_can( 'manage_options' );
-					},
-				],
+				'methods'             => \WP_REST_Server::EDITABLE,
+				'callback'            => [ $this, 'generate_yml_step' ],
+				'permission_callback' => function () {
+					return current_user_can( 'manage_options' );
+				},
 			]
 		);
 
@@ -289,18 +278,31 @@ class RestAPI extends \WP_REST_Controller {
 	 *
 	 * @since 2.0.0
 	 *
+	 * @param \WP_REST_Request $request  Request.
+	 *
 	 * @return \WP_Error|\WP_REST_Response
 	 */
-	public function generate_yml_step() {
+	public function generate_yml_step( \WP_REST_Request $request ) {
+
+		$params = $request->get_params();
+
+		if ( ! isset( $params['step'] ) || ! isset( $params['steps'] ) ) {
+			// No valid action - return error.
+			return new \WP_Error(
+				'generation-error',
+				__( 'Error determining steps or progress during generation', 'wooya' ),
+				[ 'status' => 500 ]
+			);
+		}
 
 		$generator = Generator::get_instance();
 
-		if ( ! $generator->is_running() ) {
-			$generator->stop();
-			return new \WP_REST_Response( [ 'finish' => true ], 200 );
-		}
+		//if ( ! $generator->is_running() ) {
+		//	$generator->stop();
+		//	return new \WP_REST_Response( [ 'finish' => true ], 200 );
+		//}
 
-		$status = $generator->run_step();
+		$status = $generator->run_step( $params['step'], $params['steps'] );
 
 		return new \WP_REST_Response( $status, 200 );
 

@@ -19,50 +19,61 @@ class ProgressModal extends React.Component {
     super(props);
 
     this.state = {
-      totalSteps: 0,
       currentStep: 0,
+      totalSteps: 0,
       progress: 0,
     };
 
-    if ( 0 === this.state.currentStep ) {
-      this.startGenerationProcess();
-    } else {
-      this.updateGenerationProgress();
-    }
+    this.generateYML();
   }
 
   /**
    * When data is updated, update next batch.
    */
   componentDidUpdate() {
-    this.updateGenerationProgress();
+    // TODO: Do not update when finished.
+    this.generateYML();
   }
 
   /**
-   * Init YML generation.
+   * Generate YML.
    */
-  startGenerationProcess() {
-    this.props.fetchWP.post('generate').then(
-        (response) => {
-          // Display error.
-          if ( 'undefined' !== typeof response.code && 200 !== response.code ) {
-            this.props.onError(response.code);
-          } else if ( 'undefined' !== typeof response.steps ) {
-            this.setState({
-              totalSteps: response.steps,
-            });
-          }
-        }
-    );
-  }
+  generateYML() {
+    const args = {
+      step: this.state.currentStep,
+      steps: this.state.totalSteps,
+    };
 
-  /**
-   * YML generation step.
-   */
-  updateGenerationProgress() {
-    this.props.fetchWP.get('generate').then(
+    this.props.fetchWP.post('generate', args).then(
         (response) => {
           console.log(response);
+
+          if ( 'undefined' !== typeof response.code && 200 !== response.code ) {
+            // Display error.
+            this.props.onError(response.code);
+          } else {
+            // TODO: check how this error is displayed.
+            if ( 'undefined' === typeof response.step ) {
+              this.props.onError(500);
+            }
+
+            if ( 'undefined' === typeof response.steps ) {
+              this.props.onError(500);
+            }
+
+            this.setState({
+              currentStep: response.step,
+              totalSteps: response.steps,
+              progress: 100 / response.steps * response.step,
+            });
+          }
+        },
+        (err) => {
+          // TODO: properly parse errors.
+          console.log(err);
+          //if ( 'undefined' !== typeof err.data.status ) {
+          //  this.props.onError(err.data.status);
+          //}
         }
     );
   }

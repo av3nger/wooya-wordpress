@@ -117,6 +117,7 @@ class Admin {
 				'api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'api_url'   => rest_url( $this->plugin_name . '/v1/' ),
 				'errors'    => [
+					'error_500' => __( 'Error generating file', 'wooya' ),
 					'error_501' => __(
 						'Currently only the following currency is supported: Russian Ruble (RUB), Ukrainian Hryvnia(UAH),
 						Tenge (KZT), US Dollar (USD) and Euro (EUR).',
