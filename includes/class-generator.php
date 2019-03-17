@@ -266,4 +266,88 @@ class Generator {
 
 	}
 
+	/**
+	 * Generate YML header.
+	 *
+	 * @since  0.3.0
+	 * @param  string $currency  Currency abbreviation.
+	 *
+	 * @return string
+	 */
+	private function yml_header( $currency ) {
+
+		$yml  = '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . '"?>' . PHP_EOL;
+		$yml .= '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">' . PHP_EOL;
+		$yml .= '<yml_catalog date="' . current_time( 'Y-m-d H:i' ) . '">' . PHP_EOL;
+		$yml .= '  <shop>' . PHP_EOL;
+		$yml .= '    <name>' . esc_html( $this->settings['website_name'] ) . '</name>' . PHP_EOL;
+		$yml .= '    <company>' . esc_html( $this->settings['company_name'] ) . '</company>' . PHP_EOL;
+		$yml .= '    <url>' . get_site_url() . '</url>' . PHP_EOL;
+		$yml .= '    <currencies>' . PHP_EOL;
+
+		if ( ( 'USD' === $currency ) || ( 'EUR' === $currency ) ) {
+			$yml .= '      <currency id="RUR" rate="1"/>' . PHP_EOL;
+			$yml .= '      <currency id="' . $currency . '" rate="СВ" />' . PHP_EOL;
+		} else {
+			$yml .= '      <currency id="' . $currency . '" rate="1" />' . PHP_EOL;
+		}
+
+		$yml .= '    </currencies>' . PHP_EOL;
+		$yml .= '    <categories>' . PHP_EOL;
+
+		$args = array(
+			'taxonomy' => 'product_cat',
+			'orderby'  => 'term_id',
+		);
+
+		// Maybe we need to include only selected categories?
+		if ( isset( $this->settings['include_cat'] ) ) {
+			$args['include'] = $this->settings['include_cat'];
+		}
+
+		foreach ( get_categories( $args ) as $category ) {
+			if ( 0 === $category->parent ) {
+				$yml .= '      <category id="' . $category->cat_ID . '">' . wp_strip_all_tags( $category->name ) . '</category>' . PHP_EOL;
+			} else {
+				$yml .= '      <category id="' . $category->cat_ID . '" parentId="' . $category->parent . '">' . wp_strip_all_tags( $category->name ) . '</category>' . PHP_EOL;
+			}
+		}
+
+		$yml .= '    </categories>' . PHP_EOL;
+
+		// Settings for delivery-options.
+		if ( isset( $this->settings['delivery_options'] ) && $this->settings['delivery_options'] ) {
+			$yml .= '    <delivery-options>' . PHP_EOL;
+			$cost = $this->settings['cost'];
+			$days = $this->settings['days'];
+			if ( isset( $this->settings['order_before'] ) && ! empty( $this->settings['order_before'] ) ) {
+				$yml .= '        <option cost="' . $cost . '" days="' . $days . '" order-before="' . $this->settings['order_before'] . '"/>';
+			} else {
+				$yml .= '        <option cost="' . $cost . '" days="' . $days . '"/>';
+			}
+			$yml .= '    </delivery-options>' . PHP_EOL;
+		}
+
+		$yml .= '    <offers>' . PHP_EOL;
+
+		return $yml;
+
+	}
+
+	/**
+	 * Generate YML footer.
+	 *
+	 * @since  0.3.0
+	 * @return string
+	 */
+	private function yml_footer() {
+
+		$yml  = '    </offers>' . PHP_EOL;
+		$yml .= '  </shop>' . PHP_EOL;
+		$yml .= '</yml_catalog>' . PHP_EOL;
+
+		return $yml;
+
+	}
+
 }

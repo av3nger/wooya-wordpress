@@ -149,6 +149,7 @@ class Admin {
 	 * @return array
 	 */
 	private function get_locale_data( $domain ) {
+
 		$translations = get_translations_for_domain( $domain );
 
 		$locale = [
@@ -167,6 +168,7 @@ class Admin {
 		}
 
 		return $locale;
+
 	}
 
 	/**

@@ -186,7 +186,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		$updated  = false;
 		$settings = $this->get_settings();
-		$items    = array_map( [ $this, 'sanitize_input_value' ], wp_unslash( $params['items'] ) );
+		$items    = array_map( [ new Helper(), 'sanitize_input_value' ], wp_unslash( $params['items'] ) );
 
 		// Remove item from settings array.
 		if ( 'remove' === $params['action'] ) {
@@ -281,37 +281,6 @@ class RestAPI extends \WP_REST_Controller {
 
 		$elements = Elements::get_elements();
 		return new \WP_REST_Response( $elements, 200 );
-
-	}
-
-	/**
-	 * Performs sanitation of user input.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string|array $input  Input values to sanitize.
-	 *
-	 * @return string|array
-	 */
-	public function sanitize_input_value( $input ) {
-
-		if ( is_string( $input ) ) {
-			return sanitize_text_field( $input );
-		}
-
-		if ( is_array( $input ) ) {
-			foreach ( $input as &$value ) {
-				$value = array_map( 'sanitize_text_field', $value );
-			}
-
-			return $input;
-		}
-
-		if ( is_bool( $input ) ) {
-			return (bool) $input;
-		}
-
-		return sanitize_key( $input );
 
 	}
 
