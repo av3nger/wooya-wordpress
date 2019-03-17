@@ -18,9 +18,9 @@ services:
     environment:
       XDEBUG_CONFIG: remote_host=192.168.1.66
       WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wooya
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
     volumes:
       - ../../../wp-content:/var/www/html/wp-content
 
