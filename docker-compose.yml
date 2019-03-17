@@ -9,8 +9,10 @@ services:
     image: wooya-wp:php7.3
     restart: always
     container_name: wooya-wp
+    depends_on:
+      - db
     networks:
-      - vcore
+      - backend
     ports:
       - 80:80
     environment:
@@ -20,28 +22,27 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - db_data:/var/lib/mysql
-      - .:/var/www/html/wp-content/plugins/market-exporter
+      - ../../../wp-content:/var/www/html/wp-content
 
   db:
     image: mariadb:10.3
     restart: always
-    container_name: wooya-db
+    container_name: database
     networks:
-      - vcore
+      - backend
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: wordpress
+      MYSQL_DATABASE: wooya
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
       MYSQL_ROOT_PASSWORD: root
 
   mailhog:
     image: mailhog/mailhog
-    container_name: wooya-smtp
+    container_name: mailhog
     networks:
-      - vcore
+      - backend
     ports:
       - 1025:1025
       - 8025:8025
@@ -52,5 +53,5 @@ volumes:
 
 networks:
 
-  vcore:
-    name: custom_vcore
+  backend:
+    name: backend
