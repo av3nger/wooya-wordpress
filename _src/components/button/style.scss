@@ -30,7 +30,7 @@
         border-color: $color--red;
         color: $color--red;
 
-        &:hover {
+        &:enabled:hover {
             border-color: darken( $color--red, 20% );
             color: darken( $color--red, 20% );
         }
@@ -40,7 +40,7 @@
         border-color: $color--primary;
         color: $color--primary;
 
-        &:hover {
+        &:enabled:hover {
             border-color: darken( $color--primary, 20% );
             color: darken( $color--primary, 20% );
         }
@@ -66,7 +66,7 @@
             padding: 2px 1px 0;
         }
 
-        &:hover {
+        &:enabled:hover {
             border-color: darken( $color--blue, 20% );
             color: darken( $color--blue, 20% );
         }
