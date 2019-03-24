@@ -110,14 +110,14 @@ class Generator {
 
 		$filesystem = new FS( 'market-exporter' );
 
+		$currency = $this->check_currency();
+		if ( ! $currency ) {
+			return [ 'code' => 501 ];
+		}
+
 		// Init the scan (this is the first step).
 		if ( 0 === $step && 0 === $total ) {
 			set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
-
-			$currency = $this->check_currency();
-			if ( ! $currency ) {
-				return [ 'code' => 501 ];
-			}
 
 			$query = $this->check_products();
 			if ( 0 === $query->found_posts ) {
@@ -125,7 +125,7 @@ class Generator {
 			}
 
 			// Create file.
-			$filesystem->write_file( $this->yml_header( $currency ), $this->settings['file_date'], true, true );
+			$filesystem->write_file( $this->yml_header( $currency ), $this->settings['misc']['file_date'], true, true );
 
 			$total = 1;
 			if ( self::PRODUCTS_PER_QUERY < $query->found_posts ) {
@@ -138,11 +138,11 @@ class Generator {
 
 		$query = $this->check_products( self::PRODUCTS_PER_QUERY, self::PRODUCTS_PER_QUERY * $step );
 
-		$file_path = $filesystem->write_file( $this->yml_offers( $currency, $query ), $this->settings['file_date'], true );
+		$file_path = $filesystem->write_file( $this->yml_offers( $currency, $query ), $this->settings['misc']['file_date'], true );
 
 		$step++;
 		if ( $step === $total ) {
-			$file_path = $filesystem->write_file( $this->yml_footer(), $this->settings['file_date'], true );
+			$file_path = $filesystem->write_file( $this->yml_footer(), $this->settings['misc']['file_date'], true );
 			$this->stop();
 		}
 
@@ -219,7 +219,7 @@ class Generator {
 		);
 
 		// Support for backorders.
-		if ( isset( $this->settings['backorders'] ) && true === $this->settings['backorders'] ) {
+		if ( isset( $this->settings['offer']['backorders'] ) && true === $this->settings['offer']['backorders'] ) {
 			array_pop( $args['meta_query'] );
 			$args['meta_query'][] = array(
 				'relation' => 'OR',
@@ -235,12 +235,12 @@ class Generator {
 		}
 
 		// If in options some specific categories are defined for export only.
-		if ( isset( $this->settings['include_cat'] ) && ! empty( $this->settings['include_cat'] ) ) {
+		if ( isset( $this->settings['offer']['include_cat'] ) && ! empty( $this->settings['offer']['include_cat'] ) ) {
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'product_cat',
 					'field'    => 'term_id',
-					'terms'    => $this->settings['include_cat'],
+					'terms'    => $this->settings['offer']['include_cat'],
 				),
 			);
 		}
@@ -284,9 +284,8 @@ class Generator {
 		);
 
 		// Maybe we need to include only selected categories?
-		// TODO: fix.
-		if ( isset( $this->settings['include_cat'] ) ) {
-			$args['include'] = $this->settings['include_cat'];
+		if ( isset( $this->settings['offer']['include_cat'] ) ) {
+			$args['include'] = $this->settings['offer']['include_cat'];
 		}
 
 		foreach ( get_categories( $args ) as $category ) {
@@ -300,13 +299,12 @@ class Generator {
 		$yml .= '    </categories>' . PHP_EOL;
 
 		// Settings for delivery-options.
-		// TODO: fix.
-		if ( isset( $this->settings['delivery_options'] ) && $this->settings['delivery_options'] ) {
+		if ( isset( $this->settings['delivery_options'] ) && $this->settings['offer']['delivery_options'] ) {
 			$yml .= '    <delivery-options>' . PHP_EOL;
-			$cost = $this->settings['cost'];
-			$days = $this->settings['days'];
-			if ( isset( $this->settings['order_before'] ) && ! empty( $this->settings['order_before'] ) ) {
-				$yml .= '        <option cost="' . $cost . '" days="' . $days . '" order-before="' . $this->settings['order_before'] . '"/>';
+			$cost = $this->settings['delivery']['cost'];
+			$days = $this->settings['delivery']['days'];
+			if ( isset( $this->settings['delivery']['order_before'] ) && ! empty( $this->settings['delivery']['order_before'] ) ) {
+				$yml .= '        <option cost="' . $cost . '" days="' . $days . '" order-before="' . $this->settings['delivery']['order_before'] . '"/>';
 			} else {
 				$yml .= '        <option cost="' . $cost . '" days="' . $days . '"/>';
 			}
