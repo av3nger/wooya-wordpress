@@ -68,7 +68,7 @@ class Elements {
 
 		$elements['company'] = [
 			'type'        => 'text',
-			'default'     => '',
+			'default'     => get_bloginfo( 'name' ),
 			'max_length'  => 0,
 			'required'    => true,
 			'description' => __(
