@@ -7,7 +7,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: _src/app.js:297
+#: _src/app.js:304
 msgid "Generate YML"
 msgstr ""
 

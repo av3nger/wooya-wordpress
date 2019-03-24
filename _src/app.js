@@ -288,6 +288,13 @@ class Wooya extends React.Component {
         <Notice type='error'
           message={this.state.error.message}
           link={this.state.error.link}
+          onHide={ () => this.setState({
+            error: {
+              show: false,
+              message: '',
+              link: '',
+            },
+          }) }
         />}
 
         <Description />
@@ -318,6 +325,7 @@ class Wooya extends React.Component {
 
         {this.state.showProgressModal &&
         <ProgressModal
+          // TODO: onFinish update the file list.
           onFinish={ () => this.setState({showProgressModal: false}) }
           onError={(errorCode) => {
             this.setState({showAddDiv: false});

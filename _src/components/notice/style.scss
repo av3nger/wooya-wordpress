@@ -66,4 +66,11 @@
       content: "\f534";
     }
   }
+
+  .wooya-close {
+    float: right;
+    margin-top: -50px;
+    cursor: pointer;
+    font-size: $h3-font-size;
+  }
 }

@@ -30,6 +30,7 @@ function Notice( props ) {
       <p>{ props.message }</p>
       {props.link &&
       <p><a href={props.link}>More info</a></p>}
+      <span className="wooya-close" onClick={props.onHide}>&times;</span>
     </div>
   );
 }
