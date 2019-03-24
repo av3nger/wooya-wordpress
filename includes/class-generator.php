@@ -42,7 +42,7 @@ class Generator {
 	 *
 	 * @since 2.0.0
 	 */
-	const PRODUCTS_PER_QUERY = 1;
+	const PRODUCTS_PER_QUERY = 4;
 
 	/**
 	 * Get plugin instance.
@@ -108,28 +108,22 @@ class Generator {
 	 */
 	public function run_step( $step, $total ) {
 
-		$start = false;
+		$filesystem = new FS( 'market-exporter' );
 
+		// Init the scan (this is the first step).
 		if ( 0 === $step && 0 === $total ) {
-			$start = true;
 			set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
-		}
 
-		$currency = $this->check_currency();
-		if ( ! $currency ) {
-			return [ 'code' => 501 ];
-		}
+			$currency = $this->check_currency();
+			if ( ! $currency ) {
+				return [ 'code' => 501 ];
+			}
 
-		if ( $start ) {
 			$query = $this->check_products();
 			if ( 0 === $query->found_posts ) {
 				return [ 'code' => 503 ];
 			}
-		}
 
-		$filesystem = new FS( 'market-exporter' );
-
-		if ( $start ) {
 			// Create file.
 			$filesystem->write_file( $this->yml_header( $currency ), $this->settings['file_date'], true, true );
 

@@ -57,12 +57,20 @@ msgstr ""
 msgid "Available YML files"
 msgstr ""
 
-#: _src/components/progress-modal/index.jsx:90
+#: _src/components/progress-modal/index.jsx:101
 msgid "Generating file"
 msgstr ""
 
-#: _src/components/progress-modal/index.jsx:96
-msgid "Progress bar status..."
+#: _src/components/progress-modal/index.jsx:87
+msgid "Initializing generation engine..."
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:89
+msgid "Finalizing..."
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:92
+msgid "Generating file: step %d of %d"
 msgstr ""
 
 #: _src/components/yml-list-control/index.jsx:117

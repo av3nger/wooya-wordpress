@@ -1,6 +1,6 @@
 import React from 'react';
 
-const {__} = wooyaI18n;
+const {__,sprintf} = wooyaI18n;
 
 import './style.scss';
 
@@ -31,8 +31,11 @@ class ProgressModal extends React.Component {
    * When data is updated, update next batch.
    */
   componentDidUpdate() {
-    // TODO: Do not update when finished.
-    this.generateYML();
+    if ( this.state.currentStep !== this.state.totalSteps ) {
+      this.generateYML();
+    } else {
+      setTimeout(this.props.onFinish, 2000);
+    }
   }
 
   /**
@@ -46,13 +49,10 @@ class ProgressModal extends React.Component {
 
     this.props.fetchWP.post('generate', args).then(
         (response) => {
-          console.log(response);
-
           if ( 'undefined' !== typeof response.code && 200 !== response.code ) {
             // Display error.
             this.props.onError(response.code);
           } else {
-            // TODO: check how this error is displayed.
             if ( 'undefined' === typeof response.step ) {
               this.props.onError(500);
             }
@@ -69,11 +69,9 @@ class ProgressModal extends React.Component {
           }
         },
         (err) => {
-          // TODO: properly parse errors.
-          console.log(err);
-          //if ( 'undefined' !== typeof err.data.status ) {
-          //  this.props.onError(err.data.status);
-          //}
+          if ( 'undefined' !== typeof err.data.status ) {
+            this.props.onError(err.data.status);
+          }
         }
     );
   }
@@ -84,6 +82,19 @@ class ProgressModal extends React.Component {
    * @return {*}
    */
   render() {
+    let progressStatus;
+    if ( 0 === this.state.currentStep ) {
+      progressStatus = __('Initializing generation engine...', 'wooya');
+    } else if ( this.state.currentStep === this.state.totalSteps ) {
+      progressStatus = __('Finalizing...', 'wooya');
+    } else {
+      progressStatus = sprintf(
+          __('Generating file: step %d of %d', 'wooya'),
+          this.state.currentStep,
+          this.state.totalSteps
+      );
+    }
+
     return (
       <div className="wooya-progress-modal wooya-modal">
         <div className="wooya-modal-content">
@@ -93,7 +104,7 @@ class ProgressModal extends React.Component {
             <div className="progress-filler"
               style={{width: `${this.state.progress}%`}} />
           </div>
-          {__('Progress bar status...', 'wooya')}
+          {progressStatus}
         </div>
       </div>
     );
