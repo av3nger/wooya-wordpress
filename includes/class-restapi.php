@@ -297,10 +297,10 @@ class RestAPI extends \WP_REST_Controller {
 
 		$generator = Generator::get_instance();
 
-		//if ( ! $generator->is_running() ) {
-		//	$generator->stop();
-		//	return new \WP_REST_Response( [ 'finish' => true ], 200 );
-		//}
+		if ( ! $generator->is_running() ) {
+			$generator->stop();
+			return new \WP_REST_Response( [ 'finish' => true ], 200 );
+		}
 
 		$status = $generator->run_step( $params['step'], $params['steps'] );
 
