@@ -47,9 +47,7 @@ class FS {
 	 * @param string $plugin_name  The name of this plugin.
 	 */
 	public function __construct( $plugin_name ) {
-
 		$this->plugin_name = $plugin_name;
-
 	}
 
 	/**
@@ -197,19 +195,20 @@ class FS {
 			 */
 			global $wp_filesystem;
 			return $wp_filesystem->dirlist( $folder );
-		} else {
-			$dir = scandir( $folder );
-			// Let's form the same array as dirlist provides.
-			$structure = [];
-			foreach ( $dir as $directory ) {
-				if ( '.' === $directory || '..' === $directory ) {
-					continue;
-				}
-
-				$structure[ $directory ]['name'] = $directory;
-			}
-			return $structure;
 		}
+
+		$dir = scandir( $folder );
+		// Let's form the same array as dirlist provides.
+		$structure = [];
+		foreach ( $dir as $directory ) {
+			if ( '.' === $directory || '..' === $directory ) {
+				continue;
+			}
+
+			$structure[ $directory ]['name'] = $directory;
+		}
+
+		return $structure;
 
 	}
 

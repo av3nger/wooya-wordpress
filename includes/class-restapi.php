@@ -122,6 +122,18 @@ class RestAPI extends \WP_REST_Controller {
 			]
 		);
 
+		register_rest_route(
+			$namespace,
+			'/files/',
+			[
+				'methods'             => \WP_REST_Server::READABLE,
+				'callback'            => [ $this, 'get_files' ],
+				'permission_callback' => function () {
+					return current_user_can( 'manage_options' );
+				},
+			]
+		);
+
 	}
 
 	/**
@@ -297,14 +309,35 @@ class RestAPI extends \WP_REST_Controller {
 
 		$generator = Generator::get_instance();
 
-		if ( ! $generator->is_running() ) {
-			$generator->stop();
-			return new \WP_REST_Response( [ 'finish' => true ], 200 );
-		}
+//		if ( ! $generator->is_running() ) {
+//			$generator->stop();
+//			return new \WP_REST_Response( [ 'finish' => true ], 200 );
+//		}
 
 		$status = $generator->run_step( $params['step'], $params['steps'] );
 
 		return new \WP_REST_Response( $status, 200 );
+
+	}
+
+	/**
+	 * Get YML files.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function get_files() {
+
+		$filesystem = new FS( 'market-exporter' );
+		$upload_dir = wp_upload_dir();
+
+		$result = [
+			'files' => $filesystem->get_files(),
+			'url'   => trailingslashit( $upload_dir['baseurl'] ) . trailingslashit( 'market-exporter' ),
+		];
+
+		return new \WP_REST_Response( $result, 200 );
 
 	}
 

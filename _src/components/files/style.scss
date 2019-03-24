@@ -1,0 +1,25 @@
+@import "../../scss/variables";
+
+/**
+ * Files component styles.
+ */
+.wooya-wrapper .wooya-files {
+
+	margin-bottom: 50px;
+
+	.wooya-yml-item {
+		margin: 0 -20px;
+		padding: 30px 20px;
+		box-shadow: none;
+
+		&:hover,
+		&.selected {
+			background-color: rgba($color--blue, .2);
+		}
+	}
+
+	.wooya-yml-item-title {
+		flex-basis: 100% !important;
+	}
+
+}

@@ -53,8 +53,16 @@ msgid ""
 "completed."
 msgstr ""
 
-#: _src/components/files/index.jsx:31
+#: _src/components/files/index.jsx:125
 msgid "Available YML files"
+msgstr ""
+
+#: _src/components/files/index.jsx:130
+msgid "Remove files"
+msgstr ""
+
+#: _src/components/files/index.jsx:137
+msgid "Loading file list..."
 msgstr ""
 
 #: _src/components/progress-modal/index.jsx:101
@@ -73,6 +81,12 @@ msgstr ""
 msgid "Generating file: step %d of %d"
 msgstr ""
 
+#: _src/components/files/index.jsx:130
+#: _src/components/files/index.jsx:126
+#: _src/components/yml-list-control/index.jsx:92
+msgid "Remove settings"
+msgstr ""
+
 #: _src/components/yml-list-control/index.jsx:117
 msgid "Delivery options"
 msgstr ""
@@ -83,10 +97,6 @@ msgstr ""
 
 #: _src/components/yml-list-control/index.jsx:81
 msgid "Settings"
-msgstr ""
-
-#: _src/components/yml-list-control/index.jsx:92
-msgid "Remove settings"
 msgstr ""
 
 #: _src/components/yml-list-item/index.jsx:164

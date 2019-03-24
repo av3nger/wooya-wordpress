@@ -308,7 +308,9 @@ class Wooya extends React.Component {
           })}
         /> }
 
-        <Files />
+        <Files
+          fetchWP={this.fetchWP}
+        />
 
         <YmlListControl
           options={this.state.options}
