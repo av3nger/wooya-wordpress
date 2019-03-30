@@ -42,7 +42,7 @@ class Generator {
 	 *
 	 * @since 2.0.0
 	 */
-	const PRODUCTS_PER_QUERY = 4;
+	const PRODUCTS_PER_QUERY = 200;
 
 	/**
 	 * Get plugin instance.

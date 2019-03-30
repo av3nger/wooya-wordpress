@@ -194,7 +194,7 @@ class FS {
 			 * @var \WP_Filesystem_Base $wp_filesystem
 			 */
 			global $wp_filesystem;
-			return $wp_filesystem->dirlist( $folder );
+			return $wp_filesystem->dirlist( $folder, false );
 		}
 
 		$dir = scandir( $folder );

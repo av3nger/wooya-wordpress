@@ -76,7 +76,7 @@ if ( ! function_exists( 'wooya_fs' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOOYA_VERSION', '2.0.0' );
+define( 'WOOYA_VERSION', '2.0.0-beta.1' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 

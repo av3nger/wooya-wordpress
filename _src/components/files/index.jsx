@@ -39,27 +39,11 @@ class Files extends React.Component {
     super(props);
 
     this.state = {
-      loading: true,
-      files: [],
-      path: '',
       selected: [],
     };
 
     // This binding is necessary to make `this` work in the callback.
     this.selectFile = this.selectFile.bind(this);
-  }
-
-  /**
-   * Init component states
-   */
-  componentDidMount() {
-    this.props.fetchWP.get('files').then(
-        (response) => this.setState({
-          loading: false,
-          files: response.files,
-          path: response.url,
-        })
-    );
   }
 
   /**
@@ -95,6 +79,9 @@ class Files extends React.Component {
     }
   }
 
+  /**
+   * Remove selected files.
+   */
   removeSelection() {
 
   }
@@ -105,8 +92,12 @@ class Files extends React.Component {
    * @return {*}
    */
   render() {
-    const files = Object.entries(this.state.files).map((file) => {
-      const url = this.state.path + file[0];
+    if ( 0 === Object.entries(this.props.files).length ) {
+      return null;
+    }
+
+    const files = Object.entries(this.props.files).map((file) => {
+      const url = this.props.path + file[0];
       return (
         <div className="wooya-yml-item" onClick={this.selectFile}>
           <div className="wooya-yml-item-select">
@@ -133,9 +124,6 @@ class Files extends React.Component {
             disabled={!this.state.loading && 0 === this.state.selected.length}
           />
         </div>
-        {this.state.loading &&
-          <p>{__( 'Loading file list...', 'wooya' )}</p>
-        }
         {files}
       </div>
     );
