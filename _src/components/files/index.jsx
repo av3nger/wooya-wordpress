@@ -44,6 +44,7 @@ class Files extends React.Component {
 
     // This binding is necessary to make `this` work in the callback.
     this.selectFile = this.selectFile.bind(this);
+    this.removeSelection = this.removeSelection.bind(this);
   }
 
   /**
@@ -81,9 +82,21 @@ class Files extends React.Component {
 
   /**
    * Remove selected files.
+   *
+   * @param {object} e
    */
-  removeSelection() {
+  removeSelection(e) {
+    e.target.disabled = true;
 
+    /*
+    this.props.fetchWP.post('files', {files: this.state.selected}).then(
+        () => {
+          e.target.disabled = false;
+          this.props.onDelete(),
+        }
+        (err) => this.props.onError(err.message)
+    );
+    */
   }
 
   /**

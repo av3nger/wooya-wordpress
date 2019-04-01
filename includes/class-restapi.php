@@ -126,11 +126,20 @@ class RestAPI extends \WP_REST_Controller {
 			$namespace,
 			'/files/',
 			[
-				'methods'             => \WP_REST_Server::READABLE,
-				'callback'            => [ $this, 'get_files' ],
-				'permission_callback' => function () {
-					return current_user_can( 'manage_options' );
-				},
+				[
+					'methods'             => \WP_REST_Server::READABLE,
+					'callback'            => [ $this, 'get_files' ],
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				],
+				[
+					'methods'             => \WP_REST_Server::EDITABLE,
+					'callback'            => [ $this, 'remove_files' ],
+					'permission_callback' => function () {
+						return current_user_can( 'manage_options' );
+					},
+				],
 			]
 		);
 
@@ -338,6 +347,46 @@ class RestAPI extends \WP_REST_Controller {
 		];
 
 		return new \WP_REST_Response( $result, 200 );
+
+	}
+
+	/**
+	 * Remove selected files.
+	 *
+	 * @param \WP_REST_Request $request  Request.
+	 *
+	 * @return \WP_Error|\WP_REST_Response
+	 */
+	public function remove_files( \WP_REST_Request $request ) {
+
+		$params = $request->get_params();
+
+		$error_data = [
+			'status' => 500,
+		];
+
+		if ( ! isset( $params['files'] ) ) {
+			// No valid action - return error.
+			return new \WP_Error(
+				'remove-error',
+				__( 'No files selected', 'wooya' ),
+				$error_data
+			);
+		}
+
+		$filesystem = new FS( 'market-exporter' );
+
+		$status = $filesystem->delete_files( $params['files'] );
+
+		if ( ! $status ) {
+			return new \WP_Error(
+				'remove-error',
+				__( 'Error removing files', 'wooya' ),
+				$error_data
+			);
+		}
+
+		return new \WP_REST_Response( true, 200 );
 
 	}
 

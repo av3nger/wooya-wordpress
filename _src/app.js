@@ -52,6 +52,7 @@ class Wooya extends React.Component {
     this.handleItemMove = this.handleItemMove.bind(this);
     this.updateSettings = this.updateSettings.bind(this);
     this.updateSelection = this.updateSelection.bind(this);
+    this.updateFileList = this.updateFileList.bind(this);
 
     /**
      * @type {FetchWP}
@@ -325,8 +326,19 @@ class Wooya extends React.Component {
         /> }
 
         <Files
+          fetchWP={this.fetchWP}
           files={this.state.files}
           path={this.state.path}
+          onDelete={this.updateFileList}
+          onError={(error) => {
+            this.setState({
+              error: {
+                show: true,
+                message: error,
+                link: '',
+              },
+            });
+          }}
         />
 
         <YmlListControl
