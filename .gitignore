@@ -13,6 +13,8 @@ Thumbs.db
 package-lock.json
 node_modules
 npm-debug.log
+composer.lock
+vendor
 
 admin/css
 admin/js

@@ -254,6 +254,8 @@ class Wooya extends React.Component {
       return;
     }
 
+    // TODO: make this method universal
+
     this.setState({
       error: {
         show: true,

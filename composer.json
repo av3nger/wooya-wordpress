@@ -1,0 +1,25 @@
+{
+  "name": "vcore/market-exporter",
+  "description": "Market Exporter",
+  "keywords": [
+    "market",
+    "export",
+    "yml",
+    "woocommerce",
+    "yandex market"
+  ],
+  "homepage": "https://vanyukov.su",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Anton Vanyukov",
+      "email": "a.vanyukov@vcore.ru",
+      "homepage": "https://vanyukov.su"
+    }
+  ],
+  "type": "wordpress-plugin",
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+    "wp-coding-standards/wpcs": "^2.0"
+  }
+}
