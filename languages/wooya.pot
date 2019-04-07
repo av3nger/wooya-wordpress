@@ -3,11 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:277
-msgid "Loading..."
-msgstr ""
-
-#: _src/app.js:304
+#: _src/app.js:310
 msgid "Generate YML"
 msgstr ""
 
@@ -36,21 +32,6 @@ msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:163
 msgid "Add items"
-msgstr ""
-
-#: _src/components/description/index.jsx:19
-msgid ""
-"This plugin is used to generate a valid YML file forexporting your products "
-"in WooCommerce to Yandex Market."
-msgstr ""
-
-#: _src/components/description/index.jsx:24
-msgid ""
-"Please be patient while the YML file is generated. This cantake a while if "
-"your server is slow or if you have many productsin WooCommerce. Do not "
-"navigate away from this page until thisscript is done or the YML file will "
-"not be created. You will benotified via this page when the process is "
-"completed."
 msgstr ""
 
 #: _src/components/files/index.jsx:164

@@ -9,7 +9,6 @@ const {__} = wooyaI18n;
 import FetchWP from './utils/fetchWP';
 
 import Button from './components/button';
-import Description from './components/description';
 import Files from './components/files';
 import Notice from './components/notice';
 import ProgressModal from './components/progress-modal';
@@ -68,13 +67,7 @@ class Wooya extends React.Component {
   componentDidMount() {
     this.fetchWP.get('settings').then(
         (json) => this.getElements(json),
-        (err) => this.setState({
-          error: {
-            show: true,
-            message: err.message,
-            link: '',
-          },
-        })
+        (err) => this.showError(0, err.message)
     );
   }
 
@@ -114,7 +107,7 @@ class Wooya extends React.Component {
             unusedItems: unusedItems,
           });
         },
-        (err) => console.log('error', err)
+        (err) => this.showError(0, err.message)
     );
   }
 
@@ -170,13 +163,7 @@ class Wooya extends React.Component {
 
     this.fetchWP.post('settings', {items: items, action: action}).then(
         () => this.moveItem(items, action),
-        (err) => this.setState({
-          error: {
-            show: true,
-            message: err.message,
-            link: '',
-          },
-        })
+        (err) => this.showError(0, err.message)
     );
   }
 
@@ -212,7 +199,7 @@ class Wooya extends React.Component {
             el[0].classList.remove('saving');
           }
         },
-        (err) => console.log(err.message)
+        (err) => this.showError(0, err.message)
     );
   }
 
@@ -247,22 +234,45 @@ class Wooya extends React.Component {
   /**
    * Display error notice.
    *
-   * @param {int} code
+   * @param {int} code        Error message code.
+   * @param {string} message  Error message text.
+   * @param {string} link     Link for more info button in error message.
    */
-  showError(code) {
+  showError(code, message = '', link = '') {
     if ( 'undefined' === typeof code ) {
       return;
     }
 
-    // TODO: make this method universal
+    // Try to look for error message by code.
+    if ( '' === message ) {
+      message = ajax_strings.errors['error_' + code];
+    }
+
+    if ( '' === link ) {
+      link = ajax_strings.errors['link_' + code];
+    }
 
     this.setState({
+      loading: false,
       error: {
         show: true,
-        message: ajax_strings.errors['error_' + code],
-        link: ajax_strings.errors['link_' + code],
+        message: message,
+        link: link,
       },
       showProgressModal: false,
+    });
+  }
+
+  /**
+   * Hide error message.
+   */
+  hideError() {
+    this.setState({
+      error: {
+        show: false,
+        message: '',
+        link: '',
+      },
     });
   }
 
@@ -272,6 +282,7 @@ class Wooya extends React.Component {
    * @return {*}
    */
   render() {
+    /*
     if (this.state.loading && ! this.state.error.show) {
       return (
         <div className="me-main-content">
@@ -281,6 +292,7 @@ class Wooya extends React.Component {
         </div>
       );
     }
+    */
 
     const selectedItems = 0 === this.state.selected.shop.length && 0 === this.state.selected.offer.length;
 
@@ -290,21 +302,13 @@ class Wooya extends React.Component {
         <Notice type='error'
           message={this.state.error.message}
           link={this.state.error.link}
-          onHide={ () => this.setState({
-            error: {
-              show: false,
-              message: '',
-              link: '',
-            },
-          }) }
+          onHide={this.hideError}
         />}
-
-        <Description />
 
         {this.state.options &&
         <Button
           buttonText={__( 'Generate YML', 'wooya' )}
-          className='wooya-btn wooya-btn-red'
+          className='wooya-btn wooya-btn-red wooya-btn-center'
           onClick={() => this.setState({
             showProgressModal: ! this.state.showProgressModal,
           })}
@@ -312,15 +316,7 @@ class Wooya extends React.Component {
 
         <Files
           fetchWP={this.fetchWP}
-          onError={(error) => {
-            this.setState({
-              error: {
-                show: true,
-                message: error,
-                link: '',
-              },
-            });
-          }}
+          onError={(error) => this.showError(0, error)}
         />
 
         <YmlListControl

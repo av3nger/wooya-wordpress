@@ -200,6 +200,16 @@ class Admin {
 		<div class="wrap wooya-wrapper" id="wooya_pages">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
+			<div class="wooya-description">
+				<p>
+					<?php esc_html_e( 'This plugin is used to generate a valid YML file for exporting your products in WooCommerce to Yandex Market.', 'wooya' ); ?>
+				</p>
+
+				<p>
+					<?php esc_html_e( 'Please be patient while the YML file is generated. This can take a while if your server is slow or if you have many products in WooCommerce. Do not navigate away from this page until this script is done or the YML file will not be created. You will be notified via this page when the process is completed.', 'wooya' ); ?>
+				</p>
+			</div>
+
 			<div class="wooya-version">
 				<?php
 				/* translators: version number */

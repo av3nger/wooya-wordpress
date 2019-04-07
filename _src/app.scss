@@ -5,9 +5,21 @@
 @import "scss/forms";
 
 .wooya-wrapper {
+	.wooya-description {
+		max-width: 600px;
+		font-size: 15px;
+		line-height: 19px;
+		text-align: center;
+		margin: 30px auto;
+	}
+
 	.wooya-version {
 		position: absolute;
 		top: 20px;
 		right: 20px;
+	}
+
+	.me-main-content > button {
+		margin-bottom: 50px;
 	}
 }

@@ -12,6 +12,11 @@
 namespace Wooya\Includes;
 
 use Wooya\App;
+use WP_Error;
+use WP_REST_Controller;
+use WP_REST_Request;
+use WP_REST_Response;
+use WP_REST_Server;
 
 /**
  * Register WP REST API endpoints.
@@ -23,7 +28,7 @@ use Wooya\App;
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
  */
-class RestAPI extends \WP_REST_Controller {
+class RestAPI extends WP_REST_Controller {
 
 	/**
 	 * Class instance.
@@ -70,14 +75,14 @@ class RestAPI extends \WP_REST_Controller {
 			'/settings/',
 			[
 				[
-					'methods'             => \WP_REST_Server::READABLE,
+					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => [ $this, 'get_settings' ],
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
 				],
 				[
-					'methods'             => \WP_REST_Server::EDITABLE,
+					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => [ $this, 'update_settings' ],
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
@@ -90,7 +95,7 @@ class RestAPI extends \WP_REST_Controller {
 			$namespace,
 			'/elements/',
 			[
-				'methods'             => \WP_REST_Server::READABLE,
+				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => [ $this, 'get_combined_elements' ],
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
@@ -102,7 +107,7 @@ class RestAPI extends \WP_REST_Controller {
 			$namespace,
 			'/elements/(?P<type>[-\w]+)',
 			[
-				'methods'             => \WP_REST_Server::READABLE,
+				'methods'             => WP_REST_Server::READABLE,
 				'callback'            => [ $this, 'get_elements' ],
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
@@ -114,7 +119,7 @@ class RestAPI extends \WP_REST_Controller {
 			$namespace,
 			'/generate/',
 			[
-				'methods'             => \WP_REST_Server::EDITABLE,
+				'methods'             => WP_REST_Server::EDITABLE,
 				'callback'            => [ $this, 'generate_yml_step' ],
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
@@ -127,14 +132,14 @@ class RestAPI extends \WP_REST_Controller {
 			'/files/',
 			[
 				[
-					'methods'             => \WP_REST_Server::READABLE,
+					'methods'             => WP_REST_Server::READABLE,
 					'callback'            => [ $this, 'get_files' ],
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
 				],
 				[
-					'methods'             => \WP_REST_Server::EDITABLE,
+					'methods'             => WP_REST_Server::EDITABLE,
 					'callback'            => [ $this, 'remove_files' ],
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
@@ -151,6 +156,7 @@ class RestAPI extends \WP_REST_Controller {
 	 * @return array
 	 */
 	public function get_settings() {
+
 		$current_settings = get_option( 'wooya_settings' );
 
 		$elements = Elements::get_elements();
@@ -168,16 +174,17 @@ class RestAPI extends \WP_REST_Controller {
 		}
 
 		return $current_settings;
+
 	}
 
 	/**
 	 * Update settings.
 	 *
-	 * @param \WP_REST_Request $request  Request.
+	 * @param WP_REST_Request $request  Request.
 	 *
-	 * @return \WP_Error|\WP_REST_Response
+	 * @return WP_Error|WP_REST_Response
 	 */
-	public function update_settings( \WP_REST_Request $request ) {
+	public function update_settings( WP_REST_Request $request ) {
 
 		$params = $request->get_params();
 
@@ -187,7 +194,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		if ( ! isset( $params['items'] ) || ! isset( $params['action'] ) ) {
 			// No valid action - return error.
-			return new \WP_Error(
+			return new WP_Error(
 				'update-error',
 				__( 'Either action or items are not defined', 'wooya' ),
 				$error_data
@@ -240,11 +247,11 @@ class RestAPI extends \WP_REST_Controller {
 
 		if ( $updated ) {
 			update_option( 'wooya_settings', $settings );
-			return new \WP_REST_Response( true, 200 );
+			return new WP_REST_Response( true, 200 );
 		}
 
 		// No valid action - return error.
-		return new \WP_Error(
+		return new WP_Error(
 			'update-error',
 			__( 'Unable to update the settings', 'wooya' ),
 			$error_data
@@ -255,16 +262,16 @@ class RestAPI extends \WP_REST_Controller {
 	/**
 	 * Get YML elements array.
 	 *
-	 * @param \WP_REST_Request $request  Request.
+	 * @param WP_REST_Request $request  Request.
 	 *
-	 * @return \WP_Error|\WP_REST_Response
+	 * @return WP_Error|WP_REST_Response
 	 */
-	public function get_elements( \WP_REST_Request $request ) {
+	public function get_elements( WP_REST_Request $request ) {
 
 		$method = "get_{$request['type']}_elements";
 
 		if ( ! method_exists( __NAMESPACE__ . '\\Elements', $method ) ) {
-			return new \WP_Error(
+			return new WP_Error(
 				'method-not-found',
 				printf(
 					/* translators: %s: method name */
@@ -276,7 +283,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		$elements = call_user_func( [ __NAMESPACE__ . '\\Elements', $method ] );
 
-		return new \WP_REST_Response( $elements, 200 );
+		return new WP_REST_Response( $elements, 200 );
 
 	}
 
@@ -285,12 +292,12 @@ class RestAPI extends \WP_REST_Controller {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return \WP_REST_Response
+	 * @return WP_REST_Response
 	 */
 	public function get_combined_elements() {
 
 		$elements = Elements::get_elements();
-		return new \WP_REST_Response( $elements, 200 );
+		return new WP_REST_Response( $elements, 200 );
 
 	}
 
@@ -299,17 +306,17 @@ class RestAPI extends \WP_REST_Controller {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param \WP_REST_Request $request  Request.
+	 * @param WP_REST_Request $request  Request.
 	 *
-	 * @return \WP_Error|\WP_REST_Response
+	 * @return WP_Error|WP_REST_Response
 	 */
-	public function generate_yml_step( \WP_REST_Request $request ) {
+	public function generate_yml_step( WP_REST_Request $request ) {
 
 		$params = $request->get_params();
 
 		if ( ! isset( $params['step'] ) || ! isset( $params['steps'] ) ) {
 			// No valid action - return error.
-			return new \WP_Error(
+			return new WP_Error(
 				'generation-error',
 				__( 'Error determining steps or progress during generation', 'wooya' ),
 				[ 'status' => 500 ]
@@ -318,14 +325,9 @@ class RestAPI extends \WP_REST_Controller {
 
 		$generator = Generator::get_instance();
 
-//		if ( ! $generator->is_running() ) {
-//			$generator->stop();
-//			return new \WP_REST_Response( [ 'finish' => true ], 200 );
-//		}
-
 		$status = $generator->run_step( $params['step'], $params['steps'] );
 
-		return new \WP_REST_Response( $status, 200 );
+		return new WP_REST_Response( $status, 200 );
 
 	}
 
@@ -334,7 +336,7 @@ class RestAPI extends \WP_REST_Controller {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @return \WP_REST_Response
+	 * @return WP_REST_Response
 	 */
 	public function get_files() {
 
@@ -346,18 +348,18 @@ class RestAPI extends \WP_REST_Controller {
 			'url'   => trailingslashit( $upload_dir['baseurl'] ) . trailingslashit( 'market-exporter' ),
 		];
 
-		return new \WP_REST_Response( $result, 200 );
+		return new WP_REST_Response( $result, 200 );
 
 	}
 
 	/**
 	 * Remove selected files.
 	 *
-	 * @param \WP_REST_Request $request  Request.
+	 * @param WP_REST_Request $request  Request.
 	 *
-	 * @return \WP_Error|\WP_REST_Response
+	 * @return WP_Error|WP_REST_Response
 	 */
-	public function remove_files( \WP_REST_Request $request ) {
+	public function remove_files( WP_REST_Request $request ) {
 
 		$params = $request->get_params();
 
@@ -367,7 +369,7 @@ class RestAPI extends \WP_REST_Controller {
 
 		if ( ! isset( $params['files'] ) ) {
 			// No valid action - return error.
-			return new \WP_Error(
+			return new WP_Error(
 				'remove-error',
 				__( 'No files selected', 'wooya' ),
 				$error_data
@@ -379,14 +381,14 @@ class RestAPI extends \WP_REST_Controller {
 		$status = $filesystem->delete_files( $params['files'] );
 
 		if ( ! $status ) {
-			return new \WP_Error(
+			return new WP_Error(
 				'remove-error',
 				__( 'Error removing files', 'wooya' ),
 				$error_data
 			);
 		}
 
-		return new \WP_REST_Response( true, 200 );
+		return new WP_REST_Response( true, 200 );
 
 	}
 
