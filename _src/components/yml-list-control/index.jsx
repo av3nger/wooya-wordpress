@@ -11,6 +11,9 @@ import './style.scss';
 /**
  * YML list control component
  *
+ * TODO: YmlListItem should handleItemUpdate after a couple of
+ * seconds after user finished editing
+ *
  * @since 2.0.0
  */
 class YmlListControl extends React.Component {
@@ -32,7 +35,7 @@ class YmlListControl extends React.Component {
   /**
    * If Enter is pressed - submit the form.
    *
-   * @param e
+   * @param {object} e
    */
   handleKeyUp(e) {
     if (13 === e.keyCode) {
@@ -72,10 +75,6 @@ class YmlListControl extends React.Component {
       } );
     });
 
-    /**
-     * TODO: YmlListItem should handleItemUpdate after a couple of
-     * seconds after user finished editing
-     */
     return (
       <div className="me-list-group me-list-group-panel" id="me_yml_store">
         <h2 className="wooya-settings-title">{__( 'Settings', 'wooya' )}</h2>
@@ -99,30 +98,31 @@ class YmlListControl extends React.Component {
         <div className="wooya-list-content">
           <form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
             {'undefined' !== typeof items.shop && items.shop.length > 0 &&
-            <h3 className="wooya-settings-sub-shop">
-              {__('Shop', 'wooya')}
-            </h3>
+              <h3 className="wooya-settings-sub-shop">
+                {__('Shop', 'wooya')}
+              </h3>
             }
             {items.shop}
 
             {'undefined' !== typeof items.offer && items.offer.length > 0 &&
-            <h3 className="wooya-settings-sub-offer">
-              {__('Offer', 'wooya')}
-            </h3>
+              <h3 className="wooya-settings-sub-offer">
+                {__('Offer', 'wooya')}
+              </h3>
             }
             {items.offer}
 
-            {'undefined' !== typeof items.delivery && items.delivery.length > 0 &&
-            <h3 className="wooya-settings-sub-shop">
-              {__('Delivery options', 'wooya')}
-            </h3>
+            {'undefined' !== typeof items.delivery &&
+              items.delivery.length > 0 &&
+              <h3 className="wooya-settings-sub-shop">
+                {__('Delivery options', 'wooya')}
+              </h3>
             }
             {items.delivery}
 
             {'undefined' !== typeof items.misc && items.misc.length > 0 &&
-            <h3 className="wooya-settings-sub-offer">
-              {__('Misc', 'wooya')}
-            </h3>
+              <h3 className="wooya-settings-sub-offer">
+                {__('Misc', 'wooya')}
+              </h3>
             }
             {items.misc}
           </form>
