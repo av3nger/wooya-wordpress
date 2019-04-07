@@ -3,22 +3,22 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:310
+#: _src/app.js:180
 msgid "Generate YML"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:125
-#: _src/components/yml-list-control/index.jsx:84
+#: _src/components/yml-list-control/index.jsx:224
 msgid "Add new setting"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:128
-#: _src/components/yml-list-control/index.jsx:102
+#: _src/components/yml-list-control/index.jsx:243
 msgid "Shop"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:137
-#: _src/components/yml-list-control/index.jsx:109
+#: _src/components/yml-list-control/index.jsx:250
 msgid "Offer"
 msgstr ""
 
@@ -62,20 +62,20 @@ msgstr ""
 msgid "Generating file: step %d of %d"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:117
-msgid "Delivery options"
-msgstr ""
-
-#: _src/components/yml-list-control/index.jsx:124
-msgid "Misc"
-msgstr ""
-
-#: _src/components/yml-list-control/index.jsx:80
+#: _src/components/yml-list-control/index.jsx:219
 msgid "Settings"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:91
+#: _src/components/yml-list-control/index.jsx:231
 msgid "Remove settings"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:258
+msgid "Delivery options"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:265
+msgid "Misc"
 msgstr ""
 
 #: _src/components/yml-list-item/index.jsx:164

@@ -22,4 +22,9 @@
 	.me-main-content > button {
 		margin-bottom: 50px;
 	}
+
+	.in-progress {
+		min-height: 100px;
+		background: url('#{$img-path}/loader.gif') no-repeat center center/100px;
+	}
 }

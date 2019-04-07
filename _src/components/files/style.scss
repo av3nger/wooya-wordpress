@@ -23,9 +23,6 @@
 	}
 
 	.wooya-files-list.in-progress {
-		min-height: 100px;
-		background: url('../../#{$img-path}/loader.gif') no-repeat center center/100px;
-
 		.wooya-yml-item { opacity: .2; }
 		.wooya-empty-files { visibility: hidden; }
 	}

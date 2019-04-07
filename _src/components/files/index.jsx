@@ -176,7 +176,7 @@ class Files extends React.Component {
         }
 
         <div className={classes}>
-          {0 === files.length &&
+          {0 === files.length && !this.state.loading &&
             <span className="wooya-empty-files">
               {__('You have not yet generated any files', 'wooya')}
             </span>
