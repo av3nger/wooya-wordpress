@@ -39,12 +39,43 @@ class Files extends React.Component {
     super(props);
 
     this.state = {
+      loading: true,
+      files: [],
+      path: '',
       selected: [],
     };
 
     // This binding is necessary to make `this` work in the callback.
     this.selectFile = this.selectFile.bind(this);
+    Files.updateFileList = Files.updateFileList.bind(this);
     this.removeSelection = this.removeSelection.bind(this);
+  }
+
+  /**
+   * Init component states
+   */
+  componentDidMount() {
+    Files.updateFileList();
+  }
+
+  /**
+   * Update the files list.
+   */
+  static updateFileList() {
+    const fileList = document.querySelector('.wooya-files-list');
+    fileList.classList.add('in-progress');
+
+    this.props.fetchWP.get('files').then(
+        (response) => {
+          fileList.classList.remove('in-progress');
+          this.setState({
+            loading: false,
+            files: response.files,
+            path: response.url,
+            selected: [],
+          });
+        }
+    );
   }
 
   /**
@@ -86,15 +117,17 @@ class Files extends React.Component {
    * @param {object} e
    */
   removeSelection(e) {
-    e.target.disabled = true;
-    const fileList = document.querySelector('.wooya-files-list');
-    fileList.classList.add('in-progress');
+    const buttonState = e.target;
+    buttonState.disabled = true;
+
+    this.setState({
+      loading: true,
+    });
 
     this.props.fetchWP.post('files', {files: this.state.selected}).then(
         () => {
-          e.target.disabled = false;
-          this.props.onDelete();
-          fileList.classList.remove('in-progress');
+          Files.updateFileList();
+          buttonState.disabled = false;
         },
         (err) => this.props.onError(err.message)
     );
@@ -106,12 +139,8 @@ class Files extends React.Component {
    * @return {*}
    */
   render() {
-    if ( 0 === Object.entries(this.props.files).length ) {
-      return null;
-    }
-
-    const files = Object.entries(this.props.files).map((file) => {
-      const url = this.props.path + file[0];
+    const files = Object.entries(this.state.files).map((file) => {
+      const url = this.state.path + file[0];
       return (
         <div className="wooya-yml-item" onClick={this.selectFile}>
           <div className="wooya-yml-item-select">
@@ -124,22 +153,35 @@ class Files extends React.Component {
       );
     });
 
+    let classes = 'wooya-files-list';
+    if ( this.state.loading ) {
+      classes = 'wooya-files-list in-progress';
+    }
+
     return (
       <div className="wooya-files">
         <h2 className="wooya-files-title">
           {__( 'Available YML files', 'wooya' )}
         </h2>
-        <div className="wooya-list-header">
-          <div/>
-          <Button
-            buttonText={__( 'Remove files', 'wooya' )}
-            className='wooya-btn wooya-btn-red'
-            onClick={this.removeSelection}
-            disabled={!this.state.loading && 0 === this.state.selected.length}
-          />
-        </div>
-        <div class="wooya-files-list">
-          {files}
+        {0 < files.length && !this.state.loading &&
+          <div className="wooya-list-header">
+            <div/>
+            <Button
+              buttonText={__('Remove files', 'wooya')}
+              className='wooya-btn wooya-btn-red'
+              onClick={this.removeSelection}
+              disabled={0 === this.state.selected.length}
+            />
+          </div>
+        }
+
+        <div className={classes}>
+          {0 === files.length &&
+            <span className="wooya-empty-files">
+              {__('You have not yet generated any files', 'wooya')}
+            </span>
+          }
+          {!this.state.loading && 0 < files.length && files}
         </div>
       </div>
     );

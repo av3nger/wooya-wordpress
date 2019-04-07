@@ -30,8 +30,6 @@ class Wooya extends React.Component {
     this.state = {
       loading: true,
       options: [], // Plugin options.
-      files: [],
-      path: '',
       fields: [], // List of available fields.
       unusedItems: [], // Not used fields (available to add via modal).
       selected: {
@@ -52,7 +50,6 @@ class Wooya extends React.Component {
     this.handleItemMove = this.handleItemMove.bind(this);
     this.updateSettings = this.updateSettings.bind(this);
     this.updateSelection = this.updateSelection.bind(this);
-    this.updateFileList = this.updateFileList.bind(this);
 
     /**
      * @type {FetchWP}
@@ -77,20 +74,6 @@ class Wooya extends React.Component {
             message: err.message,
             link: '',
           },
-        })
-    );
-
-    this.updateFileList();
-  }
-
-  /**
-   * Update the files list.
-   */
-  updateFileList() {
-    this.fetchWP.get('files').then(
-        (response) => this.setState({
-          files: response.files,
-          path: response.url,
         })
     );
   }
@@ -327,9 +310,6 @@ class Wooya extends React.Component {
 
         <Files
           fetchWP={this.fetchWP}
-          files={this.state.files}
-          path={this.state.path}
-          onDelete={this.updateFileList}
           onError={(error) => {
             this.setState({
               error: {
@@ -357,7 +337,7 @@ class Wooya extends React.Component {
         {this.state.showProgressModal &&
         <ProgressModal
           onFinish={() => {
-            this.updateFileList();
+            Files.updateFileList();
             this.setState({showProgressModal: false});
           }}
           onError={(errorCode) => {
