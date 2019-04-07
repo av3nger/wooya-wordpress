@@ -87,16 +87,17 @@ class Files extends React.Component {
    */
   removeSelection(e) {
     e.target.disabled = true;
+    const fileList = document.querySelector('.wooya-files-list');
+    fileList.classList.add('in-progress');
 
-    /*
     this.props.fetchWP.post('files', {files: this.state.selected}).then(
         () => {
           e.target.disabled = false;
-          this.props.onDelete(),
-        }
+          this.props.onDelete();
+          fileList.classList.remove('in-progress');
+        },
         (err) => this.props.onError(err.message)
     );
-    */
   }
 
   /**
@@ -137,7 +138,9 @@ class Files extends React.Component {
             disabled={!this.state.loading && 0 === this.state.selected.length}
           />
         </div>
-        {files}
+        <div class="wooya-files-list">
+          {files}
+        </div>
       </div>
     );
   }

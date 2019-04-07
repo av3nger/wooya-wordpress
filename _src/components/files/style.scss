@@ -22,4 +22,9 @@
 		flex-basis: 100% !important;
 	}
 
+	.wooya-files-list.in-progress {
+		background: url('../../#{$img-path}/loader.gif') no-repeat center center/100px;
+		.wooya-yml-item { opacity: .2; }
+	}
+
 }

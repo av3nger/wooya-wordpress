@@ -53,11 +53,11 @@ msgid ""
 "completed."
 msgstr ""
 
-#: _src/components/files/index.jsx:129
+#: _src/components/files/index.jsx:130
 msgid "Available YML files"
 msgstr ""
 
-#: _src/components/files/index.jsx:134
+#: _src/components/files/index.jsx:135
 msgid "Remove files"
 msgstr ""
 
