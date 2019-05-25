@@ -72,13 +72,24 @@ class Core {
 		if ( defined( 'WOOYA_VERSION' ) ) {
 			$this->version = WOOYA_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '2.0.0';
 		}
 		$this->plugin_name = 'wooya';
 
 		spl_autoload_register( [ $this, 'autoload' ] );
 
 		$this->load_dependencies();
+
+		if ( ! self::check_prerequisites() ) {
+			add_action( 'admin_notices', [ $this, 'plugin_activation_message' ] );
+			return;
+		}
+
+		$notice = get_option( 'market_exporter_notice_hide' );
+		if ( 'true' !== $notice ) {
+			add_action( 'admin_notices', [ $this, 'plugin_rate_message' ] );
+		}
+
 		$this->define_admin_hooks();
 
 	}
@@ -135,9 +146,11 @@ class Core {
 	 * - \Wooya\Includes\Admin. Defines all hooks for the admin area.
 	 *
 	 * @since  2.0.0
+	 * @throws \Freemius_Exception  Freemius exception.
 	 * @access private
 	 */
 	private function load_dependencies() {
+
 		// Include Freemius SDK.
 		/* @noinspection PhpIncludeInspection */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'freemius/start.php';
@@ -146,6 +159,7 @@ class Core {
 		do_action( 'wooya_fremius_loaded' );
 
 		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
+
 	}
 
 	/**
@@ -167,6 +181,13 @@ class Core {
 
 		// Add REST API endpoints.
 		add_action( 'rest_api_init', [ RestAPI::get_instance(), 'register_routes' ] );
+
+		// Add ajax support to dismiss notice.
+		add_action( 'wp_ajax_dismiss_rate_notice', [ $this, 'dismiss_notice' ] );
+
+		// Freemius.
+		add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
+
 
 	}
 
@@ -217,6 +238,96 @@ class Core {
 	}
 
 	/**
+	 * Checks if WooCommerce is installed and active.
+	 *
+	 * Check if get_plugins() function exists. Needed for checks during __construct.
+	 * Check if WooCommerce is installed using get_plugins().
+	 * Check if WooCommerce is active using is_plugin_active().
+	 *
+	 * @since  0.0.1
+	 * @return bool
+	 */
+	public static function check_prerequisites() {
+
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		$woo_installed = get_plugins( '/woocommerce' );
+		if ( empty( $woo_installed ) || ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+			return false;
+		}
+
+		return true;
+
+	}
+
+	/**
+	 * Message to display if we did not find WooCommerce.
+	 *
+	 * @since 0.0.1
+	 */
+	public function plugin_activation_message() {
+
+		?>
+		<div class="error notice">
+			<p>
+				<?php
+				printf(
+					/* translators: %1$s: opening a tag, %2%s: closing a tag */
+					esc_html__( 'The Market Exporter plugin requires %1$sWooCommerce%2$s to be installed and activated. Please check your configuration.', 'wooya' ),
+					'<a href="https://wordpress.org/plugins/woocommerce/">',
+					'</a>'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+
+	}
+
+	/**
+	 * Rate the plugin message.
+	 *
+	 * @since 0.4.4
+	 */
+	public function plugin_rate_message() {
+
+		if ( 'toplevel_page_wooya' !== get_current_screen()->id ) {
+			return;
+		}
+		?>
+		<div class="notice notice-success is-dismissible" id="rate-notice">
+			<p>
+				<?php
+				printf(
+					/* translators: %1$s: opening a tag, %2$s: closing a tag */
+					esc_html__( 'Do you like the plugin? Please support the development by %1$swriting a review%2$s!', 'wooya' ),
+					'<a href="https://wordpress.org/plugins/market-exporter/">',
+					'</a>'
+				);
+				?>
+			</p>
+		</div>
+		<?php
+
+	}
+
+	/**
+	 * Dismiss notice to rate the plugin.
+	 *
+	 * @since 0.4.4
+	 */
+	public function dismiss_notice() {
+
+		check_ajax_referer( 'wp_rest' );
+		// If user clicks to ignore the notice, add that to their user meta.
+		update_option( 'market_exporter_notice_hide', 'true' );
+		wp_die(); // All ajax handlers die when finished.
+
+	}
+
+	/**
 	 * Init Freemius.
 	 *
 	 * @since 2.0.0
@@ -248,6 +359,35 @@ class Core {
 		}
 
 		return $wooya_fremius;
+
+	}
+
+	/**
+	 * Show opt-in message for current users.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $message          Current message.
+	 * @param string $user_first_name  User name.
+	 * @param string $plugin_title     Plugin title.
+	 * @param string $user_login       User login.
+	 * @param string $site_link        Link to site.
+	 * @param string $freemius_link    Link to Freemius.
+	 *
+	 * @return string
+	 */
+	public function connect_message_on_update( $message, $user_first_name, $plugin_title, $user_login, $site_link, $freemius_link ) {
+
+		return sprintf(
+			/* translators: %1$s: user name, %2$s: plugin name, %3$s: user login, %4%s: site link, %5$s: Freemius link */
+			__( 'Hey %1$s', 'wooya' ) . ',<br>' .
+			__( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'wooya' ),
+			$user_first_name,
+			'<b>' . $plugin_title . '</b>',
+			'<b>' . $user_login . '</b>',
+			$site_link,
+			$freemius_link
+		);
 
 	}
 

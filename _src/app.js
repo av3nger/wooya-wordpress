@@ -48,6 +48,18 @@ class Wooya extends React.Component {
       restURL: this.props.wpObject.api_url,
       restNonce: this.props.wpObject.api_nonce,
     });
+
+    const notice = document.getElementById('rate-notice');
+    if ( notice ) {
+      notice.addEventListener('click', () => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(
+          'POST',
+          ajaxurl+'?action=dismiss_rate_notice&_ajax_nonce='+this.props.wpObject.api_nonce
+        );
+        xhr.send();
+      });
+    }
   }
 
   /**

@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:180
+#: _src/app.js:192
 msgid "Generate YML"
 msgstr ""
 
