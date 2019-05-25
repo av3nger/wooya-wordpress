@@ -190,6 +190,48 @@ class Admin {
 	}
 
 	/**
+	 * Add Setings link to plugin in plugins list.
+	 *
+	 * @since  0.0.5
+	 * @param  array $links Links for the current plugin.
+	 * @return array $links New links array for the current plugin.
+	 */
+	public function plugin_add_settings_link( $links ) {
+
+		$settings_link = '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'wooya' ) . '</a>';
+		array_unshift( $links, $settings_link );
+
+		return $links;
+
+	}
+
+	/**
+	 * Generate file on update.
+	 *
+	 * @since 1.0.0
+	 * @used-by \Wooya\Includes\Core::define_admin_hooks()
+	 */
+	public function generate_file_on_update() {
+
+		$options = get_option( 'wooya_settings' );
+
+		if ( ! isset( $options['misc']['update_on_change'] ) || ! $options['misc']['update_on_change'] ) {
+			return;
+		}
+
+		$doing_cron = get_option( 'market_exporter_doing_cron' );
+
+		// Already doing cron, exit.
+		if ( isset( $doing_cron ) && $doing_cron ) {
+			return;
+		}
+
+		update_option( 'market_exporter_doing_cron', true );
+		wp_schedule_single_event( time(), 'market_exporter_cron' );
+
+	}
+
+	/**
 	 * Display plugins page.
 	 *
 	 * @since 2.0.0

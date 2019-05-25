@@ -80,6 +80,8 @@ class Core {
 
 		$this->load_dependencies();
 
+		// Check if plugin has WooCommerce installed and active.
+		add_action( 'admin_init', [ $this, 'run_plugin' ] );
 		if ( ! self::check_prerequisites() ) {
 			add_action( 'admin_notices', [ $this, 'plugin_activation_message' ] );
 			return;
@@ -173,8 +175,13 @@ class Core {
 
 		// Define the locale for this plugin for internationalization.
 		add_action( 'admin_init', [ $this, 'load_plugin_textdomain' ] );
+
 		// Add admin menu.
 		add_action( 'admin_menu', [ $this->admin, 'register_menu' ] );
+		// Add Settings link to plugin in plugins list.
+		$basename = plugin_basename( WOOYA_PATH . 'wooya.php' );
+		add_filter( "plugin_action_links_{$basename}", [ $this->admin, 'plugin_add_settings_link' ] );
+
 		// Styles and scripts.
 		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_styles' ] );
 		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_scripts' ] );
@@ -184,6 +191,11 @@ class Core {
 
 		// Add ajax support to dismiss notice.
 		add_action( 'wp_ajax_dismiss_rate_notice', [ $this, 'dismiss_notice' ] );
+
+		// Add cron support.
+		//add_action( 'market_exporter_cron', $plugin_yml, 'generate_yml' );
+		// Add support to update file on product update.
+		add_action( 'woocommerce_update_product', [ $this->admin, 'generate_file_on_update' ] );
 
 		// Freemius.
 		add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
@@ -234,6 +246,29 @@ class Core {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages'
 		);
+
+	}
+
+	/**
+	 * Is WooCommerce installed? Is it active? If not - don't activate the plugin.
+	 *
+	 * Checks the availability of WooCommerce. If not WooCommerce not available - we disable the Market Exporter.
+	 * First we get a list of activated plugins. If our plugin is there - we suppress the "Activation successful" message.
+	 * And deactivate the plugin. The error message is registered in define_admin_hooks().
+	 *
+	 * @since 0.0.1
+	 */
+	public function run_plugin() {
+
+		if ( ! self::check_prerequisites() ) {
+			$plugins = get_option( 'active_plugins' );
+			$wooya   = plugin_basename( WOOYA_PATH . 'wooya.php' );
+
+			if ( in_array( $wooya, $plugins, true ) ) {
+				unset( $_GET['activate'] );
+				deactivate_plugins( WOOYA_PATH . 'wooya.php' );
+			}
+		}
 
 	}
 
