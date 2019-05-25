@@ -179,8 +179,7 @@ class Core {
 		// Add admin menu.
 		add_action( 'admin_menu', [ $this->admin, 'register_menu' ] );
 		// Add Settings link to plugin in plugins list.
-		$basename = plugin_basename( WOOYA_PATH . 'wooya.php' );
-		add_filter( "plugin_action_links_{$basename}", [ $this->admin, 'plugin_add_settings_link' ] );
+		add_filter( 'plugin_action_links_' . WOOYA_BASENAME, [ $this->admin, 'plugin_add_settings_link' ] );
 
 		// Styles and scripts.
 		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_styles' ] );
@@ -244,7 +243,7 @@ class Core {
 		load_plugin_textdomain(
 			'wooya',
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages'
+			dirname( dirname( WOOYA_BASENAME ) ) . '/languages'
 		);
 
 	}
@@ -262,9 +261,8 @@ class Core {
 
 		if ( ! self::check_prerequisites() ) {
 			$plugins = get_option( 'active_plugins' );
-			$wooya   = plugin_basename( WOOYA_PATH . 'wooya.php' );
 
-			if ( in_array( $wooya, $plugins, true ) ) {
+			if ( in_array( WOOYA_BASENAME, $plugins, true ) ) {
 				unset( $_GET['activate'] );
 				deactivate_plugins( WOOYA_PATH . 'wooya.php' );
 			}
