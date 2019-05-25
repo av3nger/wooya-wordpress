@@ -138,6 +138,13 @@ class Core {
 	 * @access private
 	 */
 	private function load_dependencies() {
+		// Include Freemius SDK.
+		/* @noinspection PhpIncludeInspection */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'freemius/start.php';
+		$this->init_fremius();
+		// Signal that SDK was initiated.
+		do_action( 'wooya_fremius_loaded' );
+
 		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 	}
 
@@ -206,6 +213,41 @@ class Core {
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages'
 		);
+
+	}
+
+	/**
+	 * Init Freemius.
+	 *
+	 * @since 2.0.0
+	 * @return \Freemius
+	 * @throws \Freemius_Exception  Freemius exception.
+	 */
+	private function init_fremius() {
+
+		global $wooya_fremius;
+
+		if ( ! isset( $wooya_fremius ) ) {
+			$wooya_fremius = fs_dynamic_init(
+				array(
+					'id'             => '3447',
+					'slug'           => 'wooya',
+					'type'           => 'plugin',
+					'public_key'     => 'pk_a83192e61bd403838bdff42154b97',
+					'is_premium'     => false,
+					'has_addons'     => false,
+					'has_paid_plans' => false,
+					'menu'           => array(
+						'slug'    => 'wooya',
+						'account' => false,
+						'contact' => false,
+						'support' => false,
+					),
+				)
+			);
+		}
+
+		return $wooya_fremius;
 
 	}
 

@@ -50,6 +50,10 @@ class Activator {
 	 * @since 2.0.0
 	 */
 	public static function deactivate() {
+		// Find out when the last event was scheduled.
+		$timestamp = wp_next_scheduled( 'market_exporter_cron' );
+		// Unschedule previous event if any.
+		wp_unschedule_event( $timestamp, 'market_exporter_cron' );
 	}
 
 	/**
