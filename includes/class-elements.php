@@ -170,6 +170,14 @@ class Elements {
 			'values'      => $attributes,
 		];
 
+		$elements['typePrefix'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __( 'Тип или категорию товара.', 'wooya' ),
+			'values'      => $attributes,
+		];
+
 		$elements['vendorCode'] = [
 			'type'        => 'select',
 			'default'     => 'disabled',

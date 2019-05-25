@@ -180,6 +180,8 @@ class RestAPI extends WP_REST_Controller {
 	/**
 	 * Update settings.
 	 *
+	 * TODO: add validation.
+	 *
 	 * @param WP_REST_Request $request  Request.
 	 *
 	 * @return WP_Error|WP_REST_Response
