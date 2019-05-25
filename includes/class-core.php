@@ -373,7 +373,7 @@ class Core {
 
 		if ( ! isset( $wooya_fremius ) ) {
 			$wooya_fremius = fs_dynamic_init(
-				array(
+				[
 					'id'             => '3447',
 					'slug'           => 'wooya',
 					'type'           => 'plugin',
@@ -381,13 +381,13 @@ class Core {
 					'is_premium'     => false,
 					'has_addons'     => false,
 					'has_paid_plans' => false,
-					'menu'           => array(
+					'menu'           => [
 						'slug'    => 'wooya',
 						'account' => false,
 						'contact' => false,
 						'support' => false,
-					),
-				)
+					],
+				]
 			);
 		}
 

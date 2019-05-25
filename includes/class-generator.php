@@ -197,52 +197,52 @@ class Generator {
 	 */
 	private function check_products( $per_page = -1, $offset = 0 ) {
 
-		$args = array(
+		$args = [
 			'posts_per_page' => $per_page,
 			'offset'         => $offset,
-			'post_type'      => array( 'product' ),
+			'post_type'      => [ 'product' ],
 			'post_status'    => 'publish',
-			'meta_query'     => array(
-				array(
+			'meta_query'     => [
+				[
 					'key'     => '_price',
 					'value'   => 0,
 					'compare' => '>',
 					'type'    => 'NUMERIC',
-				),
-				array(
+				],
+				[
 					'key'   => '_stock_status',
 					'value' => 'instock',
-				),
-			),
+				],
+			],
 			'orderby'        => 'ID',
 			'order'          => 'DESC',
-		);
+		];
 
 		// Support for backorders.
 		if ( isset( $this->settings['offer']['backorders'] ) && true === $this->settings['offer']['backorders'] ) {
 			array_pop( $args['meta_query'] );
-			$args['meta_query'][] = array(
+			$args['meta_query'][] = [
 				'relation' => 'OR',
-				array(
+				[
 					'key'   => '_stock_status',
 					'value' => 'instock',
-				),
-				array(
+				],
+				[
 					'key'   => '_backorders',
 					'value' => 'yes',
-				),
-			);
+				],
+			];
 		}
 
 		// If in options some specific categories are defined for export only.
 		if ( isset( $this->settings['offer']['include_cat'] ) && ! empty( $this->settings['offer']['include_cat'] ) ) {
-			$args['tax_query'] = array(
-				array(
+			$args['tax_query'] = [
+				[
 					'taxonomy' => 'product_cat',
 					'field'    => 'term_id',
 					'terms'    => $this->settings['offer']['include_cat'],
-				),
-			);
+				],
+			];
 		}
 
 		return new \WP_Query( $args );
@@ -278,10 +278,10 @@ class Generator {
 		$yml .= '    </currencies>' . PHP_EOL;
 		$yml .= '    <categories>' . PHP_EOL;
 
-		$args = array(
+		$args = [
 			'taxonomy' => 'product_cat',
 			'orderby'  => 'term_id',
-		);
+		];
 
 		// Maybe we need to include only selected categories?
 		if ( isset( $this->settings['offer']['include_cat'] ) ) {
