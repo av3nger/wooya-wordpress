@@ -226,12 +226,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => sprintf(
-				/* translators: %s: link to naming rules */
-				__( 'Define country of origin for a product. See %1$sthis link%2$s for a list of available values.', 'wooya' ),
-				'<a href="http://partner.market.yandex.ru/pages/help/Countries.pdf" target="_blank">',
-				'</a>'
-			),
+			'description' => __( 'Define country of origin for a product. See http://partner.market.yandex.ru/pages/help/Countries.pdf for a list of available values.', 'wooya' ),
 			'values'      => $attributes,
 		];
 
