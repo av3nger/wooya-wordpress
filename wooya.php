@@ -25,6 +25,7 @@
 
 namespace Wooya;
 
+use Exception;
 use Wooya\Includes\Core;
 
 // If this file is called directly, abort.
@@ -71,7 +72,7 @@ class App {
 	 *
 	 * @since  2.0.0
 	 * @return App;
-	 * @throws \Exception  Autoload exception.
+	 * @throws Exception  Autoload exception.
 	 */
 	public static function get_instance() {
 
@@ -87,7 +88,7 @@ class App {
 	 * App constructor.
 	 *
 	 * @since 1.9.0
-	 * @throws \Exception  Autoload exception.
+	 * @throws Exception  Autoload exception.
 	 */
 	private function __construct() {
 

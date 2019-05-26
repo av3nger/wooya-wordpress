@@ -3,7 +3,7 @@ module.exports = {
     'browser': true,
     'es6': true,
   },
-  'extends': 'google',
+  'extends': 'plugin:@wordpress/eslint-plugin/recommended',
   'globals': {
     'Atomics': 'readonly',
     'SharedArrayBuffer': 'readonly',
@@ -15,9 +15,6 @@ module.exports = {
     'ecmaVersion': 2018,
     'sourceType': 'module',
   },
-  'plugins': [
-    'react',
-  ],
   'rules': {
   },
 };
