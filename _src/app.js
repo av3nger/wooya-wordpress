@@ -235,9 +235,12 @@ Wooya.propTypes = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-  ReactDOM.render(
-      /** @var {object} window.ajax_strings */
-      <Wooya wpObject={window.ajax_strings} />,
-      document.getElementById('wooya_components')
-  );
+  const container = document.getElementById('wooya_components');
+  if ( container ) {
+    ReactDOM.render(
+        /** @var {object} window.ajax_strings */
+        <Wooya wpObject={window.ajax_strings}/>,
+        container
+    );
+  }
 });

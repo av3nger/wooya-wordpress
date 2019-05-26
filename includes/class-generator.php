@@ -655,6 +655,7 @@ class Generator {
 		}
 
 		return $yml;
+
 	}
 
 	/**
@@ -760,6 +761,7 @@ class Generator {
 		}
 
 		return false;
+
 	}
 
 }

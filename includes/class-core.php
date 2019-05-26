@@ -155,7 +155,7 @@ class Core {
 
 		// Include Freemius SDK.
 		/* @noinspection PhpIncludeInspection */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'freemius/start.php';
+		require_once WOOYA_PATH . '/freemius/start.php';
 		$this->init_fremius();
 		// Signal that SDK was initiated.
 		do_action( 'wooya_fremius_loaded' );
@@ -197,8 +197,7 @@ class Core {
 		add_action( 'woocommerce_update_product', [ $this->admin, 'generate_file_on_update' ] );
 
 		// Freemius.
-		add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
-
+		$this->init_fremius()->add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
 
 	}
 
