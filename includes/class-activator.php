@@ -59,25 +59,6 @@ class Activator {
 	}
 
 	/**
-	 * Uninstall procedure.
-	 *
-	 * @since 2.0.0  Moved from uninstall.php.
-	 */
-	public function uninstall() {
-
-		// Data from v 1.x.
-		delete_option( 'market_exporter_website_name' );
-		delete_option( 'market_exporter_company_name' );
-		delete_option( 'market_exporter_shop_settings' );
-		delete_option( 'market_exporter_version' );
-		delete_option( 'market_exporter_notice_hide' );
-		delete_option( 'market_exporter_doing_cron' );
-
-		delete_option( 'wooya_settings' );
-
-	}
-
-	/**
 	 * Populate settings for a new install.
 	 *
 	 * @since 2.0.0

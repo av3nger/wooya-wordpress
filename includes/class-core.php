@@ -197,7 +197,6 @@ class Core {
 
 		// Freemius.
 		$this->init_fremius()->add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
-		$this->init_fremius()->add_action( 'after_uninstall', [ 'Wooya\Includes\Activator', 'uninstall' ] );
 
 	}
 
@@ -366,7 +365,7 @@ class Core {
 	 * @return \Freemius
 	 * @throws \Freemius_Exception  Freemius exception.
 	 */
-	private function init_fremius() {
+	public function init_fremius() {
 
 		global $wooya_fremius;
 
