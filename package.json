@@ -6,8 +6,8 @@
   "scripts": {
     "watch": "webpack --watch --mode development",
     "compile": "clear && webpack -p --progress",
-    "makepot": "npx pot-to-php languages/market-exporter.pot languages/market-exporter.php market-exporter",
-    "translate": "clear && npm run makepot && grunt translate",
+    "makepot": "npx pot-to-php languages/react.pot languages/react.php market-exporter",
+    "translate": "clear && grunt translate && npm run makepot",
     "build": "grunt clean && npm run compile && grunt prepare && grunt build"
   },
   "repository": {
@@ -67,7 +67,7 @@
       [
         "@wordpress/babel-plugin-makepot",
         {
-          "output": "languages/wooya.pot"
+          "output": "languages/react.pot"
         }
       ]
     ]

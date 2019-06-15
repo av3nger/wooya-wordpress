@@ -74,6 +74,8 @@ module.exports = function( grunt ) {
 					'freemius/**',
 					'includes/**',
 					'languages/**',
+					'!languages/react.php',
+					'!languages/react.pot',
 					'readme.txt',
 					'index.php',
 					'uninstall.php',
