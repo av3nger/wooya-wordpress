@@ -263,7 +263,7 @@ class Core {
 
 			if ( in_array( WOOYA_BASENAME, $plugins, true ) ) {
 				unset( $_GET['activate'] );
-				deactivate_plugins( WOOYA_PATH . 'wooya.php' );
+				deactivate_plugins( WOOYA_PATH . 'market-exporter.php' );
 			}
 		}
 
@@ -373,19 +373,26 @@ class Core {
 		if ( ! isset( $wooya_fremius ) ) {
 			$wooya_fremius = fs_dynamic_init(
 				[
-					'id'             => '3447',
-					'slug'           => 'wooya',
-					'type'           => 'plugin',
-					'public_key'     => 'pk_a83192e61bd403838bdff42154b97',
-					'is_premium'     => false,
-					'has_addons'     => false,
-					'has_paid_plans' => false,
-					'menu'           => [
-						'slug'    => 'wooya',
-						'account' => false,
-						'contact' => false,
-						'support' => false,
-					],
+					'id'                  => '3640',
+					'slug'                => 'market-exporter',
+					'type'                => 'plugin',
+					'public_key'          => 'pk_8e3bfb7fdecdacb5e4b56998fbe73',
+					'is_premium'          => true,
+					'premium_suffix'      => 'Pro',
+					// If your plugin is a serviceware, set this option to false.
+					'has_premium_version' => true,
+					'has_addons'          => false,
+					'has_paid_plans'      => true,
+					'trial'               => array(
+						'days'               => 7,
+						'is_require_payment' => true,
+					),
+					'menu'                => array(
+						'slug' => 'market-exporter',
+					),
+					// Set the SDK to work in a sandbox mode (for development & testing).
+					// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+					'secret_key'          => 'sk_Z$;6~:*b#qg3)?2FU!HkQ8)y#r&*z',
 				]
 			);
 		}
