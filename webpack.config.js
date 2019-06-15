@@ -4,7 +4,7 @@ const autoprefixer = require( 'autoprefixer' );
 
 // Plugins
 const ExtractTextPlugin = require( 'mini-css-extract-plugin' );
-const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 
 module.exports = {
 	mode: 'production',
@@ -43,9 +43,7 @@ module.exports = {
 					options: {
 						sourceMap: true,
 						plugins: [
-							autoprefixer( {
-								browsers: [ 'ie >= 8', 'last 3 version' ],
-							} ),
+							autoprefixer(),
 						],
 					},
 				},
