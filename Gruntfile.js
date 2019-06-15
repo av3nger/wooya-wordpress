@@ -50,10 +50,11 @@ module.exports = function( grunt ) {
 				potFilename: 'market-exporter.pot',
 				potHeaders: {
 					'report-msgid-bugs-to': 'https://wordpress.org/support/plugin/market-exporter/',
-					'language-team': 'LANGUAGE <EMAIL@ADDRESS>',
+					'language-team': 'RUSSIAN LANGUAGE <INFO@VCORE.RU>',
+					'last-translator': 'ANTON VANYUKOV <A.VANYUKOV@TESTOR.RU>',
 				},
 				type: 'wp-plugin',
-				updateTimestamp: false, // Update POT-Creation-Date header if no other changes are detected
+				updateTimestamp: false,
 			},
 			main: {
 				options: {

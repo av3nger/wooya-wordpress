@@ -4,41 +4,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Market Exporter 2.0.0-beta.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/market-exporter/\n"
-"POT-Creation-Date: 2019-06-15 09:51:57+00:00\n"
+"POT-Creation-Date: 2019-06-15 13:03:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"Last-Translator: ANTON VANYUKOV <A.VANYUKOV@TESTOR.RU>\n"
+"Language-Team: RUSSIAN LANGUAGE <INFO@VCORE.RU>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: build/market-exporter/includes/class-activator.php:102
-#: build/market-exporter/includes/class-elements.php:94
-#: includes/class-activator.php:102 includes/class-elements.php:94
+#: includes/class-activator.php:102 includes/class-elements.php:90
 msgid "WordPress"
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:120
 #: includes/class-admin.php:120
 msgid "Error generating file"
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:121
 #: includes/class-admin.php:121
 msgid ""
 "Currently only the following currency is supported: Russian Ruble (RUB), "
-"Ukrainian Hryvnia(UAH),\n"
-"\t\t\t\t\t\tTenge (KZT), US Dollar (USD) and Euro (EUR)."
+"Ukrainian Hryvnia(UAH), Tenge (KZT), US Dollar (USD) and Euro (EUR)."
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:127
-#: includes/class-admin.php:127
+#: includes/class-admin.php:126
 msgid "No shipping methods are available."
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:129
-#: includes/class-admin.php:129
+#: includes/class-admin.php:128
 msgid "Unable to find any products in WooCommerce."
 msgstr ""
 
@@ -46,20 +39,17 @@ msgstr ""
 msgid "Market Exporter"
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:201
-#: includes/class-admin.php:201 languages/react.php:50
+#: includes/class-admin.php:200 languages/react.php:50
 msgid "Settings"
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:247
-#: includes/class-admin.php:247
+#: includes/class-admin.php:246
 msgid ""
 "This plugin is used to generate a valid YML file for exporting your "
 "products in WooCommerce to Yandex Market."
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:251
-#: includes/class-admin.php:251
+#: includes/class-admin.php:250
 msgid ""
 "Please be patient while the YML file is generated. This can take a while if "
 "your server is slow or if you have many products in WooCommerce. Do not "
@@ -68,13 +58,11 @@ msgid ""
 "completed."
 msgstr ""
 
-#: build/market-exporter/includes/class-admin.php:258
-#: includes/class-admin.php:258
+#: includes/class-admin.php:257
 #. translators: version number
 msgid "Version: %s"
 msgstr ""
 
-#: build/market-exporter/includes/class-core.php:310
 #: includes/class-core.php:310
 #. translators: %1$s: opening a tag, %2%s: closing a tag
 msgid ""
@@ -82,7 +70,6 @@ msgid ""
 "activated. Please check your configuration."
 msgstr ""
 
-#: build/market-exporter/includes/class-core.php:337
 #: includes/class-core.php:337
 #. translators: %1$s: opening a tag, %2$s: closing a tag
 msgid ""
@@ -90,14 +77,12 @@ msgid ""
 "review%2$s!"
 msgstr ""
 
-#: build/market-exporter/includes/class-core.php:422
 #: includes/class-core.php:422
 #. translators: %1$s: user name, %2$s: plugin name, %3$s: user login, %4%s:
 #. site link, %5$s: Freemius link
 msgid "Hey %1$s"
 msgstr ""
 
-#: build/market-exporter/includes/class-core.php:423
 #: includes/class-core.php:423
 msgid ""
 "Please help us improve %2$s! If you opt-in, some data about your usage of "
@@ -105,309 +90,246 @@ msgid ""
 "work just fine."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:60
 #: includes/class-elements.php:60
 msgid ""
-"Короткое название магазина, не более 20 символов. В названии нельзя "
-"использовать слова, не имеющие\n"
-"\t\t\t\tотношения к наименованию магазина, например «лучший», «дешевый», "
-"указывать номер телефона и т. п. Название\n"
-"\t\t\t\tмагазина должно совпадать с фактическим названием магазина, которое "
-"публикуется на сайте. При несоблюдении\n"
-"\t\t\t\tэтого требования наименование Яндекс.Маркет может самостоятельно "
-"изменить название без уведомления магазина."
+"The short name of the store, no more than 20 characters. The name may not "
+"contain words not related to the store's name (such as “best” or “cheap”), "
+"and may not include a phone number and so on. The name of the store must "
+"match the actual name of the store that is published on the website. If "
+"this requirement is not met, Yandex Market can change the name itself "
+"without notifying the store."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:74
-#: includes/class-elements.php:74
+#: includes/class-elements.php:71
 msgid ""
-"Полное наименование компании, владеющей магазином. Не публикуется, "
-"используется для внутренней идентификации."
+"Full name of the company that owns the store. It is used for internal "
+"identification and not published."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:85
-#: includes/class-elements.php:85
+#: includes/class-elements.php:82
 msgid ""
-"URL главной страницы магазина. Максимум 50 символов. Допускаются "
-"кириллические ссылки. Элемент обязателен\n"
-"\t\t\t\tпри размещении по модели «Переход на сайт»."
+"URL of store's home page. No more than 50 characters. Cyrillic links are "
+"permitted."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:97
-#: includes/class-elements.php:97
-msgid "Система управления контентом, на основе которой работает магазин (CMS)."
+#: includes/class-elements.php:93
+msgid "Content management system (CMS) used for the store."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:105
-#: includes/class-elements.php:105
-msgid "Версия CMS."
+#: includes/class-elements.php:101
+msgid "CMS version."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:113
-#: includes/class-elements.php:113
+#: includes/class-elements.php:109
 msgid ""
-"Наименование агентства, которое оказывает техническую поддержку магазину и "
-"отвечает\n"
-"\t\t\tза работоспособность сайта."
+"Name of the agency that provides technical support to the store and is "
+"responsible for the website's functionality."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:125
-#: includes/class-elements.php:125
+#: includes/class-elements.php:120
 msgid ""
-"Контактный адрес разработчиков CMS или агентства, осуществляющего "
-"техподдержку."
+"Contact email address of the CMS developers or agency that provides tech "
+"support."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:161
-#: includes/class-elements.php:161
-msgid "Модель товара."
+#: includes/class-elements.php:156
+msgid "Product model."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:169
-#: includes/class-elements.php:169
-msgid "Название производителя."
+#: includes/class-elements.php:164
+msgid "Manufacturer name."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:177
-#: includes/class-elements.php:177
-msgid "Тип или категорию товара."
+#: includes/class-elements.php:172
+msgid "Product type or category."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:185
-#: includes/class-elements.php:185
-msgid "Код производителя для данного товара."
+#: includes/class-elements.php:180
+msgid "Vendor code."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:193
-#: includes/class-elements.php:193
+#: includes/class-elements.php:188
 msgid ""
 "If enabled products that are available for backorder will be exported to "
 "YML."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:200
-#: includes/class-elements.php:200
+#: includes/class-elements.php:195
 msgid ""
 "Only selected categories will be included in the export file. Hold down the "
-"control (ctrl) button on\n"
-"\t\t\t\tWindows or command (cmd) on Mac to select multiple options. If "
-"nothing is selected - all the categories\n"
-"\t\t\t\twill be exported."
+"control (ctrl) button on Windows or command (cmd) on Mac to select multiple "
+"options. If nothing is selected - all the categories will be exported."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:213
-#: includes/class-elements.php:213
+#: includes/class-elements.php:206
 msgid ""
-"Элемент sales_notes позволяет передать условия продажи товара. Not longer "
-"than 50 characters."
+"Sales notes attribute allows passing in additional conditions for sales. "
+"Not longer than 50 characters."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:221
-#: includes/class-elements.php:221
+#: includes/class-elements.php:214
 msgid ""
 "Define if manufacturer warranty is available for selected product. "
 "Available values: true of false."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:229
-#: includes/class-elements.php:229
+#: includes/class-elements.php:222
 msgid ""
 "Define country of origin for a product. See "
 "http://partner.market.yandex.ru/pages/help/Countries.pdf for a list of "
 "available values."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:237
-#: includes/class-elements.php:237
+#: includes/class-elements.php:230
 msgid ""
 "If enabled weight and size data from WooCommerce will be exported to Weight "
 "and Dimensions elements."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:244
-#: includes/class-elements.php:244
+#: includes/class-elements.php:237
 msgid ""
 "Selected attributes will be exported as a parameters. Hold down the control "
-"(ctrl) button on\n"
-"\t\t\t\tWindows or command (cmd) on Mac to select multiple options."
+"(ctrl) button on Windows or command (cmd) on Mac to select multiple options."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:257
-#: includes/class-elements.php:257
+#: includes/class-elements.php:249
 msgid "Images per product. Not more than 10 images."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:264
-#: includes/class-elements.php:264
+#: includes/class-elements.php:256
 msgid "Adds the number of available products in stock."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:283
-#: build/market-exporter/includes/class-elements.php:402
-#: build/market-exporter/includes/class-elements.php:460
-#: includes/class-elements.php:283 includes/class-elements.php:402
-#: includes/class-elements.php:460 languages/react.php:62
+#: includes/class-elements.php:275 includes/class-elements.php:390
+#: includes/class-elements.php:447 languages/react.php:62
 msgid "Disabled"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:284
-#: includes/class-elements.php:284
+#: includes/class-elements.php:276
 msgid "true"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:285
-#: includes/class-elements.php:285
+#: includes/class-elements.php:277
 msgid "false"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:292
-#: includes/class-elements.php:292
+#: includes/class-elements.php:284
 msgid ""
 "Use the delivery element to indicate the possibility of delivery to the "
-"buyer's address in the\n"
-"\t\t\t\thome region of the store."
+"buyer's address in the home region of the store."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:304
-#: includes/class-elements.php:304
+#: includes/class-elements.php:295
 msgid ""
 "Use the pickup element to indicate the possibility of receiving goods at "
 "the issuance point."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:315
-#: includes/class-elements.php:315
+#: includes/class-elements.php:306
 msgid ""
 "Use the store element to indicate the possibility of buying without a "
 "preliminary order at the point of sale."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:326
-#: includes/class-elements.php:326
+#: includes/class-elements.php:317
 msgid "Use delivery-options parameters defined below. Global options."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:336
-#: includes/class-elements.php:336
+#: includes/class-elements.php:327
 msgid ""
 "Delivery-options cost element. Used to indicate the price of delivery. Use "
-"maximum value if cost is\n"
-"\t\t\t\tdiffers for different locations."
+"maximum value if cost is differs for different locations."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:346
-#: includes/class-elements.php:346
-msgid "0, 1, 2, 3-5, etc"
+#: includes/class-elements.php:336
+msgid "0, 1, 2, 3-5, etc."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:350
-#: includes/class-elements.php:350
+#: includes/class-elements.php:340
 msgid ""
 "Delivery-options days element. Either a value or a range for the actual "
 "days it takes to deliver a product."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:363
-#: includes/class-elements.php:363
+#: includes/class-elements.php:353
 msgid ""
 "Delivery-options order-before element. Accepts values from 0 to 24. If the "
-"order is made before this\n"
-"\t\t\t\ttime, delivery will be on time."
+"order is made before this time, delivery will be on time."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:389
-#: includes/class-elements.php:389
+#: includes/class-elements.php:378
 msgid ""
 "Add date to YML file name. If enabled YML file will have current date at "
-"the end:\n"
-"\t\t\t\tym-export-yyyy-mm-dd.yml."
+"the end: ym-export-yyyy-mm-dd.yml."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:400
-#: includes/class-elements.php:400
+#: includes/class-elements.php:388
 msgid "Auto generate file at the selected interval."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:403
-#: includes/class-elements.php:403
+#: includes/class-elements.php:391
 msgid "Every hour"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:404
-#: includes/class-elements.php:404
+#: includes/class-elements.php:392
 msgid "Twice a day"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:405
-#: includes/class-elements.php:405
+#: includes/class-elements.php:393
 msgid "Daily"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:413
-#: includes/class-elements.php:413
+#: includes/class-elements.php:401
 msgid ""
 "Product description. Specify the way the description is exported. Default "
-"is to try and get the\n"
-"\t\t\t\tproduct description, if empty - get short description."
+"is to try and get the product description, if empty - get short description."
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:419
-#: includes/class-elements.php:419
+#: includes/class-elements.php:406
 msgid "Default"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:420
-#: includes/class-elements.php:420
+#: includes/class-elements.php:407
 msgid "Only description"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:421
-#: includes/class-elements.php:421
+#: includes/class-elements.php:408
 msgid "Only short description"
 msgstr ""
 
-#: build/market-exporter/includes/class-elements.php:429
-#: includes/class-elements.php:429
+#: includes/class-elements.php:416
 msgid "Regenerate file on product create/update"
 msgstr ""
 
-#: build/market-exporter/includes/class-fs.php:130
-#: build/market-exporter/includes/class-fs.php:148 includes/class-fs.php:130
-#: includes/class-fs.php:148
+#: includes/class-fs.php:130 includes/class-fs.php:148
 msgid "Error creating directory."
 msgstr ""
 
-#: build/market-exporter/includes/class-fs.php:165 includes/class-fs.php:165
+#: includes/class-fs.php:165
 msgid "Error uploading file."
 msgstr ""
 
-#: build/market-exporter/includes/class-restapi.php:201
 #: includes/class-restapi.php:201
 msgid "Either action or items are not defined"
 msgstr ""
 
-#: build/market-exporter/includes/class-restapi.php:258
 #: includes/class-restapi.php:258
 msgid "Unable to update the settings"
 msgstr ""
 
-#: build/market-exporter/includes/class-restapi.php:280
 #: includes/class-restapi.php:280
 #. translators: %s: method name
 msgid "Method %s not found."
 msgstr ""
 
-#: build/market-exporter/includes/class-restapi.php:323
 #: includes/class-restapi.php:323
 msgid "Error determining steps or progress during generation"
 msgstr ""
 
-#: build/market-exporter/includes/class-restapi.php:376
 #: includes/class-restapi.php:376
 msgid "No files selected"
 msgstr ""
 
-#: build/market-exporter/includes/class-restapi.php:388
 #: includes/class-restapi.php:388
 msgid "Error removing files"
 msgstr ""

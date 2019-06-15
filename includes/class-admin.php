@@ -119,8 +119,7 @@ class Admin {
 				'errors'    => [
 					'error_500' => __( 'Error generating file', 'market-exporter' ),
 					'error_501' => __(
-						'Currently only the following currency is supported: Russian Ruble (RUB), Ukrainian Hryvnia(UAH),
-						Tenge (KZT), US Dollar (USD) and Euro (EUR).',
+						'Currently only the following currency is supported: Russian Ruble (RUB), Ukrainian Hryvnia(UAH), Tenge (KZT), US Dollar (USD) and Euro (EUR).',
 						'market-exporter'
 					),
 					'link_501'  => admin_url( 'admin.php?page=wc-settings' ),

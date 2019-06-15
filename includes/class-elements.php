@@ -58,10 +58,7 @@ class Elements {
 			'max_length'  => 20,
 			'required'    => true,
 			'description' => __(
-				'Короткое название магазина, не более 20 символов. В названии нельзя использовать слова, не имеющие
-				отношения к наименованию магазина, например «лучший», «дешевый», указывать номер телефона и т. п. Название
-				магазина должно совпадать с фактическим названием магазина, которое публикуется на сайте. При несоблюдении
-				этого требования наименование Яндекс.Маркет может самостоятельно изменить название без уведомления магазина.',
+				"The short name of the store, no more than 20 characters. The name may not contain words not related to the store's name (such as “best” or “cheap”), and may not include a phone number and so on. The name of the store must match the actual name of the store that is published on the website. If this requirement is not met, Yandex Market can change the name itself without notifying the store.",
 				'market-exporter'
 			),
 		];
@@ -72,7 +69,7 @@ class Elements {
 			'max_length'  => 0,
 			'required'    => true,
 			'description' => __(
-				'Полное наименование компании, владеющей магазином. Не публикуется, используется для внутренней идентификации.',
+				'Full name of the company that owns the store. It is used for internal identification and not published.',
 				'market-exporter'
 			),
 		];
@@ -83,8 +80,7 @@ class Elements {
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
-				'URL главной страницы магазина. Максимум 50 символов. Допускаются кириллические ссылки. Элемент обязателен
-				при размещении по модели «Переход на сайт».',
+				"URL of store's home page. No more than 50 characters. Cyrillic links are permitted.",
 				'market-exporter'
 			),
 		];
@@ -94,7 +90,7 @@ class Elements {
 			'default'     => __( 'WordPress', 'market-exporter' ),
 			'max_length'  => 0,
 			'required'    => false,
-			'description' => __( 'Система управления контентом, на основе которой работает магазин (CMS).', 'market-exporter' ),
+			'description' => __( 'Content management system (CMS) used for the store.', 'market-exporter' ),
 		];
 
 		$elements['version'] = [
@@ -102,7 +98,7 @@ class Elements {
 			'default'     => get_bloginfo( 'version' ),
 			'max_length'  => 0,
 			'required'    => false,
-			'description' => __( 'Версия CMS.', 'market-exporter' ),
+			'description' => __( 'CMS version.', 'market-exporter' ),
 		];
 
 		$elements['agency'] = [
@@ -111,8 +107,7 @@ class Elements {
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
-				'Наименование агентства, которое оказывает техническую поддержку магазину и отвечает
-			за работоспособность сайта.',
+				"Name of the agency that provides technical support to the store and is responsible for the website's functionality.",
 				'market-exporter'
 			),
 		];
@@ -122,7 +117,7 @@ class Elements {
 			'default'     => get_bloginfo( 'admin_email' ),
 			'max_length'  => 0,
 			'required'    => false,
-			'description' => __( 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку.', 'market-exporter' ),
+			'description' => __( 'Contact email address of the CMS developers or agency that provides tech support.', 'market-exporter' ),
 		];
 
 		/**
@@ -158,7 +153,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Модель товара.', 'market-exporter' ),
+			'description' => __( 'Product model.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -166,7 +161,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Название производителя.', 'market-exporter' ),
+			'description' => __( 'Manufacturer name.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -174,7 +169,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Тип или категорию товара.', 'market-exporter' ),
+			'description' => __( 'Product type or category.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -182,7 +177,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Код производителя для данного товара.', 'market-exporter' ),
+			'description' => __( 'Vendor code.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -198,9 +193,7 @@ class Elements {
 			'default'     => '',
 			'required'    => false,
 			'description' => __(
-				'Only selected categories will be included in the export file. Hold down the control (ctrl) button on
-				Windows or command (cmd) on Mac to select multiple options. If nothing is selected - all the categories
-				will be exported.',
+				'Only selected categories will be included in the export file. Hold down the control (ctrl) button on Windows or command (cmd) on Mac to select multiple options. If nothing is selected - all the categories will be exported.',
 				'market-exporter'
 			),
 			'values'      => self::get_categories_array(),
@@ -210,7 +203,7 @@ class Elements {
 			'type'        => 'text',
 			'default'     => '',
 			'required'    => false,
-			'description' => __( 'Элемент sales_notes позволяет передать условия продажи товара. Not longer than 50 characters.', 'market-exporter' ),
+			'description' => __( 'Sales notes attribute allows passing in additional conditions for sales. Not longer than 50 characters.', 'market-exporter' ),
 			'max_length'  => 50,
 		];
 
@@ -242,8 +235,7 @@ class Elements {
 			'default'     => '',
 			'required'    => false,
 			'description' => __(
-				'Selected attributes will be exported as a parameters. Hold down the control (ctrl) button on
-				Windows or command (cmd) on Mac to select multiple options.',
+				'Selected attributes will be exported as a parameters. Hold down the control (ctrl) button on Windows or command (cmd) on Mac to select multiple options.',
 				'market-exporter'
 			),
 			'values'      => self::get_categories_array(),
@@ -290,8 +282,7 @@ class Elements {
 			'default'     => 'disabled',
 			'required'    => false,
 			'description' => __(
-				"Use the delivery element to indicate the possibility of delivery to the buyer's address in the
-				home region of the store.",
+				"Use the delivery element to indicate the possibility of delivery to the buyer's address in the home region of the store.",
 				'market-exporter'
 			),
 			'values'      => $select_options,
@@ -334,8 +325,7 @@ class Elements {
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
-				'Delivery-options cost element. Used to indicate the price of delivery. Use maximum value if cost is
-				differs for different locations.',
+				'Delivery-options cost element. Used to indicate the price of delivery. Use maximum value if cost is differs for different locations.',
 				'market-exporter'
 			),
 		];
@@ -343,7 +333,7 @@ class Elements {
 		$elements['days'] = [
 			'type'        => 'text',
 			'default'     => '',
-			'placeholder' => __( '0, 1, 2, 3-5, etc', 'market-exporter' ),
+			'placeholder' => __( '0, 1, 2, 3-5, etc.', 'market-exporter' ),
 			'depends_on'  => 'delivery_options',
 			'max_length'  => 0,
 			'required'    => false,
@@ -361,8 +351,7 @@ class Elements {
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
-				'Delivery-options order-before element. Accepts values from 0 to 24. If the order is made before this
-				time, delivery will be on time.',
+				'Delivery-options order-before element. Accepts values from 0 to 24. If the order is made before this time, delivery will be on time.',
 				'market-exporter'
 			),
 		];
@@ -387,8 +376,7 @@ class Elements {
 			'default'     => false,
 			'required'    => false,
 			'description' => __(
-				'Add date to YML file name. If enabled YML file will have current date at the end:
-				ym-export-yyyy-mm-dd.yml.',
+				'Add date to YML file name. If enabled YML file will have current date at the end: ym-export-yyyy-mm-dd.yml.',
 				'market-exporter'
 			),
 		];
@@ -411,8 +399,7 @@ class Elements {
 			'default'     => 'disabled',
 			'required'    => false,
 			'description' => __(
-				'Product description. Specify the way the description is exported. Default is to try and get the
-				product description, if empty - get short description.',
+				'Product description. Specify the way the description is exported. Default is to try and get the product description, if empty - get short description.',
 				'market-exporter'
 			),
 			'values'      => [
