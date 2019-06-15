@@ -76,10 +76,6 @@ class Core {
 		}
 		$this->plugin_name = 'market-exporter';
 
-		spl_autoload_register( [ $this, 'autoload' ] );
-
-		$this->load_dependencies();
-
 		// Check if plugin has WooCommerce installed and active.
 		add_action( 'admin_init', [ $this, 'run_plugin' ] );
 		if ( ! self::check_prerequisites() ) {
@@ -92,6 +88,9 @@ class Core {
 			add_action( 'admin_notices', [ $this, 'plugin_rate_message' ] );
 		}
 
+		spl_autoload_register( [ $this, 'autoload' ] );
+
+		$this->load_dependencies();
 		$this->define_admin_hooks();
 
 	}
@@ -148,7 +147,7 @@ class Core {
 	 * - \Wooya\Includes\Admin. Defines all hooks for the admin area.
 	 *
 	 * @since  2.0.0
-	 * @throws \Freemius_Exception  Freemius exception.
+	 * @throws Freemius_Exception  Freemius exception.
 	 * @access private
 	 */
 	private function load_dependencies() {
@@ -198,6 +197,7 @@ class Core {
 
 		// Freemius.
 		$this->init_fremius()->add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
+		$this->init_fremius()->add_action( 'after_uninstall', [ 'Wooya\Includes\Activator', 'uninstall' ] );
 
 	}
 
@@ -419,8 +419,7 @@ class Core {
 
 		return sprintf(
 			/* translators: %1$s: user name, %2$s: plugin name, %3$s: user login, %4%s: site link, %5$s: Freemius link */
-			__( 'Hey %1$s', 'market-exporter' ) . ',<br>' .
-			__( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'market-exporter' ),
+			__( 'Hey %1$s', 'market-exporter' ) . ',<br>' . __( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'market-exporter' ),
 			$user_first_name,
 			'<b>' . $plugin_title . '</b>',
 			'<b>' . $user_login . '</b>',

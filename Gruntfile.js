@@ -33,7 +33,6 @@ module.exports = function( grunt ) {
 					'_src/**/*.*',
 					'languages/market-exporter.php',
 					'includes/**/*.php',
-					'uninstall.php',
 					'market-exporter.php',
 				],
 				expand: true,
@@ -69,7 +68,7 @@ module.exports = function( grunt ) {
 		},
 
 		copy: {
-			pro: {
+			main: {
 				src: [
 					'admin/**',
 					'freemius/**',
@@ -79,13 +78,24 @@ module.exports = function( grunt ) {
 					'!languages/react.pot',
 					'readme.txt',
 					'index.php',
-					'uninstall.php',
 					'market-exporter.php',
 				],
 				dest: 'build/market-exporter/',
 				options: {
 					noProcess: [ '**/*.{png,gif,jpg,ico,svg,eot,ttf,woff,woff2}' ],
 				},
+			},
+		},
+
+		compress: {
+			main: {
+				options: {
+					archive: './build/market-exporter-<%= pkg.version %>.zip'
+				},
+				expand: true,
+				cwd: 'build/market-exporter/',
+				src: [ '**/*' ],
+				dest: 'market-exporter/',
 			},
 		},
 	} );
@@ -97,5 +107,6 @@ module.exports = function( grunt ) {
 	grunt.registerTask( 'build', [
 		'copy',
 		'makepot:release',
+		'compress',
 	] );
 };
