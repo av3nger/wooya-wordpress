@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --watch --mode development",
     "compile": "clear && webpack -p --progress",
-    "makepot": "npx pot-to-php languages/wooya.pot languages/wooya.php wooya"
+    "makepot": "npx pot-to-php languages/market-exporter.pot languages/market-exporter.php market-exporter"
   },
   "repository": {
     "type": "git",
