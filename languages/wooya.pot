@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: _src/app.js:201
+msgid "Generate YML"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:125
+#: _src/components/yml-list-control/index.jsx:224
+msgid "Add new setting"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:128
+#: _src/components/yml-list-control/index.jsx:243
+msgid "Shop"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:137
+#: _src/components/yml-list-control/index.jsx:250
+msgid "Offer"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:152
+msgid "Select setting"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:157
+msgid "No available items to select"
+msgstr ""
+
+#: _src/components/add-setting-modal/index.jsx:163
+msgid "Add items"
+msgstr ""
+
+#: _src/components/files/index.jsx:164
+msgid "Available YML files"
+msgstr ""
+
+#: _src/components/files/index.jsx:170
+msgid "Remove files"
+msgstr ""
+
+#: _src/components/files/index.jsx:181
+msgid "You have not yet generated any files"
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:101
+msgid "Generating file"
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:87
+msgid "Initializing generation engine..."
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:89
+msgid "Finalizing..."
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:92
+msgid "Generating file: step %d of %d"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:219
+msgid "Settings"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:231
+msgid "Remove settings"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:258
+msgid "Delivery options"
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:265
+msgid "Misc"
+msgstr ""
+
+#: _src/components/yml-list-item/index.jsx:164
+msgid "Disabled"
+msgstr ""
+
+#: _src/components/yml-list-item/index.jsx:173
+msgid "Active"
+msgstr ""

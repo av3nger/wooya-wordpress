@@ -19,7 +19,7 @@
  * Author URI:        https://vanyukov.su/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wooya
+ * Text Domain:       market-exporter
  * Domain Path:       /languages
  */
 
