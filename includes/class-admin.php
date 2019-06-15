@@ -65,13 +65,13 @@ class Admin {
 	public function enqueue_styles( $hook ) {
 
 		// Run only on plugin pages.
-		if ( 'toplevel_page_wooya' !== $hook ) {
+		if ( 'toplevel_page_market-exporter' !== $hook ) {
 			return;
 		}
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			WOOYA_URL . 'admin/css/wooya-app.min.css',
+			WOOYA_URL . 'admin/css/market-exporter.min.css',
 			[],
 			$this->version,
 			'all'
@@ -89,13 +89,13 @@ class Admin {
 	public function enqueue_scripts( $hook ) {
 
 		// Run only on plugin pages.
-		if ( 'toplevel_page_wooya' !== $hook ) {
+		if ( 'toplevel_page_market-exporter' !== $hook ) {
 			return;
 		}
 
 		wp_enqueue_script(
 			$this->plugin_name . '-i18n',
-			WOOYA_URL . 'admin/js/wooya-i18n.min.js',
+			WOOYA_URL . 'admin/js/market-exporter-i18n.min.js',
 			[],
 			$this->version,
 			true
@@ -103,7 +103,7 @@ class Admin {
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			WOOYA_URL . 'admin/js/wooya-app.min.js',
+			WOOYA_URL . 'admin/js/market-exporter.min.js',
 			[ 'jquery', $this->plugin_name . '-i18n' ],
 			$this->version,
 			true
@@ -134,7 +134,7 @@ class Admin {
 
 		wp_add_inline_script(
 			$this->plugin_name,
-			'wooyaI18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'market-exporter' ) ) . ', "wooya" );',
+			'wooyaI18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'market-exporter' ) ) . ', "market-exporter" );',
 			'before'
 		);
 

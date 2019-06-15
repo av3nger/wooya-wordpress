@@ -10,8 +10,8 @@ module.exports = {
 	mode: 'production',
 
 	entry: {
-		'wooya-app': path.resolve( __dirname, '_src/app.js' ),
-		'wooya-i18n': path.resolve( __dirname, '_src/i18n.js' ),
+		'market-exporter': path.resolve( __dirname, '_src/app.js' ),
+		'market-exporter-i18n': path.resolve( __dirname, '_src/i18n.js' ),
 	},
 
 	output: {

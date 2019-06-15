@@ -74,7 +74,7 @@ class Core {
 		} else {
 			$this->version = '2.0.0';
 		}
-		$this->plugin_name = 'wooya';
+		$this->plugin_name = 'market-exporter';
 
 		spl_autoload_register( [ $this, 'autoload' ] );
 
