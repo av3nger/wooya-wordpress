@@ -198,7 +198,7 @@ class Wooya extends React.Component {
 
 				{ this.state.options &&
 				<Button
-					buttonText={ __( 'Generate YML', 'wooya' ) }
+					buttonText={ __( 'Generate YML', 'market-exporter' ) }
 					className="wooya-btn wooya-btn-red wooya-btn-center"
 					onClick={ () => this.setState( {
 						showProgressModal: ! this.state.showProgressModal,

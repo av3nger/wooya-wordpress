@@ -127,7 +127,7 @@ class FS {
 			// Check if 'uploads/wooya' folder exists. If not - create it.
 			if ( ! $wp_filesystem->exists( $folder ) ) {
 				if ( ! $wp_filesystem->mkdir( $folder, FS_CHMOD_DIR ) ) {
-					esc_html_e( 'Error creating directory.', 'wooya' );
+					esc_html_e( 'Error creating directory.', 'market-exporter' );
 				}
 			}
 
@@ -145,7 +145,7 @@ class FS {
 			// Check if 'uploads/wooya' folder exists. If not - create it.
 			if ( ! is_dir( $folder ) ) {
 				if ( ! wp_mkdir_p( $folder ) ) {
-					esc_html_e( 'Error creating directory.', 'wooya' );
+					esc_html_e( 'Error creating directory.', 'market-exporter' );
 				}
 			}
 
@@ -162,7 +162,7 @@ class FS {
 		}
 
 		if ( ! $result ) {
-			esc_html_e( 'Error uploading file.', 'wooya' );
+			esc_html_e( 'Error uploading file.', 'market-exporter' );
 		}
 
 		return $upload_dir['baseurl'] . '/' . $this->plugin_name . '/' . $filename;

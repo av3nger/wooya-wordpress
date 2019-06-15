@@ -117,16 +117,16 @@ class Admin {
 				'api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'api_url'   => rest_url( $this->plugin_name . '/v1/' ),
 				'errors'    => [
-					'error_500' => __( 'Error generating file', 'wooya' ),
+					'error_500' => __( 'Error generating file', 'market-exporter' ),
 					'error_501' => __(
 						'Currently only the following currency is supported: Russian Ruble (RUB), Ukrainian Hryvnia(UAH),
 						Tenge (KZT), US Dollar (USD) and Euro (EUR).',
-						'wooya'
+						'market-exporter'
 					),
 					'link_501'  => admin_url( 'admin.php?page=wc-settings' ),
-					'error_502' => __( 'No shipping methods are available.', 'wooya' ),
+					'error_502' => __( 'No shipping methods are available.', 'market-exporter' ),
 					'link_502'  => admin_url( 'admin.php?page=wc-settings&tab=shipping' ),
-					'error_503' => __( 'Unable to find any products in WooCommerce.', 'wooya' ),
+					'error_503' => __( 'Unable to find any products in WooCommerce.', 'market-exporter' ),
 					'link_503'  => admin_url( 'post-new.php?post_type=product' ),
 				],
 			]
@@ -134,7 +134,7 @@ class Admin {
 
 		wp_add_inline_script(
 			$this->plugin_name,
-			'wooyaI18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'wooya' ) ) . ', "wooya" );',
+			'wooyaI18n.setLocaleData( ' . wp_json_encode( $this->get_locale_data( 'market-exporter' ) ) . ', "wooya" );',
 			'before'
 		);
 
@@ -180,8 +180,8 @@ class Admin {
 	public function register_menu() {
 
 		add_menu_page(
-			__( 'Market Exporter', 'wooya' ),
-			__( 'Market Exporter', 'wooya' ),
+			__( 'Market Exporter', 'market-exporter' ),
+			__( 'Market Exporter', 'market-exporter' ),
 			'manage_options',
 			$this->plugin_name,
 			[ $this, 'render_page' ]
@@ -198,7 +198,7 @@ class Admin {
 	 */
 	public function plugin_add_settings_link( $links ) {
 
-		$settings_link = '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'wooya' ) . '</a>';
+		$settings_link = '<a href="' . admin_url( 'admin.php?page=' . $this->plugin_name ) . '">' . __( 'Settings', 'market-exporter' ) . '</a>';
 		array_unshift( $links, $settings_link );
 
 		return $links;
@@ -244,18 +244,18 @@ class Admin {
 
 			<div class="wooya-description">
 				<p>
-					<?php esc_html_e( 'This plugin is used to generate a valid YML file for exporting your products in WooCommerce to Yandex Market.', 'wooya' ); ?>
+					<?php esc_html_e( 'This plugin is used to generate a valid YML file for exporting your products in WooCommerce to Yandex Market.', 'market-exporter' ); ?>
 				</p>
 
 				<p>
-					<?php esc_html_e( 'Please be patient while the YML file is generated. This can take a while if your server is slow or if you have many products in WooCommerce. Do not navigate away from this page until this script is done or the YML file will not be created. You will be notified via this page when the process is completed.', 'wooya' ); ?>
+					<?php esc_html_e( 'Please be patient while the YML file is generated. This can take a while if your server is slow or if you have many products in WooCommerce. Do not navigate away from this page until this script is done or the YML file will not be created. You will be notified via this page when the process is completed.', 'market-exporter' ); ?>
 				</p>
 			</div>
 
 			<div class="wooya-version">
 				<?php
 				/* translators: version number */
-				printf( esc_html__( 'Version: %s', 'wooya' ), esc_html( $this->version ) );
+				printf( esc_html__( 'Version: %s', 'market-exporter' ), esc_html( $this->version ) );
 				?>
 			</div>
 

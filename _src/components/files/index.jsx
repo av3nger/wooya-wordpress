@@ -161,13 +161,13 @@ class Files extends React.Component {
     return (
       <div className="wooya-files">
         <h2 className="wooya-files-title">
-          {__( 'Available YML files', 'wooya' )}
+          {__( 'Available YML files', 'market-exporter' )}
         </h2>
         {0 < files.length && !this.state.loading &&
           <div className="wooya-list-header">
             <div/>
             <Button
-              buttonText={__('Remove files', 'wooya')}
+              buttonText={__('Remove files', 'market-exporter')}
               className='wooya-btn wooya-btn-red'
               onClick={this.removeSelection}
               disabled={0 === this.state.selected.length}
@@ -178,7 +178,7 @@ class Files extends React.Component {
         <div className={classes}>
           {0 === files.length && !this.state.loading &&
             <span className="wooya-empty-files">
-              {__('You have not yet generated any files', 'wooya')}
+              {__('You have not yet generated any files', 'market-exporter')}
             </span>
           }
           {!this.state.loading && 0 < files.length && files}

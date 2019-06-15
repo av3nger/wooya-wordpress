@@ -122,10 +122,10 @@ class AddSettingModal extends React.Component {
       <div className="wooya-add-setting-modal wooya-modal">
         <div className="wooya-modal-content">
           <span className="wooya-close" onClick={this.props.hideModal}>&times;</span>
-          <h3>{__('Add new setting', 'wooya')}</h3>
+          <h3>{__('Add new setting', 'market-exporter')}</h3>
 
           <span className="wooya-switch-label" data-type="shop" onClick={AddSettingModal.toggleType}>
-            {__('Shop', 'wooya')}
+            {__('Shop', 'market-exporter')}
           </span>
 
           <label className="wooya-switch">
@@ -134,33 +134,33 @@ class AddSettingModal extends React.Component {
           </label>
 
           <span className="wooya-switch-label" data-type="offer" onClick={AddSettingModal.toggleType}>
-            {__( 'Offer', 'wooya' )}
+            {__( 'Offer', 'market-exporter' )}
           </span>
 
           <div className="wooya-select-box" data-type="shop">
-            <h4>{__('Select setting', 'wooya')}</h4>
+            <h4>{__('Select setting', 'market-exporter')}</h4>
 
             {itemAvailable.shop.length > 0 && itemAvailable.shop}
             {itemAvailable.shop.length === 0 &&
             <h2>
-              {__('No available items to select', 'wooya')}
+              {__('No available items to select', 'market-exporter')}
             </h2>
             }
           </div>
 
           <div className="wooya-select-box hidden" data-type="offer">
-            <h4>{__( 'Select setting', 'wooya' )}</h4>
+            <h4>{__( 'Select setting', 'market-exporter' )}</h4>
 
             {itemAvailable.offer.length > 0 && itemAvailable.offer}
             {itemAvailable.offer.length === 0 &&
             <h2>
-              {__('No available items to select', 'wooya')}
+              {__('No available items to select', 'market-exporter')}
             </h2>
             }
           </div>
 
           <Button
-            buttonText={__('Add items', 'wooya')}
+            buttonText={__('Add items', 'market-exporter')}
             className="wooya-btn wooya-btn-red"
             onClick={() => this.props.submitData(this.state.selectedItems)}
             disabled={this.state.selectedItems.shop.length === 0 && this.state.selectedItems.offer.length === 0}

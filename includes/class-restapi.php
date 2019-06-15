@@ -198,7 +198,7 @@ class RestAPI extends WP_REST_Controller {
 			// No valid action - return error.
 			return new WP_Error(
 				'update-error',
-				__( 'Either action or items are not defined', 'wooya' ),
+				__( 'Either action or items are not defined', 'market-exporter' ),
 				$error_data
 			);
 		}
@@ -255,7 +255,7 @@ class RestAPI extends WP_REST_Controller {
 		// No valid action - return error.
 		return new WP_Error(
 			'update-error',
-			__( 'Unable to update the settings', 'wooya' ),
+			__( 'Unable to update the settings', 'market-exporter' ),
 			$error_data
 		);
 
@@ -277,7 +277,7 @@ class RestAPI extends WP_REST_Controller {
 				'method-not-found',
 				printf(
 					/* translators: %s: method name */
-					esc_html__( 'Method %s not found.', 'wooya' ),
+					esc_html__( 'Method %s not found.', 'market-exporter' ),
 					esc_html( $method )
 				)
 			);
@@ -320,7 +320,7 @@ class RestAPI extends WP_REST_Controller {
 			// No valid action - return error.
 			return new WP_Error(
 				'generation-error',
-				__( 'Error determining steps or progress during generation', 'wooya' ),
+				__( 'Error determining steps or progress during generation', 'market-exporter' ),
 				[ 'status' => 500 ]
 			);
 		}
@@ -373,7 +373,7 @@ class RestAPI extends WP_REST_Controller {
 			// No valid action - return error.
 			return new WP_Error(
 				'remove-error',
-				__( 'No files selected', 'wooya' ),
+				__( 'No files selected', 'market-exporter' ),
 				$error_data
 			);
 		}
@@ -385,7 +385,7 @@ class RestAPI extends WP_REST_Controller {
 		if ( ! $status ) {
 			return new WP_Error(
 				'remove-error',
-				__( 'Error removing files', 'wooya' ),
+				__( 'Error removing files', 'market-exporter' ),
 				$error_data
 			);
 		}

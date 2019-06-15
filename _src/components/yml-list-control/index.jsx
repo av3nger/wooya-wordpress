@@ -216,19 +216,19 @@ class YmlListControl extends React.Component {
 
     return (
       <div className="me-list-group me-list-group-panel" id="me_yml_store">
-        <h2 className="wooya-settings-title">{__( 'Settings', 'wooya' )}</h2>
+        <h2 className="wooya-settings-title">{__( 'Settings', 'market-exporter' )}</h2>
 
         {0 < Object.entries(this.props.options).length &&
           <div className="wooya-list-header">
             <Button
-              buttonText={__('Add new setting', 'wooya')}
+              buttonText={__('Add new setting', 'market-exporter')}
               className='wooya-btn wooya-btn-transparent'
               onClick={() => this.setState({showAddDiv: !this.state.showAddDiv})}
               disabled={this.props.unusedItems.length === 0}
             />
 
             <Button
-              buttonText={__('Remove settings', 'wooya')}
+              buttonText={__('Remove settings', 'market-exporter')}
               className='wooya-btn wooya-btn-red'
               onClick={() => this.handleItemMove(this.state.selected, 'remove')}
               disabled={selectedItems}
@@ -240,14 +240,14 @@ class YmlListControl extends React.Component {
           <form id="wooya-settings-form" onKeyUp={this.handleKeyUp}>
             {'undefined' !== typeof items.shop && items.shop.length > 0 &&
               <h3 className="wooya-settings-sub-shop">
-                {__('Shop', 'wooya')}
+                {__('Shop', 'market-exporter')}
               </h3>
             }
             {items.shop}
 
             {'undefined' !== typeof items.offer && items.offer.length > 0 &&
               <h3 className="wooya-settings-sub-offer">
-                {__('Offer', 'wooya')}
+                {__('Offer', 'market-exporter')}
               </h3>
             }
             {items.offer}
@@ -255,14 +255,14 @@ class YmlListControl extends React.Component {
             {'undefined' !== typeof items.delivery &&
               items.delivery.length > 0 &&
               <h3 className="wooya-settings-sub-shop">
-                {__('Delivery options', 'wooya')}
+                {__('Delivery options', 'market-exporter')}
               </h3>
             }
             {items.delivery}
 
             {'undefined' !== typeof items.misc && items.misc.length > 0 &&
               <h3 className="wooya-settings-sub-offer">
-                {__('Misc', 'wooya')}
+                {__('Misc', 'market-exporter')}
               </h3>
             }
             {items.misc}

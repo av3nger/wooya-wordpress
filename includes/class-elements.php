@@ -62,7 +62,7 @@ class Elements {
 				отношения к наименованию магазина, например «лучший», «дешевый», указывать номер телефона и т. п. Название
 				магазина должно совпадать с фактическим названием магазина, которое публикуется на сайте. При несоблюдении
 				этого требования наименование Яндекс.Маркет может самостоятельно изменить название без уведомления магазина.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
@@ -73,7 +73,7 @@ class Elements {
 			'required'    => true,
 			'description' => __(
 				'Полное наименование компании, владеющей магазином. Не публикуется, используется для внутренней идентификации.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
@@ -85,16 +85,16 @@ class Elements {
 			'description' => __(
 				'URL главной страницы магазина. Максимум 50 символов. Допускаются кириллические ссылки. Элемент обязателен
 				при размещении по модели «Переход на сайт».',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
 		$elements['platform'] = [
 			'type'        => 'text',
-			'default'     => __( 'WordPress', 'wooya' ),
+			'default'     => __( 'WordPress', 'market-exporter' ),
 			'max_length'  => 0,
 			'required'    => false,
-			'description' => __( 'Система управления контентом, на основе которой работает магазин (CMS).', 'wooya' ),
+			'description' => __( 'Система управления контентом, на основе которой работает магазин (CMS).', 'market-exporter' ),
 		];
 
 		$elements['version'] = [
@@ -102,7 +102,7 @@ class Elements {
 			'default'     => get_bloginfo( 'version' ),
 			'max_length'  => 0,
 			'required'    => false,
-			'description' => __( 'Версия CMS.', 'wooya' ),
+			'description' => __( 'Версия CMS.', 'market-exporter' ),
 		];
 
 		$elements['agency'] = [
@@ -113,7 +113,7 @@ class Elements {
 			'description' => __(
 				'Наименование агентства, которое оказывает техническую поддержку магазину и отвечает
 			за работоспособность сайта.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
@@ -122,7 +122,7 @@ class Elements {
 			'default'     => get_bloginfo( 'admin_email' ),
 			'max_length'  => 0,
 			'required'    => false,
-			'description' => __( 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку.', 'wooya' ),
+			'description' => __( 'Контактный адрес разработчиков CMS или агентства, осуществляющего техподдержку.', 'market-exporter' ),
 		];
 
 		/**
@@ -158,7 +158,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Модель товара.', 'wooya' ),
+			'description' => __( 'Модель товара.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -166,7 +166,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Название производителя.', 'wooya' ),
+			'description' => __( 'Название производителя.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -174,7 +174,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Тип или категорию товара.', 'wooya' ),
+			'description' => __( 'Тип или категорию товара.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -182,7 +182,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Код производителя для данного товара.', 'wooya' ),
+			'description' => __( 'Код производителя для данного товара.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -190,7 +190,7 @@ class Elements {
 			'type'        => 'checkbox',
 			'default'     => true,
 			'required'    => false,
-			'description' => __( 'If enabled products that are available for backorder will be exported to YML.', 'wooya' ),
+			'description' => __( 'If enabled products that are available for backorder will be exported to YML.', 'market-exporter' ),
 		];
 
 		$elements['include_cat'] = [
@@ -201,7 +201,7 @@ class Elements {
 				'Only selected categories will be included in the export file. Hold down the control (ctrl) button on
 				Windows or command (cmd) on Mac to select multiple options. If nothing is selected - all the categories
 				will be exported.',
-				'wooya'
+				'market-exporter'
 			),
 			'values'      => self::get_categories_array(),
 		];
@@ -210,7 +210,7 @@ class Elements {
 			'type'        => 'text',
 			'default'     => '',
 			'required'    => false,
-			'description' => __( 'Элемент sales_notes позволяет передать условия продажи товара. Not longer than 50 characters.', 'wooya' ),
+			'description' => __( 'Элемент sales_notes позволяет передать условия продажи товара. Not longer than 50 characters.', 'market-exporter' ),
 			'max_length'  => 50,
 		];
 
@@ -218,7 +218,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Define if manufacturer warranty is available for selected product. Available values: true of false.', 'wooya' ),
+			'description' => __( 'Define if manufacturer warranty is available for selected product. Available values: true of false.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -226,7 +226,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Define country of origin for a product. See http://partner.market.yandex.ru/pages/help/Countries.pdf for a list of available values.', 'wooya' ),
+			'description' => __( 'Define country of origin for a product. See http://partner.market.yandex.ru/pages/help/Countries.pdf for a list of available values.', 'market-exporter' ),
 			'values'      => $attributes,
 		];
 
@@ -234,7 +234,7 @@ class Elements {
 			'type'        => 'checkbox',
 			'default'     => true,
 			'required'    => false,
-			'description' => __( 'If enabled weight and size data from WooCommerce will be exported to Weight and Dimensions elements.', 'wooya' ),
+			'description' => __( 'If enabled weight and size data from WooCommerce will be exported to Weight and Dimensions elements.', 'market-exporter' ),
 		];
 
 		$elements['params'] = [
@@ -244,7 +244,7 @@ class Elements {
 			'description' => __(
 				'Selected attributes will be exported as a parameters. Hold down the control (ctrl) button on
 				Windows or command (cmd) on Mac to select multiple options.',
-				'wooya'
+				'market-exporter'
 			),
 			'values'      => self::get_categories_array(),
 		];
@@ -254,14 +254,14 @@ class Elements {
 			'default'     => '5',
 			'max_length'  => 2,
 			'required'    => false,
-			'description' => __( 'Images per product. Not more than 10 images.', 'wooya' ),
+			'description' => __( 'Images per product. Not more than 10 images.', 'market-exporter' ),
 		];
 
 		$elements['stock_quantity'] = [
 			'type'        => 'checkbox',
 			'default'     => true,
 			'required'    => false,
-			'description' => __( 'Adds the number of available products in stock.', 'wooya' ),
+			'description' => __( 'Adds the number of available products in stock.', 'market-exporter' ),
 		];
 
 		return $elements;
@@ -292,7 +292,7 @@ class Elements {
 			'description' => __(
 				"Use the delivery element to indicate the possibility of delivery to the buyer's address in the
 				home region of the store.",
-				'wooya'
+				'market-exporter'
 			),
 			'values'      => $select_options,
 		];
@@ -303,7 +303,7 @@ class Elements {
 			'required'    => false,
 			'description' => __(
 				'Use the pickup element to indicate the possibility of receiving goods at the issuance point.',
-				'wooya'
+				'market-exporter'
 			),
 			'values'      => $select_options,
 		];
@@ -314,7 +314,7 @@ class Elements {
 			'required'    => false,
 			'description' => __(
 				'Use the store element to indicate the possibility of buying without a preliminary order at the point of sale.',
-				'wooya'
+				'market-exporter'
 			),
 			'values'      => $select_options,
 		];
@@ -323,7 +323,7 @@ class Elements {
 			'type'        => 'checkbox',
 			'default'     => false,
 			'required'    => false,
-			'description' => __( 'Use delivery-options parameters defined below. Global options.', 'wooya' ),
+			'description' => __( 'Use delivery-options parameters defined below. Global options.', 'market-exporter' ),
 		];
 
 		$elements['cost'] = [
@@ -336,20 +336,20 @@ class Elements {
 			'description' => __(
 				'Delivery-options cost element. Used to indicate the price of delivery. Use maximum value if cost is
 				differs for different locations.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
 		$elements['days'] = [
 			'type'        => 'text',
 			'default'     => '',
-			'placeholder' => __( '0, 1, 2, 3-5, etc', 'wooya' ),
+			'placeholder' => __( '0, 1, 2, 3-5, etc', 'market-exporter' ),
 			'depends_on'  => 'delivery_options',
 			'max_length'  => 0,
 			'required'    => false,
 			'description' => __(
 				'Delivery-options days element. Either a value or a range for the actual days it takes to deliver a product.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
@@ -363,7 +363,7 @@ class Elements {
 			'description' => __(
 				'Delivery-options order-before element. Accepts values from 0 to 24. If the order is made before this
 				time, delivery will be on time.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
@@ -389,7 +389,7 @@ class Elements {
 			'description' => __(
 				'Add date to YML file name. If enabled YML file will have current date at the end:
 				ym-export-yyyy-mm-dd.yml.',
-				'wooya'
+				'market-exporter'
 			),
 		];
 
@@ -397,7 +397,7 @@ class Elements {
 			'type'        => 'select',
 			'default'     => 'disabled',
 			'required'    => false,
-			'description' => __( 'Auto generate file at the selected interval.', 'wooya' ),
+			'description' => __( 'Auto generate file at the selected interval.', 'market-exporter' ),
 			'values'      => [
 				'disabled'   => __( 'Disabled', 'market-exporter' ),
 				'hourly'     => __( 'Every hour', 'market-exporter' ),
@@ -413,7 +413,7 @@ class Elements {
 			'description' => __(
 				'Product description. Specify the way the description is exported. Default is to try and get the
 				product description, if empty - get short description.',
-				'wooya'
+				'market-exporter'
 			),
 			'values'      => [
 				'default' => __( 'Default', 'market-exporter' ),
@@ -426,7 +426,7 @@ class Elements {
 			'type'        => 'checkbox',
 			'default'     => false,
 			'required'    => false,
-			'description' => __( 'Regenerate file on product create/update', 'wooya' ),
+			'description' => __( 'Regenerate file on product create/update', 'market-exporter' ),
 		];
 
 		return $elements;
@@ -457,7 +457,7 @@ class Elements {
 			wp_cache_set( 'wooya_attributes', $attributes );
 		}
 
-		$attributes_array['disabled'] = __( 'Disabled', 'wooya' );
+		$attributes_array['disabled'] = __( 'Disabled', 'market-exporter' );
 
 		foreach ( $attributes as $attribute ) {
 			$attributes_array[ $attribute[0] ] = $attribute[1];

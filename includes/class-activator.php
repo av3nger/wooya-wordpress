@@ -99,7 +99,7 @@ class Activator {
 		$options['shop']['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
 		$options['shop']['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : get_bloginfo( 'name' );
 		$options['shop']['url']      = get_site_url();
-		$options['shop']['platform'] = __( 'WordPress', 'wooya' );
+		$options['shop']['platform'] = __( 'WordPress', 'market-exporter' );
 		$options['shop']['version']  = get_bloginfo( 'version' );
 		$options['shop']['email']    = get_bloginfo( 'admin_email' );
 

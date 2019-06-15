@@ -161,7 +161,7 @@ class YmlListItem extends React.Component {
 
     if ( 'checkbox' === this.props.input['type'] ) {
       htmlElement = <div className="wooya-yml-checkbox">
-        <span className="wooya-switch-label">{__('Disabled', 'wooya')}</span>
+        <span className="wooya-switch-label">{__('Disabled', 'market-exporter')}</span>
 
         <label className="wooya-switch">
           <input id={this.props.name} type="checkbox" name={this.props.name}
@@ -170,7 +170,7 @@ class YmlListItem extends React.Component {
           <span className="slider">&nbsp;</span>
         </label>
 
-        <span className="wooya-switch-label">{__('Active', 'wooya')}</span>
+        <span className="wooya-switch-label">{__('Active', 'market-exporter')}</span>
       </div>;
     }
 

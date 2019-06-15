@@ -84,12 +84,12 @@ class ProgressModal extends React.Component {
   render() {
     let progressStatus;
     if ( 0 === this.state.currentStep ) {
-      progressStatus = __('Initializing generation engine...', 'wooya');
+      progressStatus = __('Initializing generation engine...', 'market-exporter');
     } else if ( this.state.currentStep === this.state.totalSteps ) {
-      progressStatus = __('Finalizing...', 'wooya');
+      progressStatus = __('Finalizing...', 'market-exporter');
     } else {
       progressStatus = sprintf(
-          __('Generating file: step %d of %d', 'wooya'),
+          __('Generating file: step %d of %d', 'market-exporter'),
           this.state.currentStep,
           this.state.totalSteps
       );
@@ -98,7 +98,7 @@ class ProgressModal extends React.Component {
     return (
       <div className="wooya-progress-modal wooya-modal">
         <div className="wooya-modal-content">
-          <h3>{__('Generating file', 'wooya')}</h3>
+          <h3>{__('Generating file', 'market-exporter')}</h3>
 
           <div className="progress-bar">
             <div className="progress-filler"

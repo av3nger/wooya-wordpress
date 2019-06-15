@@ -240,7 +240,7 @@ class Core {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wooya',
+			'market-exporter',
 			false,
 			dirname( dirname( WOOYA_BASENAME ) ) . '/languages'
 		);
@@ -307,7 +307,7 @@ class Core {
 				<?php
 				printf(
 					/* translators: %1$s: opening a tag, %2%s: closing a tag */
-					esc_html__( 'The Market Exporter plugin requires %1$sWooCommerce%2$s to be installed and activated. Please check your configuration.', 'wooya' ),
+					esc_html__( 'The Market Exporter plugin requires %1$sWooCommerce%2$s to be installed and activated. Please check your configuration.', 'market-exporter' ),
 					'<a href="https://wordpress.org/plugins/woocommerce/">',
 					'</a>'
 				);
@@ -334,7 +334,7 @@ class Core {
 				<?php
 				printf(
 					/* translators: %1$s: opening a tag, %2$s: closing a tag */
-					esc_html__( 'Do you like the plugin? Please support the development by %1$swriting a review%2$s!', 'wooya' ),
+					esc_html__( 'Do you like the plugin? Please support the development by %1$swriting a review%2$s!', 'market-exporter' ),
 					'<a href="https://wordpress.org/plugins/market-exporter/">',
 					'</a>'
 				);
@@ -412,8 +412,8 @@ class Core {
 
 		return sprintf(
 			/* translators: %1$s: user name, %2$s: plugin name, %3$s: user login, %4%s: site link, %5$s: Freemius link */
-			__( 'Hey %1$s', 'wooya' ) . ',<br>' .
-			__( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'wooya' ),
+			__( 'Hey %1$s', 'market-exporter' ) . ',<br>' .
+			__( 'Please help us improve %2$s! If you opt-in, some data about your usage of %2$s will be sent to %5$s. If you skip this, that\'s okay! %2$s will still work just fine.', 'market-exporter' ),
 			$user_first_name,
 			'<b>' . $plugin_title . '</b>',
 			'<b>' . $user_login . '</b>',
