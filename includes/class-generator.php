@@ -240,7 +240,7 @@ class Generator {
 				[
 					'taxonomy' => 'product_cat',
 					'field'    => 'term_id',
-					'terms'    => $this->settings['offer']['include_cat'],
+					'terms'    => array_column( $this->settings['offer']['include_cat'], 'value' ),
 				],
 			];
 		}
@@ -610,17 +610,22 @@ class Generator {
 						if ( ! array_key_exists( $selected_attribute, $attributes ) ) {
 							continue;
 						}
+
 						// TODO: refactor
 						// See https://wordpress.org/support/topic/атрибуты-вариантивного-товара/#post-9607195.
 						$param_value = $offer->get_attribute( wc_attribute_taxonomy_name_by_id( $param_id ) );
 						if ( empty( $param_value ) ) {
 							$param_value = $product->get_attribute( wc_attribute_taxonomy_name_by_id( $param_id ) );
 						}
-						$param_name  = wc_attribute_label( wc_attribute_taxonomy_name_by_id( $param_id ) );
-						$param_name  = apply_filters( 'me_param_name', $param_name );
-						$param_value = apply_filters( 'me_param_value', $param_value );
 
-						$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
+						$params = explode( ',', $param_value );
+						foreach ( $params as $single_param ) {
+							$param_name  = wc_attribute_label( wc_attribute_taxonomy_name_by_id( $param_id ) );
+							$param_name  = apply_filters( 'me_param_name', $param_name );
+							$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
+
+							$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
+						}
 					}
 				} else {
 					$attributes = $product->get_attributes();
@@ -631,19 +636,25 @@ class Generator {
 						} else {
 							$taxonomy = $param['name'];
 						}
+
 						if ( isset( $param['variation'] ) && true === $param['variation'] || isset( $param['is_variation'] ) && 1 === $param['is_variation'] ) {
 							$param_value = $offer->get_attribute( $taxonomy );
 						} else {
 							$param_value = $product->get_attribute( $taxonomy );
 						}
+
 						// Skip if empty value (when cyrillic letter are used in attribute slug).
 						if ( ! isset( $param_value ) || empty( $param_value ) ) {
 							continue;
 						}
-						$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxonomy ) );
-						$param_value = apply_filters( 'me_param_value', $param_value );
 
-						$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
+						$params = explode( ',', $param_value );
+						foreach ( $params as $single_param ) {
+							$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxonomy ) );
+							$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
+
+							$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
+						}
 					}
 				} // End if().
 				// Downloadable.
