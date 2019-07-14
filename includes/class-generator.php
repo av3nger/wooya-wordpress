@@ -464,9 +464,9 @@ class Generator {
 				if ( isset( $this->settings['delivery']['delivery'] ) && 'disabled' !== $this->settings['delivery']['delivery'] ) {
 					$yml .= '        <delivery>' . $this->settings['delivery']['delivery'] . '</delivery>' . PHP_EOL;
 				}
-				if ( ! $type_prefix_set ) {
-					$yml .= '        <name>' . $this->clean( $offer->get_title() ) . '</name>' . PHP_EOL;
-				}
+
+				$yml .= '        <name>' . $this->clean( $offer->get_title() ) . '</name>' . PHP_EOL;
+
 				// type_prefix.
 				if ( $type_prefix_set ) {
 					$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
