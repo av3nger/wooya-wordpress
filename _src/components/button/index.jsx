@@ -1,5 +1,11 @@
+/**
+ * External dependencies
+ */
 import React from 'react';
 
+/**
+ * Internal dependencies
+ */
 import './style.scss';
 
 /**
@@ -7,16 +13,16 @@ import './style.scss';
  *
  * @since 2.0.0
  *
- * @param {object} props
- * @return {*}
+ * @param {Object} props
+ * @return {*} Button
  * @constructor
  */
-function Button(props) {
-  return (
-    <button className={props.className} onClick={props.onClick} disabled={props.disabled}>
-      {props.buttonText}
-    </button>
-  );
+function Button( props ) {
+	return (
+		<button className={ props.className } onClick={ props.onClick } disabled={ props.disabled }>
+			{ props.buttonText }
+		</button>
+	);
 }
 
 export default Button;

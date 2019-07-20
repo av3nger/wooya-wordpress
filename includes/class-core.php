@@ -14,6 +14,8 @@
 
 namespace Wooya\Includes;
 
+use Freemius_Exception;
+
 /**
  * The core plugin class.
  *
@@ -197,6 +199,7 @@ class Core {
 
 		// Freemius.
 		$this->init_fremius()->add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
+		$this->init_fremius()->add_filter( 'connect-message_on-premium', [ $this, 'connect_message' ], 10, 3 );
 
 	}
 
@@ -363,7 +366,7 @@ class Core {
 	 *
 	 * @since 2.0.0
 	 * @return \Freemius
-	 * @throws \Freemius_Exception  Freemius exception.
+	 * @throws Freemius_Exception  Freemius exception.
 	 */
 	public function init_fremius() {
 
@@ -377,7 +380,6 @@ class Core {
 					'type'                => 'plugin',
 					'public_key'          => 'pk_8e3bfb7fdecdacb5e4b56998fbe73',
 					'is_premium'          => true,
-					'premium_suffix'      => 'Pro',
 					// If your plugin is a serviceware, set this option to false.
 					'has_premium_version' => true,
 					'has_addons'          => false,
@@ -424,6 +426,17 @@ class Core {
 			'<b>' . $user_login . '</b>',
 			$site_link,
 			$freemius_link
+		);
+
+	}
+
+	public function connect_message( $message, $user_first_name, $plugin_title ) {
+
+		return sprintf(
+			/* translators: %1$s: user name, %2$s: plugin name, %3$s: user login */
+			__( 'Hey %1$s', 'market-exporter' ) . ',<br>' . __( 'Thanks for purchasing %2$s! To get started, please enter your license key:', 'market-exporter' ),
+			$user_first_name,
+			'<b>' . $plugin_title . '</b>'
 		);
 
 	}

@@ -1,3 +1,7 @@
+/* global ajaxurl */
+/* global wooyaI18n */
+/* global ajax_strings */
+
 /**
  * External dependencies
  */
