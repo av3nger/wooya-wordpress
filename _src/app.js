@@ -56,10 +56,12 @@ class Wooya extends React.Component {
 		 * @type {FetchWP}
 		 * @param {string} this.props.wpObject.api_url
 		 * @param {string} this.props.wpObject.api_nonce
+		 * @param {boolean} this.props.wpObject.rest_api
 		 */
 		this.fetchWP = new FetchWP( {
 			restURL: this.props.wpObject.api_url,
 			restNonce: this.props.wpObject.api_nonce,
+			restActive: this.props.wpObject.rest_api,
 		} );
 
 		const notice = document.getElementById( 'rate-notice' );

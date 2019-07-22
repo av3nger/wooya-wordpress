@@ -19,12 +19,12 @@
   "homepage": "https://wooya.ru",
   "dependencies": {
     "@wordpress/i18n": "^3.5.0",
-    "isomorphic-fetch": "^2.2.1",
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-select": "^3.0.4"
+    "react-select": "^3.0.4",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

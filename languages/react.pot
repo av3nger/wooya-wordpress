@@ -3,85 +3,85 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: _src/app.js:201
+#: _src/app.js:207
 msgid "Generate YML"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:125
-#: _src/components/yml-list-control/index.jsx:224
+#: _src/components/add-setting-modal/index.jsx:133
+#: _src/components/yml-list-control/index.jsx:232
 msgid "Add new setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:128
-#: _src/components/yml-list-control/index.jsx:243
+#: _src/components/add-setting-modal/index.jsx:136
+#: _src/components/yml-list-control/index.jsx:251
 msgid "Shop"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:137
-#: _src/components/yml-list-control/index.jsx:250
+#: _src/components/add-setting-modal/index.jsx:145
+#: _src/components/yml-list-control/index.jsx:258
 msgid "Offer"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:152
+#: _src/components/add-setting-modal/index.jsx:160
 msgid "Select setting"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:157
+#: _src/components/add-setting-modal/index.jsx:165
 msgid "No available items to select"
 msgstr ""
 
-#: _src/components/add-setting-modal/index.jsx:163
+#: _src/components/add-setting-modal/index.jsx:171
 msgid "Add items"
 msgstr ""
 
-#: _src/components/files/index.jsx:164
+#: _src/components/files/index.jsx:175
 msgid "Available YML files"
 msgstr ""
 
-#: _src/components/files/index.jsx:170
+#: _src/components/files/index.jsx:181
 msgid "Remove files"
 msgstr ""
 
-#: _src/components/files/index.jsx:181
+#: _src/components/files/index.jsx:192
 msgid "You have not yet generated any files"
 msgstr ""
 
-#: _src/components/progress-modal/index.jsx:101
-msgid "Generating file"
-msgstr ""
-
-#: _src/components/progress-modal/index.jsx:87
-msgid "Initializing generation engine..."
-msgstr ""
-
-#: _src/components/progress-modal/index.jsx:89
-msgid "Finalizing..."
-msgstr ""
-
-#: _src/components/progress-modal/index.jsx:92
+#: _src/components/progress-modal/index.jsx:100
 msgid "Generating file: step %d of %d"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:219
+#: _src/components/progress-modal/index.jsx:109
+msgid "Generating file"
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:95
+msgid "Initializing generation engine..."
+msgstr ""
+
+#: _src/components/progress-modal/index.jsx:97
+msgid "Finalizing..."
+msgstr ""
+
+#: _src/components/yml-list-control/index.jsx:227
 msgid "Settings"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:231
+#: _src/components/yml-list-control/index.jsx:239
 msgid "Remove settings"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:258
+#: _src/components/yml-list-control/index.jsx:266
 msgid "Delivery options"
 msgstr ""
 
-#: _src/components/yml-list-control/index.jsx:265
+#: _src/components/yml-list-control/index.jsx:273
 msgid "Misc"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:164
+#: _src/components/yml-list-item/index.jsx:172
 msgid "Disabled"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:173
+#: _src/components/yml-list-item/index.jsx:181
 msgid "Active"
 msgstr ""

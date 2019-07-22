@@ -53,6 +53,10 @@ class Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			new Ajax();
+		}
+
 	}
 
 	/**
@@ -114,7 +118,6 @@ class Admin {
 			'ajax_strings',
 			[
 				'rest_api'  => ! has_filter( 'rest_enabled', '__return_false' ) && has_action( 'init', 'rest_api_init' ),
-				'ajax_url'  => admin_url( 'admin-ajax.php' ),
 				'api_nonce' => wp_create_nonce( 'wp_rest' ),
 				'api_url'   => rest_url( $this->plugin_name . '/v1/' ),
 				'errors'    => [
