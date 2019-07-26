@@ -21,9 +21,9 @@ class Ajax {
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_me_settings', array( $this, 'get_settings' ) );
-		add_action( 'wp_ajax_me_elements', array( $this, 'get_combined_elements' ) );
-		add_action( 'wp_ajax_me_files', array( $this, 'get_files' ) );
+		add_action( 'wp_ajax_me_settings', [ $this, 'get_settings' ] );
+		add_action( 'wp_ajax_me_elements', [ $this, 'get_combined_elements' ] );
+		add_action( 'wp_ajax_me_files', [ $this, 'get_files' ] );
 
 	}
 

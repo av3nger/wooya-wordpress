@@ -360,7 +360,7 @@ class Generator {
 			 * That means that there is at least one product available.
 			 * Variation products will have more than 1 count.
 			 */
-			$variations      = array();
+			$variations      = [];
 			$variation_count = 1;
 			if ( $product->is_type( 'variable' ) ) {
 				$variations      = $product->get_available_variations();
@@ -529,41 +529,41 @@ class Generator {
 							$dimensions = $offer->get_dimensions( false );
 						} else {
 							// WooCommerce 2.6 and lower.
-							$dimensions = array(
+							$dimensions = [
 								'length' => $offer->get_length(),
 								'width'  => $offer->get_width(),
 								'height' => $offer->get_height(),
-							);
+							];
 						}
 
 						switch ( $size_unit ) {
 							case 'm':
-								$dimensions = array(
+								$dimensions = [
 									'length' => $dimensions['length'] * 100,
 									'width'  => $dimensions['width'] * 100,
 									'height' => $dimensions['height'] * 100,
-								);
+								];
 								break;
 							case 'mm':
-								$dimensions = array(
+								$dimensions = [
 									'length' => $dimensions['length'] / 10,
 									'width'  => $dimensions['width'] / 10,
 									'height' => $dimensions['height'] / 10,
-								);
+								];
 								break;
 							case 'in':
-								$dimensions = array(
+								$dimensions = [
 									'length' => $dimensions['length'] * 2.54,
 									'width'  => $dimensions['width'] * 2.54,
 									'height' => $dimensions['height'] * 2.54,
-								);
+								];
 								break;
 							case 'yd':
-								$dimensions = array(
+								$dimensions = [
 									'length' => $dimensions['length'] * 91.44,
 									'width'  => $dimensions['width'] * 91.44,
 									'height' => $dimensions['height'] * 91.44,
-								);
+								];
 								break;
 							case 'cm':
 							case 'default':

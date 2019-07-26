@@ -110,21 +110,23 @@ class Activator {
 		if ( isset( $old_options['include_cat'] ) && is_array( $old_options['include_cat'] ) && ! empty( $old_options['include_cat'] ) ) {
 			foreach ( $old_options['include_cat'] as $category_id ) {
 				$term = get_term_by( 'id', $category_id, 'product_cat' );
-
-				$options['offer']['include_cat'][] = [
-					'value' => $category_id,
-					'label' => $term->name,
-				];
+				if ( $term ) {
+					$options['offer']['include_cat'][] = [
+						'value' => $category_id,
+						'label' => $term->name,
+					];
+				}
 			}
 		}
 		if ( isset( $old_options['params'] ) && is_array( $old_options['params'] ) && ! empty( $old_options['params'] ) ) {
 			foreach ( $old_options['params'] as $param_id ) {
 				$term = wc_get_attribute( $param_id );
-
-				$options['offer']['params'][] = [
-					'value' => str_replace( 'pa_', '', $term->slug ),
-					'label' => $term->name,
-				];
+				if ( $term ) {
+					$options['offer']['params'][] = [
+						'value' => str_replace( 'pa_', '', $term->slug ),
+						'label' => $term->name,
+					];
+				}
 			}
 		}
 		if ( isset( $old_options['model'] ) ) {
