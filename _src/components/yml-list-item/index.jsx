@@ -171,7 +171,7 @@ class YmlListItem extends React.Component {
 			htmlElement = <div className="wooya-yml-checkbox">
 				<span className="wooya-switch-label">{ __( 'Disabled', 'market-exporter' ) }</span>
 
-				<label className="wooya-switch" htmlFor={ this.props.name }>
+				<label className="wooya-switch">
 					<input id={ this.props.name } type="checkbox" name={ this.props.name }
 						checked={ this.state.value } onChange={ this.handleChange }
 						data-type={ this.props.type } />

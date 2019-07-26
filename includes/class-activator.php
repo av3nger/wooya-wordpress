@@ -98,14 +98,109 @@ class Activator {
 
 		$options = [];
 
-		$options['shop']['name']     = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
-		$options['shop']['company']  = isset( $old_options['company_name'] ) ? $old_options['company_name'] : get_bloginfo( 'name' );
-		$options['shop']['url']      = get_site_url();
-		$options['shop']['platform'] = __( 'WordPress', 'market-exporter' );
-		$options['shop']['version']  = get_bloginfo( 'version' );
-		$options['shop']['email']    = get_bloginfo( 'admin_email' );
+		/**
+		 * Show settings.
+		 */
+		$options['shop']['name']    = isset( $old_options['website_name'] ) ? $old_options['website_name'] : get_bloginfo( 'name' );
+		$options['shop']['company'] = isset( $old_options['company_name'] ) ? $old_options['company_name'] : get_bloginfo( 'name' );
+
+		/**
+		 * Offer settings.
+		 */
+		if ( isset( $old_options['include_cat'] ) && is_array( $old_options['include_cat'] ) && ! empty( $old_options['include_cat'] ) ) {
+			foreach ( $old_options['include_cat'] as $category_id ) {
+				$term = get_term_by( 'id', $category_id, 'product_cat' );
+
+				$options['offer']['include_cat'][] = [
+					'value' => $category_id,
+					'label' => $term->name,
+				];
+			}
+		}
+		if ( isset( $old_options['params'] ) && is_array( $old_options['params'] ) && ! empty( $old_options['params'] ) ) {
+			foreach ( $old_options['params'] as $param_id ) {
+				$term = wc_get_attribute( $param_id );
+
+				$options['offer']['params'][] = [
+					'value' => str_replace( 'pa_', '', $term->slug ),
+					'label' => $term->name,
+				];
+			}
+		}
+		if ( isset( $old_options['model'] ) ) {
+			$options['offer']['model'] = $old_options['model'];
+		}
+		if ( isset( $old_options['vendor'] ) ) {
+			$options['offer']['vendorCode'] = $old_options['vendor'];
+		}
+		if ( isset( $old_options['type_prefix'] ) ) {
+			$options['offer']['typePrefix'] = $old_options['type_prefix'];
+		}
+		if ( isset( $old_options['backorders'] ) ) {
+			$options['offer']['backorders'] = $old_options['backorders'];
+		}
+		if ( isset( $old_options['sales_notes'] ) ) {
+			$options['offer']['sales_notes'] = $old_options['sales_notes'];
+		}
+		if ( isset( $old_options['warranty'] ) ) {
+			$options['offer']['warranty'] = $old_options['warranty'];
+		}
+		if ( isset( $old_options['origin'] ) ) {
+			$options['offer']['origin'] = $old_options['origin'];
+		}
+		if ( isset( $old_options['size'] ) ) {
+			$options['offer']['size'] = $old_options['size'];
+		}
+		if ( isset( $old_options['image_count'] ) ) {
+			$options['offer']['image_count'] = $old_options['image_count'];
+		}
+		if ( isset( $old_options['stock_quantity'] ) ) {
+			$options['offer']['stock_quantity'] = $old_options['stock_quantity'];
+		}
+
+		/**
+		 * Delivery settings.
+		 */
+		if ( isset( $old_options['delivery'] ) ) {
+			$options['delivery']['delivery'] = $old_options['delivery'];
+		}
+		if ( isset( $old_options['pickup'] ) ) {
+			$options['delivery']['pickup'] = $old_options['pickup'];
+		}
+		if ( isset( $old_options['store'] ) ) {
+			$options['delivery']['store'] = $old_options['store'];
+		}
+		if ( isset( $old_options['delivery_options'] ) ) {
+			$options['delivery']['delivery_options'] = $old_options['delivery_options'];
+		}
+		if ( isset( $old_options['cost'] ) ) {
+			$options['delivery']['cost'] = $old_options['cost'];
+		}
+		if ( isset( $old_options['days'] ) ) {
+			$options['delivery']['days'] = $old_options['days'];
+		}
+		if ( isset( $old_options['order_before'] ) ) {
+			$options['delivery']['order_before'] = $old_options['order_before'];
+		}
+
+		/**
+		 * Misc settings.
+		 */
+		if ( isset( $old_options['file_date'] ) ) {
+			$options['misc']['file_date'] = $old_options['file_date'];
+		}
+		if ( isset( $old_options['cron'] ) ) {
+			$options['misc']['cron'] = $old_options['cron'];
+		}
+		if ( isset( $old_options['description'] ) ) {
+			$options['misc']['description'] = $old_options['description'];
+		}
+		if ( isset( $old_options['update_on_change'] ) ) {
+			$options['misc']['update_on_change'] = $old_options['update_on_change'];
+		}
 
 		update_option( 'wooya_settings', $options );
+		delete_option( 'market_exporter_shop_settings' );
 
 	}
 

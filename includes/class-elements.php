@@ -238,7 +238,7 @@ class Elements {
 				'Selected attributes will be exported as a parameters. Hold down the control (ctrl) button on Windows or command (cmd) on Mac to select multiple options.',
 				'market-exporter'
 			),
-			'values'      => self::get_categories_array(),
+			'values'      => self::get_attributes_array(),
 		];
 
 		$elements['image_count'] = [
