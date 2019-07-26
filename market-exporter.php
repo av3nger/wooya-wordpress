@@ -27,6 +27,7 @@ namespace Wooya;
 
 use Exception;
 use Wooya\Includes\Core;
+use Wooya\Includes\Freemius;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -40,6 +41,10 @@ define( 'WOOYA_VERSION', '2.0.0-beta.1' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOOYA_BASENAME', plugin_basename( __FILE__ ) );
+
+/* @noinspection PhpIncludeInspection */
+require_once WOOYA_PATH . 'includes/class-freemius.php';
+new Freemius();
 
 /**
  * The main plugin class.
