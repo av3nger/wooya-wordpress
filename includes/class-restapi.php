@@ -13,7 +13,6 @@ namespace Wooya\Includes;
 
 use Wooya\App;
 use WP_Error;
-use WP_REST_Controller;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_REST_Server;
@@ -28,7 +27,7 @@ use WP_REST_Server;
  * @subpackage Wooya/Includes
  * @author     Anton Vanyukov <a.vanyukov@vcore.ru>
  */
-class RestAPI extends WP_REST_Controller {
+class RestAPI extends Abstract_API {
 
 	/**
 	 * Class instance.
@@ -76,14 +75,18 @@ class RestAPI extends WP_REST_Controller {
 			[
 				[
 					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => [ $this, 'get_settings' ],
+					'callback'            => function() {
+						return $this->settings();
+					},
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
 				],
 				[
 					'methods'             => WP_REST_Server::EDITABLE,
-					'callback'            => [ $this, 'update_settings' ],
+					'callback'            => function( WP_REST_Request $request ) {
+						$this->update_settings( $request->get_params() );
+					},
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
@@ -120,7 +123,9 @@ class RestAPI extends WP_REST_Controller {
 			'/generate/',
 			[
 				'methods'             => WP_REST_Server::EDITABLE,
-				'callback'            => [ $this, 'generate_yml_step' ],
+				'callback'            => function( WP_REST_Request $request ) {
+					return new WP_REST_Response( $this->generate_step( $request->get_params() ), 200 );
+				},
 				'permission_callback' => function () {
 					return current_user_can( 'manage_options' );
 				},
@@ -133,130 +138,23 @@ class RestAPI extends WP_REST_Controller {
 			[
 				[
 					'methods'             => WP_REST_Server::READABLE,
-					'callback'            => [ $this, 'get_files' ],
+					'callback'            => function() {
+						return new WP_REST_Response( $this->get_files(), 200 );
+					},
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
 				],
 				[
 					'methods'             => WP_REST_Server::EDITABLE,
-					'callback'            => [ $this, 'remove_files' ],
+					'callback'            => function( WP_REST_Request $request ) {
+						$this->remove_files( $request->get_params() );
+					},
 					'permission_callback' => function () {
 						return current_user_can( 'manage_options' );
 					},
 				],
 			]
-		);
-
-	}
-
-	/**
-	 * Get settings.
-	 *
-	 * @return array
-	 */
-	public function get_settings() {
-
-		$current_settings = get_option( 'wooya_settings' );
-
-		$elements = Elements::get_elements();
-
-		if ( ! isset( $current_settings['delivery'] ) ) {
-			foreach ( $elements['delivery'] as $element => $data ) {
-				$current_settings['delivery'][ $element ] = $data['default'];
-			}
-		}
-
-		if ( ! isset( $current_settings['misc'] ) ) {
-			foreach ( $elements['misc'] as $element => $data ) {
-				$current_settings['misc'][ $element ] = $data['default'];
-			}
-		}
-
-		return $current_settings;
-
-	}
-
-	/**
-	 * Update settings.
-	 *
-	 * TODO: add validation.
-	 *
-	 * @param WP_REST_Request $request  Request.
-	 *
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function update_settings( WP_REST_Request $request ) {
-
-		$params = $request->get_params();
-
-		$error_data = [
-			'status' => 500,
-		];
-
-		if ( ! isset( $params['items'] ) || ! isset( $params['action'] ) ) {
-			// No valid action - return error.
-			return new WP_Error(
-				'update-error',
-				__( 'Either action or items are not defined', 'market-exporter' ),
-				$error_data
-			);
-		}
-
-		$updated  = false;
-		$settings = $this->get_settings();
-		$items    = array_map( [ new Helper(), 'sanitize_input_value' ], wp_unslash( $params['items'] ) );
-
-		// Remove item from settings array.
-		if ( 'remove' === $params['action'] ) {
-			foreach ( $params['items'] as $type => $data ) {
-				foreach ( $data as $item ) {
-					if ( array_key_exists( $item, $settings[ $type ] ) ) {
-						unset( $settings[ $type ][ $item ] );
-					}
-				}
-			}
-
-			$updated = true;
-		}
-
-		// Add item to settings array.
-		if ( 'add' === $params['action'] ) {
-			$elements = Elements::get_elements();
-
-			foreach ( $params['items'] as $type => $data ) {
-				foreach ( $data as $item ) {
-					// No such setting exists.
-					if ( ! isset( $elements[ $type ][ $item ] ) ) {
-						continue;
-					}
-
-					$settings[ $type ][ $item ] = $elements[ $type ][ $item ]['default'];
-				}
-			}
-
-			$updated = true;
-		}
-
-		// Save setting value.
-		if ( 'save' === $params['action'] ) {
-			if ( array_key_exists( $items['name'], $settings[ $items['type'] ] ) ) {
-				$settings[ $items['type'] ][ $items['name'] ] = $items['value'];
-			}
-
-			$updated = true;
-		}
-
-		if ( $updated ) {
-			update_option( 'wooya_settings', $settings );
-			return new WP_REST_Response( true, 200 );
-		}
-
-		// No valid action - return error.
-		return new WP_Error(
-			'update-error',
-			__( 'Unable to update the settings', 'market-exporter' ),
-			$error_data
 		);
 
 	}
@@ -300,97 +198,6 @@ class RestAPI extends WP_REST_Controller {
 
 		$elements = Elements::get_elements();
 		return new WP_REST_Response( $elements, 200 );
-
-	}
-
-	/**
-	 * Generate YML step.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param WP_REST_Request $request  Request.
-	 *
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function generate_yml_step( WP_REST_Request $request ) {
-
-		$params = $request->get_params();
-
-		if ( ! isset( $params['step'] ) || ! isset( $params['steps'] ) ) {
-			// No valid action - return error.
-			return new WP_Error(
-				'generation-error',
-				__( 'Error determining steps or progress during generation', 'market-exporter' ),
-				[ 'status' => 500 ]
-			);
-		}
-
-		$generator = Generator::get_instance();
-
-		$status = $generator->run_step( $params['step'], $params['steps'] );
-
-		return new WP_REST_Response( $status, 200 );
-
-	}
-
-	/**
-	 * Get YML files.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @return WP_REST_Response
-	 */
-	public function get_files() {
-
-		$filesystem = new FS( 'market-exporter' );
-		$upload_dir = wp_upload_dir();
-
-		$result = [
-			'files' => $filesystem->get_files(),
-			'url'   => trailingslashit( $upload_dir['baseurl'] ) . trailingslashit( 'market-exporter' ),
-		];
-
-		return new WP_REST_Response( $result, 200 );
-
-	}
-
-	/**
-	 * Remove selected files.
-	 *
-	 * @param WP_REST_Request $request  Request.
-	 *
-	 * @return WP_Error|WP_REST_Response
-	 */
-	public function remove_files( WP_REST_Request $request ) {
-
-		$params = $request->get_params();
-
-		$error_data = [
-			'status' => 500,
-		];
-
-		if ( ! isset( $params['files'] ) ) {
-			// No valid action - return error.
-			return new WP_Error(
-				'remove-error',
-				__( 'No files selected', 'market-exporter' ),
-				$error_data
-			);
-		}
-
-		$filesystem = new FS( 'market-exporter' );
-
-		$status = $filesystem->delete_files( $params['files'] );
-
-		if ( ! $status ) {
-			return new WP_Error(
-				'remove-error',
-				__( 'Error removing files', 'market-exporter' ),
-				$error_data
-			);
-		}
-
-		return new WP_REST_Response( true, 200 );
 
 	}
 

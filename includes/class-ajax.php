@@ -14,102 +14,83 @@ namespace Wooya\Includes;
 /**
  * Class Ajax
  */
-class Ajax {
+class Ajax extends Abstract_API {
 
 	/**
 	 * Ajax constructor.
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_me_settings', [ $this, 'get_settings' ] );
-		add_action( 'wp_ajax_me_elements', [ $this, 'get_combined_elements' ] );
-		add_action( 'wp_ajax_me_files', [ $this, 'get_files' ] );
+		add_action( 'wp_ajax_me_settings', [ $this, 'manange_settings' ] );
+		add_action( 'wp_ajax_me_elements', [ $this, 'get_elements' ] );
+		add_action( 'wp_ajax_me_generate', [ $this, 'generate_yml_step' ] );
+		add_action( 'wp_ajax_me_files', [ $this, 'manage_files' ] );
 
 	}
 
 	/**
 	 * Get settings.
-	 *
-	 * @return array
 	 */
-	public function get_settings() {
+	public function manange_settings() {
 
-		$current_settings = get_option( 'wooya_settings' );
+		$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
 
-		$elements = Elements::get_elements();
-
-		if ( ! isset( $current_settings['delivery'] ) ) {
-			foreach ( $elements['delivery'] as $element => $data ) {
-				$current_settings['delivery'][ $element ] = $data['default'];
-			}
+		// Just getting the settings.
+		if ( 'false' === $params ) {
+			wp_send_json_success( $this->settings() );
 		}
 
-		if ( ! isset( $current_settings['misc'] ) ) {
-			foreach ( $elements['misc'] as $element => $data ) {
-				$current_settings['misc'][ $element ] = $data['default'];
-			}
-		}
-
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			wp_send_json_success( $current_settings );
-		}
-
-		return $current_settings;
-
-	}
-
-	/**
-	 * Get array of all elements.
-	 *
-	 * @since 2.0.0
-	 */
-	public function get_combined_elements() {
-
-		$elements = Elements::get_elements();
-		wp_send_json_success( $elements );
+		$params = json_decode( html_entity_decode( $params ), true );
+		$this->update_settings( $params );
 
 	}
 
 	/**
 	 * Get YML elements array.
+	 *
+	 * @since 2.0.0
 	 */
 	public function get_elements() {
 
-		$method = "get_{$request['type']}_elements";
+		$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
 
-		if ( ! method_exists( __NAMESPACE__ . '\\Elements', $method ) ) {
-			wp_send_json_error(
-				printf(
-					/* translators: %s: method name */
-					esc_html__( 'Method %s not found.', 'market-exporter' ),
-					esc_html( $method )
-				),
-				'method-not-found'
-			);
+		// Just getting the elements.
+		if ( 'false' === $params ) {
+			wp_send_json_success( Elements::get_elements() );
 		}
-
-		$elements = call_user_func( [ __NAMESPACE__ . '\\Elements', $method ] );
-
-		wp_send_json_success( $elements );
 
 	}
 
 	/**
-	 * Get YML files.
+	 * Generate YML step.
 	 *
 	 * @since 2.0.0
 	 */
-	public function get_files() {
+	public function generate_yml_step() {
 
-		$filesystem = new FS( 'market-exporter' );
-		$upload_dir = wp_upload_dir();
+		$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
+		$params = json_decode( html_entity_decode( $params ), true );
+		wp_send_json_success( $this->generate_step( $params ) );
 
-		$result = [
-			'files' => $filesystem->get_files(),
-			'url'   => trailingslashit( $upload_dir['baseurl'] ) . trailingslashit( 'market-exporter' ),
-		];
+	}
 
-		wp_send_json_success( $result );
+	/**
+	 * Manage files.
+	 *
+	 * @since 2.0.0
+	 */
+	public function manage_files() {
+
+		$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
+
+		// Just getting the files.
+		if ( 'false' === $params ) {
+			wp_send_json_success( $this->get_files() );
+		}
+
+
+		$params = json_decode( html_entity_decode( $params ), true );
+		$this->remove_files( $params );
 
 	}
 
