@@ -69,6 +69,7 @@ class Helper {
 
 		$woo_installed = get_plugins( '/woocommerce' );
 		$woo_version   = $woo_installed['woocommerce.php']['Version'];
+
 		if ( version_compare( $woo_version, $version, '>=' ) ) {
 			return true;
 		}

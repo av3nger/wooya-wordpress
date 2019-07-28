@@ -13,6 +13,8 @@
 
 namespace Wooya\Includes;
 
+use WP_Filesystem_Base;
+
 /**
  * The filesystem class.
  *
@@ -120,7 +122,7 @@ class FS {
 			/**
 			 * By this point, the $wp_filesystem global should be working, so let's use it to create a file.
 			 *
-			 * @var \WP_Filesystem_Base $wp_filesystem
+			 * @var WP_Filesystem_Base $wp_filesystem
 			 */
 			global $wp_filesystem;
 
@@ -191,7 +193,7 @@ class FS {
 			/**
 			 * By this point, the $wp_filesystem global should be working, so let's use it to create a file.
 			 *
-			 * @var \WP_Filesystem_Base $wp_filesystem
+			 * @var WP_Filesystem_Base $wp_filesystem
 			 */
 			global $wp_filesystem;
 			return $wp_filesystem->dirlist( $folder, false );
@@ -235,7 +237,7 @@ class FS {
 			/**
 			 * By this point, the $wp_filesystem global should be working, so let's use it to create a file.
 			 *
-			 * @var \WP_Filesystem_Base $wp_filesystem
+			 * @var WP_Filesystem_Base $wp_filesystem
 			 */
 			global $wp_filesystem;
 
@@ -244,7 +246,7 @@ class FS {
 			}
 		} else {
 			foreach ( $files as $file ) {
-				@unlink( $folder . $file );
+				unlink( $folder . $file );
 			}
 		}
 

@@ -11,6 +11,9 @@
 
 namespace Wooya\Includes;
 
+use WC_Product_Variation;
+use WP_Query;
+
 /**
  * Generate the YML file.
  *
@@ -67,10 +70,7 @@ class Generator {
 	 * @since 2.0.0  Changed to private.
 	 */
 	private function __construct() {
-
-		// Get plugin settings.
 		$this->settings = get_option( 'wooya_settings' );
-
 	}
 
 	/**
@@ -193,7 +193,7 @@ class Generator {
 	 * @since  0.3.0
 	 * @param  int $per_page  Products to show per page.
 	 * @param  int $offset    Offset by number of products.
-	 * @return \WP_Query      Return products.
+	 * @return WP_Query      Return products.
 	 */
 	private function check_products( $per_page = -1, $offset = 0 ) {
 
@@ -245,7 +245,7 @@ class Generator {
 			];
 		}
 
-		return new \WP_Query( $args );
+		return new WP_Query( $args );
 
 	}
 
@@ -337,11 +337,11 @@ class Generator {
 	 * Generate YML body with offers.
 	 *
 	 * @since  0.3.0
-	 * @param  string    $currency  Currency abbreviation.
-	 * @param  \WP_Query $query     Query.
+	 * @param  string   $currency  Currency abbreviation.
+	 * @param  WP_Query $query     Query.
 	 * @return string
 	 */
-	private function yml_offers( $currency, \WP_Query $query ) {
+	private function yml_offers( $currency, WP_Query $query ) {
 
 		global $product, $offer;
 
@@ -372,7 +372,7 @@ class Generator {
 				$offer_id = ( ( $product->is_type( 'variable' ) ) ? $variations[ $variation_count ]['variation_id'] : $product->get_id() );
 				if ( $product->is_type( 'variable' ) ) :
 					// This has to work but we need to think of a way to save the initial offer variable.
-					$offer = new \WC_Product_Variation( $offer_id );
+					$offer = new WC_Product_Variation( $offer_id );
 				endif;
 				// NOTE: Below this point we start using $offer instead of $product.
 				// This is used for detecting if typePrefix is set. If it is, we need to add type="vendor.model" to
@@ -430,7 +430,7 @@ class Generator {
 				if ( false !== $main_image && strlen( utf8_decode( $main_image ) ) <= 512 ) {
 					$yml .= '        <picture>' . esc_url( $main_image ) . '</picture>' . PHP_EOL;
 				}
-				if ( self::woo_latest_versions() ) {
+				if ( Helper::woo_latest_versions() ) {
 					$attachment_ids = $product->get_gallery_image_ids();
 				} else {
 					$attachment_ids = $product->get_gallery_attachment_ids();
@@ -524,7 +524,7 @@ class Generator {
 					}
 					$size_unit = esc_attr( get_option( 'woocommerce_dimension_unit' ) );
 					if ( $offer->has_dimensions() ) {
-						if ( self::woo_latest_versions() ) {
+						if ( Helper::woo_latest_versions() ) {
 							// WooCommerce version 3.0 and higher.
 							$dimensions = $offer->get_dimensions( false );
 						} else {
@@ -631,7 +631,7 @@ class Generator {
 					$attributes = $product->get_attributes();
 					/* @var WC_Product_Attribute|array $param */
 					foreach ( $attributes as $param ) {
-						if ( self::woo_latest_versions() ) {
+						if ( Helper::woo_latest_versions() ) {
 							$taxonomy = wc_attribute_taxonomy_name_by_id( $param->get_id() );
 						} else {
 							$taxonomy = $param['name'];
@@ -704,7 +704,7 @@ class Generator {
 
 		switch ( $type ) {
 			case 'default':
-				if ( self::woo_latest_versions() ) {
+				if ( Helper::woo_latest_versions() ) {
 					// Try to get variation description.
 					$description = $offer->get_description();
 					// If not there - get product description.
@@ -721,7 +721,7 @@ class Generator {
 				break;
 			case 'long':
 				// Get product description.
-				if ( self::woo_latest_versions() ) {
+				if ( Helper::woo_latest_versions() ) {
 					$description = $product->get_description();
 				} else {
 					$description = $offer->post->post_content;
@@ -729,7 +729,7 @@ class Generator {
 				break;
 			case 'short':
 				// Get product short description.
-				if ( self::woo_latest_versions() ) {
+				if ( Helper::woo_latest_versions() ) {
 					$description = $product->get_short_description();
 				} else {
 					$description = $offer->post->post_excerpt;
@@ -745,33 +745,6 @@ class Generator {
 		// This causes an error on many installs
 		// $description = substr( $description, 0, 2999 );.
 		return $description;
-
-	}
-
-	/**
-	 * Check WooCommerce version.
-	 *
-	 * Used to check what code to use. Older version of WooCommerce (prior to 3.0.0) use some older functions
-	 * that are deprecated in newer versions.
-	 *
-	 * @since  0.4.1
-	 * @param  string $version WooCommerce version.
-	 * @return bool
-	 */
-	private static function woo_latest_versions( $version = '3.0.0' ) {
-
-		if ( ! function_exists( 'get_plugins' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		$woo_installed = get_plugins( '/woocommerce' );
-		$woo_version   = $woo_installed['woocommerce.php']['Version'];
-
-		if ( version_compare( $woo_version, $version, '>=' ) ) {
-			return true;
-		}
-
-		return false;
 
 	}
 

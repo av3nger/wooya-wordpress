@@ -14,6 +14,8 @@
 
 namespace Wooya\Includes;
 
+use Exception;
+
 /**
  * The core plugin class.
  *
@@ -65,7 +67,7 @@ class Core {
 	 * the public-facing side of the site.
 	 *
 	 * @since 2.0.0
-	 * @throws \Exception  Exception from autoload.
+	 * @throws Exception  Exception from autoload.
 	 */
 	public function __construct() {
 
