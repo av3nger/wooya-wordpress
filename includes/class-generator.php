@@ -611,22 +611,18 @@ class Generator {
 
 						// See https://wordpress.org/support/topic/атрибуты-вариантивного-товара/#post-9607195.
 						$param_value = $offer->get_attribute( $param['value'] );
-
-						$params = explode( ',', $param_value );
-						foreach ( $params as $single_param ) {
-							$param_name  = wc_attribute_label( $param['value'] );
-							$param_name  = apply_filters( 'me_param_name', $param_name );
-							$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
-
-							$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
+						if ( empty( $param_value ) ) {
+							$param_value = $product->get_attribute( $param['value'] );
 						}
+
+						$yml .= $this->generate_param( $param['value'], $param_value );
 					}
 				} else {
 					$attributes = $product->get_attributes();
 					/**
 					 * Parameter.
 					 *
-					 * @var WC_Product_Attribute|array $param
+					 * @var \WC_Product_Attribute|array $param
 					 */
 					foreach ( $attributes as $param ) {
 						if ( Helper::woo_latest_versions() ) {
@@ -641,18 +637,7 @@ class Generator {
 							$param_value = $product->get_attribute( $taxonomy );
 						}
 
-						// Skip if empty value (when cyrillic letter are used in attribute slug).
-						if ( ! isset( $param_value ) || empty( $param_value ) ) {
-							continue;
-						}
-
-						$params = explode( ',', $param_value );
-						foreach ( $params as $single_param ) {
-							$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxonomy ) );
-							$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
-
-							$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
-						}
+						$yml .= $this->generate_param( $taxonomy, $param_value );
 					}
 				}
 
@@ -745,6 +730,35 @@ class Generator {
 		// $description = substr( $description, 0, 2999 );.
 		return $description;
 
+	}
+
+	/**
+	 * Generate <param> attribute.
+	 *
+	 * @since 2.0.0
+	 *
+	 * @param string $taxomnomy  Taxonomy label.
+	 * @param string $value      Taxonomy value.
+	 *
+	 * @return bool|string
+	 */
+	private function generate_param( $taxomnomy, $value ) {
+		// Skip if empty value (when cyrillic letter are used in attribute slug).
+		if ( ! isset( $value ) || empty( $value ) ) {
+			return false;
+		}
+
+		$yml    = '';
+		$params = explode( ',', $value );
+		foreach ( $params as $single_param ) {
+			$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxomnomy ) );
+			$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
+			$param_unit  = apply_filters( 'me_param_unit', $param_name, false );
+
+			$yml .= '        <param name="' . $param_name . '" ' . $param_unit . '>' . $param_value . '</param>' . PHP_EOL;
+		}
+
+		return $yml;
 	}
 
 }
