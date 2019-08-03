@@ -86,9 +86,8 @@ class Generator {
 
 		// Cron finished.
 		if ( $running[0] > $running[1] ) {
-			$options = get_option( 'wooya_settings' );
-			if ( isset( $options['misc'] ) && isset( $options['misc']['cron'] ) ) {
-				Helper::update_cron_schedule( $options['misc']['cron'] );
+			if ( isset( $this->settings['misc'] ) && isset( $this->settings['misc']['cron'] ) ) {
+				Helper::update_cron_schedule( $this->settings['misc']['cron'] );
 			} else {
 				Helper::update_cron_schedule( 'disabled' );
 			}
