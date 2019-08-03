@@ -285,7 +285,7 @@ class Generator {
 
 		// Maybe we need to include only selected categories?
 		if ( isset( $this->settings['offer']['include_cat'] ) ) {
-			$args['include'] = $this->settings['offer']['include_cat'];
+			$args['include'] = array_column( $this->settings['offer']['include_cat'], 'value' );
 		}
 
 		foreach ( get_categories( $args ) as $category ) {
