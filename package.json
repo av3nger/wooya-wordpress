@@ -8,7 +8,8 @@
     "compile": "clear && webpack -p --progress",
     "makepot": "npx pot-to-php languages/react.pot languages/react.php market-exporter",
     "translate": "clear && grunt translate && npm run makepot",
-    "build": "grunt clean && npm run compile && grunt prepare && grunt build"
+    "build": "grunt clean && npm run compile && grunt prepare && grunt build",
+    "release": "sh deploy-to-svn.sh"
   },
   "repository": {
     "type": "git",
