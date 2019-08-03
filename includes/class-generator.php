@@ -384,7 +384,7 @@ class Generator {
 						$type_prefix_set = true;
 					}
 				}
-				$yml .= '      <offer id="' . $offer_id . '" ' . ( ( $type_prefix_set ) ? 'type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
+				$yml .= '      <offer id="' . $offer_id . '"' . ( ( $type_prefix_set ) ? ' type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
 				$yml .= '        <url>' . htmlspecialchars( get_permalink( $offer->get_id() ) ) . '</url>' . PHP_EOL;
 				// Price.
 				if ( $offer->get_sale_price() && ( $offer->get_sale_price() < $offer->get_regular_price() ) ) {
@@ -602,25 +602,19 @@ class Generator {
 				// Params: selected parameters.
 				if ( isset( $this->settings['offer']['params'] ) && ! empty( $this->settings['offer']['params'] ) ) {
 					$attributes = $product->get_attributes();
-					foreach ( $this->settings['offer']['params'] as $param_id ) {
+					foreach ( $this->settings['offer']['params'] as $param ) {
 						// Encode the name, because cyrillic letters won't work in array_key_exists.
-						// TODO: this is the worst possible solution. REFACTOR!
-						$selected_attribute = urlencode( wc_attribute_taxonomy_name_by_id( $param_id ) );
-						$selected_attribute = strtolower( $selected_attribute );
-						if ( ! array_key_exists( $selected_attribute, $attributes ) ) {
+						$encoded = strtolower( rawurlencode( $param['value'] ) );
+						if ( ! array_key_exists( 'pa_' . $encoded, $attributes ) ) {
 							continue;
 						}
 
-						// TODO: refactor
 						// See https://wordpress.org/support/topic/атрибуты-вариантивного-товара/#post-9607195.
-						$param_value = $offer->get_attribute( wc_attribute_taxonomy_name_by_id( $param_id ) );
-						if ( empty( $param_value ) ) {
-							$param_value = $product->get_attribute( wc_attribute_taxonomy_name_by_id( $param_id ) );
-						}
+						$param_value = $offer->get_attribute( $param['value'] );
 
 						$params = explode( ',', $param_value );
 						foreach ( $params as $single_param ) {
-							$param_name  = wc_attribute_label( wc_attribute_taxonomy_name_by_id( $param_id ) );
+							$param_name  = wc_attribute_label( $param['value'] );
 							$param_name  = apply_filters( 'me_param_name', $param_name );
 							$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
 
@@ -629,7 +623,11 @@ class Generator {
 					}
 				} else {
 					$attributes = $product->get_attributes();
-					/* @var WC_Product_Attribute|array $param */
+					/**
+					 * Parameter.
+					 *
+					 * @var WC_Product_Attribute|array $param
+					 */
 					foreach ( $attributes as $param ) {
 						if ( Helper::woo_latest_versions() ) {
 							$taxonomy = wc_attribute_taxonomy_name_by_id( $param->get_id() );
@@ -656,7 +654,8 @@ class Generator {
 							$yml .= '        <param name="' . $param_name . '">' . $param_value . '</param>' . PHP_EOL;
 						}
 					}
-				} // End if().
+				}
+
 				// Downloadable.
 				if ( $product->is_downloadable() ) {
 					$yml .= '        <downloadable>true</downloadable>';
