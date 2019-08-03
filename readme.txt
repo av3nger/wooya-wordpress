@@ -23,7 +23,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 1. Загрузите 'Market Exporter' в папку с плагинами на Вашем сайте WordPress (/wp-content/plugins/).
 2. Активируйте 'Market Exporter' через раздел 'Плагины' в WordPress.
-3. Выберите 'Market Exporter' в разделе 'WooCommerce' в WordPress.
+3. Выберите 'Market Exporter' в WordPress.
 4. Нажмите кнопку 'Генерировать YML файл'.
 
 == Frequently Asked Questions ==
@@ -56,7 +56,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WooCommerce также тестировался на последних версиях.
 
-Версия PHP должна быть не ниже 5.4. Полная поддержка версии 7.2.
+Версия PHP должна быть не ниже 5.4. Полная поддержка версии 7.3.
 
 == Screenshots ==
 
