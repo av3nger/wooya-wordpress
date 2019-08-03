@@ -117,6 +117,11 @@ abstract class Abstract_API extends WP_REST_Controller {
 
 		if ( $updated ) {
 			update_option( 'wooya_settings', $settings );
+
+			if ( 'cron' === $params['items']['name'] ) {
+				Helper::update_cron_schedule( $params['items']['value'] );
+			}
+
 			return new WP_REST_Response( true, 200 );
 		}
 

@@ -185,7 +185,7 @@ class Core {
 		add_action( 'wp_ajax_dismiss_rate_notice', [ $this, 'dismiss_notice' ] );
 
 		// Add cron support.
-		//add_action( 'market_exporter_cron', $plugin_yml, 'generate_yml' );
+		add_action( 'market_exporter_cron', [ Generator::get_instance(), 'cron_generate_yml' ] );
 		// Add support to update file on product update.
 		add_action( 'woocommerce_update_product', [ $this->admin, 'generate_file_on_update' ] );
 

@@ -74,6 +74,40 @@ class Generator {
 	}
 
 	/**
+	 * Generate YML file from cron or during product update.
+	 *
+	 * @since 2.0.0
+	 */
+	public function cron_generate_yml() {
+
+		$step    = 0;
+		$steps   = 0;
+		$running = $this->is_running();
+
+		// Cron finished.
+		if ( $running[0] > $running[1] ) {
+			$options = get_option( 'wooya_settings' );
+			if ( isset( $options['misc'] ) && isset( $options['misc']['cron'] ) ) {
+				Helper::update_cron_schedule( $options['misc']['cron'] );
+			} else {
+				Helper::update_cron_schedule( 'disabled' );
+			}
+
+			return;
+		}
+
+		if ( $running ) {
+			$step  = $running[0];
+			$steps = $running[1];
+		}
+
+		$response = $this->run_step( $step, $steps );
+		set_transient( 'wooya-generating-yml', [ $response['step'], $response['steps'] ], MINUTE_IN_SECONDS * 5 );
+		wp_schedule_single_event( time(), 'market_exporter_cron' );
+
+	}
+
+	/**
 	 * Check if YML generator is running.
 	 *
 	 * @since  2.0.0
