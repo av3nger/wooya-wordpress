@@ -374,7 +374,7 @@ class Elements {
 		$elements['file_date'] = [
 			'type'        => 'checkbox',
 			'default'     => false,
-			'required'    => false,
+			'required'    => true,
 			'description' => __(
 				'Add date to YML file name. If enabled YML file will have current date at the end: ym-export-yyyy-mm-dd.yml.',
 				'market-exporter'
@@ -384,7 +384,7 @@ class Elements {
 		$elements['cron'] = [
 			'type'        => 'select',
 			'default'     => 'disabled',
-			'required'    => false,
+			'required'    => true,
 			'description' => __( 'Auto generate file at the selected interval.', 'market-exporter' ),
 			'values'      => [
 				'disabled'   => __( 'Disabled', 'market-exporter' ),

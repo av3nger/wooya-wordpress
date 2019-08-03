@@ -75,12 +75,14 @@ class Activator {
 		require WOOYA_PATH . 'includes/class-elements.php';
 		$elements = Elements::get_elements();
 
-		foreach ( $elements['shop'] as $name => $data ) {
-			if ( false === $data['required'] ) {
-				continue;
-			}
+		foreach ( $elements as $type => $group ) {
+			foreach ( $group as $name => $data ) {
+				if ( false === $data['required'] ) {
+					continue;
+				}
 
-			$options['shop'][ $name ] = $data['default'];
+				$options[ $type ][ $name ] = $data['default'];
+			}
 		}
 
 		update_option( 'wooya_settings', $options );
