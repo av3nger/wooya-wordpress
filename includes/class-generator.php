@@ -518,6 +518,8 @@ class Generator {
 					$model = $product->get_attribute( 'pa_' . $this->settings['offer']['model'] );
 					if ( $model ) {
 						$yml .= '        <model>' . wp_strip_all_tags( $model ) . '</model>' . PHP_EOL;
+					} else {
+						$yml .= '        <model>' . $this->clean( $offer->get_title() ) . '</model>' . PHP_EOL;
 					}
 				}
 				// Vendor code.
