@@ -152,7 +152,7 @@ class Generator {
 		if ( 0 === $step && 0 === $total ) {
 			set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
 
-			$query = $this->check_products();
+			$query = $this->check_products( self::PRODUCTS_PER_QUERY, self::PRODUCTS_PER_QUERY * $step );
 			if ( 0 === $query->found_posts ) {
 				return [ 'code' => 503 ];
 			}
