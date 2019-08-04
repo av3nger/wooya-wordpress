@@ -75,6 +75,7 @@ WooCommerce также тестировался на последних верс
 * FIXED: Неверная выгрузка значений param
 * FIXED: Экспорт typePrefix
 * FIXED: Экспорт vendor
+* FIXED: Не выгружать name если не задан typePrefix
 
 = 2.0.0 =
 * NEW: Обновлен интерфейс
