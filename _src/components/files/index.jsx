@@ -85,7 +85,8 @@ class Files extends React.Component {
 					path: response.url,
 					selected: [],
 				} );
-			}
+			},
+			( err ) => this.props.onError( err.message )
 		);
 	}
 

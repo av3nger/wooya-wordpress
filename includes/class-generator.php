@@ -152,7 +152,7 @@ class Generator {
 		if ( 0 === $step && 0 === $total ) {
 			set_transient( 'wooya-generating-yml', true, MINUTE_IN_SECONDS * 5 );
 
-			$query = $this->check_products();
+			$query = $this->check_products( self::PRODUCTS_PER_QUERY, self::PRODUCTS_PER_QUERY * $step );
 			if ( 0 === $query->found_posts ) {
 				return [ 'code' => 503 ];
 			}
@@ -411,8 +411,8 @@ class Generator {
 				// This is used for detecting if typePrefix is set. If it is, we need to add type="vendor.model" to
 				// offer and remove the name attribute.
 				$type_prefix_set = false;
-				if ( isset( $this->settings['offer']['type_prefix'] ) && 'not_set' !== $this->settings['offer']['type_prefix'] ) {
-					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['type_prefix'] );
+				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
+					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
 					if ( $type_prefix ) {
 						$type_prefix_set = true;
 					}
@@ -498,15 +498,17 @@ class Generator {
 					$yml .= '        <delivery>' . $this->settings['delivery']['delivery'] . '</delivery>' . PHP_EOL;
 				}
 
-				$yml .= '        <name>' . $this->clean( $offer->get_title() ) . '</name>' . PHP_EOL;
+				if ( ! $type_prefix_set ) {
+					$yml .= '        <name>' . $this->clean( $offer->get_title() ) . '</name>' . PHP_EOL;
+				}
 
 				// type_prefix.
 				if ( $type_prefix_set ) {
 					$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
 				}
 				// Vendor.
-				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
-					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
+				if ( isset( $this->settings['offer']['vendorCode'] ) && 'not_set' !== $this->settings['offer']['vendorCode'] ) {
+					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendorCode'] );
 					if ( $vendor ) {
 						$yml .= '        <vendor>' . wp_strip_all_tags( $vendor ) . '</vendor>' . PHP_EOL;
 					}
@@ -786,7 +788,7 @@ class Generator {
 		foreach ( $params as $single_param ) {
 			$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxomnomy ) );
 			$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
-			$param_unit  = apply_filters( 'me_param_unit', $param_name, false );
+			$param_unit  = apply_filters( 'me_param_unit', false );
 
 			$yml .= '        <param name="' . $param_name . '" ' . $param_unit . '>' . $param_value . '</param>' . PHP_EOL;
 		}

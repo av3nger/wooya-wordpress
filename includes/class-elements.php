@@ -256,6 +256,15 @@ class Elements {
 			'description' => __( 'Adds the number of available products in stock.', 'market-exporter' ),
 		];
 
+		$elements['adult'] = [
+			'type'        => 'checkbox',
+			'default'     => false,
+			'required'    => false,
+			'description' => __( 'The product is of a sexual nature or pertains to sexual interest in any way.', 'market-exporter' ),
+		];
+
+
+
 		return $elements;
 
 	}

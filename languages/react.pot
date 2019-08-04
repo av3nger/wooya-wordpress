@@ -34,15 +34,15 @@ msgstr ""
 msgid "Add items"
 msgstr ""
 
-#: _src/components/files/index.jsx:175
+#: _src/components/files/index.jsx:176
 msgid "Available YML files"
 msgstr ""
 
-#: _src/components/files/index.jsx:181
+#: _src/components/files/index.jsx:182
 msgid "Remove files"
 msgstr ""
 
-#: _src/components/files/index.jsx:192
+#: _src/components/files/index.jsx:193
 msgid "You have not yet generated any files"
 msgstr ""
 
