@@ -126,12 +126,7 @@ class FS {
 			 */
 			global $wp_filesystem;
 
-			// Check if 'uploads/wooya' folder exists. If not - create it.
-			if ( ! $wp_filesystem->exists( $folder ) ) {
-				if ( ! $wp_filesystem->mkdir( $folder, FS_CHMOD_DIR ) ) {
-					esc_html_e( 'Error creating directory.', 'market-exporter' );
-				}
-			}
+			$this->check_dir_wp_api( $folder );
 
 			// Create the file.
 			if ( $append ) {
@@ -144,12 +139,7 @@ class FS {
 				$result = $wp_filesystem->put_contents( $file_path, $yml, FS_CHMOD_FILE );
 			}
 		} else {
-			// Check if 'uploads/wooya' folder exists. If not - create it.
-			if ( ! is_dir( $folder ) ) {
-				if ( ! wp_mkdir_p( $folder ) ) {
-					esc_html_e( 'Error creating directory.', 'market-exporter' );
-				}
-			}
+			$this->check_dir_native( $folder );
 
 			// Create the file.
 			if ( $append ) {
@@ -196,8 +186,13 @@ class FS {
 			 * @var WP_Filesystem_Base $wp_filesystem
 			 */
 			global $wp_filesystem;
+
+			$this->check_dir_wp_api( $folder );
+
 			return $wp_filesystem->dirlist( $folder, false );
 		}
+
+		$this->check_dir_native( $folder );
 
 		$dir = scandir( $folder );
 		// Let's form the same array as dirlist provides.
@@ -251,6 +246,44 @@ class FS {
 		}
 
 		return true;
+
+	}
+
+	/**
+	 * Check if the directory for yml files exists. Native PHP check.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @param string $folder  Folder to check.
+	 */
+	private function check_dir_native( $folder ) {
+
+		// Check if 'uploads/market-exporter' folder exists. If not - create it.
+		if ( ! is_dir( $folder ) ) {
+			if ( ! wp_mkdir_p( $folder ) ) {
+				esc_html_e( 'Error creating directory.', 'market-exporter' );
+			}
+		}
+
+	}
+
+	/**
+	 * Check if the directory for yml files exists. WP Filesystem check.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @param string $folder  Folder to check.
+	 */
+	private function check_dir_wp_api( $folder ) {
+
+		global $wp_filesystem;
+
+		// Check if 'uploads/market-exporter' folder exists. If not - create it.
+		if ( ! $wp_filesystem->exists( $folder ) ) {
+			if ( ! $wp_filesystem->mkdir( $folder, FS_CHMOD_DIR ) ) {
+				esc_html_e( 'Error creating directory.', 'market-exporter' );
+			}
+		}
 
 	}
 
