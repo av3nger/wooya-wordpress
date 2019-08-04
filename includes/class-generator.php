@@ -505,8 +505,8 @@ class Generator {
 					$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
 				}
 				// Vendor.
-				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
-					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
+				if ( isset( $this->settings['offer']['vendorCode'] ) && 'not_set' !== $this->settings['offer']['vendorCode'] ) {
+					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendorCode'] );
 					if ( $vendor ) {
 						$yml .= '        <vendor>' . wp_strip_all_tags( $vendor ) . '</vendor>' . PHP_EOL;
 					}
