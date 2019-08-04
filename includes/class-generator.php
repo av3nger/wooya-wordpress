@@ -411,8 +411,8 @@ class Generator {
 				// This is used for detecting if typePrefix is set. If it is, we need to add type="vendor.model" to
 				// offer and remove the name attribute.
 				$type_prefix_set = false;
-				if ( isset( $this->settings['offer']['type_prefix'] ) && 'not_set' !== $this->settings['offer']['type_prefix'] ) {
-					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['type_prefix'] );
+				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
+					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
 					if ( $type_prefix ) {
 						$type_prefix_set = true;
 					}
