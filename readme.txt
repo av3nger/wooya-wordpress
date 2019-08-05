@@ -71,6 +71,7 @@ WooCommerce также тестировался на последних верс
 * ENHANCE: Улучшена выгрухка typePrefix
 * FIXED: Исправлена выгрузка delivery-options
 * FIXED: Исправлена выгрузка vendor и vendorCode
+* FIXED: Поправлена работа фильтра me_param_unit
 
 = 2.0.2 =
 * ENHANCE: Если задан атрибут model, но его нет у товара, выгружать вместо него имя

@@ -793,7 +793,7 @@ class Generator {
 		foreach ( $params as $single_param ) {
 			$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxomnomy ) );
 			$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
-			$param_unit  = apply_filters( 'me_param_unit', false );
+			$param_unit  = apply_filters( 'me_param_unit', false, $param_name );
 
 			$yml .= '        <param name="' . $param_name . '" ' . $param_unit . '>' . $param_value . '</param>' . PHP_EOL;
 		}
