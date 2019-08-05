@@ -263,8 +263,6 @@ class Elements {
 			'description' => __( 'The product is of a sexual nature or pertains to sexual interest in any way.', 'market-exporter' ),
 		];
 
-
-
 		return $elements;
 
 	}

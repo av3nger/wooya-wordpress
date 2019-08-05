@@ -88,7 +88,6 @@ class Ajax extends Abstract_API {
 			wp_send_json_success( $this->get_files() );
 		}
 
-
 		$params = json_decode( html_entity_decode( $params ), true );
 		$this->remove_files( $params );
 

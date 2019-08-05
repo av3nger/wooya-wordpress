@@ -252,7 +252,7 @@ class Core {
 			$plugins = get_option( 'active_plugins' );
 
 			if ( in_array( WOOYA_BASENAME, $plugins, true ) ) {
-				unset( $_GET['activate'] );
+				unset( $_GET['activate'] ); // Input var ok.
 				deactivate_plugins( WOOYA_PATH . 'market-exporter.php' );
 			}
 		}

@@ -61,5 +61,5 @@ script:
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs -p . --standard=WordPress
+      phpcs -p --standard=WordPress --report=summary includes/*.php market-exporter.php
     fi
