@@ -61,5 +61,5 @@ script:
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      vendor/bin/phpcs -p . --standard=WordPress
+      phpcs -p . --standard=WordPress
     fi
