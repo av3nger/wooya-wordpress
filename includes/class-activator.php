@@ -135,7 +135,7 @@ class Activator {
 			$options['offer']['model'] = $old_options['model'];
 		}
 		if ( isset( $old_options['vendor'] ) ) {
-			$options['offer']['vendorCode'] = $old_options['vendor'];
+			$options['offer']['vendor'] = $old_options['vendor'];
 		}
 		if ( isset( $old_options['type_prefix'] ) ) {
 			$options['offer']['typePrefix'] = $old_options['type_prefix'];

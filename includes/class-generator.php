@@ -11,6 +11,7 @@
 
 namespace Wooya\Includes;
 
+use WC_Product;
 use WC_Product_Variation;
 use WP_Query;
 
@@ -332,7 +333,7 @@ class Generator {
 		$yml .= '    </categories>' . PHP_EOL;
 
 		// Settings for delivery-options.
-		if ( isset( $this->settings['delivery_options'] ) && $this->settings['offer']['delivery_options'] ) {
+		if ( isset( $this->settings['delivery']['delivery_options'] ) && $this->settings['delivery']['delivery_options'] ) {
 			$yml .= '    <delivery-options>' . PHP_EOL;
 			$cost = $this->settings['delivery']['cost'];
 			$days = $this->settings['delivery']['days'];
@@ -408,16 +409,7 @@ class Generator {
 					$offer = new WC_Product_Variation( $offer_id );
 				endif;
 				// NOTE: Below this point we start using $offer instead of $product.
-				// This is used for detecting if typePrefix is set. If it is, we need to add type="vendor.model" to
-				// offer and remove the name attribute.
-				$type_prefix_set = false;
-				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
-					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
-					if ( $type_prefix ) {
-						$type_prefix_set = true;
-					}
-				}
-				$yml .= '      <offer id="' . $offer_id . '"' . ( ( $type_prefix_set ) ? ' type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
+				$yml .= '      <offer id="' . $offer_id . '"' . ( $this->is_vendor_model() ? ' type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
 				$yml .= '        <url>' . htmlspecialchars( get_permalink( $offer->get_id() ) ) . '</url>' . PHP_EOL;
 				// Price.
 				if ( $offer->get_sale_price() && ( $offer->get_sale_price() < $offer->get_regular_price() ) ) {
@@ -498,17 +490,21 @@ class Generator {
 					$yml .= '        <delivery>' . $this->settings['delivery']['delivery'] . '</delivery>' . PHP_EOL;
 				}
 
-				if ( ! $type_prefix_set ) {
+				if ( ! $this->is_vendor_model() ) {
 					$yml .= '        <name>' . $this->clean( $offer->get_title() ) . '</name>' . PHP_EOL;
 				}
 
-				// type_prefix.
-				if ( $type_prefix_set ) {
-					$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
+				// typePrefix.
+				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
+					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
+					if ( $type_prefix ) {
+						$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
+					}
 				}
+
 				// Vendor.
-				if ( isset( $this->settings['offer']['vendorCode'] ) && 'not_set' !== $this->settings['offer']['vendorCode'] ) {
-					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendorCode'] );
+				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
+					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
 					if ( $vendor ) {
 						$yml .= '        <vendor>' . wp_strip_all_tags( $vendor ) . '</vendor>' . PHP_EOL;
 					}
@@ -522,10 +518,17 @@ class Generator {
 						$yml .= '        <model>' . $this->clean( $offer->get_title() ) . '</model>' . PHP_EOL;
 					}
 				}
+
 				// Vendor code.
-				if ( $offer->get_sku() ) {
-					$yml .= '        <vendorCode>' . $offer->get_sku() . '</vendorCode>' . PHP_EOL;
+				if ( isset( $this->settings['offer']['vendorCode'] ) && 'not_set' !== $this->settings['offer']['vendorCode'] ) {
+					$vendor_code = $product->get_attribute( 'pa_' . $this->settings['offer']['vendorCode'] );
+					if ( $vendor_code ) {
+						$yml .= '        <vendorCode>' . wp_strip_all_tags( $vendor_code ) . '</vendorCode>' . PHP_EOL;
+					} elseif ( ! $vendor_code && $offer->get_sku() ) {
+						$yml .= '        <vendorCode>' . $offer->get_sku() . '</vendorCode>' . PHP_EOL;
+					}
 				}
+
 				// Description.
 				$description = $this->get_description( $this->settings['misc']['description'] );
 				if ( $description ) {
@@ -796,6 +799,34 @@ class Generator {
 		}
 
 		return $yml;
+	}
+
+	/**
+	 * This is used for detecting if typePrefix is set. If it is, we need to add type="vendor.model" to
+	 * offer and remove the name attribute.
+	 *
+	 * @since 2.0.3
+	 *
+	 * @return bool
+	 */
+	private function is_vendor_model() {
+		$type_prefix_set = false;
+
+		// TypePrefix.
+		if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
+			$type_prefix_set = true;
+		}
+
+		// Vendor.
+		if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
+			$type_prefix_set = true;
+		}
+		// Model.
+		if ( isset( $this->settings['offer']['model'] ) && 'not_set' !== $this->settings['offer']['model'] ) {
+			$type_prefix_set = true;
+		}
+
+		return $type_prefix_set;
 	}
 
 }
