@@ -158,6 +158,7 @@ class YmlListItem extends React.Component {
 			} );
 
 			htmlElement = <Select
+				closeMenuOnSelect={ false }
 				isMulti
 				value={ this.state.value }
 				onChange={ this.handleSelectChange }

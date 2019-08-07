@@ -78,10 +78,10 @@ msgstr ""
 msgid "Misc"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:172
+#: _src/components/yml-list-item/index.jsx:173
 msgid "Disabled"
 msgstr ""
 
-#: _src/components/yml-list-item/index.jsx:181
+#: _src/components/yml-list-item/index.jsx:182
 msgid "Active"
 msgstr ""
