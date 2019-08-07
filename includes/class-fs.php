@@ -110,9 +110,9 @@ class FS {
 		$upload_dir = wp_upload_dir();
 		$folder     = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( $this->plugin_name );
 		if ( $date ) {
-			$filename = 'ym-export-' . date( 'Y-m-d' ) . '.yml';
+			$filename = 'ym-export-' . date( 'Y-m-d' ) . '.yml.tmp';
 		} else {
-			$filename = 'ym-export.yml';
+			$filename = 'ym-export.yml.tmp';
 		}
 
 		$file_path = $folder . $filename;
@@ -246,6 +246,46 @@ class FS {
 		}
 
 		return true;
+
+	}
+
+	/**
+	 * Rename the .tmp file to a .yml file.
+	 *
+	 * @since 2.0.4
+	 * @param string $date  Yes or No for date at the end of the file.
+	 */
+	public function rename( $date ) {
+
+		// If unable to initialize filesystem, quit.
+		if ( ! $this->init() ) {
+			return;
+		}
+
+		// Get the upload directory and make a ym-export-YYYY-mm-dd.yml file.
+		$upload_dir = wp_upload_dir();
+		$folder     = trailingslashit( $upload_dir['basedir'] ) . trailingslashit( $this->plugin_name );
+		if ( $date ) {
+			$filename = 'ym-export-' . date( 'Y-m-d' ) . '.yml';
+		} else {
+			$filename = 'ym-export.yml';
+		}
+
+		$file_path = $folder . $filename;
+
+		// Use WP_Filesystem API.
+		if ( $this->fs_api ) {
+			/**
+			 * By this point, the $wp_filesystem global should be working, so let's use it to create a file.
+			 *
+			 * @var WP_Filesystem_Base $wp_filesystem
+			 */
+			global $wp_filesystem;
+
+			$wp_filesystem->move( "{$file_path}.tmp", $file_path, true );
+		} else {
+			rename( "{$file_path}.tmp", $file_path );
+		}
 
 	}
 

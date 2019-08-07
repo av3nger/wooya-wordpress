@@ -130,6 +130,9 @@ class Generator {
 		// Remove cron lock.
 		delete_option( 'market_exporter_doing_cron' );
 
+		$filesystem = new FS( 'market-exporter' );
+		$filesystem->rename( $this->settings['misc']['file_date'] );
+
 	}
 
 	/**
