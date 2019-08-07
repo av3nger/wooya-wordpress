@@ -67,6 +67,8 @@ WooCommerce также тестировался на последних верс
 
 == Changelog ==
 
+= 2.0.4 =
+
 = 2.0.3 =
 * ENHANCE: Улучшена выгрухка typePrefix
 * FIXED: Исправлена выгрузка delivery-options
