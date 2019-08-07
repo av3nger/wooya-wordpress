@@ -8,40 +8,16 @@ msgid "Generate YML"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:133
-#: _src/components/add-setting-modal/index.jsx:137
-#: _src/components/add-setting-modal/index.jsx:140
-#: _src/components/add-setting-modal/index.jsx:139
-#: _src/components/add-setting-modal/index.jsx:138
-#: _src/components/add-setting-modal/index.jsx:135
-#: _src/components/add-setting-modal/index.jsx:136
-#: _src/components/add-setting-modal/index.jsx:144
-#: _src/components/add-setting-modal/index.jsx:142
 #: _src/components/yml-list-control/index.jsx:232
 msgid "Add new setting"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:136
-#: _src/components/add-setting-modal/index.jsx:140
-#: _src/components/add-setting-modal/index.jsx:143
-#: _src/components/add-setting-modal/index.jsx:142
-#: _src/components/add-setting-modal/index.jsx:141
-#: _src/components/add-setting-modal/index.jsx:138
-#: _src/components/add-setting-modal/index.jsx:139
-#: _src/components/add-setting-modal/index.jsx:147
-#: _src/components/add-setting-modal/index.jsx:145
 #: _src/components/yml-list-control/index.jsx:251
 msgid "Shop"
 msgstr ""
 
 #: _src/components/add-setting-modal/index.jsx:145
-#: _src/components/add-setting-modal/index.jsx:149
-#: _src/components/add-setting-modal/index.jsx:152
-#: _src/components/add-setting-modal/index.jsx:151
-#: _src/components/add-setting-modal/index.jsx:150
-#: _src/components/add-setting-modal/index.jsx:147
-#: _src/components/add-setting-modal/index.jsx:148
-#: _src/components/add-setting-modal/index.jsx:156
-#: _src/components/add-setting-modal/index.jsx:154
 #: _src/components/yml-list-control/index.jsx:258
 msgid "Offer"
 msgstr ""

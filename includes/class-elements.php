@@ -403,8 +403,8 @@ class Elements {
 
 		$elements['description'] = [
 			'type'        => 'select',
-			'default'     => 'disabled',
-			'required'    => false,
+			'default'     => 'default',
+			'required'    => true,
 			'description' => __(
 				'Product description. Specify the way the description is exported. Default is to try and get the product description, if empty - get short description.',
 				'market-exporter'
@@ -419,7 +419,7 @@ class Elements {
 		$elements['update_on_change'] = [
 			'type'        => 'checkbox',
 			'default'     => false,
-			'required'    => false,
+			'required'    => true,
 			'description' => __( 'Regenerate file on product create/update', 'market-exporter' ),
 		];
 
