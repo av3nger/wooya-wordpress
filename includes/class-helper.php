@@ -85,10 +85,12 @@ class Helper {
 	 * @param string $interval  Cron interval. Accepts: hourly, twicedaily, daily.
 	 */
 	public static function update_cron_schedule( $interval ) {
+
 		wp_clear_scheduled_hook( 'market_exporter_cron' );
 		if ( 'disabled' !== $interval ) {
 			wp_schedule_event( time(), $interval, 'market_exporter_cron' );
 		}
+
 	}
 
 }

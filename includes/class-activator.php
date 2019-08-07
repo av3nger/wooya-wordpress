@@ -42,6 +42,16 @@ class Activator {
 			}
 		}
 
+		$version = get_site_option( 'wooya_version' );
+
+		if ( ! $version || WOOYA_VERSION !== $version ) {
+			update_site_option( 'wooya_version', WOOYA_VERSION );
+		}
+
+		if ( version_compare( WOOYA_VERSION, '2.0.4', '<' ) ) {
+			self::upgrade_2_0_4();
+		}
+
 	}
 
 	/**
@@ -205,6 +215,15 @@ class Activator {
 
 		update_option( 'wooya_settings', $options );
 		delete_option( 'market_exporter_shop_settings' );
+
+	}
+
+	/**
+	 * Upgrade to 2.0.4 version.
+	 *
+	 * @since 2.0.4
+	 */
+	private static function upgrade_2_0_4() {
 
 	}
 

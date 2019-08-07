@@ -408,8 +408,40 @@ class Generator {
 					// This has to work but we need to think of a way to save the initial offer variable.
 					$offer = new WC_Product_Variation( $offer_id );
 				endif;
+
+				/**
+				 * We need to get typePrefix, vendor and model early to decide if the product is a vendor.model type or not.
+				 *
+				 * @since 2.0.4
+				 */
+				$vendor_model_type = false;
+
+				// typePrefix.
+				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
+					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
+					if ( $type_prefix ) {
+						$vendor_model_type = true;
+					}
+				}
+
+				// Vendor.
+				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
+					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
+					if ( $vendor ) {
+						$vendor_model_type = true;
+					}
+				}
+
+				// Model.
+				if ( isset( $this->settings['offer']['model'] ) && 'not_set' !== $this->settings['offer']['model'] ) {
+					$model = $product->get_attribute( 'pa_' . $this->settings['offer']['model'] );
+					if ( $model ) {
+						$vendor_model_type = true;
+					}
+				}
+
 				// NOTE: Below this point we start using $offer instead of $product.
-				$yml .= '      <offer id="' . $offer_id . '"' . ( $this->is_vendor_model() ? ' type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
+				$yml .= '      <offer id="' . $offer_id . '"' . ( $vendor_model_type ? ' type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
 				$yml .= '        <url>' . htmlspecialchars( get_permalink( $offer->get_id() ) ) . '</url>' . PHP_EOL;
 				// Price.
 				if ( $offer->get_sale_price() && ( $offer->get_sale_price() < $offer->get_regular_price() ) ) {
@@ -490,29 +522,23 @@ class Generator {
 					$yml .= '        <delivery>' . $this->settings['delivery']['delivery'] . '</delivery>' . PHP_EOL;
 				}
 
-				if ( ! $this->is_vendor_model() ) {
+				if ( ! $vendor_model_type ) {
 					$yml .= '        <name>' . $this->clean( $offer->get_title() ) . '</name>' . PHP_EOL;
 				}
 
 				// typePrefix.
-				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
-					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
-					if ( $type_prefix ) {
-						$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
-					}
+				if ( $vendor_model_type && isset( $type_prefix ) ) {
+					$yml .= '        <typePrefix>' . wp_strip_all_tags( $type_prefix ) . '</typePrefix>' . PHP_EOL;
 				}
 
 				// Vendor.
-				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
-					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
-					if ( $vendor ) {
-						$yml .= '        <vendor>' . wp_strip_all_tags( $vendor ) . '</vendor>' . PHP_EOL;
-					}
+				if ( $vendor_model_type && isset( $vendor ) ) {
+					$yml .= '        <vendor>' . wp_strip_all_tags( $vendor ) . '</vendor>' . PHP_EOL;
 				}
+
 				// Model.
-				if ( isset( $this->settings['offer']['model'] ) && 'not_set' !== $this->settings['offer']['model'] ) {
-					$model = $product->get_attribute( 'pa_' . $this->settings['offer']['model'] );
-					if ( $model ) {
+				if ( $vendor_model_type && isset( $model ) ) {
+					if ( isset( $model ) ) {
 						$yml .= '        <model>' . wp_strip_all_tags( $model ) . '</model>' . PHP_EOL;
 					} else {
 						$yml .= '        <model>' . $this->clean( $offer->get_title() ) . '</model>' . PHP_EOL;
@@ -799,34 +825,6 @@ class Generator {
 		}
 
 		return $yml;
-	}
-
-	/**
-	 * This is used for detecting if typePrefix is set. If it is, we need to add type="vendor.model" to
-	 * offer and remove the name attribute.
-	 *
-	 * @since 2.0.3
-	 *
-	 * @return bool
-	 */
-	private function is_vendor_model() {
-		$type_prefix_set = false;
-
-		// TypePrefix.
-		if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
-			$type_prefix_set = true;
-		}
-
-		// Vendor.
-		if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
-			$type_prefix_set = true;
-		}
-		// Model.
-		if ( isset( $this->settings['offer']['model'] ) && 'not_set' !== $this->settings['offer']['model'] ) {
-			$type_prefix_set = true;
-		}
-
-		return $type_prefix_set;
 	}
 
 }
