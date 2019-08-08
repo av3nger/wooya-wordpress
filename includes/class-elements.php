@@ -489,7 +489,7 @@ class Elements {
 
 			$subcategories = self::get_cats_from_array( $category->term_id, [] );
 			if ( $subcategories ) {
-				$categories = array_merge( $categories, $subcategories );
+				$categories = $categories + $subcategories;
 			}
 		}
 
