@@ -540,7 +540,7 @@ class Generator {
 				}
 
 				// Model.
-				if ( $vendor_model_type && isset( $model ) ) {
+				if ( $vendor_model_type ) {
 					if ( isset( $model ) ) {
 						$yml .= '        <model>' . wp_strip_all_tags( $model ) . '</model>' . PHP_EOL;
 					} else {

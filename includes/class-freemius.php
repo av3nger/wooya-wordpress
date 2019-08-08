@@ -52,7 +52,7 @@ class Freemius {
 					'slug'                => 'market-exporter',
 					'type'                => 'plugin',
 					'public_key'          => 'pk_8e3bfb7fdecdacb5e4b56998fbe73',
-					'is_premium'          => false,
+					'is_premium'          => true,
 					'premium_suffix'      => '',
 					// If your plugin is a serviceware, set this option to false.
 					'has_premium_version' => true,
@@ -63,6 +63,9 @@ class Freemius {
 						'is_require_payment' => false,
 					],
 					'menu'                => [ 'slug' => 'market-exporter' ],
+					// Set the SDK to work in a sandbox mode (for development & testing).
+					// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+					'secret_key'          => 'sk_Z$;6~:*b#qg3)?2FU!HkQ8)y#r&*z',
 				]
 			);
 		}
