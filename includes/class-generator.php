@@ -443,8 +443,13 @@ class Generator {
 					}
 				}
 
+				$available = 'true';
+				if ( 'onbackorder' === $offer->get_stock_status() ) {
+					$available = 'false';
+				}
+
 				// NOTE: Below this point we start using $offer instead of $product.
-				$yml .= '      <offer id="' . $offer_id . '"' . ( $vendor_model_type ? ' type="vendor.model"' : '' ) . ' available="' . ( ( $offer->is_in_stock() ) ? 'true' : 'false' ) . '">' . PHP_EOL;
+				$yml .= '      <offer id="' . $offer_id . '"' . ( $vendor_model_type ? ' type="vendor.model"' : '' ) . ' available="' . $available . '">' . PHP_EOL;
 				$yml .= '        <url>' . htmlspecialchars( get_permalink( $offer->get_id() ) ) . '</url>' . PHP_EOL;
 				// Price.
 				if ( $offer->get_sale_price() && ( $offer->get_sale_price() < $offer->get_regular_price() ) ) {
