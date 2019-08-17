@@ -85,8 +85,10 @@ class FetchWP {
 	 * @private
 	 */
 	_setupAjaxAPI( method ) {
+		let prefix = 'update_';
 		if ( 'get' === method ) {
 			method = 'post';
+			prefix = '';
 		}
 
 		return ( endpoint = '/', data = false ) => {
@@ -96,7 +98,7 @@ class FetchWP {
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
 				},
-				body: 'action=me_' + endpoint + '&_wpnonce=' + this.options.restNonce + '&data=' + JSON.stringify( data ),
+				body: 'action=me_' + prefix + endpoint + '&_wpnonce=' + this.options.restNonce + '&data=' + JSON.stringify( data ),
 			};
 
 			return fetch( ajaxurl, fetchObject )
