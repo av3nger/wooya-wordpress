@@ -522,9 +522,18 @@ class Generator {
 				if ( count( $attachment_ids ) > 9 ) {
 					$attachment_ids = array_slice( $attachment_ids, 0, 9 );
 				}
-				if ( 1 < $this->settings['offer']['image_count'] ) {
+
+				// Check if there's a setting for image count. If not - get the default.
+				if ( isset( $this->settings['offer']['image_count'] ) ) {
+					$image_count = $this->settings['offer']['image_count'];
+				} else {
+					$defaults    = Elements::get_elements();
+					$image_count = $defaults['offer']['image_count']['default'];
+				}
+
+				if ( 1 < $image_count ) {
 					$exported = 1;
-					while ( $exported < $this->settings['offer']['image_count'] ) {
+					while ( $exported < $image_count ) {
 						if ( ! isset( $attachment_ids[ $exported - 1 ] ) ) {
 							break;
 						}
