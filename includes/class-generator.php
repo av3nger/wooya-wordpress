@@ -42,6 +42,14 @@ class Generator {
 	private $settings;
 
 	/**
+	 * Array of categories.
+	 *
+	 * @since 2.0.6
+	 * @var array List of categories.
+	 */
+	private $categories = array();
+
+	/**
 	 * Products to export per query.
 	 *
 	 * @since 2.0.0
@@ -52,7 +60,7 @@ class Generator {
 	 * Get plugin instance.
 	 *
 	 * @since  2.0.0
-	 * @return Generator;
+	 * @return Generator.
 	 */
 	public static function get_instance() {
 
@@ -331,6 +339,11 @@ class Generator {
 			} else {
 				$yml .= '      <category id="' . $category->cat_ID . '" parentId="' . $category->parent . '">' . wp_strip_all_tags( $category->name ) . '</category>' . PHP_EOL;
 			}
+
+			// We will use this later on to determine the best category for the product.
+			$this->categories[ $category->cat_ID ] = [
+				'parent' => $category->parent,
+			];
 		}
 
 		$yml .= '    </categories>' . PHP_EOL;
@@ -459,14 +472,19 @@ class Generator {
 					$yml .= '        <price>' . apply_filters( 'me_product_price', $offer->get_regular_price(), $offer->get_id() ) . '</price>' . PHP_EOL;
 				}
 				$yml .= '        <currencyId>' . $currency . '</currencyId>' . PHP_EOL;
-				// Category.
-				// Not using $offer_id, because variable products inherit category from parent.
-				$categories = get_the_terms( $product->get_id(), 'product_cat' );
-				// TODO: display error message if category is not set for product.
+
+				// Category. Not using $offer_id, because variable products inherit category from parent.
+				$categories = wp_get_post_terms( $product->get_id(), 'product_cat', [ 'order' => 'DESC' ] );
 				if ( $categories ) {
-					$category = array_shift( $categories );
-					$yml     .= '        <categoryId>' . $category->term_id . '</categoryId>' . PHP_EOL;
+					// TODO: Show some warning if no category is selected.
+					foreach ( $categories as $category ) {
+						if ( array_key_exists( $category->term_id, $this->categories ) ) {
+							$yml .= '        <categoryId>' . $category->term_id . '</categoryId>' . PHP_EOL;
+							break; // Only one category is needed.
+						}
+					}
 				}
+
 				// Delivery-options.
 				if ( isset( $this->settings['delivery']['delivery_options'] ) && $this->settings['delivery']['delivery_options'] ) {
 					$cost         = get_post_custom_values( 'me_do_cost', $product->get_id() );
