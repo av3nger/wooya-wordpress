@@ -11,7 +11,7 @@
 
 namespace Wooya\Includes;
 
-use WC_Product;
+use WC_Product_Attribute;
 use WC_Product_Variation;
 use WP_Query;
 
@@ -73,12 +73,13 @@ class Generator {
 	}
 
 	/**
-	 * Constructor method.
+	 * Init method.
 	 *
 	 * @since 0.3.0
 	 * @since 2.0.0  Changed to private.
+	 * @since 2.0.6  And back to public.
 	 */
-	private function __construct() {
+	public function init() {
 		$this->settings = get_option( 'wooya_settings' );
 	}
 
@@ -725,7 +726,7 @@ class Generator {
 					/**
 					 * Parameter.
 					 *
-					 * @var \WC_Product_Attribute|array $param
+					 * @var WC_Product_Attribute|array $param
 					 */
 					foreach ( $attributes as $param ) {
 						if ( Helper::woo_latest_versions() ) {

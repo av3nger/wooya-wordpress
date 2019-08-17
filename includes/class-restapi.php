@@ -31,14 +31,6 @@ use WP_REST_Server;
 class RestAPI extends WP_REST_Controller {
 
 	/**
-	 * Class instance.
-	 *
-	 * @since 2.0.0
-	 * @var   RestAPI|null $instance
-	 */
-	private static $instance = null;
-
-	/**
 	 * API version.
 	 *
 	 * @since 2.0.0
@@ -55,27 +47,21 @@ class RestAPI extends WP_REST_Controller {
 	protected $request = null;
 
 	/**
-	 * Get class instance.
+	 * YML generator engine.
 	 *
-	 * @since  2.0.0
-	 * @return RestAPI|null
+	 * @since 2.0.6
+	 * @var Generator $generator
 	 */
-	public static function get_instance() {
-
-		if ( null === self::$instance ) {
-			self::$instance = new self();
-		}
-
-		return self::$instance;
-
-	}
+	private $generator;
 
 	/**
 	 * RestAPI constructor.
 	 *
 	 * @since 2.0.6
 	 */
-	private function __construct() {
+	public function __construct( Generator $generator ) {
+
+		$this->generator = $generator;
 
 		add_action( 'wp_ajax_me_settings', [ $this, 'get_settings' ] );
 		add_action( 'wp_ajax_me_update_settings', [ $this, 'update_settings' ] );
@@ -403,9 +389,7 @@ class RestAPI extends WP_REST_Controller {
 			);
 		}
 
-		$generator = Generator::get_instance();
-
-		return $generator->run_step( $params['step'], $params['steps'] );
+		return $this->generator->run_step( $params['step'], $params['steps'] );
 
 	}
 

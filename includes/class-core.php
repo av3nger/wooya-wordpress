@@ -42,6 +42,24 @@ class Core {
 	protected $admin;
 
 	/**
+	 * REST API and AJAX interface.
+	 *
+	 * @since 2.0.6
+	 * @access protected
+	 * @var    RestAPI    $api  REST API interface.
+	 */
+	protected $api;
+
+	/**
+	 * Generator engine.
+	 *
+	 * @since  2.0.6
+	 * @access protected
+	 * @var    Generator  $generator  Generates the YML file.
+	 */
+	protected $generator;
+
+	/**
 	 * The unique identifier of this plugin.
 	 *
 	 * @since  2.0.0
@@ -155,6 +173,11 @@ class Core {
 
 		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 
+		$this->generator = Generator::get_instance();
+		$this->generator->init();
+
+		$this->api = new RestAPI( $this->generator );
+
 	}
 
 	/**
@@ -179,13 +202,13 @@ class Core {
 		add_action( 'admin_enqueue_scripts', [ $this->get_admin(), 'enqueue_scripts' ] );
 
 		// Add REST API endpoints.
-		add_action( 'rest_api_init', [ RestAPI::get_instance(), 'register_routes' ] );
+		add_action( 'rest_api_init', [ $this->api, 'register_routes' ] );
 
 		// Add ajax support to dismiss notice.
 		add_action( 'wp_ajax_dismiss_rate_notice', [ $this, 'dismiss_notice' ] );
 
 		// Add cron support.
-		add_action( 'market_exporter_cron', [ Generator::get_instance(), 'cron_generate_yml' ] );
+		add_action( 'market_exporter_cron', [ $this->generator, 'cron_generate_yml' ] );
 		// Add support to update file on product update.
 		add_action( 'woocommerce_update_product', [ $this->get_admin(), 'generate_file_on_update' ] );
 
