@@ -595,13 +595,15 @@ class Generator {
 				if ( $description ) {
 					$yml .= '        <description><![CDATA[' . $description . ']]></description>' . PHP_EOL;
 				}
+
 				// Sales notes.
 				$sales = get_post_custom_values( 'me_sales_notes', $product->get_id() );
 				if ( isset( $sales ) ) {
 					$yml .= '        <sales_notes>' . $sales[0] . '</sales_notes>' . PHP_EOL;
-				} elseif ( strlen( $this->settings['offer']['sales_notes'] ) > 0 ) {
+				} elseif ( isset( $this->settings['offer']['sales_notes'] ) && strlen( $this->settings['offer']['sales_notes'] ) > 0 ) {
 					$yml .= '        <sales_notes>' . wp_strip_all_tags( $this->settings['offer']['sales_notes'] ) . '</sales_notes>' . PHP_EOL;
 				}
+
 				// Manufacturer warranty.
 				if ( isset( $this->settings['offer']['warranty'] ) && 'not_set' !== $this->settings['offer']['warranty'] ) {
 					$warranty = $offer->get_attribute( 'pa_' . $this->settings['offer']['warranty'] );
