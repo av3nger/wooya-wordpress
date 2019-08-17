@@ -174,7 +174,6 @@ class Core {
 		$this->admin = new Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->generator = Generator::get_instance();
-		$this->generator->init();
 
 		$this->api = new RestAPI( $this->generator );
 
