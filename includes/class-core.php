@@ -170,13 +170,13 @@ class Core {
 		add_action( 'admin_init', [ $this, 'load_plugin_textdomain' ] );
 
 		// Add admin menu.
-		add_action( 'admin_menu', [ $this->admin, 'register_menu' ] );
+		add_action( 'admin_menu', [ $this->get_admin(), 'register_menu' ] );
 		// Add Settings link to plugin in plugins list.
-		add_filter( 'plugin_action_links_' . WOOYA_BASENAME, [ $this->admin, 'plugin_add_settings_link' ] );
+		add_filter( 'plugin_action_links_' . WOOYA_BASENAME, [ $this->get_admin(), 'plugin_add_settings_link' ] );
 
 		// Styles and scripts.
-		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_styles' ] );
-		add_action( 'admin_enqueue_scripts', [ $this->admin, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this->get_admin(), 'enqueue_styles' ] );
+		add_action( 'admin_enqueue_scripts', [ $this->get_admin(), 'enqueue_scripts' ] );
 
 		// Add REST API endpoints.
 		add_action( 'rest_api_init', [ RestAPI::get_instance(), 'register_routes' ] );
@@ -187,7 +187,7 @@ class Core {
 		// Add cron support.
 		add_action( 'market_exporter_cron', [ Generator::get_instance(), 'cron_generate_yml' ] );
 		// Add support to update file on product update.
-		add_action( 'woocommerce_update_product', [ $this->admin, 'generate_file_on_update' ] );
+		add_action( 'woocommerce_update_product', [ $this->get_admin(), 'generate_file_on_update' ] );
 
 	}
 
