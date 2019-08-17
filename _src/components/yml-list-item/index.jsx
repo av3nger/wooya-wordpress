@@ -193,7 +193,8 @@ class YmlListItem extends React.Component {
 				<div className="wooya-yml-item-select">
 					<input type="checkbox" id={ this.props.name }
 						data-type={ this.props.type } onChange={ this.handleItemSelect }
-						checked={ this.state.selected } />
+						checked={ this.state.selected }
+						disabled={ 'delivery' === this.props.type || 'misc' === this.props.type } />
 				</div>
 
 				<div className="wooya-yml-item-title">
