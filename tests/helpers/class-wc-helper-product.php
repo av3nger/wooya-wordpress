@@ -31,7 +31,7 @@ class WC_Helper_Product {
 	 *
 	 * @since 2.3
 	 * @param bool $save Save or return object.
-	 * @return WC_Product_Simple
+	 * @return false|WC_Product_Simple
 	 */
 	public static function create_simple_product( $save = true ) {
 
@@ -64,7 +64,7 @@ class WC_Helper_Product {
 	 * Create external product.
 	 *
 	 * @since 3.0.0
-	 * @return WC_Product_External
+	 * @return false|WC_Product_External
 	 */
 	public static function create_external_product() {
 
@@ -88,7 +88,7 @@ class WC_Helper_Product {
 	 * Create grouped product.
 	 *
 	 * @since 3.0.0
-	 * @return WC_Product_Grouped
+	 * @return false|WC_Product_Grouped
 	 */
 	public static function create_grouped_product() {
 
@@ -113,7 +113,7 @@ class WC_Helper_Product {
 	 *
 	 * @since 2.3
 	 *
-	 * @return WC_Product_Variable
+	 * @return false|WC_Product_Variable
 	 */
 	public static function create_variation_product() {
 

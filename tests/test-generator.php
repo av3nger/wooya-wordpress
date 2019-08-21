@@ -9,7 +9,6 @@ namespace Wooya\Tests;
 
 use WC_Helper_Product;
 use WC_Product;
-use Wooya\App;
 use Wooya\Includes\Generator;
 use Wooya\Tests\Helpers\Helper;
 use WP_UnitTestCase;

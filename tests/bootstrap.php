@@ -76,7 +76,7 @@ class ME_Unit_Test_Bootstrap {
 		}
 
 		if ( ! file_exists( $this->wp_tests_dir . '/includes/functions.php' ) ) {
-			echo "Could not find $this->wp_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // WPCS: XSS ok.
+			echo "Could not find $this->wp_tests_dir/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // phpcs:ignore
 			exit( 1 );
 		}
 
@@ -138,7 +138,7 @@ class ME_Unit_Test_Bootstrap {
 		if ( version_compare( $GLOBALS['wp_version'], '4.7', '<' ) ) {
 			$GLOBALS['wp_roles']->reinit();
 		} else {
-			$GLOBALS['wp_roles'] = null; // WPCS: override ok.
+			$GLOBALS['wp_roles'] = null; // phpcs:ignore
 			wp_roles();
 		}
 
@@ -152,10 +152,8 @@ class ME_Unit_Test_Bootstrap {
 	 * @since 2.0.6
 	 */
 	public function includes() {
-
 		/* @noinspection PhpIncludeInspection */
 		require_once $this->tests_dir . '/helpers/class-wc-helper-product.php';
-
 	}
 
 }
