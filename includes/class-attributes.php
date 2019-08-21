@@ -569,6 +569,10 @@ class Attributes {
 	 */
 	protected function add_child( $name, $value, $spacing = 8, $closing = false, $has_children = true ) {
 
+		if ( ! $value && ! is_null( $value ) && ! $closing ) {
+			return '';
+		}
+
 		if ( $value ) {
 			return str_repeat( ' ', $spacing ) . "<{$name}>{$value}</{$name}>" . PHP_EOL;
 		} elseif ( ! $has_children ) {
