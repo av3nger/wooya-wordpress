@@ -18,10 +18,12 @@ class WC_Helper_Product {
 	 * @param int $product_id ID to delete.
 	 */
 	public static function delete_product( $product_id ) {
+
 		$product = wc_get_product( $product_id );
 		if ( $product ) {
 			$product->delete( true );
 		}
+
 	}
 
 	/**
@@ -32,6 +34,7 @@ class WC_Helper_Product {
 	 * @return WC_Product_Simple
 	 */
 	public static function create_simple_product( $save = true ) {
+
 		$product = new WC_Product_Simple();
 		$product->set_props(
 			array(
@@ -54,6 +57,7 @@ class WC_Helper_Product {
 		} else {
 			return $product;
 		}
+
 	}
 
 	/**
@@ -63,6 +67,7 @@ class WC_Helper_Product {
 	 * @return WC_Product_External
 	 */
 	public static function create_external_product() {
+
 		$product = new WC_Product_External();
 		$product->set_props(
 			array(
@@ -76,6 +81,7 @@ class WC_Helper_Product {
 		$product->save();
 
 		return wc_get_product( $product->get_id() );
+
 	}
 
 	/**
@@ -85,6 +91,7 @@ class WC_Helper_Product {
 	 * @return WC_Product_Grouped
 	 */
 	public static function create_grouped_product() {
+
 		$simple_product_1 = self::create_simple_product();
 		$simple_product_2 = self::create_simple_product();
 		$product          = new WC_Product_Grouped();
@@ -98,6 +105,7 @@ class WC_Helper_Product {
 		$product->save();
 
 		return wc_get_product( $product->get_id() );
+
 	}
 
 	/**
@@ -108,6 +116,7 @@ class WC_Helper_Product {
 	 * @return WC_Product_Variable
 	 */
 	public static function create_variation_product() {
+
 		$product = new WC_Product_Variable();
 		$product->set_props(
 			array(
@@ -116,7 +125,7 @@ class WC_Helper_Product {
 			)
 		);
 
-		$attributes     = array();
+		$attributes = array();
 
 		$attribute      = new WC_Product_Attribute();
 		$attribute_data = self::create_attribute( 'size', array( 'small', 'large' ) );
@@ -164,6 +173,7 @@ class WC_Helper_Product {
 		$variation_2->save();
 
 		return wc_get_product( $product->get_id() );
+
 	}
 
 	/**
@@ -176,6 +186,7 @@ class WC_Helper_Product {
 	 * @return array
 	 */
 	public static function create_attribute( $raw_name = 'size', $terms = array( 'small' ) ) {
+
 		global $wpdb, $wc_product_attributes;
 
 		// Make sure caches are clean.
@@ -254,6 +265,7 @@ class WC_Helper_Product {
 		}
 
 		return $return;
+
 	}
 
 	/**
@@ -264,6 +276,7 @@ class WC_Helper_Product {
 	 * @since 2.3
 	 */
 	public static function delete_attribute( $attribute_id ) {
+
 		global $wpdb;
 
 		$attribute_id = absint( $attribute_id );
@@ -271,37 +284,7 @@ class WC_Helper_Product {
 		$wpdb->query(
 			$wpdb->prepare( "DELETE FROM {$wpdb->prefix}woocommerce_attribute_taxonomies WHERE attribute_id = %d", $attribute_id )
 		);
+
 	}
 
-	/**
-	 * Creates a new product review on a specific product.
-	 *
-	 * @since 3.0
-	 * @param int    $product_id integer Product ID that the review is for.
-	 * @param string $review_content string Content to use for the product review.
-	 * @return integer Product Review ID.
-	 */
-	public static function create_product_review( $product_id, $review_content = 'Review content here' ) {
-		$data = array(
-			'comment_post_ID'      => $product_id,
-			'comment_author'       => 'admin',
-			'comment_author_email' => 'woo@woo.local',
-			'comment_author_url'   => '',
-			'comment_date'         => '2016-01-01T11:11:11',
-			'comment_content'      => $review_content,
-			'comment_approved'     => 1,
-			'comment_type'         => 'review',
-		);
-		return wp_insert_comment( $data );
-	}
-
-	/**
-	 * A helper function for hooking into save_post during the test_product_meta_save_post test.
-	 * @since 3.0.1
-	 *
-	 * @param int $id ID to update.
-	 */
-	public static function save_post_test_update_meta_data_direct( $id ) {
-		update_post_meta( $id, '_test2', 'world' );
-	}
 }

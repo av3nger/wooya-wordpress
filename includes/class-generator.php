@@ -246,8 +246,8 @@ class Generator extends Attributes {
 					'value' => 'instock',
 				],
 				[
-					'key'   => '_backorders',
-					'value' => 'yes',
+					'key'   => '_stock_status',
+					'value' => 'onbackorder',
 				],
 			];
 		}
