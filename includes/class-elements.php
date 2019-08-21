@@ -466,15 +466,23 @@ class Elements {
 	 *
 	 * @since 2.0.0
 	 *
+	 * @param int $id  Category ID.
+	 *
 	 * @return array
 	 */
-	private static function get_categories_array() {
+	private static function get_categories_array( $id = 0 ) {
+
+		static $tabs = 0;
+
+		if ( 0 < $id ) {
+			$tabs++;
+		}
 
 		$categories = [];
 
 		$args = [
 			'hide_empty' => 0,
-			'parent'     => 0,
+			'parent'     => $id,
 			'taxonomy'   => 'product_cat',
 		];
 
@@ -485,52 +493,15 @@ class Elements {
 		}
 
 		foreach ( $terms as $category ) {
-			$categories[ $category->term_id ] = $category->name;
+			$categories[ $category->term_id ] = str_repeat( '-', $tabs ) . ' ' . $category->name;
 
-			$subcategories = self::get_cats_from_array( $category->term_id, [] );
+			$subcategories = self::get_categories_array( $category->term_id );
 			if ( $subcategories ) {
 				$categories = $categories + $subcategories;
 			}
 		}
 
-		return $categories;
-
-	}
-
-	/**
-	 * Recursive function to populate a list with sub categories.
-	 *
-	 * @since   2.0.0
-	 *
-	 * @access  private
-	 *
-	 * @param  int   $cat_id        Category ID.
-	 * @param  array $select_array  Array of selected category IDs.
-	 *
-	 * @return array|bool
-	 */
-	private static function get_cats_from_array( $cat_id, $select_array ) {
-
-		static $tabs = 0;
-		$tabs++;
-
-		$subcategories = get_terms(
-			[
-				'hide_empty' => 0,
-				'parent'     => $cat_id,
-				'taxonomy'   => 'product_cat',
-			]
-		);
-
-		if ( empty( $subcategories ) ) {
-			return false;
-		}
-
-		$categories = [];
-
-		foreach ( $subcategories as $subcategory ) {
-			$categories[ $subcategory->term_id ] = str_repeat( '-', $tabs ) . ' ' . $subcategory->name;
-			self::get_cats_from_array( $subcategory->term_id, $select_array );
+		if ( 0 < $id || empty( $terms ) ) {
 			$tabs--;
 		}
 
