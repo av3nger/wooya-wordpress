@@ -65,11 +65,14 @@ class GeneratorTest extends WP_UnitTestCase {
 		$offer = $this->product;
 		$id    = $offer->get_id();
 
-		$args = [ $id, false ];
-
+		$args    = [ $id, false ];
 		$results = $this->helper->call_private_method( $this->generator, 'get_offer', $args );
+		$this->assertEquals( "<offer id=\"{$id}\" available=\"true\">", trim( $results ) );
 
-		$this->assertEquals( "<offer id=\"{$id}\" available=\"false\">", trim( $results ) );
+		$args    = [ $id, true ];
+		$results = $this->helper->call_private_method( $this->generator, 'get_offer', $args );
+		$this->assertEquals( "<offer id=\"{$id}\" type=\"vendor.model\" available=\"true\">", trim( $results ) );
 
 	}
+
 }

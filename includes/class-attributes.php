@@ -78,7 +78,13 @@ class Attributes {
 		/* @global WC_Product|WC_Product_Variation $offer  Offer. */
 		global $offer;
 
-		$available = 'onbackorder' === $offer->get_stock_status() ? 'true' : 'false';
+		$stock_status = $offer->get_stock_status();
+
+		$available = 'instock' === $stock_status ? 'true' : 'false';
+
+		if ( isset( $this->settings['offer']['backorders'] ) && $this->settings['offer']['backorders'] && 'onbackorder' === $stock_status ) {
+			$available = 'true';
+		}
 
 		$offer_element = $this->add_child( 'offer', null, self::ME_OFFER_SPACING );
 		$offer_element = $this->add_attribute( $offer_element, 'id', $offer_id );
