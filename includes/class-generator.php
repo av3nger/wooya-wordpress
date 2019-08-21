@@ -392,14 +392,6 @@ class Generator extends Attributes {
 				 */
 				$vendor_model_type = false;
 
-				// typePrefix.
-				if ( isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
-					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
-					if ( $type_prefix ) {
-						$vendor_model_type = true;
-					}
-				}
-
 				// Vendor.
 				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
 					$vendor = $offer->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
@@ -443,8 +435,11 @@ class Generator extends Attributes {
 				}
 
 				// typePrefix.
-				if ( $vendor_model_type && isset( $type_prefix ) ) {
-					$yml .= $this->add_child( 'typePrefix', wp_strip_all_tags( $type_prefix ) );
+				if ( $vendor_model_type && isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
+					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
+					if ( $type_prefix ) {
+						$yml .= $this->add_child( 'typePrefix', wp_strip_all_tags( $type_prefix ) );
+					}
 				}
 
 				// Vendor.
