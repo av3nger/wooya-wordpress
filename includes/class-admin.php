@@ -53,10 +53,6 @@ class Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-			new Ajax();
-		}
-
 	}
 
 	/**

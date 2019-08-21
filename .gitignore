@@ -19,3 +19,4 @@ vendor
 admin/css
 admin/js
 build
+tests/reports
