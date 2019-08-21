@@ -254,7 +254,7 @@ class Core {
 		load_plugin_textdomain(
 			'market-exporter',
 			false,
-			dirname( dirname( WOOYA_BASENAME ) ) . '/languages'
+			$this->get_plugin_name() . '/languages'
 		);
 
 	}
