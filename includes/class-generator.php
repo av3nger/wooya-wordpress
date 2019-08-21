@@ -458,9 +458,9 @@ class Generator extends Attributes {
 					$vendor_code = $product->get_attribute( 'pa_' . $this->settings['offer']['vendorCode'] );
 					if ( $vendor_code ) {
 						$yml .= $this->add_child( 'vendorCode', wp_strip_all_tags( $vendor_code ) );
-					} elseif ( ! $vendor_code && $offer->get_sku() ) {
-						$yml .= $this->add_child( 'vendorCode', $offer->get_sku() );
 					}
+				} elseif ( $offer->get_sku() ) {
+					$yml .= $this->add_child( 'vendorCode', $offer->get_sku() );
 				}
 
 				// Description.
