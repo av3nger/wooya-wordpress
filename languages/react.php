@@ -25,13 +25,13 @@ $generated_i18n_strings = array(
 	// Reference: _src/components/add-setting-modal/index.jsx:171
 	__( 'Add items', 'market-exporter' ),
 
-	// Reference: _src/components/files/index.jsx:175
+	// Reference: _src/components/files/index.jsx:176
 	__( 'Available YML files', 'market-exporter' ),
 
-	// Reference: _src/components/files/index.jsx:181
+	// Reference: _src/components/files/index.jsx:182
 	__( 'Remove files', 'market-exporter' ),
 
-	// Reference: _src/components/files/index.jsx:192
+	// Reference: _src/components/files/index.jsx:193
 	__( 'You have not yet generated any files', 'market-exporter' ),
 
 	// Reference: _src/components/progress-modal/index.jsx:100
@@ -58,10 +58,10 @@ $generated_i18n_strings = array(
 	// Reference: _src/components/yml-list-control/index.jsx:273
 	__( 'Misc', 'market-exporter' ),
 
-	// Reference: _src/components/yml-list-item/index.jsx:172
+	// Reference: _src/components/yml-list-item/index.jsx:173
 	__( 'Disabled', 'market-exporter' ),
 
-	// Reference: _src/components/yml-list-item/index.jsx:181
+	// Reference: _src/components/yml-list-item/index.jsx:182
 	__( 'Active', 'market-exporter' )
 );
 /* THIS IS THE END OF THE GENERATED FILE */
