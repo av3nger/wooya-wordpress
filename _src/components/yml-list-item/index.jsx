@@ -143,7 +143,7 @@ class YmlListItem extends React.Component {
 
 		if ( 'select' === this.props.input.type ) {
 			const options = Object.entries( this.props.input.values ).map( ( item ) => {
-				return <option value={ item[ 0 ] }>{ item[ 1 ] }</option>;
+				return <option value={ item[ 0 ] }>{ __( item[ 1 ], 'market-exporter' ) }</option>;
 			} );
 
 			htmlElement = <select name={ this.props.name } value={ this.state.value }
@@ -206,7 +206,7 @@ class YmlListItem extends React.Component {
 				</div>
 
 				<div className="wooya-yml-item-description">
-					<p>{ this.props.input.description }</p>
+					<p>{ __( this.props.input.description, 'market-exporter' ) }</p>
 				</div>
 			</div>
 		);
