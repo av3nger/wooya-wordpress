@@ -69,6 +69,7 @@ WooCommerce также тестировался на последних верс
 
 = 2.0.7 =
 * ENHANCE: Выгрузка categoryId
+* ENHANCE: Выгрузка vendor у вариативных товаров
 * FIXED: Переводы строк в React компонентах
 * FIXED: Выгрузка stock_quantity для вариативных товаров
 
