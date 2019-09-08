@@ -368,25 +368,25 @@ class Attributes {
 	protected function get_stock_quantity() {
 
 		/* @global WC_Product $product  Product instance. */
-		global $product;
+		global $offer;
 
 		if ( ! isset( $this->settings['offer']['stock_quantity'] ) || ! $this->settings['offer']['stock_quantity'] ) {
 			return false;
 		}
 
 		// Compatibility for WC versions from 2.5.x to 3.0+.
-		if ( method_exists( $product, 'get_manage_stock' ) ) {
-			$stock_status = $product->get_manage_stock(); // For version 3.0+.
+		if ( method_exists( $offer, 'get_manage_stock' ) ) {
+			$stock_status = $offer->get_manage_stock(); // For version 3.0+.
 		} else {
-			$stock_status = $product->manage_stock; // Older than version 3.0.
+			$stock_status = $offer->manage_stock; // Older than version 3.0.
 		}
 
 		if ( $stock_status ) {
 			// Compatibility for WC versions from 2.5.x to 3.0+.
-			if ( method_exists( $product, 'get_stock_quantity' ) ) {
-				$stock_quqntity = $product->get_stock_quantity(); // For version 3.0+.
+			if ( method_exists( $offer, 'get_stock_quantity' ) ) {
+				$stock_quqntity = $offer->get_stock_quantity(); // For version 3.0+.
 			} else {
-				$stock_quqntity = $product->stock_quqntity; // Older than version 3.0.
+				$stock_quqntity = $offer->stock_quqntity; // Older than version 3.0.
 			}
 
 			if ( isset( $stock_quqntity ) && 0 < $stock_quqntity ) {
