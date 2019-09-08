@@ -68,6 +68,7 @@ WooCommerce также тестировался на последних верс
 == Changelog ==
 
 = 2.0.7 =
+* ENHANCE: Выгрузка categoryId
 * FIXED: Переводы строк в React компонентах
 
 = 2.0.6 =

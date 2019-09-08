@@ -131,7 +131,7 @@ class Attributes {
 		/* @global WC_Product $product  Product instance. */
 		global $product;
 
-		$categories = wp_get_post_terms( $product->get_id(), 'product_cat', [ 'order' => 'DESC' ] );
+		$categories = get_the_terms( $product->get_id(), 'product_cat' );
 
 		if ( ! $categories ) {
 			// TODO: Show some warning if no category is selected.
@@ -143,6 +143,17 @@ class Attributes {
 				return $this->add_child( 'categoryId', $category->term_id );
 			}
 		}
+
+		/**
+		 * Temp compatibility code.
+		 *
+		 * The above foreach loop should find a matching category... If it doesn't - at least add the first
+		 * category in the list.
+		 *
+		 * @since 2.0.7
+		 */
+		$category = array_shift( $categories );
+		return $this->add_child( 'categoryId', $category->term_id );
 
 	}
 
