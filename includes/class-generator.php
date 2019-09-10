@@ -390,7 +390,7 @@ class Generator extends Attributes {
 				 *
 				 * @since 2.0.4
 				 */
-				$vendor_model_type = false;
+				$vendor_model_type = $model = $vendor = false;
 
 				// Vendor.
 				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
