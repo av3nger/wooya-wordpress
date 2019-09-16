@@ -3,7 +3,7 @@ Contributors: vanyukov
 Tags: market, export, yml, woocommerce, yandex market
 Donate link: http://yasobe.ru/na/market_exporter
 Requires at least: 4.7.3
-Tested up to: 5.2.2
+Tested up to: 5.2.3
 Stable tag: %%VERSION%%
 Requires PHP: 5.4
 License: GPLv2 or later
