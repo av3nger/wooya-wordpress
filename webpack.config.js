@@ -1,6 +1,5 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
-const autoprefixer = require( 'autoprefixer' );
 
 // Plugins
 const ExtractTextPlugin = require( 'mini-css-extract-plugin' );
@@ -42,9 +41,6 @@ module.exports = {
 					loader: 'sass-loader',
 					options: {
 						sourceMap: true,
-						plugins: [
-							autoprefixer(),
-						],
 					},
 				},
 			],
@@ -83,6 +79,7 @@ module.exports = {
 		new webpack.DefinePlugin( {
 			'process.env.NODE_ENV': JSON.stringify( 'production' ),
 		} ),
+		require( 'autoprefixer' ),
 	],
 
 	devtool: 'source-map', // Generates source Maps for these files
