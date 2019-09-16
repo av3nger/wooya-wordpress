@@ -386,22 +386,22 @@ class Generator extends Attributes {
 				endif;
 
 				/**
-				 * We need to get typePrefix, vendor and model early to decide if the product is a vendor.model type or not.
+				 * We need to get typePrefix and model early to decide if the product is a vendor.model type or not.
 				 *
 				 * @since 2.0.4
 				 */
-				$vendor_model_type = $model = $vendor = false;
+				$vendor_model_type = $model = $type_prefix = false;
 
-				// Vendor.
-				if ( isset( $this->settings['offer']['vendor'] ) && 'not_set' !== $this->settings['offer']['vendor'] ) {
-					$vendor = $product->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
-					if ( $vendor ) {
+				// typePrefix.
+				if ( isset( $this->settings['offer']['typePrefix'] ) && 'disabled' !== $this->settings['offer']['typePrefix'] ) {
+					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
+					if ( $type_prefix ) {
 						$vendor_model_type = true;
 					}
 				}
 
 				// Model.
-				if ( isset( $this->settings['offer']['model'] ) && 'not_set' !== $this->settings['offer']['model'] ) {
+				if ( isset( $this->settings['offer']['model'] ) && 'disabled' !== $this->settings['offer']['model'] ) {
 					$model = $product->get_attribute( 'pa_' . $this->settings['offer']['model'] );
 					if ( $model ) {
 						$vendor_model_type = true;
@@ -435,26 +435,26 @@ class Generator extends Attributes {
 				}
 
 				// typePrefix.
-				if ( $vendor_model_type && isset( $this->settings['offer']['typePrefix'] ) && 'not_set' !== $this->settings['offer']['typePrefix'] ) {
-					$type_prefix = $product->get_attribute( 'pa_' . $this->settings['offer']['typePrefix'] );
-					if ( $type_prefix ) {
-						$yml .= $this->add_child( 'typePrefix', wp_strip_all_tags( $type_prefix ) );
-					}
+				if ( $type_prefix ) {
+					$yml .= $this->add_child( 'typePrefix', wp_strip_all_tags( $type_prefix ) );
 				}
 
 				// Vendor.
-				if ( $vendor_model_type && isset( $vendor ) ) {
-					$yml .= $this->add_child( 'vendor', wp_strip_all_tags( $vendor ) );
+				if ( isset( $this->settings['offer']['vendor'] ) && 'disabled' !== $this->settings['offer']['vendor'] ) {
+					$vendor = $product->get_attribute( 'pa_' . $this->settings['offer']['vendor'] );
+					if ( $vendor ) {
+						$yml .= $this->add_child( 'vendor', wp_strip_all_tags( $vendor ) );
+					}
 				}
 
 				// Model.
 				if ( $vendor_model_type ) {
-					$model = isset( $model ) ? wp_strip_all_tags( $model ) : $this->clean( $offer->get_title() );
+					$model = $model ? wp_strip_all_tags( $model ) : $this->clean( $offer->get_title() );
 					$yml  .= $this->add_child( 'model', $model );
 				}
 
 				// Vendor code.
-				if ( isset( $this->settings['offer']['vendorCode'] ) && 'not_set' !== $this->settings['offer']['vendorCode'] ) {
+				if ( isset( $this->settings['offer']['vendorCode'] ) && 'disabled' !== $this->settings['offer']['vendorCode'] ) {
 					$vendor_code = $product->get_attribute( 'pa_' . $this->settings['offer']['vendorCode'] );
 					if ( $vendor_code ) {
 						$yml .= $this->add_child( 'vendorCode', wp_strip_all_tags( $vendor_code ) );
@@ -478,14 +478,14 @@ class Generator extends Attributes {
 				}
 
 				// Manufacturer warranty.
-				if ( isset( $this->settings['offer']['warranty'] ) && 'not_set' !== $this->settings['offer']['warranty'] ) {
+				if ( isset( $this->settings['offer']['warranty'] ) && 'disabled' !== $this->settings['offer']['warranty'] ) {
 					$warranty = $offer->get_attribute( 'pa_' . $this->settings['offer']['warranty'] );
 					if ( $warranty ) {
 						$yml .= $this->add_child( 'manufacturer_warranty', wp_strip_all_tags( $warranty ) );
 					}
 				}
 				// Country of origin.
-				if ( isset( $this->settings['offer']['origin'] ) && 'not_set' !== $this->settings['offer']['origin'] ) {
+				if ( isset( $this->settings['offer']['origin'] ) && 'disabled' !== $this->settings['offer']['origin'] ) {
 					$origin = $offer->get_attribute( 'pa_' . $this->settings['offer']['origin'] );
 					if ( $origin ) {
 						$yml .= $this->add_child( 'country_of_origin', wp_strip_all_tags( $origin ) );

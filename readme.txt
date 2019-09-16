@@ -68,6 +68,7 @@ WooCommerce также тестировался на последних верс
 == Changelog ==
 
 = 2.0.7 =
+* ENHANCE: Улучшено определение параметров
 * ENHANCE: Выгрузка categoryId
 * ENHANCE: Выгрузка vendor у вариативных товаров
 * FIXED: Переводы строк в React компонентах
