@@ -1,6 +1,7 @@
 #!/bin/bash
 
-GIT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/" && pwd )
+GIT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )
+
 SVN_DIR="$GIT_DIR/build/market-exporter-svn"
 WPORG_BUILD_DIR="$GIT_DIR/build/market-exporter"
 ERROR_COLOR='\033[41m'
@@ -40,9 +41,6 @@ done
 
 echo "Rsync'ing everything over from $WPORG_BUILD_DIR"
 rsync -r $WPORG_BUILD_DIR/* $SVN_DIR/trunk
-
-echo "Purging .po files"
-rm -f $SVN_DIR/trunk/languages/*.po
 
 echo "Creating a new tag: $VERSION"
 # Tag the release.
