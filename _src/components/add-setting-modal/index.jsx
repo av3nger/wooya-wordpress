@@ -120,7 +120,7 @@ class AddSettingModal extends React.Component {
 								{ item[ 0 ] }
 							</label>
 
-							<p>{ this.props.fields[ field ][ item[ 0 ] ].description }</p>
+							<p>{ __( this.props.fields[ field ][ item[ 0 ] ].description, 'market-exporter' ) }</p>
 						</div>
 					);
 				} );
