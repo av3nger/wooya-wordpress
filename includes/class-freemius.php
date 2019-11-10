@@ -32,6 +32,7 @@ class Freemius {
 
 		$this->init_fremius()->add_filter( 'connect_message_on_update', [ $this, 'connect_message_on_update' ], 10, 6 );
 		$this->init_fremius()->add_action( 'after_uninstall', [ $this, 'uninstall_cleanup' ] );
+
 	}
 
 	/**
