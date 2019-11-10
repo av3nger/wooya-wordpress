@@ -459,7 +459,7 @@ class Generator extends Attributes {
 					if ( $vendor_code ) {
 						$yml .= $this->add_child( 'vendorCode', wp_strip_all_tags( $vendor_code ) );
 					}
-				} elseif ( $offer->get_sku() ) {
+				} elseif ( $offer->get_sku() && 'disabled' !== $this->settings['offer']['vendorCode'] ) {
 					$yml .= $this->add_child( 'vendorCode', $offer->get_sku() );
 				}
 
