@@ -263,6 +263,13 @@ class Elements {
 			'description' => __( 'The product is of a sexual nature or pertains to sexual interest in any way.', 'market-exporter' ),
 		];
 
+		$elements['group_id'] = [
+			'type'        => 'checkbox',
+			'default'     => false,
+			'required'    => false,
+			'description' => __( 'This element is used in descriptions for all offers that are variants of a particular model (parent offer ID is used).', 'market-exporter' ),
+		];
+
 		return $elements;
 
 	}

@@ -410,6 +410,11 @@ class Generator extends Attributes {
 
 				// NOTE: Below this point we start using $offer instead of $product.
 				$yml .= $this->get_offer( $offer_id, $vendor_model_type );
+
+				if ( $variations && isset( $this->settings['offer']['group_id'] ) && $this->settings['offer']['group_id'] ) {
+					$yml .= $this->add_child( 'group_id', $product->get_id() );
+				}
+
 				$yml .= $this->add_child( 'url', htmlspecialchars( get_permalink( $offer->get_id() ) ), self::ME_OFFER_ATTRIBUTE_SPACING );
 				$yml .= $this->get_price();
 				$yml .= $this->add_child( 'currencyId', $currency, self::ME_OFFER_ATTRIBUTE_SPACING );
