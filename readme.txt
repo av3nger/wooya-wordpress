@@ -70,6 +70,7 @@ WooCommerce также тестировался на последних верс
 = 2.1.0 =
 * NEW: Новый фильтр me_custom_do_days для модификации параметра days
 * FIXED: Выгрузка категорий при большом количестве товаров
+* FIXED: Ошибка JSON Parse error: Unexpected EOF
 * FIXED: Предупреждение Undefined index: vendorCode
 * FIXED: Предупреждение Uninitialized string offset: 1
 
