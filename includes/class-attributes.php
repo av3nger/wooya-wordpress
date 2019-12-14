@@ -483,7 +483,7 @@ class Attributes {
 		$yml    = '';
 		$params = explode( ',', $value );
 		foreach ( $params as $single_param ) {
-			$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxomnomy ), wc_attribute_taxonomy_slug( $taxomnomy ) );
+			$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxomnomy ), $this->attribute_taxonomy_slug( $taxomnomy ) );
 			$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
 			$param_unit  = apply_filters( 'me_param_unit', false, $param_name );
 
@@ -613,6 +613,28 @@ class Attributes {
 
 		$closing = false === strpos( $child, '/>' ) ? '>' : ' />';
 		return str_replace( $closing, " {$name}=\"{$value}\"{$closing}", $child );
+
+	}
+
+	/**
+	 * Get an unprefixed product attribute name.
+	 *
+	 * Compatibility method for support of WooCommerce 3.6 and older.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param string $taxomnomy  Attribute name.
+	 *
+	 * @return string
+	 */
+	private function attribute_taxonomy_slug( $taxomnomy ) {
+
+		if ( Helper::woo_latest_versions( '3.5.8' ) ) {
+			return wc_attribute_taxonomy_slug( $taxomnomy );
+		}
+
+		$attribute_name = wc_sanitize_taxonomy_name( $taxomnomy );
+		return 0 === strpos( $attribute_name, 'pa_' ) ? substr( $attribute_name, 3 ) : $attribute_name;
 
 	}
 
