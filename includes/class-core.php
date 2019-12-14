@@ -177,6 +177,8 @@ class Core {
 
 		$this->api = new RestAPI( $this->generator );
 
+		new WCommerce();
+
 	}
 
 	/**
