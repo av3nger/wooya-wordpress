@@ -179,7 +179,7 @@ class Attributes {
 		if ( ! $global ) {
 			// Per post settings.
 			$cost         = get_post_custom_values( 'me_do_cost', $product->get_id() );
-			$days         = get_post_custom_values( 'me_do_days', $product->get_id() );
+			$days         = apply_filters( 'me_custom_do_days', get_post_custom_values( 'me_do_days', $product->get_id() ), $product->get_id() );
 			$order_before = get_post_custom_values( 'me_do_order_before', $product->get_id() );
 
 			// If not global options, and not defined per product - no need to continue.
