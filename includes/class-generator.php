@@ -154,6 +154,7 @@ class Generator extends Attributes {
 			}
 		}
 
+		$this->populate_categories();
 		$query = $this->check_products( self::PRODUCTS_PER_QUERY, self::PRODUCTS_PER_QUERY * $step );
 
 		$file_path = $filesystem->write_file( $this->yml_offers( $currency, $query ), $this->settings['misc']['file_date'], true );
@@ -268,6 +269,30 @@ class Generator extends Attributes {
 	}
 
 	/**
+	 * Get categories array, which we will use this later on to determine the best category for the product.
+	 *
+	 * @since 2.1.0
+	 */
+	private function populate_categories() {
+		$args = [
+			'taxonomy' => 'product_cat',
+			'orderby'  => 'term_id',
+		];
+
+		// Maybe we need to include only selected categories?
+		if ( isset( $this->settings['offer']['include_cat'] ) ) {
+			$args['include'] = array_column( $this->settings['offer']['include_cat'], 'value' );
+		}
+
+		foreach ( get_categories( $args ) as $category ) {
+			// .
+			$this->categories[ $category->cat_ID ] = [
+				'parent' => $category->parent,
+			];
+		}
+	}
+
+	/**
 	 * Generate YML header.
 	 *
 	 * @since  0.3.0
@@ -312,11 +337,6 @@ class Generator extends Attributes {
 			} else {
 				$yml .= '      <category id="' . $category->cat_ID . '" parentId="' . $category->parent . '">' . wp_strip_all_tags( $category->name ) . '</category>' . PHP_EOL;
 			}
-
-			// We will use this later on to determine the best category for the product.
-			$this->categories[ $category->cat_ID ] = [
-				'parent' => $category->parent,
-			];
 		}
 
 		$yml .= '    </categories>' . PHP_EOL;
