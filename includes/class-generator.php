@@ -67,7 +67,7 @@ class Generator extends Attributes {
 		$running = $this->is_running();
 
 		// Cron finished.
-		if ( $running[0] > $running[1] ) {
+		if ( ! is_array( $running ) || $running[0] > $running[1] ) {
 			if ( isset( $this->settings['misc'] ) && isset( $this->settings['misc']['cron'] ) ) {
 				Helper::update_cron_schedule( $this->settings['misc']['cron'] );
 			} else {

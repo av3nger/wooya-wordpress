@@ -71,6 +71,7 @@ WooCommerce также тестировался на последних верс
 * NEW: Новый фильтр me_custom_do_days для модификации параметра days
 * FIXED: Выгрузка категорий при большом количестве товаров
 * FIXED: Предупреждение Undefined index: vendorCode
+* FIXED: Предупреждение Uninitialized string offset: 1
 
 = 2.0.8 =
 * NEW: Добавлена поддержка параметра group_id
