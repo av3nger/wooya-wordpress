@@ -70,7 +70,7 @@ class Wooya extends React.Component {
 				const xhr = new XMLHttpRequest();
 				xhr.open(
 					'POST',
-					ajaxurl + '?action=dismiss_rate_notice&_ajax_nonce=' + this.props.wpObject.api_nonce
+					ajaxurl + '?action=dismiss_rate_notice&_ajax_nonce=' + this.props.wpObject.api_nonce,
 				);
 				xhr.send();
 			} );
@@ -83,7 +83,7 @@ class Wooya extends React.Component {
 	componentDidMount() {
 		this.fetchWP.get( 'settings' ).then(
 			( json ) => this.getElements( json ),
-			( err ) => this.showError( 0, err.message )
+			( err ) => this.showError( 0, err.message ),
 		);
 	}
 
@@ -91,7 +91,7 @@ class Wooya extends React.Component {
 	 * Get all the elements and sort out the ones that are in use to a
 	 * separate variable.
 	 *
-	 * @param {json} options
+	 * @param {Object} options
 	 */
 	getElements( options ) {
 		this.fetchWP.get( 'elements' ).then(
@@ -124,7 +124,7 @@ class Wooya extends React.Component {
 					unusedItems,
 				} );
 			},
-			( err ) => this.showError( 0, err.message )
+			( err ) => this.showError( 0, err.message ),
 		);
 	}
 
@@ -252,9 +252,9 @@ document.addEventListener( 'DOMContentLoaded', function() {
 	const wooyaDiv = document.getElementById( 'wooya_components' );
 	if ( wooyaDiv ) {
 		ReactDOM.render(
-			/** @var {object} window.ajax_strings */
+			/** @member {Object} window.ajax_strings */
 			<Wooya wpObject={ window.ajax_strings } />,
-			wooyaDiv
+			wooyaDiv,
 		);
 	}
 } );

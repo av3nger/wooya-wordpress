@@ -105,9 +105,16 @@ class Admin {
 			true
 		);
 
+		$script = WOOYA_URL . 'admin/js/me-core.min.js';
+		if ( Freemius::init_fremius()->is__premium_only() ) {
+			if ( false !== strpos( $hook, $this->plugin_name . '-promos' ) ) {
+				$script = WOOYA_URL . 'admin/js/me-promos.min.js';
+			}
+		}
+
 		wp_enqueue_script(
 			$this->plugin_name,
-			WOOYA_URL . 'admin/js/me-core.min.js',
+			$script,
 			[ 'jquery', $this->plugin_name . '-i18n' ],
 			$this->version,
 			true
