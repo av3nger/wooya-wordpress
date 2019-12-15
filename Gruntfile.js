@@ -83,9 +83,10 @@ module.exports = function( grunt ) {
 				dest: 'build/market-exporter/',
 				options: {
 					noProcess: [ '**/*.{png,gif,jpg,ico,svg,eot,ttf,woff,woff2}' ],
-					process( content, srcpath ) {
+					process( content ) {
 						const pkg = grunt.file.readJSON( 'package.json' );
-						return content.replace( /\%\%VERSION\%\%/g, pkg.version );
+						return content.replace( /%%VERSION%%/g, pkg.version )
+							.replace( /'secret_key' {10}=>.*[^,],/g, '' );
 					},
 				},
 			},
@@ -94,7 +95,7 @@ module.exports = function( grunt ) {
 		compress: {
 			main: {
 				options: {
-					archive: './build/market-exporter-<%= pkg.version %>.zip'
+					archive: './build/market-exporter-<%= pkg.version %>.zip',
 				},
 				expand: true,
 				cwd: 'build/market-exporter/',
