@@ -15,6 +15,10 @@ namespace Wooya\Includes;
 
 use WP_Filesystem_Base;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The filesystem class.
  *

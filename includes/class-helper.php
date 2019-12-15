@@ -11,6 +11,10 @@
 
 namespace Wooya\Includes;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Helper class that has misc helper functions used throughout the plugin.
  *

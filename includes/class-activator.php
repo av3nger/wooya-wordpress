@@ -11,6 +11,10 @@
 
 namespace Wooya\Includes;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Fired during plugin activation/deactivation.
  *

@@ -11,6 +11,10 @@
 
 namespace Wooya\Includes;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Available elements for the YML file.
  *

@@ -14,6 +14,10 @@ namespace Wooya\Includes;
 use WC_Product_Variation;
 use WP_Query;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Generate the YML file.
  *

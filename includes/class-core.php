@@ -16,6 +16,10 @@ namespace Wooya\Includes;
 
 use Exception;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The core plugin class.
  *

@@ -13,6 +13,10 @@ namespace Wooya\Includes;
 
 use Freemius_Exception;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Freemius
  */

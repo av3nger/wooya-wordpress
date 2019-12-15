@@ -14,6 +14,10 @@ use WC_Product;
 use WC_Product_Attribute;
 use WC_Product_Variation;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Class Generator
  */
