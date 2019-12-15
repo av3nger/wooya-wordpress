@@ -9,8 +9,9 @@ module.exports = {
 	mode: 'production',
 
 	entry: {
-		'market-exporter': path.resolve( __dirname, '_src/app.js' ),
-		'market-exporter-i18n': path.resolve( __dirname, '_src/i18n.js' ),
+		'me-core': path.resolve( __dirname, '_src/app.js' ),
+		'me-i18n': path.resolve( __dirname, '_src/i18n.js' ),
+		'me-promos': path.resolve( __dirname, '_src/promos.js' ),
 	},
 
 	output: {

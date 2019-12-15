@@ -21,6 +21,8 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       market-exporter
  * Domain Path:       /languages
+ *
+ * @fs_premium_only /includes/promos/, /admin/js/me-promos.min.js, /admin/js/me-promos.min.js.map
  */
 
 namespace Wooya;

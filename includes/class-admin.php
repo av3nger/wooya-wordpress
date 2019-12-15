@@ -69,13 +69,13 @@ class Admin {
 	public function enqueue_styles( $hook ) {
 
 		// Run only on plugin pages.
-		if ( 'toplevel_page_market-exporter' !== $hook ) {
+		if ( false === strpos( $hook, $this->plugin_name ) ) {
 			return;
 		}
 
 		wp_enqueue_style(
 			$this->plugin_name,
-			WOOYA_URL . 'admin/css/market-exporter.min.css',
+			WOOYA_URL . 'admin/css/me-core.min.css',
 			[],
 			$this->version,
 			'all'
@@ -93,13 +93,13 @@ class Admin {
 	public function enqueue_scripts( $hook ) {
 
 		// Run only on plugin pages.
-		if ( 'toplevel_page_market-exporter' !== $hook ) {
+		if ( false === strpos( $hook, $this->plugin_name ) ) {
 			return;
 		}
 
 		wp_enqueue_script(
 			$this->plugin_name . '-i18n',
-			WOOYA_URL . 'admin/js/market-exporter-i18n.min.js',
+			WOOYA_URL . 'admin/js/me-i18n.min.js',
 			[],
 			$this->version,
 			true
@@ -107,7 +107,7 @@ class Admin {
 
 		wp_enqueue_script(
 			$this->plugin_name,
-			WOOYA_URL . 'admin/js/market-exporter.min.js',
+			WOOYA_URL . 'admin/js/me-core.min.js',
 			[ 'jquery', $this->plugin_name . '-i18n' ],
 			$this->version,
 			true
@@ -192,6 +192,17 @@ class Admin {
 			$this->render_icon()
 		);
 
+		if ( Freemius::init_fremius()->is__premium_only() ) {
+			add_submenu_page(
+				$this->plugin_name,
+				__( 'Promos', 'market-exporter' ),
+				__( 'Promos', 'market-exporter' ),
+				'manage_options',
+				$this->plugin_name . '-promos',
+				[ $this, 'render_page' ]
+			);
+		}
+
 	}
 
 	/**
@@ -202,6 +213,7 @@ class Admin {
 	 * @return string
 	 */
 	private function render_icon() {
+
 		ob_start();
 		?>
 		<svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0, 0, 400,400">
@@ -213,6 +225,7 @@ class Admin {
 		$svg = ob_get_clean();
 
 		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+
 	}
 
 	/**

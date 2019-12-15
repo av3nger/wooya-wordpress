@@ -30,7 +30,7 @@ class Freemius {
 		// Include Freemius SDK.
 		/* @noinspection PhpIncludeInspection */
 		require_once WOOYA_PATH . '/freemius/start.php';
-		$this->init_fremius();
+		self::init_fremius();
 		// Signal that SDK was initiated.
 		do_action( 'wooya_fremius_loaded' );
 
@@ -46,7 +46,7 @@ class Freemius {
 	 * @return \Freemius
 	 * @throws Freemius_Exception  Freemius exception.
 	 */
-	public function init_fremius() {
+	public static function init_fremius() {
 
 		global $wooya_fremius;
 
