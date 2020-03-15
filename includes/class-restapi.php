@@ -297,7 +297,7 @@ class RestAPI extends WP_REST_Controller {
 				Helper::update_cron_schedule( $params['items']['value'] );
 			}
 
-			return new WP_REST_Response( true, 200 );
+			wp_send_json_success();
 		}
 
 		// No valid action - return error.
@@ -422,7 +422,7 @@ class RestAPI extends WP_REST_Controller {
 	/**
 	 * Remove selected files.
 	 *
-	 * @return WP_Error|WP_REST_Response
+	 * @return WP_Error|void
 	 */
 	public function remove_files() {
 
@@ -458,7 +458,7 @@ class RestAPI extends WP_REST_Controller {
 			);
 		}
 
-		return new WP_REST_Response( true, 200 );
+		wp_send_json_success();
 
 	}
 

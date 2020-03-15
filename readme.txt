@@ -3,7 +3,7 @@ Contributors: vanyukov
 Tags: market, export, yml, woocommerce, yandex market
 Donate link: http://yasobe.ru/na/market_exporter
 Requires at least: 4.7.3
-Tested up to: 5.3.0
+Tested up to: 5.3.1
 Stable tag: %%VERSION%%
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -66,6 +66,14 @@ WooCommerce также тестировался на последних верс
 4. Скриншот страницы настроек.
 
 == Changelog ==
+
+= 2.1.0 =
+* NEW: Новый фильтр me_custom_do_days для модификации параметра days
+* ENHANCE: Совместимость с WooCommerce 3.x
+* FIXED: Выгрузка категорий при большом количестве товаров
+* FIXED: Ошибка JSON Parse error: Unexpected EOF
+* FIXED: Предупреждение Undefined index: vendorCode
+* FIXED: Предупреждение Uninitialized string offset: 1
 
 = 2.0.8 =
 * NEW: Добавлена поддержка параметра group_id
