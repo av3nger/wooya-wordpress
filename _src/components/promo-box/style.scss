@@ -1,0 +1,25 @@
+/**
+ * Promo box styles
+ */
+.wooya-wrapper .wooya-promo-box {
+
+  border: 1px solid rgba(41, 50, 56, 0.2);
+  padding: 50px;
+  border-radius: 10px;
+
+  .wooya-promo-box-row {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	flex-wrap: wrap;
+
+	&:last-of-type {
+	  margin-bottom: 0;
+	}
+
+	.wooya-promo-box-column {
+	  flex-basis: 23%;
+	}
+  }
+
+}

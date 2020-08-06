@@ -22,7 +22,7 @@
  * Text Domain:       market-exporter
  * Domain Path:       /languages
  *
- * @fs_premium_only /includes/promos/, /admin/js/me-promos.min.js, /admin/js/me-promos.min.js.map
+ * @fs_premium_only /includes/promos/, /admin/js/me-promos.min.js, /admin/js/me-promos.min.js.map, /admin/css/me-promos.css.min, /admin/css/me-promos.css.min.map
  */
 
 namespace Wooya;

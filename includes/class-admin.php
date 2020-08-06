@@ -73,13 +73,14 @@ class Admin {
 			return;
 		}
 
-		wp_enqueue_style(
-			$this->plugin_name,
-			WOOYA_URL . 'admin/css/me-core.min.css',
-			[],
-			$this->version,
-			'all'
-		);
+		$style = WOOYA_URL . 'admin/css/me-core.min.css';
+		if ( Freemius::init_fremius()->is__premium_only() ) {
+			if ( false !== strpos( $hook, $this->plugin_name . '-promos' ) ) {
+				$style = WOOYA_URL . 'admin/css/me-promos.min.css';
+			}
+		}
+
+		wp_enqueue_style( $this->plugin_name, $style, [], $this->version, 'all' );
 
 	}
 

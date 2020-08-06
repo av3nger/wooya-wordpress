@@ -98,7 +98,7 @@ class YmlListItem extends React.Component {
 		this.props.updateSelection(
 			e.target.dataset.type,
 			this.props.name,
-			e.target.checked
+			e.target.checked,
 		);
 
 		this.setState( {

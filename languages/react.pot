@@ -85,3 +85,19 @@ msgstr ""
 #: _src/components/yml-list-item/index.jsx:182
 msgid "Active"
 msgstr ""
+
+#: _src/promos.js:104
+msgid "Add promo code"
+msgstr ""
+
+#: _src/promos.js:108
+msgid "Add flash discount"
+msgstr ""
+
+#: _src/promos.js:112
+msgid "Add n plus m"
+msgstr ""
+
+#: _src/promos.js:116
+msgid "Add gift with purchase"
+msgstr ""

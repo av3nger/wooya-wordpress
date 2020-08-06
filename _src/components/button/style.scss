@@ -5,6 +5,12 @@
  */
 .wooya-wrapper {
 
+    .wooya-btn-block {
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 50px;
+    }
+
     .wooya-btn {
         background-color: transparent;
         border: 3px solid $color--primary;

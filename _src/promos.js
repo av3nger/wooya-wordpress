@@ -21,6 +21,7 @@ import FetchWP from './utils/fetchWP';
 
 import Button from './components/button';
 import Notice from './components/notice';
+import PromoBox from './components/promo-box';
 
 /**
  * Promos React component
@@ -62,10 +63,12 @@ class Promos extends React.Component {
 	 * Init component states
 	 */
 	componentDidMount() {
+		/*
 		this.fetchWP.get( 'settings' ).then(
 			( json ) => this.getElements( json ),
 			( err ) => window.console.log( err.message ),
 		);
+		*/
 	}
 
 	/**
@@ -96,14 +99,25 @@ class Promos extends React.Component {
 					onHide={ this.hideError }
 				/> }
 
-				{ this.state.options &&
-				<Button
-					buttonText={ __( 'Add promotion', 'market-exporter' ) }
-					className="wooya-btn wooya-btn-red wooya-btn-center"
-					onClick={ () => this.setState( {
-						showProgressModal: ! this.state.showProgressModal,
-					} ) }
-				/> }
+				<div className="wooya-btn-block">
+					<Button
+						buttonText={ __( 'Add promo code', 'market-exporter' ) }
+						className="wooya-btn wooya-btn-red" />
+
+					<Button
+						buttonText={ __( 'Add flash discount', 'market-exporter' ) }
+						className="wooya-btn wooya-btn-red" />
+
+					<Button
+						buttonText={ __( 'Add n plus m', 'market-exporter' ) }
+						className="wooya-btn wooya-btn-red" />
+
+					<Button
+						buttonText={ __( 'Add gift with purchase', 'market-exporter' ) }
+						className="wooya-btn wooya-btn-red" />
+				</div>
+
+				<PromoBox />
 			</div>
 		);
 	}
