@@ -130,6 +130,7 @@ class Generator extends Attributes {
 
 		$currency = $this->check_currency();
 		if ( ! $currency ) {
+			$this->stop();
 			return [ 'code' => 501 ];
 		}
 
@@ -139,6 +140,7 @@ class Generator extends Attributes {
 
 			$query = $this->check_products( self::PRODUCTS_PER_QUERY, self::PRODUCTS_PER_QUERY * $step );
 			if ( 0 === $query->found_posts ) {
+				$this->stop();
 				return [ 'code' => 503 ];
 			}
 
