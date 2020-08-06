@@ -66,15 +66,9 @@ class Generator extends Attributes {
 		$steps   = 0;
 		$running = $this->is_running();
 
-		// Cron finished.
-		if ( ! is_array( $running ) || $running[0] > $running[1] ) {
-			if ( isset( $this->settings['misc'] ) && isset( $this->settings['misc']['cron'] ) ) {
-				Helper::update_cron_schedule( $this->settings['misc']['cron'] );
-			} else {
-				Helper::update_cron_schedule( 'disabled' );
-			}
-
-			return;
+		if ( ! $running && ! get_option( 'market_exporter_doing_cron' ) ) {
+			// Set start of running cron.
+			update_option( 'market_exporter_doing_cron', true );
 		}
 
 		if ( $running ) {
@@ -83,8 +77,20 @@ class Generator extends Attributes {
 		}
 
 		$response = $this->run_step( $step, $steps );
-		set_transient( 'wooya-generating-yml', [ $response['step'], $response['steps'] ], MINUTE_IN_SECONDS * 5 );
-		wp_schedule_single_event( time(), 'market_exporter_cron' );
+
+		// There are some steps left - schedule another run.
+		if ( isset( $response['step'] ) && isset( $response['steps'] ) && isset( $response['finish'] ) && ! $response['finish'] ) {
+			set_transient( 'wooya-generating-yml', [ $response['step'], $response['steps'] ], MINUTE_IN_SECONDS * 5 );
+			wp_schedule_single_event( time(), 'market_exporter_cron' );
+			return;
+		}
+
+		// Cron finished.
+		if ( isset( $this->settings['misc'] ) && isset( $this->settings['misc']['cron'] ) ) {
+			Helper::update_cron_schedule( $this->settings['misc']['cron'] );
+		} else {
+			Helper::update_cron_schedule( 'disabled' );
+		}
 
 	}
 

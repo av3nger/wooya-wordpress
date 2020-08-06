@@ -87,9 +87,24 @@ class Helper {
 	public static function update_cron_schedule( $interval ) {
 
 		wp_clear_scheduled_hook( 'market_exporter_cron' );
-		if ( 'disabled' !== $interval ) {
-			wp_schedule_event( time(), $interval, 'market_exporter_cron' );
+		if ( 'disabled' === $interval ) {
+			return;
 		}
+
+		switch ( $interval ) {
+			case 'hourly':
+				$next = time() + HOUR_IN_SECONDS;
+				break;
+			case 'twicedaily':
+				$next = time() + HOUR_IN_SECONDS * 12;
+				break;
+			case 'daily':
+			default:
+				$next = time() + DAY_IN_SECONDS;
+				break;
+		}
+
+		wp_schedule_event( $next, $interval, 'market_exporter_cron' );
 
 	}
 
