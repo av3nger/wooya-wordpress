@@ -406,12 +406,21 @@ class Generator extends Attributes {
 			}
 			while ( $variation_count > 0 ) {
 				$variation_count --;
+
+				if ( $product->is_type( 'variable' ) ) {
+					$stock_status = $offer->is_in_stock();
+				}
+
 				// If variable product, get product id from $variations array.
 				$offer_id = ( ( $product->is_type( 'variable' ) ) ? $variations[ $variation_count ]['variation_id'] : $product->get_id() );
-				if ( $product->is_type( 'variable' ) ) :
+				if ( $product->is_type( 'variable' ) ) {
+					if ( ! $offer->is_in_stock() ) {
+						continue;
+					}
+
 					// This has to work but we need to think of a way to save the initial offer variable.
 					$offer = new WC_Product_Variation( $offer_id );
-				endif;
+				}
 
 				/**
 				 * We need to get typePrefix and model early to decide if the product is a vendor.model type or not.
