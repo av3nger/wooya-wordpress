@@ -14,7 +14,7 @@
  * Plugin Name:       Market Exporter
  * Plugin URI:        https://wooya.ru
  * Description:       Market Exporter integration suite.
- * Version:           2.0.9
+ * Version:           2.0.10
  * Author:            Anton Vanyukov
  * Author URI:        https://vanyukov.su/
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOOYA_VERSION', '2.0.9' );
+define( 'WOOYA_VERSION', '2.0.10' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOOYA_BASENAME', plugin_basename( __FILE__ ) );

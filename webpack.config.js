@@ -19,50 +19,57 @@ module.exports = {
 	},
 
 	module: {
-		rules: [ {
-			test: /\.(js|jsx)$/,
-			exclude: /node_modules/,
-			use: {
-				loader: 'babel-loader',
-				options: {
-					presets: [ '@babel/preset-env', '@babel/preset-react' ],
-				},
-			},
-		}, {
-			test: /\.scss$/,
-			exclude: /node_modules/,
-			use: [ ExtractTextPlugin.loader,
-				{
-					loader: 'css-loader',
+		rules: [
+			{
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
 					options: {
-						sourceMap: true,
-					},
-				}, {
-					loader: 'sass-loader',
-					options: {
-						sourceMap: true,
+						presets: [ '@babel/preset-env', '@babel/preset-react' ],
 					},
 				},
-			],
-		}, {
-			test: /\.(png|jpg|gif)$/,
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: '../images/',
+			},
+			{
+				test: /\.scss$/,
+				exclude: /node_modules/,
+				use: [
+					ExtractTextPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							sourceMap: true,
+						},
+					},
+					{
+						loader: 'sass-loader',
+						options: {
+							sourceMap: true,
+						},
+					},
+				],
+			},
+			{
+				test: /\.(png|jpg|gif)$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]',
+						outputPath: '../images/',
+					},
 				},
 			},
-		}, {
-			test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-			use: {
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: '../fonts/',
+			{
+				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+				use: {
+					loader: 'file-loader',
+					options: {
+						name: '[name].[ext]',
+						outputPath: '../fonts/',
+					},
 				},
 			},
-		} ],
+		],
 	},
 
 	// This will allow us to import files without writing these extension

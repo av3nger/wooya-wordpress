@@ -48,6 +48,10 @@ class Activator {
 			self::upgrade_2_0_4();
 		}
 
+		if ( version_compare( WOOYA_VERSION, '2.0.10', '<' ) ) {
+			self::upgrade_2_0_10();
+		}
+
 		if ( ! $version || WOOYA_VERSION !== $version ) {
 			update_site_option( 'wooya_version', WOOYA_VERSION );
 		}
@@ -236,6 +240,20 @@ class Activator {
 		}
 
 		update_option( 'wooya_settings', $options );
+
+	}
+
+	/**
+	 * Fix issues with cron.
+	 *
+	 * @since 2.0.10
+	 */
+	private static function upgrade_2_0_10() {
+
+		delete_transient( 'wooya-generating-yml' );
+		delete_option( 'wooya-progress-step' );
+		// Remove cron lock.
+		delete_option( 'market_exporter_doing_cron' );
 
 	}
 
