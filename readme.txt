@@ -3,7 +3,7 @@ Contributors: vanyukov
 Tags: market, export, yml, woocommerce, yandex market
 Donate link: http://yasobe.ru/na/market_exporter
 Requires at least: 4.7.3
-Tested up to: 5.5
+Tested up to: 5.8
 Stable tag: %%VERSION%%
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -56,7 +56,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 WooCommerce также тестировался на последних версиях.
 
-Версия PHP должна быть не ниже 5.4. Полная поддержка версии 7.3.
+Версия PHP должна быть не ниже 5.4. Полная поддержка версии 8.0.
 
 == Screenshots ==
 
@@ -66,6 +66,10 @@ WooCommerce также тестировался на последних верс
 4. Скриншот страницы настроек.
 
 == Changelog ==
+
+= 2.0.11 =
+* ENHANCE: Совеместимость с WordPress 5.8
+* ENHANCE: Совеместимость с PHP 8
 
 = 2.0.10 =
 * FIXED: Обновлеие файла выгрузки при изменении товаров
