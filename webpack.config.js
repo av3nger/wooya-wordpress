@@ -4,6 +4,7 @@ const webpack = require( 'webpack' );
 // Plugins
 const ExtractTextPlugin = require( 'mini-css-extract-plugin' );
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
+const TerserPlugin = require( 'terser-webpack-plugin' ); // Included with Webpack v5.
 
 module.exports = {
 	mode: 'production',
@@ -26,7 +27,7 @@ module.exports = {
 				use: {
 					loader: 'babel-loader',
 					options: {
-						presets: [ '@babel/preset-env', '@babel/preset-react' ],
+						presets: [ '@babel/env', '@babel/react' ],
 					},
 				},
 			},
@@ -55,7 +56,7 @@ module.exports = {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[ext]',
-						outputPath: '../images/',
+						outputPath: '../images',
 					},
 				},
 			},
@@ -65,7 +66,7 @@ module.exports = {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[ext]',
-						outputPath: '../fonts/',
+						outputPath: '../fonts',
 					},
 				},
 			},
@@ -99,5 +100,19 @@ module.exports = {
 	watchOptions: {
 		ignored: /node_modules/,
 		poll: 1000,
+	},
+
+	optimization: {
+		minimize: true,
+		minimizer: [
+			new TerserPlugin( {
+				terserOptions: {
+					format: {
+						comments: false,
+					},
+				},
+				extractComments: false,
+			} ),
+		],
 	},
 };
