@@ -9,7 +9,7 @@
     "makepot": "npx pot-to-php languages/react.pot languages/react.php market-exporter",
     "translate": "clear && grunt translate && npm run makepot",
     "build": "grunt clean && npm run compile && grunt prepare && grunt build",
-    "release": "sh bin/deploy-to-svn.sh"
+    "release": "./bin/deploy-to-svn.sh"
   },
   "repository": {
     "type": "git",
