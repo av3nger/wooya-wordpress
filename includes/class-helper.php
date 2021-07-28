@@ -37,7 +37,11 @@ class Helper {
 
 		if ( is_array( $input ) ) {
 			foreach ( $input as &$value ) {
-				$value = array_map( 'sanitize_text_field', $value );
+				if ( is_array( $value ) ) {
+					$value = array_map( 'sanitize_text_field', $value );
+				} else {
+					$value = sanitize_text_field( $value );
+				}
 			}
 
 			return $input;
