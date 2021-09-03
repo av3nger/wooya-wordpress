@@ -534,6 +534,11 @@ class Generator extends Attributes {
 					}
 				}
 
+				// VAT.
+				if ( isset( $this->settings['offer']['vat'] ) && 'disabled' !== $this->settings['offer']['vat'] ) {
+					$yml .= $this->add_child( 'vat', $this->settings['offer']['vat'] );
+				}
+
 				$yml .= $this->get_dimensions();
 				$yml .= $this->get_stock_quantity();
 				$yml .= $this->get_params();

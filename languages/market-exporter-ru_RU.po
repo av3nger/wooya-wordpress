@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Market Exporter 2.0.0-beta.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/market-exporter/\n"
-"POT-Creation-Date: 2019-11-10 06:45:20+00:00\n"
-"PO-Revision-Date: 2019-11-10 16:48+1000\n"
+"POT-Creation-Date: 2021-09-03 22:50:35+00:00\n"
+"PO-Revision-Date: 2021-09-04 08:54+1000\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 
@@ -273,26 +273,50 @@ msgstr ""
 "Товар имеет отношение к удовлетворению сексуальных потребностей, либо иным "
 "образом эксплуатирует интерес к сексу."
 
-#: build/market-exporter/includes/class-elements.php:282
-#: build/market-exporter/includes/class-elements.php:397
-#: build/market-exporter/includes/class-elements.php:454
-#: includes/class-elements.php:289 includes/class-elements.php:404
-#: includes/class-elements.php:461 languages/react.php:62
+#: build/market-exporter/includes/class-elements.php:270
+#: includes/class-elements.php:270
+msgid ""
+"This element is used in descriptions for all offers that are variants of a "
+"particular model (parent offer ID is used)."
+msgstr ""
+"Элемент объединяет все предложения, которые являются вариациями одной модели "
+"и должен иметь одинаковое значение (используется ID товара-родителя)."
+
+#: build/market-exporter/includes/class-elements.php:277
+#: includes/class-elements.php:277
+msgid ""
+"VAT rate. VAT_18 (18%) is the primary rate used for most products. VAT_10 "
+"(10%) can be used for children's goods or foodstuff. VAT_0 (0%) is used only "
+"for certain types of services. NO_VAT can be used for medical products or "
+"software licenses."
+msgstr ""
+"Налоговая ставка. Ставка VAT_18 (18%) используется для большинства товаров? "
+"VAT_10 (10%) можно использовать для детских товаров или продуктов. VAT_0 "
+"(0%) используется для продажи сервисов. Опция NO_VAT может быть использована "
+"при продаже медицинских товаров или программных лицензий."
+
+#: build/market-exporter/includes/class-elements.php:279
+#: build/market-exporter/includes/class-elements.php:303
+#: build/market-exporter/includes/class-elements.php:418
+#: build/market-exporter/includes/class-elements.php:475
+#: includes/class-elements.php:279 includes/class-elements.php:303
+#: includes/class-elements.php:418 includes/class-elements.php:475
+#: languages/react.php:62
 msgid "Disabled"
 msgstr "Выключено"
 
-#: build/market-exporter/includes/class-elements.php:283
-#: includes/class-elements.php:290
+#: build/market-exporter/includes/class-elements.php:304
+#: includes/class-elements.php:304
 msgid "true"
 msgstr "true"
 
-#: build/market-exporter/includes/class-elements.php:284
-#: includes/class-elements.php:291
+#: build/market-exporter/includes/class-elements.php:305
+#: includes/class-elements.php:305
 msgid "false"
 msgstr "false"
 
-#: build/market-exporter/includes/class-elements.php:291
-#: includes/class-elements.php:298
+#: build/market-exporter/includes/class-elements.php:312
+#: includes/class-elements.php:312
 msgid ""
 "Use the delivery element to indicate the possibility of delivery to the "
 "buyer's address in the home region of the store."
@@ -300,8 +324,8 @@ msgstr ""
 "Используйте элемент delivery, чтобы указать возможность доставки по адресу "
 "покупателя в домашнем регионе магазина."
 
-#: build/market-exporter/includes/class-elements.php:302
-#: includes/class-elements.php:309
+#: build/market-exporter/includes/class-elements.php:323
+#: includes/class-elements.php:323
 msgid ""
 "Use the pickup element to indicate the possibility of receiving goods at the "
 "issuance point."
@@ -309,8 +333,8 @@ msgstr ""
 "Используйте элемент pickup, чтобы указать возможность получения товара в "
 "пункте выдачи."
 
-#: build/market-exporter/includes/class-elements.php:313
-#: includes/class-elements.php:320
+#: build/market-exporter/includes/class-elements.php:334
+#: includes/class-elements.php:334
 msgid ""
 "Use the store element to indicate the possibility of buying without a "
 "preliminary order at the point of sale."
@@ -318,15 +342,15 @@ msgstr ""
 "Используйте элемент store, чтобы указать возможность покупки без "
 "предварительного заказа в точке продажи."
 
-#: build/market-exporter/includes/class-elements.php:324
-#: includes/class-elements.php:331
+#: build/market-exporter/includes/class-elements.php:345
+#: includes/class-elements.php:345
 msgid "Use delivery-options parameters defined below. Global options."
 msgstr ""
 "Если включено, то в качестве параметров delivery-options будут использованы "
 "значения из настроек ниже. Глобальная опция."
 
-#: build/market-exporter/includes/class-elements.php:334
-#: includes/class-elements.php:341
+#: build/market-exporter/includes/class-elements.php:355
+#: includes/class-elements.php:355
 msgid ""
 "Delivery-options cost element. Used to indicate the price of delivery. Use "
 "maximum value if cost is differs for different locations."
@@ -334,13 +358,13 @@ msgstr ""
 "Элемент cost для delivery-options. В качестве значения используйте только "
 "целые числа. Для бесплатной доставки укажите значение 0."
 
-#: build/market-exporter/includes/class-elements.php:343
-#: includes/class-elements.php:350
+#: build/market-exporter/includes/class-elements.php:364
+#: includes/class-elements.php:364
 msgid "0, 1, 2, 3-5, etc."
 msgstr "0, 1, 2, 3-5, и т.д."
 
-#: build/market-exporter/includes/class-elements.php:347
-#: includes/class-elements.php:354
+#: build/market-exporter/includes/class-elements.php:368
+#: includes/class-elements.php:368
 msgid ""
 "Delivery-options days element. Either a value or a range for the actual days "
 "it takes to deliver a product."
@@ -348,8 +372,8 @@ msgstr ""
 "Элемент days для delivery-options. Либо целое число для дней доставки, либо "
 "период «от — до»."
 
-#: build/market-exporter/includes/class-elements.php:360
-#: includes/class-elements.php:367
+#: build/market-exporter/includes/class-elements.php:381
+#: includes/class-elements.php:381
 msgid ""
 "Delivery-options order-before element. Accepts values from 0 to 24. If the "
 "order is made before this time, delivery will be on time."
@@ -357,8 +381,8 @@ msgstr ""
 "Элемент order-before для delivery-options. Местное время (в часовом поясе "
 "магазина), при заказе до которого действует срок доставки."
 
-#: build/market-exporter/includes/class-elements.php:385
-#: includes/class-elements.php:392
+#: build/market-exporter/includes/class-elements.php:406
+#: includes/class-elements.php:406
 msgid ""
 "Add date to YML file name. If enabled YML file will have current date at the "
 "end: ym-export-yyyy-mm-dd.yml."
@@ -366,28 +390,28 @@ msgstr ""
 "Добавить дату в имя файла. Если активна, то к имена файла YML будет "
 "добавляться текущая дата: yml-export-yyyy-mm-dd.yml."
 
-#: build/market-exporter/includes/class-elements.php:395
-#: includes/class-elements.php:402
+#: build/market-exporter/includes/class-elements.php:416
+#: includes/class-elements.php:416
 msgid "Auto generate file at the selected interval."
 msgstr "Обновлять файл в выбранный промежуток."
 
-#: build/market-exporter/includes/class-elements.php:398
-#: includes/class-elements.php:405
+#: build/market-exporter/includes/class-elements.php:419
+#: includes/class-elements.php:419
 msgid "Every hour"
 msgstr "Каждый час"
 
-#: build/market-exporter/includes/class-elements.php:399
-#: includes/class-elements.php:406
+#: build/market-exporter/includes/class-elements.php:420
+#: includes/class-elements.php:420
 msgid "Twice a day"
 msgstr "Два раза в сутки"
 
-#: build/market-exporter/includes/class-elements.php:400
-#: includes/class-elements.php:407
+#: build/market-exporter/includes/class-elements.php:421
+#: includes/class-elements.php:421
 msgid "Daily"
 msgstr "Каждый день"
 
-#: build/market-exporter/includes/class-elements.php:408
-#: includes/class-elements.php:415
+#: build/market-exporter/includes/class-elements.php:429
+#: includes/class-elements.php:429
 msgid ""
 "Product description. Specify the way the description is exported. Default is "
 "to try and get the product description, if empty - get short description."
@@ -396,34 +420,34 @@ msgstr ""
 "будет выгружаться описание товара, если оно пустое, то будет использовано "
 "краткое описание."
 
-#: build/market-exporter/includes/class-elements.php:413
-#: includes/class-elements.php:420
+#: build/market-exporter/includes/class-elements.php:434
+#: includes/class-elements.php:434
 msgid "Default"
 msgstr "По умолчанию"
 
-#: build/market-exporter/includes/class-elements.php:414
-#: includes/class-elements.php:421
+#: build/market-exporter/includes/class-elements.php:435
+#: includes/class-elements.php:435
 msgid "Only description"
 msgstr "Только описание"
 
-#: build/market-exporter/includes/class-elements.php:415
-#: includes/class-elements.php:422
+#: build/market-exporter/includes/class-elements.php:436
+#: includes/class-elements.php:436
 msgid "Only short description"
 msgstr "Только краткое описание"
 
-#: build/market-exporter/includes/class-elements.php:423
-#: includes/class-elements.php:430
+#: build/market-exporter/includes/class-elements.php:444
+#: includes/class-elements.php:444
 msgid "Regenerate file on product create/update"
 msgstr "Обновлять файл при внесении изменений или создании нового товара"
 
 #. translators: %1$s: user name, %2$s: plugin name, %3$s: user login, %4%s:
 #. site link, %5$s: Freemius link
-#: build/market-exporter/includes/class-freemius.php:95
+#: build/market-exporter/includes/class-freemius.php:96
 #: includes/class-freemius.php:96
 msgid "Hey %1$s"
 msgstr "Привет, %1$s"
 
-#: build/market-exporter/includes/class-freemius.php:95
+#: build/market-exporter/includes/class-freemius.php:96
 #: includes/class-freemius.php:96
 msgid ""
 "Please help us improve %2$s! If you opt-in, some data about your usage of "
@@ -475,14 +499,6 @@ msgstr "Не выбрано ни одного файла"
 #: includes/class-restapi.php:456
 msgid "Error removing files"
 msgstr "Ошибка при удалении файла"
-
-#: includes/class-elements.php:270
-msgid ""
-"This element is used in descriptions for all offers that are variants of a "
-"particular model (parent offer ID is used)."
-msgstr ""
-"Элемент объединяет все предложения, которые являются вариациями одной модели "
-"и должен иметь одинаковое значение (используется ID товара-родителя)."
 
 #: languages/react.php:5
 msgid "Generate YML"

@@ -270,6 +270,20 @@ class Elements {
 			'description' => __( 'This element is used in descriptions for all offers that are variants of a particular model (parent offer ID is used).', 'market-exporter' ),
 		];
 
+		$elements['vat'] = [
+			'type'        => 'select',
+			'default'     => 'disabled',
+			'required'    => false,
+			'description' => __( "VAT rate. VAT_18 (18%) is the primary rate used for most products. VAT_10 (10%) can be used for children's goods or foodstuff. VAT_0 (0%) is used only for certain types of services. NO_VAT can be used for medical products or software licenses.", 'market-exporter' ),
+			'values'      => [
+				'disabled' => __( 'Disabled', 'market-exporter' ),
+				'VAT_18'   => 'VAT_18',
+				'VAT_10'   => 'VAT_10',
+				'VAT_0'    => 'VAT_0',
+				'NO_VAT'   => 'NO_VAT',
+			],
+		];
+
 		return $elements;
 
 	}
