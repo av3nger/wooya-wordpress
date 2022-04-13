@@ -19,7 +19,7 @@
   ],
   "type": "wordpress-plugin",
   "require-dev": {
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "^v0.7.2",
     "wp-coding-standards/wpcs": "^2.3.0",
     "phpunit/phpunit": "^7.5"
   }
