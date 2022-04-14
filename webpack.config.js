@@ -3,7 +3,6 @@ const webpack = require( 'webpack' );
 
 // Plugins
 const ExtractTextPlugin = require( 'mini-css-extract-plugin' );
-const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' ); // Included with Webpack v5.
 
 module.exports = {
@@ -15,8 +14,11 @@ module.exports = {
 	},
 
 	output: {
-		filename: '[name].min.js',
-		path: path.resolve( __dirname, 'admin/js' ),
+		clean: {
+			keep: /images|index.php/,
+		},
+		filename: 'js/[name].min.js',
+		path: path.resolve( __dirname, 'admin' ),
 	},
 
 	module: {
@@ -52,37 +54,30 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpg|gif)$/,
-				use: {
-					loader: 'file-loader',
-					options: {
-						name: '[name].[ext]',
-						outputPath: '../images',
-					},
+				type: 'asset/resource',
+				generator: {
+					filename: 'images/[name][ext]',
 				},
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-				use: {
-					loader: 'file-loader',
-					options: {
-						name: '[name].[ext]',
-						outputPath: '../fonts',
-					},
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name][ext]',
 				},
 			},
 		],
 	},
 
-	// This will allow us to import files without writing these extension
+	// This will allow us to import files without writing these extensions.
 	// eg: import 'app', instead of import 'app.jsx'
 	resolve: {
-		extensions: [ '.js', '.jsx', '.json' ],
+		extensions: [ '.js', '.jsx' ],
 	},
 
 	plugins: [
-		new CleanWebpackPlugin(),
 		new ExtractTextPlugin( {
-			filename: '../css/[name].min.css',
+			filename: 'css/[name].min.css',
 		} ),
 		new webpack.DefinePlugin( {
 			'process.env.NODE_ENV': JSON.stringify( 'production' ),
