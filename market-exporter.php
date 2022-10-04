@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOOYA_VERSION', '2.0.15' );
+define( 'WOOYA_VERSION', '2.0.16' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOOYA_BASENAME', plugin_basename( __FILE__ ) );
