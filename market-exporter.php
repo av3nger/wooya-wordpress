@@ -3,18 +3,18 @@
  * The plugin bootstrap file
  *
  * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
+ * admin area. This file also includes all the dependencies used by the plugin,
  * registers the activation and deactivation functions, and defines the plugin class.
  *
- * @link              https://wooya.ru
+ * @link              https://vcore.au
  * @since             2.0.0
  * @package           Wooya
  *
  * @wordpress-plugin
  * Plugin Name:       Market Exporter
- * Plugin URI:        https://wooya.ru
+ * Plugin URI:        https://wordpress.org/plugins/market-exporter/
  * Description:       Market Exporter integration suite.
- * Version:           2.0.15
+ * Version:           2.0.16
  * Author:            Anton Vanyukov
  * Author URI:        https://vanyukov.su/
  * License:           GPL-2.0+
@@ -37,12 +37,11 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOOYA_VERSION', '2.0.15' );
+define( 'WOOYA_VERSION', '2.0.16' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOOYA_BASENAME', plugin_basename( __FILE__ ) );
 
-/* @noinspection PhpIncludeInspection */
 require_once WOOYA_PATH . 'includes/class-freemius.php';
 new Freemius();
 
@@ -113,12 +112,8 @@ class App {
 		/**
 		 * The core plugin class that is used to define internationalization,
 		 * admin-specific hooks, and public-facing site hooks.
-		 *
-		 * @noinspection PhpIncludeInspection
 		 */
 		require WOOYA_PATH . 'includes/class-core.php';
-
-		/* @noinspection PhpIncludeInspection */
 		require_once WOOYA_PATH . 'includes/class-activator.php';
 
 	}
