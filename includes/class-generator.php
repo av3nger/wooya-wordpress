@@ -394,7 +394,7 @@ class Generator extends Attributes {
 			// We use a separate variable for offer because we will be rewriting it for variable products.
 			$offer = $product;
 			/**
-			 * By default we set $variation_count to 1.
+			 * By default, we set $variation_count to 1.
 			 * That means that there is at least one product available.
 			 * Variation products will have more than 1 count.
 			 */
@@ -407,6 +407,10 @@ class Generator extends Attributes {
 			while ( $variation_count > 0 ) {
 				$variation_count --;
 
+				if ( $variation_count > 0 && apply_filters( 'me_export_only_first_variation', false, $variation_count ) ) {
+					continue;
+				}
+
 				if ( $product->is_type( 'variable' ) ) {
 					$stock_status = $offer->is_in_stock();
 				}
@@ -418,7 +422,7 @@ class Generator extends Attributes {
 						continue;
 					}
 
-					// This has to work but we need to think of a way to save the initial offer variable.
+					// This has to work, but we need to think of a way to save the initial offer variable.
 					$offer = new WC_Product_Variation( $offer_id );
 				}
 
@@ -452,7 +456,13 @@ class Generator extends Attributes {
 					$yml .= $this->add_child( 'group_id', $product->get_id() );
 				}
 
-				$yml .= $this->add_child( 'url', htmlspecialchars( get_permalink( $offer->get_id() ) ), self::ME_OFFER_ATTRIBUTE_SPACING );
+				if ( $product->is_type( 'variable' ) && add_filter( 'me_export_main_variation_link', false ) ) {
+					$link = get_permalink( $product->get_id() );
+				} else {
+					$link = get_permalink( $offer->get_id() );
+				}
+
+				$yml .= $this->add_child( 'url', htmlspecialchars( $link ), self::ME_OFFER_ATTRIBUTE_SPACING );
 				$yml .= $this->get_price();
 				$yml .= $this->add_child( 'currencyId', $currency, self::ME_OFFER_ATTRIBUTE_SPACING );
 				$yml .= $this->get_category_id();
