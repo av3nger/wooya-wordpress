@@ -132,6 +132,7 @@ class Attributes {
 		global $product;
 
 		$categories = get_the_terms( $product->get_id(), 'product_cat' );
+		$categories = array_reverse( $categories ); // Reversing the array allows us to fetch the lowest level category first.
 
 		if ( ! $categories ) {
 			// TODO: Show some warning if no category is selected.
