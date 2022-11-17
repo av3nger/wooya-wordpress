@@ -52,6 +52,10 @@ class Activator {
 			self::upgrade_2_0_10();
 		}
 
+		if ( version_compare( WOOYA_VERSION, '2.0.17', '<' ) ) {
+			self::upgrade_2_0_17();
+		}
+
 		if ( ! $version || WOOYA_VERSION !== $version ) {
 			update_site_option( 'wooya_version', WOOYA_VERSION );
 		}
@@ -254,6 +258,25 @@ class Activator {
 		delete_option( 'wooya-progress-step' );
 		// Remove cron lock.
 		delete_option( 'market_exporter_doing_cron' );
+
+	}
+
+	/**
+	 * Upgrade to 2.0.17 version.
+	 *
+	 * @since 2.0.17
+	 *
+	 * @return void
+	 */
+	private static function upgrade_2_0_17() {
+
+		$options = get_option( 'wooya_settings' );
+
+		if ( ! isset( $options['misc']['single_param'] ) ) {
+			$options['misc']['single_param'] = false;
+		}
+
+		update_option( 'wooya_settings', $options );
 
 	}
 

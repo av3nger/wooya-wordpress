@@ -444,6 +444,13 @@ class Elements {
 			'description' => __( 'Regenerate file on product create/update', 'market-exporter' ),
 		];
 
+		$elements['single_param'] = [
+			'type'        => 'checkbox',
+			'default'     => false,
+			'required'    => false,
+			'description' => __( 'Split up product attributes into separate param elements', 'market-exporter' ),
+		];
+
 		return $elements;
 
 	}
