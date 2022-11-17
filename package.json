@@ -1,6 +1,6 @@
 {
   "name": "market-exporter",
-  "version": "2.0.17-beta.",
+  "version": "2.0.17-beta.2",
   "description": "Market Exporter YML product export from WooCommerce.",
   "private": true,
   "scripts": {
