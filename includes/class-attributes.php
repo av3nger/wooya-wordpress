@@ -132,6 +132,7 @@ class Attributes {
 		global $product;
 
 		$categories = get_the_terms( $product->get_id(), 'product_cat' );
+		$categories = array_reverse( $categories ); // Reversing the array allows us to fetch the lowest level category first.
 
 		if ( ! $categories ) {
 			// TODO: Show some warning if no category is selected.
@@ -480,8 +481,14 @@ class Attributes {
 			return false;
 		}
 
-		$yml    = '';
-		$params = explode( ',', $value );
+		$yml = '';
+
+		$options = get_option( 'wooya_settings' );
+		if ( ! isset( $options['misc']['single_param'] ) || ! $options['misc']['single_param'] ) {
+			$params = explode( ',', $value );
+		} else {
+			$params = [ $value ];
+		}
 		foreach ( $params as $single_param ) {
 			$param_name  = apply_filters( 'me_param_name', wc_attribute_label( $taxomnomy ), $this->attribute_taxonomy_slug( $taxomnomy ) );
 			$param_value = apply_filters( 'me_param_value', trim( $single_param ) );
