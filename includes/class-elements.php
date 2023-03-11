@@ -525,7 +525,7 @@ class Elements {
 
 			$subcategories = self::get_categories_array( $category->term_id );
 			if ( $subcategories ) {
-				$categories = $categories + $subcategories;
+				$categories = array_merge( $categories, $subcategories );
 			}
 		}
 
