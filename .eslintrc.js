@@ -16,5 +16,7 @@ module.exports = {
 		sourceType: 'module',
 	},
 	rules: {
+		'no-invalid-this': 0,
+		'comma-dangle': 0,
 	},
 };

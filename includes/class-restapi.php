@@ -184,14 +184,14 @@ class RestAPI extends WP_REST_Controller {
 
 		$elements = Elements::get_elements();
 
-		if ( ! isset( $current_settings['delivery'] ) ) {
-			foreach ( $elements['delivery'] as $element => $data ) {
+		foreach ( $elements['delivery'] as $element => $data ) {
+			if ( ! isset( $current_settings['delivery'][ $element ] ) ) {
 				$current_settings['delivery'][ $element ] = $data['default'];
 			}
 		}
 
-		if ( ! isset( $current_settings['misc'] ) ) {
-			foreach ( $elements['misc'] as $element => $data ) {
+		foreach ( $elements['misc'] as $element => $data ) {
+			if ( ! isset( $current_settings['misc'][ $element ] ) ) {
 				$current_settings['misc'][ $element ] = $data['default'];
 			}
 		}
