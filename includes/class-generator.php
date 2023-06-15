@@ -449,7 +449,11 @@ class Generator extends Attributes {
 				}
 
 				// NOTE: Below this point we start using $offer instead of $product.
-				$yml .= $this->get_offer( $offer_id, $vendor_model_type );
+				$offer_start = $this->get_offer( $offer_id, $vendor_model_type );
+				if ( ! $offer_start ) {
+					continue; // Skip offers that should not be in the YML file.
+				}
+				$yml .= $offer_start;
 
 				if ( $variations && isset( $this->settings['offer']['group_id'] ) && $this->settings['offer']['group_id'] ) {
 					$yml .= $this->add_child( 'group_id', $product->get_id() );

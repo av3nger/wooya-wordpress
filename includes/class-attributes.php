@@ -71,7 +71,7 @@ class Attributes {
 	 * @param int  $offer_id           Offer ID.
 	 * @param bool $vendor_model_type  Is complex product.
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 	protected function get_offer( $offer_id, $vendor_model_type ) {
 
@@ -84,6 +84,10 @@ class Attributes {
 
 		if ( isset( $this->settings['offer']['backorders'] ) && $this->settings['offer']['backorders'] && 'onbackorder' === $stock_status ) {
 			$available = 'true';
+		}
+
+		if ( 'false' === $available ) {
+			return false;
 		}
 
 		$offer_element = $this->add_child( 'offer', null, self::ME_OFFER_SPACING );
