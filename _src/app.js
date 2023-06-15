@@ -1,12 +1,11 @@
 /* global ajaxurl */
 /* global wooyaI18n */
-/* global ajax_strings */
 
 /**
  * External dependencies
  */
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from 'react';
+import { createRoot } from 'react-dom/client';
 import PropTypes from 'prop-types';
 
 /**
@@ -17,99 +16,90 @@ const { __ } = wooyaI18n;
 /**
  * Internal dependencies
  */
+import { Root, SidebarNavigation } from '@yoast/ui-library';
+import FetchWP from './utils/fetchWP';
 import './app.scss';
 
-import FetchWP from './utils/fetchWP';
-
+/*
 import Button from './components/button';
 import Files from './components/files';
 import Notice from './components/notice';
 import ProgressModal from './components/progress-modal';
 import YmlListControl from './components/yml-list-control';
+*/
 
 /**
- * Wooya React component
+ * Wooya functional React component
+ *
+ * @param {Object} props
+ * @return {JSX.Element} Wooya component
  */
-class Wooya extends React.Component {
+export const Wooya = ( props ) => {
+	const [ loading, setLoading ] = useState( true );
+	const [ options, setOptions ] = useState( [] ); // Plugin options.
+	const [ fields, setFields ] = useState( [] ); // List of available fields.
+	const [ unusedItems, setUnusedItems ] = useState( {} ); // Not used fields (available to add via modal).
+	const [ error, setError ] = useState( {
+		show: false,
+		message: '',
+		link: '',
+	} );
+	const [ showProgressModal, setShowProgressModal ] = useState( false );
+
 	/**
-	 * Wooya constructor
-	 *
-	 * @param {Object} props
+	 * @type {FetchWP}
+	 * @param {string}  props.wpObject.api_url
+	 * @param {string}  props.wpObject.api_nonce
+	 * @param {boolean} props.wpObject.rest_api
 	 */
-	constructor( props ) {
-		super( props );
+	const fetchWP = new FetchWP( {
+		restURL: props.wpObject.api_url,
+		restNonce: props.wpObject.api_nonce,
+		restActive: props.wpObject.rest_api,
+	} );
 
-		this.state = {
-			loading: true,
-			options: [], // Plugin options.
-			fields: [], // List of available fields.
-			unusedItems: [], // Not used fields (available to add via modal).
-			error: {
-				show: false,
-				message: '',
-				link: '',
-			},
-			showProgressModal: false,
-		};
-
-		/**
-		 * @type {FetchWP}
-		 * @param {string} this.props.wpObject.api_url
-		 * @param {string} this.props.wpObject.api_nonce
-		 * @param {boolean} this.props.wpObject.rest_api
-		 */
-		this.fetchWP = new FetchWP( {
-			restURL: this.props.wpObject.api_url,
-			restNonce: this.props.wpObject.api_nonce,
-			restActive: this.props.wpObject.rest_api,
+	const notice = document.getElementById( 'rate-notice' );
+	if ( notice ) {
+		notice.addEventListener( 'click', () => {
+			const xhr = new XMLHttpRequest();
+			xhr.open(
+				'POST',
+				ajaxurl + '?action=dismiss_rate_notice&_ajax_nonce=' + props.wpObject.api_nonce
+			);
+			xhr.send();
 		} );
-
-		const notice = document.getElementById( 'rate-notice' );
-		if ( notice ) {
-			notice.addEventListener( 'click', () => {
-				const xhr = new XMLHttpRequest();
-				xhr.open(
-					'POST',
-					ajaxurl + '?action=dismiss_rate_notice&_ajax_nonce=' + this.props.wpObject.api_nonce
-				);
-				xhr.send();
-			} );
-		}
 	}
 
-	/**
-	 * Init component states
-	 */
-	componentDidMount() {
-		this.fetchWP.get( 'settings' ).then(
-			( json ) => this.getElements( json ),
-			( err ) => this.showError( 0, err.message )
+	useEffect( () => {
+		fetchWP.get( 'settings' ).then(
+			( json ) => getElements( json ),
+			( err ) => showError( 0, err.message )
 		);
-	}
+	} );
 
 	/**
 	 * Get all the elements and sort out the ones that are in use to a
 	 * separate variable.
 	 *
-	 * @param {json} options
+	 * @param {Object} pluginOptions
 	 */
-	getElements( options ) {
-		this.fetchWP.get( 'elements' ).then(
+	const getElements = ( pluginOptions ) => {
+		fetchWP.get( 'elements' ).then(
 			( json ) => {
-				const unusedItems = {
+				const unusedOptionItems = {
 					shop: [],
 					offer: [],
 				};
 
 				Object.entries( json ).forEach( ( type ) => {
 					Object.keys( type[ 1 ] ).filter( ( element ) => {
-						if ( ! ( type[ 0 ] in unusedItems ) ) {
+						if ( ! ( type[ 0 ] in unusedOptionItems ) ) {
 							return true;
 						}
 
-						const unused = 'undefined' === typeof options[ type[ 0 ] ];
-						if ( unused || ! ( element in options[ type[ 0 ] ] ) ) {
-							unusedItems[ type[ 0 ] ].push( element );
+						const unused = 'undefined' === typeof pluginOptions[ type[ 0 ] ];
+						if ( unused || ! ( element in pluginOptions[ type[ 0 ] ] ) ) {
+							unusedOptionItems[ type[ 0 ] ].push( element );
 							return false;
 						}
 
@@ -117,61 +107,55 @@ class Wooya extends React.Component {
 					} );
 				} );
 
-				this.setState( {
-					loading: false,
-					options,
-					fields: json,
-					unusedItems,
-				} );
+				setLoading( false );
+				setOptions( options );
+				setFields( json );
+				setUnusedItems( unusedOptionItems );
 			},
-			( err ) => this.showError( 0, err.message )
+			( err ) => showError( 0, err.message )
 		);
-	}
+	};
 
 	/**
 	 * Display error notice.
 	 *
-	 * @param {number} code     Error message code.
-	 * @param {string} message  Error message text.
-	 * @param {string} link     Link for more info button in error message.
+	 * @param {number} code    Error message code.
+	 * @param {string} message Error message text.
+	 * @param {string} link    Link for more info button in error message.
 	 */
-	showError( code, message = '', link = '' ) {
+	const showError = ( code, message = '', link = '' ) => {
 		if ( 'undefined' === typeof code ) {
 			return;
 		}
 
 		// Try to look for error message by code.
 		if ( '' === message ) {
-			message = ajax_strings.errors[ 'error_' + code ];
+			message = props.wpObject.errors[ 'error_' + code ];
 		}
 
 		if ( '' === link ) {
-			link = ajax_strings.errors[ 'link_' + code ];
+			link = props.wpObject.errors[ 'link_' + code ];
 		}
 
-		this.setState( {
-			loading: false,
-			error: {
-				show: true,
-				message,
-				link,
-			},
-			showProgressModal: false,
+		setLoading( false );
+		setError( {
+			show: true,
+			message,
+			link,
 		} );
-	}
+		setShowProgressModal( false );
+	};
 
 	/**
 	 * Hide error message.
 	 */
-	hideError() {
-		this.setState( {
-			error: {
-				show: false,
-				message: '',
-				link: '',
-			},
+	const hideError = () => {
+		setError( {
+			show: false,
+			message: '',
+			link: '',
 		} );
-	}
+	};
 
 	/**
 	 * Handle update in the UI settings form.
@@ -179,70 +163,27 @@ class Wooya extends React.Component {
 	 * @param {Array} options
 	 * @param {Array} unusedItems
 	 */
-	handleUpdate( options, unusedItems ) {
-		this.setState( {
-			loading: false, // TODO: is this needed?
-			options,
-			unusedItems,
-		} );
-	}
+	const handleUpdate = ( options, unusedItems ) => {
+		setLoading( false ); // TODO: is this needed?
+		setOptions( options );
+		setUnusedItems( unusedItems );
+	};
 
-	/**
-	 * Render component
-	 *
-	 * @return {*}  App.
-	 */
-	render() {
-		return (
-			<div className="me-main-content">
-				{ this.state.error.show &&
-				<Notice type="error"
-					message={ this.state.error.message }
-					link={ this.state.error.link }
-					onHide={ this.hideError }
-				/> }
-
-				{ this.state.options &&
-				<Button
-					buttonText={ __( 'Generate YML', 'market-exporter' ) }
-					className="wooya-btn wooya-btn-red wooya-btn-center"
-					onClick={ () => this.setState( {
-						showProgressModal: ! this.state.showProgressModal,
-					} ) }
-				/> }
-
-				<Files
-					fetchWP={ this.fetchWP }
-					onError={ ( error ) => this.showError( 0, error ) }
-				/>
-
-				<YmlListControl
-					options={ this.state.options }
-					fields={ this.state.fields }
-					unusedItems={ this.state.unusedItems }
-					onError={ ( error ) => this.showError( 0, error ) }
-					handleUpdate={ ( options, unusedItems ) => {
-						this.handleUpdate( options, unusedItems );
-					} }
-					fetchWP={ this.fetchWP }
-				/>
-
-				{ this.state.showProgressModal &&
-				<ProgressModal
-					onFinish={ () => {
-						Files.updateFileList();
-						this.setState( { showProgressModal: false } );
-					} }
-					onError={ ( errorCode ) => {
-						this.setState( { showAddDiv: false } );
-						this.showError( errorCode );
-					} }
-					fetchWP={ this.fetchWP }
-				/> }
-			</div>
-		);
-	}
-}
+	return (
+		<Root context={ { isRtl: false } }>
+			<SidebarNavigation>
+				<SidebarNavigation.Sidebar className="yst-w-1/3">
+					<SidebarNavigation.MenuItem
+						defaultOpen
+						id="menuitem"
+						label="MenuItem label"
+					/>
+				</SidebarNavigation.Sidebar>
+			</SidebarNavigation>
+			{ __( 'Test', 'market-exporter' ) }
+		</Root>
+	);
+};
 
 Wooya.propTypes = {
 	wpObject: PropTypes.object,
@@ -251,10 +192,10 @@ Wooya.propTypes = {
 document.addEventListener( 'DOMContentLoaded', function() {
 	const wooyaDiv = document.getElementById( 'wooya_components' );
 	if ( wooyaDiv ) {
-		ReactDOM.render(
-			/** @var {object} window.ajax_strings */
+		const root = createRoot( wooyaDiv );
+		root.render(
+			/** @member {Object} window.ajax_strings */
 			<Wooya wpObject={ window.ajax_strings } />,
-			wooyaDiv
 		);
 	}
 } );

@@ -1,12 +1,13 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
+const tailwindcss = require( 'tailwindcss' );
 
 // Plugins
 const ExtractTextPlugin = require( 'mini-css-extract-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' ); // Included with Webpack v5.
 
 module.exports = {
-	mode: 'production',
+	mode: 'development',
 
 	entry: {
 		'market-exporter': path.resolve( __dirname, '_src/app.js' ),
@@ -50,14 +51,20 @@ module.exports = {
 							sourceMap: true,
 						},
 					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							postcssOptions: {
+								plugins: [
+									'postcss-preset-env',
+									'postcss-import',
+									'tailwindcss/nesting',
+									tailwindcss( './tailwind.config.js' ),
+								],
+							},
+						},
+					},
 				],
-			},
-			{
-				test: /\.(png|jpg|gif)$/,
-				type: 'asset/resource',
-				generator: {
-					filename: 'images/[name][ext]',
-				},
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
@@ -80,7 +87,7 @@ module.exports = {
 			filename: 'css/[name].min.css',
 		} ),
 		new webpack.DefinePlugin( {
-			'process.env.NODE_ENV': JSON.stringify( 'production' ),
+			'process.env.NODE_ENV': JSON.stringify( 'development' ),
 		} ),
 		require( 'autoprefixer' ),
 	],

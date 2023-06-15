@@ -261,6 +261,10 @@ class Admin {
 	public function render_page() {
 
 		?>
+		<div class="wrap">
+			<div id="wooya_components" class="yst-rounded-lg yst-bg-white yst-shadow"></div>
+		</div>
+
 		<div class="wrap wooya-wrapper" id="wooya_pages">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
@@ -280,8 +284,6 @@ class Admin {
 				printf( esc_html__( 'Version: %s', 'market-exporter' ), esc_html( $this->version ) );
 				?>
 			</div>
-
-			<div id="wooya_components"></div>
 		</div>
 		<?php
 
