@@ -311,7 +311,7 @@ class Generator extends Attributes {
 	private function yml_header( $currency ) {
 
 		$yml  = '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . '"?>' . PHP_EOL;
-		$yml .= '<yml_catalog date="' . current_time( 'Y-m-d H:i' ) . '">' . PHP_EOL;
+		$yml .= '<yml_catalog date="' . gmdate( DATE_RFC3339 ) . '">' . PHP_EOL;
 		$yml .= '  <shop>' . PHP_EOL;
 		$yml .= '    <name>' . esc_html( $this->settings['shop']['name'] ) . '</name>' . PHP_EOL;
 		$yml .= '    <company>' . esc_html( $this->settings['shop']['company'] ) . '</company>' . PHP_EOL;
