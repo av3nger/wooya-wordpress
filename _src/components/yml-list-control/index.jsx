@@ -44,7 +44,7 @@ class YmlListControl extends React.Component {
 			},
 		};
 
-		// Bind the this context to the handler function.
+		// Bind this context to the handler function.
 		this.handleKeyUp = this.handleKeyUp.bind( this );
 		this.updateSettings = this.updateSettings.bind( this );
 		this.updateSelection = this.updateSelection.bind( this );
@@ -101,9 +101,9 @@ class YmlListControl extends React.Component {
 	/**
 	 * Update the selection. Will be used later for removing items from the list.
 	 *
-	 * @param {string}  type   Option type: shop, offer.
-	 * @param {string}  item   Item name.
-	 * @param {boolean} value  Checked value.
+	 * @param {string}  type  Option type: shop, offer.
+	 * @param {string}  item  Item name.
+	 * @param {boolean} value Checked value.
 	 */
 	updateSelection( type, item, value ) {
 		const selectedItems = this.state.selected;
@@ -130,7 +130,7 @@ class YmlListControl extends React.Component {
 	 * Handle item move (add/remove from YML list)
 	 *
 	 * @param {Array}  items
-	 * @param {string} action  Accepts: 'add', 'remove'.
+	 * @param {string} action Accepts: 'add', 'remove'.
 	 */
 	handleItemMove( items, action = 'add' ) {
 		this.setState( {
@@ -146,7 +146,7 @@ class YmlListControl extends React.Component {
 	/**
 	 * Move item in the UI.
 	 *
-	 * @param {Object}  elements
+	 * @param {Object} elements
 	 * @param {string} action
 	 */
 	moveItem( elements, action ) {

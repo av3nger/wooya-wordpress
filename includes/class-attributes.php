@@ -71,7 +71,7 @@ class Attributes {
 	 * @param int  $offer_id           Offer ID.
 	 * @param bool $vendor_model_type  Is complex product.
 	 *
-	 * @return string
+	 * @return string|bool
 	 */
 	protected function get_offer( $offer_id, $vendor_model_type ) {
 
@@ -84,6 +84,10 @@ class Attributes {
 
 		if ( isset( $this->settings['offer']['backorders'] ) && $this->settings['offer']['backorders'] && 'onbackorder' === $stock_status ) {
 			$available = 'true';
+		}
+
+		if ( 'false' === $available ) {
+			return false;
 		}
 
 		$offer_element = $this->add_child( 'offer', null, self::ME_OFFER_SPACING );
@@ -385,13 +389,13 @@ class Attributes {
 		if ( $stock_status ) {
 			// Compatibility for WC versions from 2.5.x to 3.0+.
 			if ( method_exists( $offer, 'get_stock_quantity' ) ) {
-				$stock_quqntity = $offer->get_stock_quantity(); // For version 3.0+.
+				$stock_quantity = $offer->get_stock_quantity(); // For version 3.0+.
 			} else {
-				$stock_quqntity = $offer->stock_quqntity; // Older than version 3.0.
+				$stock_quantity = $offer->stock_quqntity; // Older than version 3.0.
 			}
 
-			if ( isset( $stock_quqntity ) && 0 < $stock_quqntity ) {
-				return $this->add_child( 'stock_quantity', absint( $stock_quqntity ) );
+			if ( isset( $stock_quantity ) ) {
+				return $this->add_child( 'count', strval( $stock_quantity ) );
 			}
 		}
 
@@ -587,11 +591,11 @@ class Attributes {
 	 */
 	protected function add_child( $name, $value, $spacing = 8, $closing = false, $has_children = true ) {
 
-		if ( ! $value && ! is_null( $value ) && ! $closing ) {
+		if ( ! $value && '0' !== $value && ! is_null( $value ) && ! $closing ) {
 			return '';
 		}
 
-		if ( $value ) {
+		if ( $value || '0' === $value ) { // Allow passing 0 as a valid value (for stock).
 			return str_repeat( ' ', $spacing ) . "<{$name}>{$value}</{$name}>" . PHP_EOL;
 		} elseif ( ! $has_children ) {
 			$name = "{$name} /";

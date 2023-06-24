@@ -2,8 +2,8 @@
 Contributors: vanyukov
 Tags: market, export, yml, woocommerce, yandex market
 Donate link: http://yasobe.ru/na/market_exporter
-Requires at least: 4.7.3
-Tested up to: 6.1
+Requires at least: 5.6
+Tested up to: 6.2
 Stable tag: %%VERSION%%
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -66,6 +66,15 @@ WooCommerce также тестировался на последних верс
 4. Скриншот страницы настроек.
 
 == Changelog ==
+
+= 2.0.18 =
+* ENHANCE: Улучшена совестимость с PHP 8.1
+* ENHANCE: Обновлены библиотеки
+* FIXED: Использовать дату в формате RFC 3339
+* FIXED: Выгрузка стока - параметр stock_quantity заменен на count
+* FIXED: Выгрузка стока - не выгружать товар, если вариации нет в наличии
+* FIXED: На новых установках недоступна опция single_param
+* FIXED: Структура категорий (спасибо, @elleremo)
 
 = 2.0.17 =
 * NEW: Опция single_param, позволяющая объединять общие аттрибуты в единый элемент param

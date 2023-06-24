@@ -311,8 +311,7 @@ class Generator extends Attributes {
 	private function yml_header( $currency ) {
 
 		$yml  = '<?xml version="1.0" encoding="' . get_bloginfo( 'charset' ) . '"?>' . PHP_EOL;
-		$yml .= '<!DOCTYPE yml_catalog SYSTEM "shops.dtd">' . PHP_EOL;
-		$yml .= '<yml_catalog date="' . current_time( 'Y-m-d H:i' ) . '">' . PHP_EOL;
+		$yml .= '<yml_catalog date="' . gmdate( DATE_RFC3339 ) . '">' . PHP_EOL;
 		$yml .= '  <shop>' . PHP_EOL;
 		$yml .= '    <name>' . esc_html( $this->settings['shop']['name'] ) . '</name>' . PHP_EOL;
 		$yml .= '    <company>' . esc_html( $this->settings['shop']['company'] ) . '</company>' . PHP_EOL;
@@ -450,7 +449,11 @@ class Generator extends Attributes {
 				}
 
 				// NOTE: Below this point we start using $offer instead of $product.
-				$yml .= $this->get_offer( $offer_id, $vendor_model_type );
+				$offer_start = $this->get_offer( $offer_id, $vendor_model_type );
+				if ( ! $offer_start ) {
+					continue; // Skip offers that should not be in the YML file.
+				}
+				$yml .= $offer_start;
 
 				if ( $variations && isset( $this->settings['offer']['group_id'] ) && $this->settings['offer']['group_id'] ) {
 					$yml .= $this->add_child( 'group_id', $product->get_id() );
