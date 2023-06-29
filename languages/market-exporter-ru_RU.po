@@ -4,17 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Market Exporter 2.0.0-beta.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/market-exporter/\n"
-"POT-Creation-Date: 2022-11-17 02:10:30+00:00\n"
-"PO-Revision-Date: 2022-11-17 12:15+1000\n"
+"POT-Creation-Date: 2023-06-29 02:43:47+00:00\n"
+"PO-Revision-Date: 2023-06-29 12:45+1000\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.2\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: build/market-exporter/includes/class-admin.php:121
 #: includes/class-admin.php:121
@@ -28,8 +28,8 @@ msgid ""
 "Ukrainian Hryvnia(UAH), Tenge (KZT), US Dollar (USD) and Euro (EUR)."
 msgstr ""
 "Поддерживаются следующие валюты: Российский рубль (RUB), Украинская гривна "
-"(UAH), Тенге (KZT), Доллар США (USD) и Евро (EUR). Пожалуйста, <a href=\\\"%s"
-"\\\">обновите валюту</a>."
+"(UAH), Тенге (KZT), Доллар США (USD) и Евро (EUR). Пожалуйста, <a href=\\"
+"\"%s\\\">обновите валюту</a>."
 
 #: build/market-exporter/includes/class-admin.php:127
 #: includes/class-admin.php:127
@@ -46,7 +46,7 @@ msgid "Market Exporter"
 msgstr "Market Exporter"
 
 #: build/market-exporter/includes/class-admin.php:223
-#: includes/class-admin.php:223 languages/react.php:50
+#: includes/class-admin.php:223 languages/react.php:71
 msgid "Settings"
 msgstr "Настройки"
 
@@ -298,10 +298,10 @@ msgstr ""
 #: build/market-exporter/includes/class-elements.php:279
 #: build/market-exporter/includes/class-elements.php:303
 #: build/market-exporter/includes/class-elements.php:418
-#: build/market-exporter/includes/class-elements.php:482
+#: build/market-exporter/includes/class-elements.php:504
 #: includes/class-elements.php:279 includes/class-elements.php:303
-#: includes/class-elements.php:418 includes/class-elements.php:482
-#: languages/react.php:62
+#: includes/class-elements.php:418 includes/class-elements.php:504
+#: languages/react.php:83
 msgid "Disabled"
 msgstr "Выключено"
 
@@ -447,6 +447,20 @@ msgstr ""
 "Объединять (через запятую) несколько значений атрибута в единый элемент "
 "param."
 
+#: build/market-exporter/includes/class-elements.php:458
+#: includes/class-elements.php:458
+msgid ""
+"Use `count` or `stock_quantity` for stock parameter. The `stock_quantity` "
+"option needs to be added to the offer section above"
+msgstr ""
+"Использовать параметр `count` или `stock_quantity` для выгрузки стока. Опция "
+"`stock_quantity` должна быть добавлена в раздел Offer выше"
+
+#: build/market-exporter/includes/class-elements.php:469
+#: includes/class-elements.php:469
+msgid "Use `oldprice` or `old_price` for original (pre-sale) price."
+msgstr "Использовать параметр `oldprice` или `old_price` для цены до скидки."
+
 #. translators: %1$s: user name, %2$s: plugin name, %3$s: user login, %4%s:
 #. site link, %5$s: Freemius link
 #: build/market-exporter/includes/class-freemius.php:96
@@ -507,78 +521,6 @@ msgstr "Не выбрано ни одного файла"
 msgid "Error removing files"
 msgstr "Ошибка при удалении файла"
 
-#: languages/react.php:5
-msgid "Generate YML"
-msgstr "Создать YML"
-
-#: languages/react.php:9
-msgid "Add new setting"
-msgstr "Добавить параметр"
-
-#: languages/react.php:13
-msgid "Shop"
-msgstr "Магазин"
-
-#: languages/react.php:17
-msgid "Offer"
-msgstr "Товар"
-
-#: languages/react.php:20
-msgid "Select setting"
-msgstr "Выбрать параметр"
-
-#: languages/react.php:23
-msgid "No available items to select"
-msgstr "Нет доступных параметров"
-
-#: languages/react.php:26
-msgid "Add items"
-msgstr "Добавить"
-
-#: languages/react.php:29
-msgid "Available YML files"
-msgstr "Доступные YML файлы"
-
-#: languages/react.php:32
-msgid "Remove files"
-msgstr "Удалить"
-
-#: languages/react.php:35
-msgid "You have not yet generated any files"
-msgstr "Вы еще не создали ни одного YML файла"
-
-#: languages/react.php:38
-msgid "Generating file: step %d of %d"
-msgstr "Процесс генерации: шаг %d из %d"
-
-#: languages/react.php:41
-msgid "Generating file"
-msgstr "Генерируем файл"
-
-#: languages/react.php:44
-msgid "Initializing generation engine..."
-msgstr "Инициализация выгрузки…"
-
-#: languages/react.php:47
-msgid "Finalizing..."
-msgstr "Завершаем выгрузку…"
-
-#: languages/react.php:53
-msgid "Remove settings"
-msgstr "Удалить"
-
-#: languages/react.php:56
-msgid "Delivery options"
-msgstr "Доставка"
-
-#: languages/react.php:59
-msgid "Misc"
-msgstr "Разное"
-
-#: languages/react.php:65
-msgid "Active"
-msgstr "Включить"
-
 #. Plugin URI of the plugin/theme
 msgid "https://wordpress.org/plugins/market-exporter/"
 msgstr ""
@@ -594,6 +536,78 @@ msgstr "Антон Ванюков"
 #. Author URI of the plugin/theme
 msgid "https://vanyukov.su/"
 msgstr "https://vanyukov.su/"
+
+#: languages/react.php:24
+msgid "Generate YML"
+msgstr "Создать YML"
+
+#: languages/react.php:28
+msgid "Add new setting"
+msgstr "Добавить параметр"
+
+#: languages/react.php:32
+msgid "Shop"
+msgstr "Магазин"
+
+#: languages/react.php:36
+msgid "Offer"
+msgstr "Товар"
+
+#: languages/react.php:40
+msgid "Select setting"
+msgstr "Выбрать параметр"
+
+#: languages/react.php:44
+msgid "No available items to select"
+msgstr "Нет доступных параметров"
+
+#: languages/react.php:47
+msgid "Add items"
+msgstr "Добавить"
+
+#: languages/react.php:50
+msgid "Available YML files"
+msgstr "Доступные YML файлы"
+
+#: languages/react.php:53
+msgid "Remove files"
+msgstr "Удалить"
+
+#: languages/react.php:56
+msgid "You have not yet generated any files"
+msgstr "Вы еще не создали ни одного YML файла"
+
+#: languages/react.php:59
+msgid "Initializing generation engine..."
+msgstr "Инициализация выгрузки…"
+
+#: languages/react.php:62
+msgid "Finalizing..."
+msgstr "Завершаем выгрузку…"
+
+#: languages/react.php:65
+msgid "Generating file: step %d of %d"
+msgstr "Процесс генерации: шаг %d из %d"
+
+#: languages/react.php:68
+msgid "Generating file"
+msgstr "Генерируем файл"
+
+#: languages/react.php:74
+msgid "Remove settings"
+msgstr "Удалить"
+
+#: languages/react.php:77
+msgid "Delivery options"
+msgstr "Доставка"
+
+#: languages/react.php:80
+msgid "Misc"
+msgstr "Разное"
+
+#: languages/react.php:86
+msgid "Active"
+msgstr "Включить"
 
 #~ msgid "https://wooya.ru"
 #~ msgstr "https://wooya.ru"
