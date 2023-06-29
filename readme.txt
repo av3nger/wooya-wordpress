@@ -68,6 +68,8 @@ WooCommerce также тестировался на последних верс
 == Changelog ==
 
 = 2.0.19 =
+* NEW: Опция для выбора между параметрами oldprice и old_price
+* NEW: Опция для выбора между параметрами count и stock_quantity
 
 = 2.0.18 =
 * ENHANCE: Улучшена совестимость с PHP 8.1
