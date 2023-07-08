@@ -113,7 +113,7 @@ class Attributes {
 		global $offer;
 
 		if ( $offer->get_sale_price() && ( $offer->get_sale_price() < $offer->get_regular_price() ) ) {
-			$yml  = $this->add_child( 'price', $offer->get_sale_price() );
+			$yml = $this->add_child( 'price', $offer->get_sale_price() );
 
 			$old_price = 'oldprice';
 			if ( isset( $this->settings['misc']['old_price'] ) && $old_price !== $this->settings['misc']['old_price'] ) {
