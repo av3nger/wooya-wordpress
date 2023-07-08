@@ -113,8 +113,14 @@ class Attributes {
 		global $offer;
 
 		if ( $offer->get_sale_price() && ( $offer->get_sale_price() < $offer->get_regular_price() ) ) {
-			$yml  = $this->add_child( 'price', $offer->get_sale_price() );
-			$yml .= $this->add_child( 'oldprice', $offer->get_regular_price() );
+			$yml = $this->add_child( 'price', $offer->get_sale_price() );
+
+			$old_price = 'oldprice';
+			if ( isset( $this->settings['misc']['old_price'] ) && $old_price !== $this->settings['misc']['old_price'] ) {
+				$old_price = $this->settings['misc']['old_price'];
+			}
+
+			$yml .= $this->add_child( $old_price, $offer->get_regular_price() );
 		} else {
 			$yml = $this->add_child( 'price', apply_filters( 'me_product_price', $offer->get_regular_price(), $offer->get_id() ) );
 		}
@@ -391,11 +397,16 @@ class Attributes {
 			if ( method_exists( $offer, 'get_stock_quantity' ) ) {
 				$stock_quantity = $offer->get_stock_quantity(); // For version 3.0+.
 			} else {
-				$stock_quantity = $offer->stock_quqntity; // Older than version 3.0.
+				$stock_quantity = $offer->stock_quantity; // Older than version 3.0.
 			}
 
 			if ( isset( $stock_quantity ) ) {
-				return $this->add_child( 'count', strval( $stock_quantity ) );
+				$element = 'count';
+				if ( isset( $this->settings['misc']['count'] ) && $element !== $this->settings['misc']['count'] ) {
+					$element = $this->settings['misc']['count'];
+				}
+
+				return $this->add_child( $element, strval( $stock_quantity ) );
 			}
 		}
 

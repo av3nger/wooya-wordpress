@@ -451,6 +451,28 @@ class Elements {
 			'description' => __( 'Split up product attributes into separate param elements', 'market-exporter' ),
 		];
 
+		$elements['count'] = [
+			'type'        => 'select',
+			'default'     => 'count',
+			'required'    => true,
+			'description' => __( 'Use `count` or `stock_quantity` for stock parameter. The `stock_quantity` option needs to be added to the offer section above', 'market-exporter' ),
+			'values'      => [
+				'count'          => 'count',
+				'stock_quantity' => 'stock_quantity',
+			],
+		];
+
+		$elements['old_price'] = [
+			'type'        => 'select',
+			'default'     => 'oldprice',
+			'required'    => true,
+			'description' => __( 'Use `oldprice` or `old_price` for original (pre-sale) price.', 'market-exporter' ),
+			'values'      => [
+				'oldprice'  => 'oldprice',
+				'old_price' => 'old_price',
+			],
+		];
+
 		return $elements;
 
 	}
@@ -525,7 +547,7 @@ class Elements {
 
 			$subcategories = self::get_categories_array( $category->term_id );
 			if ( $subcategories ) {
-				$categories = array_merge( $categories, $subcategories );
+				$categories = $categories + $subcategories;
 			}
 		}
 

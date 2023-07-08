@@ -20,6 +20,9 @@ $generated_i18n_strings = array(
 	/* translators: Author URI of the plugin */
 	__( 'https://vanyukov.su/', 'market-exporter' ),
 
+	// Reference: _src/app.js:207
+	__( 'Generate YML', 'market-exporter' ),
+
 	// Reference: _src/components/add-setting-modal/index.jsx:133
 	// Reference: _src/components/yml-list-control/index.jsx:232
 	__( 'Add new setting', 'market-exporter' ),

@@ -1,6 +1,6 @@
 {
   "name": "market-exporter",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "description": "Market Exporter YML product export from WooCommerce.",
   "private": true,
   "scripts": {
@@ -19,7 +19,7 @@
   "license": "GPL-2.0+",
   "homepage": "https://wooya.ru",
   "dependencies": {
-    "@wordpress/i18n": "^4.35.0",
+    "@wordpress/i18n": "^4.36.0",
     "perfect-scrollbar": "^1.5.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -37,7 +37,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.31.0",
     "css-loader": "^6.8.1",
-    "eslint": "^8.42.0",
+    "eslint": "^8.43.0",
     "grunt": "^1.6.1",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-contrib-clean": "^2.0.1",
@@ -46,11 +46,11 @@
     "grunt-wp-i18n": "^1.0.3",
     "load-grunt-tasks": "^5.1.0",
     "mini-css-extract-plugin": "^2.7.6",
-    "sass": "^1.63.4",
+    "sass": "^1.63.6",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.87.0",
+    "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
   },
   "browserslist": [
