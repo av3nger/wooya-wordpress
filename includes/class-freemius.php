@@ -64,9 +64,6 @@ class Freemius {
 						'is_require_payment' => false,
 					],
 					'menu'                => [ 'slug' => 'market-exporter' ],
-					// Set the SDK to work in a sandbox mode (for development & testing).
-					// IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-					'secret_key'          => 'sk_IZrJEoI&q<yjZSQ4)5{W+&0DKo2Py',
 				]
 			);
 		}
