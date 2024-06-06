@@ -460,9 +460,9 @@ class Generator extends Attributes {
 				}
 
 				if ( $product->is_type( 'variable' ) && add_filter( 'me_export_main_variation_link', false ) ) {
-					$link = get_permalink( $product->get_id() );
+					$link = apply_filters( 'me_export_product_link', get_permalink( $product->get_id() ) );
 				} else {
-					$link = get_permalink( $offer->get_id() );
+					$link = apply_filters( 'me_export_product_link', get_permalink( $offer->get_id() ) );
 				}
 
 				$yml .= $this->add_child( 'url', htmlspecialchars( $link ), self::ME_OFFER_ATTRIBUTE_SPACING );

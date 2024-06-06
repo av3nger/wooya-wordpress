@@ -237,11 +237,11 @@ class FS {
 			global $wp_filesystem;
 
 			foreach ( $files as $file ) {
-				$wp_filesystem->delete( $folder . $file );
+				$wp_filesystem->delete( $folder . sanitize_file_name( $file ) );
 			}
 		} else {
 			foreach ( $files as $file ) {
-				unlink( $folder . $file );
+				unlink( $folder . sanitize_file_name( $file ) );
 			}
 		}
 

@@ -426,16 +426,24 @@ class RestAPI extends WP_REST_Controller {
 	 */
 	public function remove_files() {
 
+		$error_data = [
+			'status' => 500,
+		];
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return new WP_Error(
+				'permission-error',
+				__( 'Current user does not have correct permissions to perform the action', 'market-exporter' ),
+				$error_data
+			);
+		}
+
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && is_null( $this->request ) ) {
 			$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
 			$params = json_decode( html_entity_decode( $params ), true );
 		} else {
 			$params = $this->request->get_params();
 		}
-
-		$error_data = [
-			'status' => 500,
-		];
 
 		if ( ! isset( $params['files'] ) ) {
 			// No valid action - return error.

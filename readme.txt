@@ -3,7 +3,7 @@ Contributors: vanyukov
 Tags: market, export, yml, woocommerce, yandex market
 Donate link: http://yasobe.ru/na/market_exporter
 Requires at least: 5.6
-Tested up to: 6.2
+Tested up to: 6.5
 Stable tag: %%VERSION%%
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -67,11 +67,16 @@ WooCommerce также тестировался на последних верс
 
 == Changelog ==
 
+= 2.0.20 =
+* NEW: Фильтр me_export_product_link для изменения ссылки на товар
+* ENHANCE: Обновление библиотек до последних версий
+* FIXED: Исправлена уязвимость, позволяющая удалять произвольные файлы
+
 = 2.0.19 =
 * NEW: Опция для выбора между параметрами oldprice и old_price
 * NEW: Опция для выбора между параметрами count и stock_quantity
 * FIXED: Исправлена ошибка с выгрузкой категорий
-* FIXED: Исправлены ошибки в сторонних бибилиотеках
+* FIXED: Исправлены ошибки в сторонних библиотеках
 
 = 2.0.18 =
 * ENHANCE: Улучшена совестимость с PHP 8.1
