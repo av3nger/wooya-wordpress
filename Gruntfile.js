@@ -42,9 +42,6 @@ module.exports = function( grunt ) {
 		makepot: {
 			options: {
 				domainPath: 'languages',
-				exclude: [
-					'freemius/.*',
-				],
 				mainFile: 'market-exporter.php',
 				potFilename: 'market-exporter.pot',
 				potHeaders: {
@@ -71,7 +68,6 @@ module.exports = function( grunt ) {
 			main: {
 				src: [
 					'admin/**',
-					'freemius/**',
 					'includes/**',
 					'languages/**',
 					'!languages/react.php',
