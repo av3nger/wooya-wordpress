@@ -1,7 +1,7 @@
 <?php
 /* THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY. */
 $generated_i18n_strings = array(
-	/* Copyright (C) 2023 Anton Vanyukov
+	/* Copyright (C) 2025 Anton Vanyukov
 	   This file is distributed under the GPL-2.0+. */
 ,
 

@@ -602,6 +602,8 @@ class Attributes {
 	 */
 	protected function add_child( $name, $value, $spacing = 8, $closing = false, $has_children = true ) {
 
+		$value = apply_filters( 'me_export_attribute_' . $name, $value, $name );
+
 		if ( ! $value && '0' !== $value && ! is_null( $value ) && ! $closing ) {
 			return '';
 		}

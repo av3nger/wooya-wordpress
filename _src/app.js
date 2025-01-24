@@ -6,7 +6,7 @@
  * External dependencies
  */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import PropTypes from 'prop-types';
 
 /**
@@ -251,10 +251,10 @@ Wooya.propTypes = {
 document.addEventListener( 'DOMContentLoaded', function() {
 	const wooyaDiv = document.getElementById( 'wooya_components' );
 	if ( wooyaDiv ) {
-		ReactDOM.render(
+		const root = createRoot( wooyaDiv );
+		root.render(
 			/** @var {object} window.ajax_strings */
-			<Wooya wpObject={ window.ajax_strings } />,
-			wooyaDiv
+			<Wooya wpObject={ window.ajax_strings } />
 		);
 	}
 } );
