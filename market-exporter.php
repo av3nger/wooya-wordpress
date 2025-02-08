@@ -14,7 +14,7 @@
  * Plugin Name:       Market Exporter
  * Plugin URI:        https://wordpress.org/plugins/market-exporter/
  * Description:       Market Exporter integration suite.
- * Version:           2.0.21
+ * Version:           2.0.22
  * Author:            Anton Vanyukov
  * Author URI:        https://vanyukov.su/
  * License:           GPL-2.0+
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Current plugin version.
  */
-define( 'WOOYA_VERSION', '2.0.21' );
+define( 'WOOYA_VERSION', '2.0.22' );
 define( 'WOOYA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOOYA_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOOYA_BASENAME', plugin_basename( __FILE__ ) );

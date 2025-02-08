@@ -203,9 +203,16 @@ class RestAPI extends WP_REST_Controller {
 	/**
 	 * Get settings.
 	 *
-	 * @return WP_REST_Response
+	 * @return WP_REST_Response|WP_Error
 	 */
 	public function get_settings() {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return new WP_Error(
+				'permission-error',
+				__( 'Current user does not have correct permissions to perform the action', 'market-exporter' )
+			);
+		}
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			// Ajax response.
@@ -225,6 +232,13 @@ class RestAPI extends WP_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_settings() {
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return new WP_Error(
+				'permission-error',
+				__( 'Current user does not have correct permissions to perform the action', 'market-exporter' )
+			);
+		}
 
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && is_null( $this->request ) ) {
 			$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
