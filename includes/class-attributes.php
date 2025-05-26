@@ -578,7 +578,7 @@ class Attributes {
 		// Cannot be longer then 3000 characters.
 		// This causes an error on many installs
 		// $description = substr( $description, 0, 2999 );.
-		return $description;
+		return apply_filters( 'me_product_description', $description );
 
 	}
 
