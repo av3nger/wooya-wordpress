@@ -455,8 +455,11 @@ class RestAPI extends WP_REST_Controller {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && is_null( $this->request ) ) {
 			$params = filter_input( INPUT_POST, 'data', FILTER_SANITIZE_STRING );
 			$params = json_decode( html_entity_decode( $params ), true );
+			check_ajax_referer( 'wp_rest' );
 		} else {
 			$params = $this->request->get_params();
+			$nonce  = $this->request->get_header( 'X-WP-Nonce' );
+			wp_verify_nonce( $nonce, 'wp_rest' );
 		}
 
 		if ( ! isset( $params['files'] ) ) {
