@@ -120,7 +120,7 @@ class Attributes {
 				$old_price = $this->settings['misc']['old_price'];
 			}
 
-			$yml .= $this->add_child( $old_price, $offer->get_regular_price() );
+			$yml .= $this->add_child( $old_price, apply_filters( 'me_product_price', $offer->get_regular_price(), $offer->get_id() ) );
 		} else {
 			$yml = $this->add_child( 'price', apply_filters( 'me_product_price', $offer->get_regular_price(), $offer->get_id() ) );
 		}
@@ -578,7 +578,7 @@ class Attributes {
 		// Cannot be longer then 3000 characters.
 		// This causes an error on many installs
 		// $description = substr( $description, 0, 2999 );.
-		return $description;
+		return apply_filters( 'me_product_description', $description );
 
 	}
 
